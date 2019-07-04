@@ -252,6 +252,168 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/30/AngularCreateProjectAndUseBootstrap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/30/AngularCreateProjectAndUseBootstrap/" itemprop="url">Angular 建置，使用 Bootstrap</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-04-30T15:03:57+08:00">
+                2019-04-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Angular/" itemprop="url" rel="index">
+                    <span itemprop="name">Angular</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="準備環境"><a href="#準備環境" class="headerlink" title="準備環境"></a>準備環境</h1><p><a href="https://nodejs.org/en/" target="_blank" rel="noopener">Node.js</a> 下載並安裝<br><a href="https://code.visualstudio.com/docs/?dv=win" target="_blank" rel="noopener">Visual Studio Code</a> 下載並安裝<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g @angular/cli</span><br></pre></td></tr></table></figure></p>
+<h3 id="建立專案"><a href="#建立專案" class="headerlink" title="建立專案"></a>建立專案</h3><p>用 <strong>VS Code</strong> 開啟檔案，預設 <strong>Port</strong> <code>http://localhost:4200/</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ng new my-angular</span><br><span class="line">$ <span class="built_in">cd</span> my-angular</span><br><span class="line">$ ng serve -o</span><br></pre></td></tr></table></figure></p>
+<h3 id="Bootstrap-amp-jQuery"><a href="#Bootstrap-amp-jQuery" class="headerlink" title="Bootstrap &amp; jQuery"></a>Bootstrap &amp; jQuery</h3><p>透過 <strong>npm</strong> 載入 <strong>Bootstrap</strong> 及 <strong>jQuery</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install bootstrap@3 jquery --save</span><br></pre></td></tr></table></figure></p>
+<p><code>angular.json</code> 加入 <strong>styles</strong> 及 <strong>scripts</strong> 設定</p>
+<pre><code>&quot;styles&quot;: [
+    &quot;src/styles.css&quot;,
+    &quot;node_modules/bootstrap/dist/css/bootstrap.min.css&quot;
+],
+&quot;scripts&quot;: [
+    &quot;node_modules/jquery/dist/jquery.min.js&quot;,
+    &quot;node_modules/bootstrap/dist/js/bootstrap.min.js&quot;
+],
+</code></pre><p>啟動 <strong>Server</strong>，確認 <strong>Bootstrap</strong> 有引用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ng s</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/04/30/AngularCreateProjectAndUseBootstrap/1.png" alt="ImportBootstrap"></p>
+<p><code>app.component.html</code> 加入 <strong>Bootstrap button</strong></p>
+<pre><code>&lt;li&gt;
+    &lt;button class=&quot;btn btn-primary&quot;&gt;Bootstrap Styled Button&lt;/button&gt;
+&lt;/li&gt;
+</code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ng s</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/04/30/AngularCreateProjectAndUseBootstrap/2.png" alt="BootstrapButton"></p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://cli.angular.io/" target="_blank" rel="noopener">Angular CLI</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/30/AspNetSessionMode/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1672,7 +1834,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
@@ -1683,7 +1845,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分類</span>
                 </a>
               </div>
@@ -1694,7 +1856,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">標籤</span>
                 </a>
               </div>
