@@ -252,6 +252,369 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/09/PythonRandomAndStatistics/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/09/PythonRandomAndStatistics/" itemprop="url">Python 隨機模組、統計模組</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-09T10:25:58+08:00">
+                2019-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="隨機模組"><a href="#隨機模組" class="headerlink" title="隨機模組"></a>隨機模組</h1><p>要先 <strong>import random</strong></p>
+<h4 id="從列表中隨機選取"><a href="#從列表中隨機選取" class="headerlink" title="從列表中隨機選取"></a>從列表中隨機選取</h4><pre><code>import random
+data = random.choice([1, 5, 6, 10, 20])
+print(data)
+</code></pre><h4 id="從列表中隨機選取-N-筆資料，不能大於列表長度"><a href="#從列表中隨機選取-N-筆資料，不能大於列表長度" class="headerlink" title="從列表中隨機選取 N 筆資料，不能大於列表長度"></a>從列表中隨機選取 N 筆資料，不能大於列表長度</h4><pre><code>data = random.sample([1, 5, 6, 10, 20], 3)
+print(data)
+</code></pre><h4 id="隨機調換順序，洗牌的概念"><a href="#隨機調換順序，洗牌的概念" class="headerlink" title="隨機調換順序，洗牌的概念"></a>隨機調換順序，洗牌的概念</h4><pre><code>data = [1, 5, 8, 20]
+random.shuffle(data)
+print(data)
+</code></pre><h4 id="0-1-之間的隨機亂數"><a href="#0-1-之間的隨機亂數" class="headerlink" title="0 ~ 1 之間的隨機亂數"></a>0 ~ 1 之間的隨機亂數</h4><pre><code>data = random.random()
+print(data)
+</code></pre><h4 id="自訂義亂數"><a href="#自訂義亂數" class="headerlink" title="自訂義亂數"></a>自訂義亂數</h4><pre><code>data = random.uniform(0.0, 1.0) # 0.0 ~ 1.0 之間的隨機亂數
+print(data)
+
+data = random.uniform(60, 100) # 60 ~ 100 之間的隨機亂數
+print(data)
+</code></pre><h4 id="取得常態分配亂數"><a href="#取得常態分配亂數" class="headerlink" title="取得常態分配亂數"></a>取得常態分配亂數</h4><pre><code># 平均數 100，標準差 10，多數落在 90 ~ 110 之間
+data = random.normalvariate(100, 10)
+print(data)
+
+# 平均數 0，標準差 5，多數落在 -5 ~ 5 之間
+data = random.normalvariate(0, 5)
+print(data)
+</code></pre><h1 id="統計模組"><a href="#統計模組" class="headerlink" title="統計模組"></a>統計模組</h1><p>要先 <strong>import statistics</strong></p>
+<h4 id="平均數"><a href="#平均數" class="headerlink" title="平均數"></a>平均數</h4><pre><code>import statistics as stat
+data = stat.mean([1, 4, 5, 8])
+print(data)
+
+data = stat.mean([1, 2, 3, 4, 5, 8, 100])
+print(data)
+</code></pre><h4 id="中位數"><a href="#中位數" class="headerlink" title="中位數"></a>中位數</h4><pre><code>data = stat.median([1, 2, 3, 4, 5, 8, 100])
+print(data)
+</code></pre><h4 id="標準差"><a href="#標準差" class="headerlink" title="標準差"></a>標準差</h4><pre><code>data = stat.stdev([1, 2, 3, 4, 5, 8, 100])
+print(data)
+
+data = stat.stdev([1, 2, 3, 4, 5, 8, 10])
+print(data)
+</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=-xwCu6PN1jU" target="_blank" rel="noopener">Python 亂數與統計模組 By 彭彭</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/09/PythonFile/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/09/PythonFile/" itemprop="url">Python 文字檔案讀取與儲存</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-09T09:25:04+08:00">
+                2019-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="文字檔案讀取與儲存"><a href="#文字檔案讀取與儲存" class="headerlink" title="文字檔案讀取與儲存"></a>文字檔案讀取與儲存</h1><ol>
+<li>基本定義<br><img src="/2019/07/09/PythonFile/1.png" alt="Architecture"></li>
+</ol>
+<h2 id="文字檔案"><a href="#文字檔案" class="headerlink" title="文字檔案"></a>文字檔案</h2><p>新增一個 <strong>data.txt</strong> 檔<br><img src="/2019/07/09/PythonFile/2.png" alt="Architecture"></p>
+<h4 id="基本運用"><a href="#基本運用" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code>file = open(&quot;data.txt&quot;, mode=&quot;w&quot;, encoding=&quot;utf-8&quot;) # 開啟
+file.write(&quot;Hello File&quot;) # 基本操作
+file.write(&quot;Hello File\nSecond Line\n&quot;) # 換行
+file.write(&quot;測試中文&quot;) # 中文一定要設 encoding
+file.close() # 關閉
+</code></pre><h4 id="建議寫法，自動關閉檔案-省略-close"><a href="#建議寫法，自動關閉檔案-省略-close" class="headerlink" title="建議寫法，自動關閉檔案 (省略 .close())"></a>建議寫法，自動關閉檔案 (省略 .close())</h4><pre><code>with open(&quot;data.txt&quot;, mode=&quot;w&quot;, encoding=&quot;utf-8&quot;) as file:
+    file.write(&quot;測試中文\nSecond Line&quot;)
+</code></pre><h4 id="讀取檔案"><a href="#讀取檔案" class="headerlink" title="讀取檔案"></a>讀取檔案</h4><pre><code>with open(&quot;data.txt&quot;, mode=&quot;r&quot;, encoding=&quot;utf-8&quot;) as file:
+    data = file.read()
+print(data)
+</code></pre><h4 id="把檔案中的數字資料，一行一行的讀出來，計算總合"><a href="#把檔案中的數字資料，一行一行的讀出來，計算總合" class="headerlink" title="把檔案中的數字資料，一行一行的讀出來，計算總合"></a>把檔案中的數字資料，一行一行的讀出來，計算總合</h4><pre><code># 先寫入
+with open(&quot;data.txt&quot;, mode=&quot;w&quot;, encoding=&quot;utf-8&quot;) as file:
+    file.write(&quot;5\n3&quot;)
+
+# 讀出及計算
+sum = 0
+with open(&quot;data.txt&quot;, mode=&quot;r&quot;, encoding=&quot;utf-8&quot;) as file:
+    for line in file:
+        sum += int(line)
+print(sum)
+</code></pre><h2 id="json-檔案"><a href="#json-檔案" class="headerlink" title="json 檔案"></a>json 檔案</h2><p>新增一個 <strong>config.json</strong> 檔，及輸入 <strong>json</strong> 字串<br><img src="/2019/07/09/PythonFile/3.png" alt="Architecture"></p>
+<h4 id="基本運用-1"><a href="#基本運用-1" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code>import json
+with open(&quot;config.json&quot;, mode=&quot;r&quot;) as file:
+    data = json.load(file)
+
+print(data) # data 是一個 Dictionary
+print(data[&quot;name&quot;])
+print(data[&quot;version&quot;])
+</code></pre><h4 id="讀取及寫入檔案"><a href="#讀取及寫入檔案" class="headerlink" title="讀取及寫入檔案"></a>讀取及寫入檔案</h4><pre><code>import json
+with open(&quot;config.json&quot;, mode=&quot;r&quot;) as file:
+    data = json.load(file)
+
+print(data)
+data[&quot;name&quot;] = &quot;New Name&quot; # 修改變數中的資料
+
+# 把更新的資料複寫回檔案中
+with open(&quot;config.json&quot;, mode=&quot;w&quot;) as file:
+    json.dump(data, file)
+</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=C4OkV6DrVRs" target="_blank" rel="noopener">Python 文字檔案的讀取和儲存 By 彭彭</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/08/PythonClass/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1745,377 +2108,11 @@ print(dic)
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/05/PythonListAndTuple/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/05/PythonListAndTuple/" itemprop="url">Python List 及 Tuple</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-05T10:27:07+08:00">
-                2019-07-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="List-有序可變動列表"><a href="#List-有序可變動列表" class="headerlink" title="List 有序可變動列表"></a>List 有序可變動列表</h1><h4 id="基本運用"><a href="#基本運用" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code>grades = [12, 60, 15, 70, 90]
-print(grades)
-</code></pre><h4 id="用索引取元素"><a href="#用索引取元素" class="headerlink" title="用索引取元素"></a>用索引取元素</h4><pre><code>grades = [12, 60, 15, 70, 90]
-print(grades[3])
-</code></pre><h4 id="變更列表元素值"><a href="#變更列表元素值" class="headerlink" title="變更列表元素值"></a>變更列表元素值</h4><pre><code>grades = [12, 60, 15, 70, 90]
-grades[0] = 55  # 把 55 放到列表中的第一個位置
-print(grades)
-</code></pre><h4 id="用索引加起迄-包含起，不包含迄"><a href="#用索引加起迄-包含起，不包含迄" class="headerlink" title="用索引加起迄 (包含起，不包含迄)"></a>用索引加起迄 (包含起，不包含迄)</h4><pre><code>grades = [12, 60, 15, 70, 90]
-print(grades[1:4])
-</code></pre><h4 id="刪除列表中的資料"><a href="#刪除列表中的資料" class="headerlink" title="刪除列表中的資料"></a>刪除列表中的資料</h4><pre><code>grades = [12, 60, 15, 70, 90]
-grades[1:4] = []    # 連續刪除列表中 1 ~ 4 (不包含)
-print(grades)
-</code></pre><h4 id="列表加上資料"><a href="#列表加上資料" class="headerlink" title="列表加上資料"></a>列表加上資料</h4><pre><code>grades = [12, 60, 15, 70, 90]
-grades = grades + [12, 33]
-print(grades)
-</code></pre><h4 id="取列表長度"><a href="#取列表長度" class="headerlink" title="取列表長度"></a>取列表長度</h4><pre><code>grades = [12, 60, 15, 70, 90]
-length = len(grades) # 取長度
-print(length)
-</code></pre><h4 id="列表中再放列表-二維陣列"><a href="#列表中再放列表-二維陣列" class="headerlink" title="列表中再放列表 (二維陣列)"></a>列表中再放列表 (二維陣列)</h4><pre><code>listData = [[3, 4, 5], [6, 7, 8]]
-print(listData[0])
-print(listData[0][0])
-</code></pre><h4 id="變更列表元素值-二維陣列"><a href="#變更列表元素值-二維陣列" class="headerlink" title="變更列表元素值 (二維陣列)"></a>變更列表元素值 (二維陣列)</h4><pre><code>listData = [[3, 4, 5], [6, 7, 8]]
-print(listData)
-listData[0][0:2] = [5, 5, 5]
-print(listData)
-</code></pre><h1 id="Tuple-有序不可變動列表-使用方法，基本上跟-List一樣，差別是不可更改值"><a href="#Tuple-有序不可變動列表-使用方法，基本上跟-List一樣，差別是不可更改值" class="headerlink" title="Tuple 有序不可變動列表 (使用方法，基本上跟 List一樣，差別是不可更改值)"></a>Tuple 有序不可變動列表 (使用方法，基本上跟 List一樣，差別是不可更改值)</h1><h4 id="用索引加起迄-包含起，不包含迄-1"><a href="#用索引加起迄-包含起，不包含迄-1" class="headerlink" title="用索引加起迄 (包含起，不包含迄)"></a>用索引加起迄 (包含起，不包含迄)</h4><pre><code>tupleData = (3, 4, 5)
-print(tupleData[0:2])
-</code></pre><h4 id="錯誤式範"><a href="#錯誤式範" class="headerlink" title="錯誤式範"></a>錯誤式範</h4><pre><code>tupleData = (3, 4, 5)
-tupleData[0] = 5    # 錯誤：Tuple 資料不可變動
-print(tupleData[0:2])
-</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=JLU5oc4_VtA" target="_blank" rel="noopener">Python 有序列表的基本運算 - List、Tuple By 彭彭</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/05/PythonNumberAndString/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/05/PythonNumberAndString/" itemprop="url">Python Number 及 String</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-05T09:59:05+08:00">
-                2019-07-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Number-數字運算"><a href="#Number-數字運算" class="headerlink" title="Number 數字運算"></a>Number 數字運算</h1><h4 id="加法"><a href="#加法" class="headerlink" title="加法"></a>加法</h4><pre><code>x = 3 + 6
-print(x)
-</code></pre><h4 id="減法"><a href="#減法" class="headerlink" title="減法"></a>減法</h4><pre><code>x = 3 - 6
-print(x)
-</code></pre><h4 id="乘法"><a href="#乘法" class="headerlink" title="乘法"></a>乘法</h4><pre><code>x = 3 * 6
-print(x)
-</code></pre><h4 id="除法-小數"><a href="#除法-小數" class="headerlink" title="除法 (小數)"></a>除法 (小數)</h4><pre><code>x = 6 / 7
-print(x)
-</code></pre><h4 id="除法-整數"><a href="#除法-整數" class="headerlink" title="除法 (整數)"></a>除法 (整數)</h4><pre><code>x = 6 // 7
-print(x)
-</code></pre><h4 id="次方"><a href="#次方" class="headerlink" title="次方"></a>次方</h4><pre><code>x = 2 ** 3
-</code></pre><h4 id="開根號"><a href="#開根號" class="headerlink" title="開根號"></a>開根號</h4><pre><code>x = 2 ** 0.5
-print(x)
-</code></pre><h4 id="取餘數"><a href="#取餘數" class="headerlink" title="取餘數"></a>取餘數</h4><pre><code>x = 7 % 3
-print(x)
-</code></pre><h4 id="簡寫"><a href="#簡寫" class="headerlink" title="簡寫"></a>簡寫</h4><pre><code>x += 1 # x = x + 1
-print(x)
-
-x -= 1 # x = x - 1
-print(x)
-
-x *= 2 # x = x * 2
-print(x)
-
-x /= 2 # x = x / 2
-print(x)
-</code></pre><h1 id="String-字串運算"><a href="#String-字串運算" class="headerlink" title="String 字串運算"></a>String 字串運算</h1><h4 id="基本運用"><a href="#基本運用" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code>s = &quot;Hello&quot;
-print(s)
-</code></pre><h4 id="跳脫"><a href="#跳脫" class="headerlink" title="跳脫"></a>跳脫</h4><pre><code>s = &quot;Hell\&quot;o&quot; # 跳脫
-print(s)
-</code></pre><h4 id="字串相加-有加號"><a href="#字串相加-有加號" class="headerlink" title="字串相加 (有加號)"></a>字串相加 (有加號)</h4><pre><code>s = &quot;Hello&quot; + &quot;World&quot;
-print(s)
-</code></pre><h4 id="字串相加-省略加號"><a href="#字串相加-省略加號" class="headerlink" title="字串相加 (省略加號)"></a>字串相加 (省略加號)</h4><pre><code>s = &quot;Hello&quot; &quot;World&quot;
-print(s)
-</code></pre><h4 id="換行，使用-n"><a href="#換行，使用-n" class="headerlink" title="換行，使用 \n"></a>換行，使用 \n</h4><pre><code>s = &quot;Hello\nWorld&quot;
-print(s)
-</code></pre><h4 id="換行"><a href="#換行" class="headerlink" title="換行"></a>換行</h4><pre><code>s = &quot;&quot;&quot;Hello
-
-World&quot;&quot;&quot;
-print(s)
-</code></pre><h4 id="連續加-N-次"><a href="#連續加-N-次" class="headerlink" title="連續加 N 次"></a>連續加 N 次</h4><pre><code>s = &quot;Hello&quot; * 3
-print(s)
-</code></pre><h4 id="連續加-N-次後，加上其他值"><a href="#連續加-N-次後，加上其他值" class="headerlink" title="連續加 N 次後，加上其他值"></a>連續加 N 次後，加上其他值</h4><pre><code>s = &quot;Hello&quot; * 3 + &quot;World&quot;
-print(s)
-</code></pre><h4 id="用索引取字元"><a href="#用索引取字元" class="headerlink" title="用索引取字元"></a>用索引取字元</h4><pre><code>print(s[1])
-s = &quot;Hello&quot;
-</code></pre><h4 id="用索引加起迄-包含起，不包含迄"><a href="#用索引加起迄-包含起，不包含迄" class="headerlink" title="用索引加起迄 (包含起，不包含迄)"></a>用索引加起迄 (包含起，不包含迄)</h4><pre><code>print(s[1:4])
-s = &quot;Hello&quot;
-</code></pre><h4 id="用索引加起迄-省略迄"><a href="#用索引加起迄-省略迄" class="headerlink" title="用索引加起迄 (省略迄)"></a>用索引加起迄 (省略迄)</h4><pre><code>print(s[1:])
-s = &quot;Hello&quot;
-</code></pre><h4 id="用索引加起迄-省略起"><a href="#用索引加起迄-省略起" class="headerlink" title="用索引加起迄 (省略起)"></a>用索引加起迄 (省略起)</h4><pre><code>print(s[:4])
-s = &quot;Hello&quot;
-</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=bLRa4TZ99aY" target="_blank" rel="noopener">Python 數字、字串的基本運算 By 彭彭</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2163,7 +2160,7 @@ s = &quot;Hello&quot;
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-count">72</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
