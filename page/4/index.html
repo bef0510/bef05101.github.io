@@ -252,6 +252,366 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/18/AspNetWebApiCORS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/18/AspNetWebApiCORS/" itemprop="url">MVC 跨網域要求 CORS</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-06-18T10:42:29+08:00">
+                2019-06-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ASP-Net/" itemprop="url" rel="index">
+                    <span itemprop="name">ASP.Net</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Allow-CORS"><a href="#Allow-CORS" class="headerlink" title="Allow CORS"></a>Allow CORS</h1><p><strong>Nuget</strong> 載入 <code>Microsoft.AspNet.WebApi.Cors</code><br><img src="/2019/06/18/AspNetWebApiCORS/1.png" alt="Architecture"></p>
+<p><strong>Enable CORS</strong><br><img src="/2019/06/18/AspNetWebApiCORS/2.png" alt="Architecture"></p>
+<h4 id="全域"><a href="#全域" class="headerlink" title="全域"></a>全域</h4><p><img src="/2019/06/18/AspNetWebApiCORS/3.png" alt="Architecture"></p>
+<h3 id="區域"><a href="#區域" class="headerlink" title="區域"></a>區域</h3><h4 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h4><p><img src="/2019/06/18/AspNetWebApiCORS/4.png" alt="Architecture"></p>
+<h4 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h4><p><img src="/2019/06/18/AspNetWebApiCORS/5.png" alt="Architecture"></p>
+<p><strong>Disable CORS</strong></p>
+<h3 id="區域-1"><a href="#區域-1" class="headerlink" title="區域"></a>區域</h3><h4 id="Controller-1"><a href="#Controller-1" class="headerlink" title="Controller"></a>Controller</h4><p><img src="/2019/06/18/AspNetWebApiCORS/6.png" alt="Architecture"></p>
+<h4 id="Action-1"><a href="#Action-1" class="headerlink" title="Action"></a>Action</h4><p><img src="/2019/06/18/AspNetWebApiCORS/7.png" alt="Architecture"></p>
+<h3 id="Custom-Handle"><a href="#Custom-Handle" class="headerlink" title="Custom Handle"></a>Custom Handle</h3><h4 id="Add-CorsHandle-cs"><a href="#Add-CorsHandle-cs" class="headerlink" title="Add CorsHandle.cs"></a>Add CorsHandle.cs</h4><pre><code>public class CorsHandle : Attribute, ICorsPolicyProvider
+{
+    private CorsPolicy corsPolicy;
+
+    public CorsHandle()
+    {
+        this.corsPolicy = new CorsPolicy
+        {
+            AllowAnyHeader = true,
+            AllowAnyMethod = true
+        };
+
+        this.corsPolicy.Origins.Add(&quot;http://localhost&quot;);
+        this.corsPolicy.Origins.Add(&quot;http://www.google.com&quot;);
+    }
+
+    public Task&lt;CorsPolicy&gt; GetCorsPolicyAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        =&gt; Task.FromResult(this.corsPolicy);
+}
+</code></pre><h4 id="Add-CorsOnActionHandle-cs"><a href="#Add-CorsOnActionHandle-cs" class="headerlink" title="Add CorsOnActionHandle.cs"></a>Add CorsOnActionHandle.cs</h4><pre><code>public class CorsOnActionHandle : ActionFilterAttribute
+{
+    public override void OnActionExecuting(HttpActionContext actionContext)
+    {
+        List&lt;string&gt; allowDomain = new List&lt;string&gt;()
+        {
+            &quot;http://localhost&quot;,
+            &quot;http://www.google.com&quot;
+        };
+
+        string origin = actionContext.Request.Headers.GetValues(&quot;Origin&quot;).FirstOrDefault();
+
+        bool isAllow = allowDomain.Contains(origin);
+
+        if (!isAllow)
+        {
+            UnauthorizedObject result = new UnauthorizedObject()
+            {
+                code = &quot;401&quot;,
+                message = &quot;domain is not allow&quot;
+            };
+
+            actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized, result);
+        }
+    }
+
+    public class UnauthorizedObject
+    {
+        public string code { get; set; }
+        public string message { get; set; }
+    }
+}
+</code></pre><h4 id="Modify-Controller-or-Action-filter"><a href="#Modify-Controller-or-Action-filter" class="headerlink" title="Modify Controller or Action filter"></a>Modify Controller or Action filter</h4><p><img src="/2019/06/18/AspNetWebApiCORS/8.png" alt="Architecture"></p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://docs.microsoft.com/en-us/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api" target="_blank" rel="noopener">Enable cross-origin requests in ASP.NET Web API 2</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/14/SqlHowToWatchExecutionPlan/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/14/SqlHowToWatchExecutionPlan/" itemprop="url">SQL Server - 查看執行計畫</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-06-14T14:20:36+08:00">
+                2019-06-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MS-SQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MS SQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="查看執行計畫"><a href="#查看執行計畫" class="headerlink" title="查看執行計畫"></a>查看執行計畫</h1><ol>
+<li><p>查看方式<br>從右到左(平行處理)<br><img src="/2019/06/14/SqlHowToWatchExecutionPlan/1.png" alt="Architecture"></p>
+</li>
+<li><p>Index 是否正確<br>一般來說 <code>Seek</code> 比 <code>Scan</code> 快，若撈出的資料量很大，資料庫覺得掃描比搜尋更有效率，會自行用掃描<br><img src="/2019/06/14/SqlHowToWatchExecutionPlan/8.png" alt="Architecture"></p>
+</li>
+<li><p>減少資料量<br>資料量越大，箭頭會越粗，盡可能篩選出所需資料<br><img src="/2019/06/14/SqlHowToWatchExecutionPlan/2.png" alt="Architecture"></p>
+</li>
+<li><p>耗費成本<br>針對成本比例高的地方進行調效<br><img src="/2019/06/14/SqlHowToWatchExecutionPlan/3.png" alt="Architecture"></p>
+</li>
+<li><p>避免型態轉換<br>型別不同 <code>Join</code> 條件或 <code>Where</code> 條件<br><img src="/2019/06/14/SqlHowToWatchExecutionPlan/4.png" alt="Architecture"><br><img src="/2019/06/14/SqlHowToWatchExecutionPlan/5.png" alt="Architecture"></p>
+</li>
+<li><p>警告訊息<br><img src="/2019/06/14/SqlHowToWatchExecutionPlan/6.png" alt="Architecture"></p>
+</li>
+<li><p>避免排序<br><img src="/2019/06/14/SqlHowToWatchExecutionPlan/7.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://blog.kkbruce.net/2011/01/ssms.html#.XQNsE4gzaUk" target="_blank" rel="noopener">SSMS–執行計畫</a><br><a href="http://sharedderrick.blogspot.com/2017/12/sql-server-look-at-execution-plan-and.html" target="_blank" rel="noopener">SQL Server 學習筆記</a><br><a href="http://vito-note.blogspot.com/2013/05/blog-post_2862.html" target="_blank" rel="noopener">效能調校(2)-分析執行計畫</a><br><a href="https://dotblogs.com.tw/eganblog/2019/05/07/sql_datatypeconversion" target="_blank" rel="noopener">[SQL]MSSQL隱含轉換造成的效能影響</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/14/SqlGetAllTableNameAndColumn/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2178,458 +2538,6 @@ public class Waiter
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/05/DesignPatternWithChainOfResponsibility/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/05/DesignPatternWithChainOfResponsibility/" itemprop="url">行為型模式 - 責任鏈模式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-06-05T16:31:04+08:00">
-                2019-06-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Design-Pattern/" itemprop="url" rel="index">
-                    <span itemprop="name">Design Pattern</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="責任鏈模式"><a href="#責任鏈模式" class="headerlink" title="責任鏈模式"></a>責任鏈模式</h1><p>避免請求發送者與接收者耦合在一起，讓多個對象都有可能接受請求，將這些對象連接成一條鏈，並且沿著這條鏈傳遞請求，知道有對象處理它為止<br><img src="/2019/06/05/DesignPatternWithChainOfResponsibility/1.png" alt="Architecture"></p>
-<h4 id="建立一個-類別-LeaveRequest"><a href="#建立一個-類別-LeaveRequest" class="headerlink" title="建立一個 類別 LeaveRequest"></a>建立一個 類別 <code>LeaveRequest</code></h4><pre><code>public class LeaveRequest
-{
-    public string Name { get; set; }
-
-    public int Days { get; set; }
-
-    public LeaveRequest(string name, int days)
-    {
-        Name = name;
-        Days = days;
-    }
-}
-</code></pre><h4 id="建立一個-抽象類別-Approver"><a href="#建立一個-抽象類別-Approver" class="headerlink" title="建立一個 抽象類別 Approver"></a>建立一個 抽象類別 <code>Approver</code></h4><pre><code>public abstract class Approver
-{
-    public Approver NextApprover { get; set; }
-    public string ApproverName { get; set; }
-    public Approver(string name)
-    {
-        ApproverName = name;
-    }
-
-    public abstract void ProcessReQuest(LeaveRequest request);
-}
-</code></pre><h4 id="建立一個-類別-Manager-繼承-Approver"><a href="#建立一個-類別-Manager-繼承-Approver" class="headerlink" title="建立一個 類別 Manager 繼承 Approver"></a>建立一個 類別 <code>Manager</code> 繼承 <code>Approver</code></h4><pre><code>public class Manager : Approver
-{
-    public Manager(string approverName) : base(approverName) { }
-
-    public override void ProcessReQuest(LeaveRequest request)
-    {
-        if (request.Days &lt;= 3)
-        {
-            Console.WriteLine($&quot;{this.ApproverName} Manager approve {request.Name}&apos;s leave&quot;);
-        }
-        else if (NextApprover != null)
-        {
-            Console.WriteLine($&quot;{this.ApproverName} Manager approve {request.Name}&apos;s leave&quot;);
-            NextApprover.ProcessReQuest(request);
-        }
-    }
-}
-</code></pre><h4 id="建立一個-類別-Director-繼承-Approver"><a href="#建立一個-類別-Director-繼承-Approver" class="headerlink" title="建立一個 類別 Director 繼承 Approver"></a>建立一個 類別 <code>Director</code> 繼承 <code>Approver</code></h4><pre><code>public class Director : Approver
-{
-    public Director(string approverName) : base(approverName) { }
-
-    public override void ProcessReQuest(LeaveRequest request)
-    {
-        if (request.Days &gt; 3 &amp;&amp; request.Days &lt;= 5)
-        {
-            Console.WriteLine($&quot;{this.ApproverName} Director approve {request.Name}&apos;s leave&quot;);
-        }
-        else if (NextApprover != null)
-        {
-            Console.WriteLine($&quot;{this.ApproverName} Director approve {request.Name}&apos;s leave&quot;);
-            NextApprover.ProcessReQuest(request);
-        }
-    }
-}
-</code></pre><h4 id="建立一個-類別-CEO-繼承-Approver"><a href="#建立一個-類別-CEO-繼承-Approver" class="headerlink" title="建立一個 類別 CEO 繼承 Approver"></a>建立一個 類別 <code>CEO</code> 繼承 <code>Approver</code></h4><pre><code>public class CEO : Approver
-{
-    public CEO(string approverName) : base(approverName) { }
-
-    public override void ProcessReQuest(LeaveRequest request)
-    {
-        if (request.Days &gt; 5 &amp;&amp; request.Days &lt;= 7)
-        {
-            Console.WriteLine($&quot;{this.ApproverName} CEO approve {request.Name}&apos;s leave&quot;);
-        }
-        else
-        {
-            Console.WriteLine($&quot;{this.ApproverName} CEO approve {request.Name}&apos;s leave&quot;);
-            Console.WriteLine($&quot;Need running process&quot;);
-        }
-    }
-}
-</code></pre><h4 id="引用方式"><a href="#引用方式" class="headerlink" title="引用方式"></a>引用方式</h4><pre><code>class Program
-{
-    static void Main(string[] args)
-    {
-        LeaveRequest ericLeave = new LeaveRequest(&quot;Rachel&quot;, 2);
-        LeaveRequest joeyLeave = new LeaveRequest(&quot;Joey&quot;, 4);
-        LeaveRequest monicaLeave = new LeaveRequest(&quot;Monica&quot;, 6);
-
-        Approver manager = new Manager(&quot;Ross&quot;);
-        Approver director = new Director(&quot;Chandler&quot;);
-        Approver ceo = new CEO(&quot;Phoebe&quot;);
-
-        manager.NextApprover = director;
-        director.NextApprover = ceo;
-
-        manager.ProcessReQuest(ericLeave);
-        manager.ProcessReQuest(joeyLeave);
-        manager.ProcessReQuest(monicaLeave);
-
-        Console.ReadKey();
-    }
-}
-</code></pre><h4 id="適用場景"><a href="#適用場景" class="headerlink" title="適用場景"></a>適用場景</h4><ol>
-<li>一個系統的審批需要多個對象才能完成處理的情況下</li>
-<li>代碼中存在多個的 <strong>if-else</strong> 語句的情況下，此時可以考慮使用責任鏈模式來對代碼進行重構</li>
-</ol>
-<h4 id="優點"><a href="#優點" class="headerlink" title="優點"></a>優點</h4><ol>
-<li>將職責分類隔離處理，降低耦合，符合開閉原則，不需修改原有代碼，新增一個責任類即可</li>
-</ol>
-<h4 id="缺點"><a href="#缺點" class="headerlink" title="缺點"></a>缺點</h4><ol>
-<li>在找到正確的處理對象之前，所有的條件判定都要執行一遍，當責任鏈過長時，可能會引起性能的問題</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://zh.wikipedia.org/wiki/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F" target="_blank" rel="noopener">維基百科-責任鏈模式</a><br><a href="https://www.cnblogs.com/PatrickLiu/p/8109100.html" target="_blank" rel="noopener">C#设计模式之二十职责链模式（Chain of Responsibility Pattern）【行为型】</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/05/DesignPatternWithProxy/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/05/DesignPatternWithProxy/" itemprop="url">結構型模式 - 代理模式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-06-05T15:32:48+08:00">
-                2019-06-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Design-Pattern/" itemprop="url" rel="index">
-                    <span itemprop="name">Design Pattern</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h1><p>為其他對象提供一種代理以控制對這個對象的訪問<br><img src="/2019/06/05/DesignPatternWithProxy/1.png" alt="Architecture"></p>
-<h4 id="建立一個-介面-IGiveGift"><a href="#建立一個-介面-IGiveGift" class="headerlink" title="建立一個 介面 IGiveGift"></a>建立一個 介面 <code>IGiveGift</code></h4><pre><code>public interface IGiveGift
-{
-    void GiveDolls();
-    void GiveMoneyFlowers();
-    void GiveChocolate();
-}
-</code></pre><h4 id="建立一個-類別-Favorite"><a href="#建立一個-類別-Favorite" class="headerlink" title="建立一個 類別 Favorite"></a>建立一個 類別 <code>Favorite</code></h4><pre><code>public class Favorite
-{
-    public string Name { get; set; }
-}
-</code></pre><h4 id="建立一個-類別-Pursuit-繼承-IGiveGift"><a href="#建立一個-類別-Pursuit-繼承-IGiveGift" class="headerlink" title="建立一個 類別 Pursuit 繼承 IGiveGift"></a>建立一個 類別 <code>Pursuit</code> 繼承 <code>IGiveGift</code></h4><pre><code>public class Pursuit : IGiveGift
-{
-    Favorite favorite;
-
-    public Pursuit(Favorite favorite)
-    {
-        this.favorite = favorite;
-    }
-
-    public void GiveDolls() =&gt; Console.WriteLine($&quot;送 {favorite.Name} 洋娃娃&quot;);
-    public void GiveMoneyFlowers() =&gt; Console.WriteLine($&quot;送 {favorite.Name} 錢摺的花&quot;);
-    public void GiveChocolate() =&gt; Console.WriteLine($&quot;送 {favorite.Name} 巧克力&quot;);
-}
-</code></pre><h4 id="建立一個-代理類別-FriendProxy-繼承-IGiveGift"><a href="#建立一個-代理類別-FriendProxy-繼承-IGiveGift" class="headerlink" title="建立一個 代理類別 FriendProxy 繼承 IGiveGift"></a>建立一個 代理類別 <code>FriendProxy</code> 繼承 <code>IGiveGift</code></h4><pre><code>public class FriendProxy : IGiveGift
-{
-    Pursuit pursuit;
-
-    public FriendProxy(Favorite favorite)
-    {
-        pursuit = new Pursuit(favorite);
-    }
-
-    public void GiveDolls() =&gt; pursuit.GiveDolls();
-    public void GiveMoneyFlowers() =&gt; pursuit.GiveMoneyFlowers();
-    public void GiveChocolate() =&gt; pursuit.GiveChocolate();
-}
-</code></pre><h4 id="引用方式"><a href="#引用方式" class="headerlink" title="引用方式"></a>引用方式</h4><pre><code>class Program
-{
-    static void Main(string[] args)
-    {
-        FriendProxy proxy = new FriendProxy(new Favorite() { Name = &quot;SomeOne&quot;});
-
-        proxy.GiveDolls();
-        proxy.GiveMoneyFlowers();
-        proxy.GiveChocolate();
-
-        Console.ReadKey();
-    }
-}
-</code></pre><h4 id="適用場景"><a href="#適用場景" class="headerlink" title="適用場景"></a>適用場景</h4><ol>
-<li>需要為一個對象再不同的地址空間提供局部的代表時</li>
-</ol>
-<h4 id="優點"><a href="#優點" class="headerlink" title="優點"></a>優點</h4><ol>
-<li>協調調用者和被調用者，降低了系統的耦合度</li>
-<li>代理對象作為客戶端和目標對象之間的中介，起到了保護目標對象的作用</li>
-</ol>
-<h4 id="缺點"><a href="#缺點" class="headerlink" title="缺點"></a>缺點</h4><ol>
-<li>由於在客戶端和真實主題之間增加了代理對象，因此會造成請求的處理速度變慢</li>
-<li>實現代理模式需要額外的工作，從而增加了系統實現的複雜度</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://zh.wikipedia.org/wiki/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F" target="_blank" rel="noopener">維基百科-代理模式</a><br><a href="https://dotblogs.com.tw/atowngit/2010/03/09/13956" target="_blank" rel="noopener">[設計模式] 代理模式 (Proxy Pattern)</a><br><a href="https://www.cnblogs.com/zhili/p/ProxyPattern.html" target="_blank" rel="noopener">C#设计模式(13)——代理模式（Proxy Pattern）</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2682,7 +2590,7 @@ public class Waiter
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">74</span>
+                  <span class="site-state-item-count">76</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
@@ -2704,7 +2612,7 @@ public class Waiter
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">標籤</span>
                 </a>
               </div>

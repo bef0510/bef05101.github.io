@@ -252,6 +252,458 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/05/DesignPatternWithChainOfResponsibility/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/05/DesignPatternWithChainOfResponsibility/" itemprop="url">行為型模式 - 責任鏈模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-06-05T16:31:04+08:00">
+                2019-06-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Design-Pattern/" itemprop="url" rel="index">
+                    <span itemprop="name">Design Pattern</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="責任鏈模式"><a href="#責任鏈模式" class="headerlink" title="責任鏈模式"></a>責任鏈模式</h1><p>避免請求發送者與接收者耦合在一起，讓多個對象都有可能接受請求，將這些對象連接成一條鏈，並且沿著這條鏈傳遞請求，知道有對象處理它為止<br><img src="/2019/06/05/DesignPatternWithChainOfResponsibility/1.png" alt="Architecture"></p>
+<h4 id="建立一個-類別-LeaveRequest"><a href="#建立一個-類別-LeaveRequest" class="headerlink" title="建立一個 類別 LeaveRequest"></a>建立一個 類別 <code>LeaveRequest</code></h4><pre><code>public class LeaveRequest
+{
+    public string Name { get; set; }
+
+    public int Days { get; set; }
+
+    public LeaveRequest(string name, int days)
+    {
+        Name = name;
+        Days = days;
+    }
+}
+</code></pre><h4 id="建立一個-抽象類別-Approver"><a href="#建立一個-抽象類別-Approver" class="headerlink" title="建立一個 抽象類別 Approver"></a>建立一個 抽象類別 <code>Approver</code></h4><pre><code>public abstract class Approver
+{
+    public Approver NextApprover { get; set; }
+    public string ApproverName { get; set; }
+    public Approver(string name)
+    {
+        ApproverName = name;
+    }
+
+    public abstract void ProcessReQuest(LeaveRequest request);
+}
+</code></pre><h4 id="建立一個-類別-Manager-繼承-Approver"><a href="#建立一個-類別-Manager-繼承-Approver" class="headerlink" title="建立一個 類別 Manager 繼承 Approver"></a>建立一個 類別 <code>Manager</code> 繼承 <code>Approver</code></h4><pre><code>public class Manager : Approver
+{
+    public Manager(string approverName) : base(approverName) { }
+
+    public override void ProcessReQuest(LeaveRequest request)
+    {
+        if (request.Days &lt;= 3)
+        {
+            Console.WriteLine($&quot;{this.ApproverName} Manager approve {request.Name}&apos;s leave&quot;);
+        }
+        else if (NextApprover != null)
+        {
+            Console.WriteLine($&quot;{this.ApproverName} Manager approve {request.Name}&apos;s leave&quot;);
+            NextApprover.ProcessReQuest(request);
+        }
+    }
+}
+</code></pre><h4 id="建立一個-類別-Director-繼承-Approver"><a href="#建立一個-類別-Director-繼承-Approver" class="headerlink" title="建立一個 類別 Director 繼承 Approver"></a>建立一個 類別 <code>Director</code> 繼承 <code>Approver</code></h4><pre><code>public class Director : Approver
+{
+    public Director(string approverName) : base(approverName) { }
+
+    public override void ProcessReQuest(LeaveRequest request)
+    {
+        if (request.Days &gt; 3 &amp;&amp; request.Days &lt;= 5)
+        {
+            Console.WriteLine($&quot;{this.ApproverName} Director approve {request.Name}&apos;s leave&quot;);
+        }
+        else if (NextApprover != null)
+        {
+            Console.WriteLine($&quot;{this.ApproverName} Director approve {request.Name}&apos;s leave&quot;);
+            NextApprover.ProcessReQuest(request);
+        }
+    }
+}
+</code></pre><h4 id="建立一個-類別-CEO-繼承-Approver"><a href="#建立一個-類別-CEO-繼承-Approver" class="headerlink" title="建立一個 類別 CEO 繼承 Approver"></a>建立一個 類別 <code>CEO</code> 繼承 <code>Approver</code></h4><pre><code>public class CEO : Approver
+{
+    public CEO(string approverName) : base(approverName) { }
+
+    public override void ProcessReQuest(LeaveRequest request)
+    {
+        if (request.Days &gt; 5 &amp;&amp; request.Days &lt;= 7)
+        {
+            Console.WriteLine($&quot;{this.ApproverName} CEO approve {request.Name}&apos;s leave&quot;);
+        }
+        else
+        {
+            Console.WriteLine($&quot;{this.ApproverName} CEO approve {request.Name}&apos;s leave&quot;);
+            Console.WriteLine($&quot;Need running process&quot;);
+        }
+    }
+}
+</code></pre><h4 id="引用方式"><a href="#引用方式" class="headerlink" title="引用方式"></a>引用方式</h4><pre><code>class Program
+{
+    static void Main(string[] args)
+    {
+        LeaveRequest ericLeave = new LeaveRequest(&quot;Rachel&quot;, 2);
+        LeaveRequest joeyLeave = new LeaveRequest(&quot;Joey&quot;, 4);
+        LeaveRequest monicaLeave = new LeaveRequest(&quot;Monica&quot;, 6);
+
+        Approver manager = new Manager(&quot;Ross&quot;);
+        Approver director = new Director(&quot;Chandler&quot;);
+        Approver ceo = new CEO(&quot;Phoebe&quot;);
+
+        manager.NextApprover = director;
+        director.NextApprover = ceo;
+
+        manager.ProcessReQuest(ericLeave);
+        manager.ProcessReQuest(joeyLeave);
+        manager.ProcessReQuest(monicaLeave);
+
+        Console.ReadKey();
+    }
+}
+</code></pre><h4 id="適用場景"><a href="#適用場景" class="headerlink" title="適用場景"></a>適用場景</h4><ol>
+<li>一個系統的審批需要多個對象才能完成處理的情況下</li>
+<li>代碼中存在多個的 <strong>if-else</strong> 語句的情況下，此時可以考慮使用責任鏈模式來對代碼進行重構</li>
+</ol>
+<h4 id="優點"><a href="#優點" class="headerlink" title="優點"></a>優點</h4><ol>
+<li>將職責分類隔離處理，降低耦合，符合開閉原則，不需修改原有代碼，新增一個責任類即可</li>
+</ol>
+<h4 id="缺點"><a href="#缺點" class="headerlink" title="缺點"></a>缺點</h4><ol>
+<li>在找到正確的處理對象之前，所有的條件判定都要執行一遍，當責任鏈過長時，可能會引起性能的問題</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://zh.wikipedia.org/wiki/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F" target="_blank" rel="noopener">維基百科-責任鏈模式</a><br><a href="https://www.cnblogs.com/PatrickLiu/p/8109100.html" target="_blank" rel="noopener">C#设计模式之二十职责链模式（Chain of Responsibility Pattern）【行为型】</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/05/DesignPatternWithProxy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/05/DesignPatternWithProxy/" itemprop="url">結構型模式 - 代理模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-06-05T15:32:48+08:00">
+                2019-06-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Design-Pattern/" itemprop="url" rel="index">
+                    <span itemprop="name">Design Pattern</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h1><p>為其他對象提供一種代理以控制對這個對象的訪問<br><img src="/2019/06/05/DesignPatternWithProxy/1.png" alt="Architecture"></p>
+<h4 id="建立一個-介面-IGiveGift"><a href="#建立一個-介面-IGiveGift" class="headerlink" title="建立一個 介面 IGiveGift"></a>建立一個 介面 <code>IGiveGift</code></h4><pre><code>public interface IGiveGift
+{
+    void GiveDolls();
+    void GiveMoneyFlowers();
+    void GiveChocolate();
+}
+</code></pre><h4 id="建立一個-類別-Favorite"><a href="#建立一個-類別-Favorite" class="headerlink" title="建立一個 類別 Favorite"></a>建立一個 類別 <code>Favorite</code></h4><pre><code>public class Favorite
+{
+    public string Name { get; set; }
+}
+</code></pre><h4 id="建立一個-類別-Pursuit-繼承-IGiveGift"><a href="#建立一個-類別-Pursuit-繼承-IGiveGift" class="headerlink" title="建立一個 類別 Pursuit 繼承 IGiveGift"></a>建立一個 類別 <code>Pursuit</code> 繼承 <code>IGiveGift</code></h4><pre><code>public class Pursuit : IGiveGift
+{
+    Favorite favorite;
+
+    public Pursuit(Favorite favorite)
+    {
+        this.favorite = favorite;
+    }
+
+    public void GiveDolls() =&gt; Console.WriteLine($&quot;送 {favorite.Name} 洋娃娃&quot;);
+    public void GiveMoneyFlowers() =&gt; Console.WriteLine($&quot;送 {favorite.Name} 錢摺的花&quot;);
+    public void GiveChocolate() =&gt; Console.WriteLine($&quot;送 {favorite.Name} 巧克力&quot;);
+}
+</code></pre><h4 id="建立一個-代理類別-FriendProxy-繼承-IGiveGift"><a href="#建立一個-代理類別-FriendProxy-繼承-IGiveGift" class="headerlink" title="建立一個 代理類別 FriendProxy 繼承 IGiveGift"></a>建立一個 代理類別 <code>FriendProxy</code> 繼承 <code>IGiveGift</code></h4><pre><code>public class FriendProxy : IGiveGift
+{
+    Pursuit pursuit;
+
+    public FriendProxy(Favorite favorite)
+    {
+        pursuit = new Pursuit(favorite);
+    }
+
+    public void GiveDolls() =&gt; pursuit.GiveDolls();
+    public void GiveMoneyFlowers() =&gt; pursuit.GiveMoneyFlowers();
+    public void GiveChocolate() =&gt; pursuit.GiveChocolate();
+}
+</code></pre><h4 id="引用方式"><a href="#引用方式" class="headerlink" title="引用方式"></a>引用方式</h4><pre><code>class Program
+{
+    static void Main(string[] args)
+    {
+        FriendProxy proxy = new FriendProxy(new Favorite() { Name = &quot;SomeOne&quot;});
+
+        proxy.GiveDolls();
+        proxy.GiveMoneyFlowers();
+        proxy.GiveChocolate();
+
+        Console.ReadKey();
+    }
+}
+</code></pre><h4 id="適用場景"><a href="#適用場景" class="headerlink" title="適用場景"></a>適用場景</h4><ol>
+<li>需要為一個對象再不同的地址空間提供局部的代表時</li>
+</ol>
+<h4 id="優點"><a href="#優點" class="headerlink" title="優點"></a>優點</h4><ol>
+<li>協調調用者和被調用者，降低了系統的耦合度</li>
+<li>代理對象作為客戶端和目標對象之間的中介，起到了保護目標對象的作用</li>
+</ol>
+<h4 id="缺點"><a href="#缺點" class="headerlink" title="缺點"></a>缺點</h4><ol>
+<li>由於在客戶端和真實主題之間增加了代理對象，因此會造成請求的處理速度變慢</li>
+<li>實現代理模式需要額外的工作，從而增加了系統實現的複雜度</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://zh.wikipedia.org/wiki/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F" target="_blank" rel="noopener">維基百科-代理模式</a><br><a href="https://dotblogs.com.tw/atowngit/2010/03/09/13956" target="_blank" rel="noopener">[設計模式] 代理模式 (Proxy Pattern)</a><br><a href="https://www.cnblogs.com/zhili/p/ProxyPattern.html" target="_blank" rel="noopener">C#设计模式(13)——代理模式（Proxy Pattern）</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/05/DesignPatternWithFlyweight/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2102,433 +2554,6 @@ public class Employee
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/27/DesignPatternWithComposite/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/27/DesignPatternWithComposite/" itemprop="url">結構型模式 - 組合模式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-05-27T09:36:00+08:00">
-                2019-05-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Design-Pattern/" itemprop="url" rel="index">
-                    <span itemprop="name">Design Pattern</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="組合模式"><a href="#組合模式" class="headerlink" title="組合模式"></a>組合模式</h1><p>樹狀結構的物件，每個物件有相同的介面<br><img src="/2019/05/27/DesignPatternWithComposite/1.png" alt="Architecture"></p>
-<h4 id="建立一個-抽象類別-Organization"><a href="#建立一個-抽象類別-Organization" class="headerlink" title="建立一個 抽象類別 Organization"></a>建立一個 抽象類別 <code>Organization</code></h4><pre><code>public abstract class Organization
-{
-    protected string name;
-    protected string desc;
-    protected List&lt;Organization&gt; organizations = new List&lt;Organization&gt;();
-
-    public Organization(string name, string desc)
-    {
-        this.name = name;
-        this.desc = desc;
-    }
-
-    public virtual void AddDepartment(Organization organization) =&gt; this.organizations.Add(organization);
-
-    public virtual void RemoveDepartment(Organization organization) =&gt; this.organizations.Remove(organization);
-
-    public virtual List&lt;Organization&gt; GetAllDepartment(Organization organization) =&gt; this.organizations;
-
-    public abstract string GetString();
-}
-</code></pre><h4 id="建立一個-類別-Company-繼承-Organization"><a href="#建立一個-類別-Company-繼承-Organization" class="headerlink" title="建立一個 類別 Company 繼承 Organization"></a>建立一個 類別 <code>Company</code> 繼承 <code>Organization</code></h4><pre><code>public class Company : Organization
-{
-    public Company(string name, string desc) : base(name, desc)
-    {
-    }
-
-    public override string GetString()
-    {
-        StringBuilder sb = new StringBuilder($&quot;\n【公司】：{this.name} 說明： {this.desc} \n&quot;);
-
-        foreach (var organization in this.organizations)
-        {
-            sb.Append(organization.GetString()).Append(&quot;\n&quot;);
-        }
-
-        return sb.ToString();
-    }
-}
-</code></pre><h4 id="建立一個-類別-Dept-繼承-Organization"><a href="#建立一個-類別-Dept-繼承-Organization" class="headerlink" title="建立一個 類別 Dept 繼承 Organization"></a>建立一個 類別 <code>Dept</code> 繼承 <code>Organization</code></h4><pre><code>public class Dept : Organization
-{
-    public Dept(string name, string desc) : base(name, desc)
-    {
-    }
-
-    public override string GetString() =&gt; $&quot; - 部門：{this.name} 說明： {this.desc}&quot;;
-}
-</code></pre><h4 id="引用方式"><a href="#引用方式" class="headerlink" title="引用方式"></a>引用方式</h4><pre><code>class Program
-{
-    static void Main(string[] args)
-    {
-        Organization company = new Company(&quot;HQ&quot;, &quot;總公司&quot;);
-
-        Organization hrDept = new Dept(&quot;HR&quot;, &quot;人力資源部&quot;);
-        Organization accountDept = new Dept(&quot;Account&quot;, &quot;會計部&quot;);
-        Organization financeDept = new Dept(&quot;Finance&quot;, &quot;財務部&quot;);
-
-        company.AddDepartment(hrDept);
-        company.AddDepartment(accountDept);
-        company.AddDepartment(financeDept);
-
-        Console.WriteLine(company.GetString());
-
-        Console.ReadKey();
-    }
-}
-</code></pre><h4 id="適用場景"><a href="#適用場景" class="headerlink" title="適用場景"></a>適用場景</h4><ol>
-<li>需分層管理多物件時</li>
-</ol>
-<h4 id="優點"><a href="#優點" class="headerlink" title="優點"></a>優點</h4><ol>
-<li>容易新增組件</li>
-<li>介面與功能分離，更具移植性</li>
-</ol>
-<h4 id="缺點"><a href="#缺點" class="headerlink" title="缺點"></a>缺點</h4><ol>
-<li>不能依靠編譯期的類型約束來實現，必須在運行期間動態檢測</li>
-<li>元件更名不易</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://wiki.mbalib.com/wiki/%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F" target="_blank" rel="noopener">MBA智库百科-組合模式</a><br><a href="https://www.itread01.com/content/1546887006.html" target="_blank" rel="noopener">設計模式（C#）——組合模式</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/24/InstallADAndDNS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/24/InstallADAndDNS/" itemprop="url">Windows Server 2016 啟用 AD 及 DNS</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-05-24T11:56:08+08:00">
-                2019-05-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MIS/" itemprop="url" rel="index">
-                    <span itemprop="name">MIS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="啟用-AD-及-DNS"><a href="#啟用-AD-及-DNS" class="headerlink" title="啟用 AD 及 DNS"></a>啟用 AD 及 DNS</h1><h3 id="AD-及-DNS-安裝"><a href="#AD-及-DNS-安裝" class="headerlink" title="AD 及 DNS 安裝"></a>AD 及 DNS 安裝</h3><ol>
-<li><p><strong>Server Manager</strong> → <strong>Add roles and features</strong><br><img src="/2019/05/24/InstallADAndDNS/1.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/05/24/InstallADAndDNS/2.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/05/24/InstallADAndDNS/3.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/05/24/InstallADAndDNS/4.png" alt="Architecture"></p>
-</li>
-<li><p>勾選 <strong>Active Directory Domain Services</strong><br>勾選 <strong>DNS Server</strong><br><img src="/2019/05/24/InstallADAndDNS/5.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/05/24/InstallADAndDNS/6.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/05/24/InstallADAndDNS/7.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/05/24/InstallADAndDNS/8.png" alt="Architecture"></p>
-</li>
-<li><p>勾選 <strong>Restart the destination server automatically if required</strong><br>點選 <strong>Specify an alternate source path</strong><br><img src="/2019/05/24/InstallADAndDNS/9.png" alt="Architecture"></p>
-</li>
-<li><p>輸入 <strong>SxS</strong> 路徑<br><img src="/2019/05/24/InstallADAndDNS/10.png" alt="Architecture"></p>
-</li>
-<li><p>點擊 <strong>Install</strong><br><img src="/2019/05/24/InstallADAndDNS/11.png" alt="Architecture"></p>
-</li>
-<li><p>完成<br><img src="/2019/05/24/InstallADAndDNS/12.png" alt="Architecture"></p>
-</li>
-</ol>
-<h3 id="設定-DNS"><a href="#設定-DNS" class="headerlink" title="設定 DNS"></a>設定 DNS</h3><ol>
-<li><p><strong>Server Manager</strong> → 點擊 旗標 → 點擊 <strong>Promote this server to a domain controller</strong><br><img src="/2019/05/24/InstallADAndDNS/13.png" alt="Architecture"></p>
-</li>
-<li><p>點選 <strong>Add a new forest</strong> → 輸入 <strong>Root domain name</strong><br><img src="/2019/05/24/InstallADAndDNS/14.png" alt="Architecture"></p>
-</li>
-<li><p>輸入自訂 <strong>Password</strong><br><img src="/2019/05/24/InstallADAndDNS/15.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/05/24/InstallADAndDNS/16.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/05/24/InstallADAndDNS/17.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/05/24/InstallADAndDNS/18.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/05/24/InstallADAndDNS/19.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Install</strong><br><img src="/2019/05/24/InstallADAndDNS/20.png" alt="Architecture"></p>
-</li>
-</ol>
-<h3 id="查看-AD"><a href="#查看-AD" class="headerlink" title="查看 AD"></a>查看 AD</h3><ol>
-<li><p>重開機後，已有 <strong>Domain</strong><br><img src="/2019/05/24/InstallADAndDNS/21.png" alt="Architecture"></p>
-</li>
-<li><p>查看本機 <strong>Domain</strong><br><img src="/2019/05/24/InstallADAndDNS/22.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Server Manager</strong> → <strong>Tools</strong> → 點擊 <strong>Active Directory Users and Computers</strong><br><img src="/2019/05/24/InstallADAndDNS/23.png" alt="Architecture"></p>
-</li>
-<li><p>查看 <strong>Domain Controllers</strong><br><img src="/2019/05/24/InstallADAndDNS/24.png" alt="Architecture"></p>
-</li>
-</ol>
-<h3 id="查看-DNS"><a href="#查看-DNS" class="headerlink" title="查看 DNS"></a>查看 DNS</h3><ol>
-<li><p><strong>Server Manager</strong> → <strong>Tools</strong> → 點擊 <strong>DNS</strong><br><img src="/2019/05/24/InstallADAndDNS/25.png" alt="Architecture"></p>
-</li>
-<li><p>查看 <strong>Forward Lookup Zones</strong><br><img src="/2019/05/24/InstallADAndDNS/26.png" alt="Architecture"></p>
-</li>
-</ol>
-<h3 id="Client-端設定-Domain"><a href="#Client-端設定-Domain" class="headerlink" title="Client 端設定 Domain"></a>Client 端設定 Domain</h3><ol>
-<li><p>修改 <strong>Domain</strong><br><img src="/2019/05/24/InstallADAndDNS/27.png" alt="Architecture"></p>
-</li>
-<li><p>至 <strong>Server</strong> 查看<br><img src="/2019/05/24/InstallADAndDNS/28.png" alt="Architecture"></p>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="http://weysnote.blogspot.com/2017/07/windows-server-2016-adds-ad.html" target="_blank" rel="noopener">Windows Server 2016 安裝 ADDS (AD網域服務) 及 DNS Server</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2581,7 +2606,7 @@ public class Employee
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">74</span>
+                  <span class="site-state-item-count">76</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
@@ -2603,7 +2628,7 @@ public class Employee
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">標籤</span>
                 </a>
               </div>
