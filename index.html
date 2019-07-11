@@ -271,7 +271,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/09/PythonPandas/" itemprop="url">Python Pandas</a></h1>
+                <a class="post-title-link" href="/2019/07/09/PythonPandas/" itemprop="url">Python Pandas 模組</a></h1>
         
 
         <div class="post-meta">
@@ -345,10 +345,10 @@
       
         
           
-            <h1 id="Pandas"><a href="#Pandas" class="headerlink" title="Pandas"></a>Pandas</h1><ol>
+            <h1 id="Pandas-模組"><a href="#Pandas-模組" class="headerlink" title="Pandas 模組"></a>Pandas 模組</h1><ol>
 <li>安裝模組 <strong>pip install pandas</strong><br><img src="/2019/07/09/PythonPandas/1.png" alt="Architecture"></li>
 <li><strong>pan(el)-da(ta)-s</strong><br> 2.1 主要提供三個資料結構：<strong>Panel、DataFrame、Series</strong></li>
-<li>以 <strong>numpy</strong> 為基礎的函式庫</li>
+<li>以 <strong>numpy</strong> 模組為基礎的函式庫</li>
 <li><strong>Series</strong> 就是序列，只會儲存像是 <strong>key:value</strong> 的型態</li>
 <li>大部分談到 <strong>pandas</strong> 都會用 <strong>DataFrame</strong></li>
 <li>支援多種文字、二進位檔案與資料庫<br> 6.1 <strong>txt、csv、excel、SQL</strong></li>
@@ -498,7 +498,48 @@ print(groupby1)
 groupby2 = gapminder[gapminder[&quot;year&quot;] == 2007].groupby(by = &quot;continent&quot;)[[&quot;lifeExp&quot;, &quot;gdpPercap&quot;]].mean()
 groupby2 = gapminder[gapminder.year == 2007].groupby(by = &quot;continent&quot;)[[&quot;lifeExp&quot;, &quot;gdpPercap&quot;]].mean()
 print(groupby2)
-</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://medium.com/datainpoint/%E5%BE%9E-pandas-%E9%96%8B%E5%A7%8B-python-%E8%88%87%E8%B3%87%E6%96%99%E7%A7%91%E5%AD%B8%E4%B9%8B%E6%97%85-8dee36796d4a" target="_blank" rel="noopener">從 pandas 開始 Python 與資料科學之旅</a>    </p>
+</code></pre><h2 id="Panel"><a href="#Panel" class="headerlink" title="Panel"></a>Panel</h2><ol>
+<li>三維資料，但不常使用</li>
+</ol>
+<h4 id="基本運用-1"><a href="#基本運用-1" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code>import pandas as pd
+
+p = pd.Panel()
+print(p)
+
+dates = pd.date_range(&quot;20130101&quot;, periods=6)
+df = pd.DataFrame(np.random.randn(6, 4), index=dates, columns=list(&quot;ABCD&quot;))
+print(df)
+
+print(df[&quot;A&quot;]) # 等同 df.A
+
+print(df[[&quot;A&quot;, &quot;B&quot;]])
+
+print(df[0:10])
+
+print(df[&quot;20130102&quot;:&quot;20130104&quot;])
+</code></pre><h4 id="以-numpy-建立"><a href="#以-numpy-建立" class="headerlink" title="以 numpy 建立"></a>以 numpy 建立</h4><pre><code>import pandas as pd
+import numpy as np
+
+wp = pd.Panel(np.random.randn(2, 5, 4), 
+            items = [&quot;Item1&quot;, &quot;Item2&quot;],
+            major_axis = pd.date_range(&quot;1/1/2000&quot;, periods=5),
+            minor_axis = [&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;])
+print(wp)
+</code></pre><h4 id="以-DataFrame-建立"><a href="#以-DataFrame-建立" class="headerlink" title="以 DataFrame 建立"></a>以 DataFrame 建立</h4><pre><code>import pandas as pd
+import numpy as np
+
+d = {&quot;Item1&quot; : pd.DataFrame({&quot;one&quot; : pd.Series([1., 2., 3.], index=[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]),
+                            &quot;two&quot; : pd.Series([1., 2., 3., 4.], index=[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;])}),
+    &quot;Item2&quot; : pd.DataFrame({&quot;thr&quot; : pd.Series([1., 2., 3.], index=[&quot;e&quot;, &quot;f&quot;, &quot;g&quot;])})}
+
+wp = pd.Panel(d)
+
+print(wp)
+
+print(wp.to_frame())
+
+print(wp.to_frame(filter_observations=False))
+</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://medium.com/datainpoint/%E5%BE%9E-pandas-%E9%96%8B%E5%A7%8B-python-%E8%88%87%E8%B3%87%E6%96%99%E7%A7%91%E5%AD%B8%E4%B9%8B%E6%97%85-8dee36796d4a" target="_blank" rel="noopener">從 pandas 開始 Python 與資料科學之旅</a><br><a href="https://zwindr.blogspot.com/2017/03/python-pandas.html" target="_blank" rel="noopener">[Python] pandas 基本教學</a></p>
 
           
         
