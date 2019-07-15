@@ -252,6 +252,186 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/15/AngularBinding/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/15/AngularBinding/" itemprop="url">Angular Binding</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-15T17:52:53+08:00">
+                2019-07-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Angular/" itemprop="url" rel="index">
+                    <span itemprop="name">Angular</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Binding"><a href="#Binding" class="headerlink" title="Binding"></a>Binding</h1><ol>
+<li>Interpolation</li>
+<li>Property Binding</li>
+<li>Event Binding</li>
+<li>Two-wan Binding<br><img src="/2019/07/15/AngularBinding/1.png" alt="Architecture"></li>
+</ol>
+<h4 id="Interpolation"><a href="#Interpolation" class="headerlink" title="Interpolation { { } }"></a>Interpolation { { } }</h4><ol>
+<li><p>app.component.ts</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line">  pageTitle = <span class="string">'helloworld'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>app.component.html</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1&gt;&#123;&#123; pageTitle &#125;&#125;&lt;/h1&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="Property-Binding"><a href="#Property-Binding" class="headerlink" title="Property Binding []"></a>Property Binding []</h4><ol>
+<li><p>app.component.ts</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line">  pageTitle = <span class="string">'helloworld'</span>;</span><br><span class="line">  imgUrl = <span class="string">'https://picsum.photos/200'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>app.component.html</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;img [src]=<span class="string">"imgUrl"</span> alt=<span class="string">"Image"</span> /&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="Event-Binding"><a href="#Event-Binding" class="headerlink" title="Event Binding ()"></a>Event Binding ()</h4><ol>
+<li><p>app.component.ts</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line">  pageTitle = <span class="string">'helloworld'</span>;</span><br><span class="line">  imgUrl = <span class="string">'https://picsum.photos/200'</span>;</span><br><span class="line">  count = 0;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">incrementCount</span></span>() &#123;</span><br><span class="line">    this.count += 1;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>app.component.html</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;button (click)=<span class="string">"incrementCount()"</span>&gt;Click&lt;/button&gt;</span><br><span class="line">  &lt;p&gt;Clicked &#123;&#123; count &#125;&#125; <span class="built_in">times</span>&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="Two-wan-Binding"><a href="#Two-wan-Binding" class="headerlink" title="Two-wan Binding [()]"></a>Two-wan Binding [()]</h4><ol>
+<li><p>app.component.ts</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line">  pageTitle = <span class="string">'helloworld'</span>;</span><br><span class="line">  imgUrl = <span class="string">'https://picsum.photos/200'</span>;</span><br><span class="line">  count = 0;</span><br><span class="line">  name: string;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">incrementCount</span></span>() &#123;</span><br><span class="line">    this.count += 1;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>app.component.html</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;input <span class="built_in">type</span>=<span class="string">"text"</span> [(ngModel)]=<span class="string">"name"</span>&gt;</span><br><span class="line">  &lt;p&gt;Welcome &#123;&#123; name &#125;&#125;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=rH-xfNvpm_o&amp;list=PLC3y8-rFHvwgKhaLU8GTyF-5Bb8qT-wzV&amp;index=3" target="_blank" rel="noopener">Angular Component Interaction - 3 - Binding</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/15/PythonMachineLearning1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1961,157 +2141,6 @@ GROUP BY GroupItem
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/11/MSSqlDBStructrue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/11/MSSqlDBStructrue/" itemprop="url">MS SQL DB 結構</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-11T14:05:35+08:00">
-                2019-07-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MS-SQL/" itemprop="url" rel="index">
-                    <span itemprop="name">MS SQL</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="DB-結構"><a href="#DB-結構" class="headerlink" title="DB 結構"></a>DB 結構</h1><ol>
-<li><p>檔案<br><img src="/2019/07/11/MSSqlDBStructrue/1.png" alt="Architecture"><br>• 每個資料檔皆可設定檔案存放的位置，用以存放在不同的磁碟內，可改善效能，且減少Lock</p>
-</li>
-<li><p>檔案群組<br><img src="/2019/07/11/MSSqlDBStructrue/2.png" alt="Architecture"><br>• 建立TABLE –&gt;指定檔案群組 1</p>
-<ul>
-<li>SQL Server會依照各檔案大小，依比例將資料表的資料平均寫入各資料檔中</li>
-<li>此TABLE的資料會分散在不同磁碟(假設次要資料檔分別位於不同磁碟)，提高效能</li>
-</ul>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2164,7 +2193,7 @@ GROUP BY GroupItem
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">86</span>
+                  <span class="site-state-item-count">87</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
@@ -2186,7 +2215,7 @@ GROUP BY GroupItem
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">43</span>
                   <span class="site-state-item-name">標籤</span>
                 </a>
               </div>
