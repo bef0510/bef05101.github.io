@@ -252,6 +252,460 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/10/DesignPatternWithMemento/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/10/DesignPatternWithMemento/" itemprop="url">行為型模式 - 備忘錄模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-06-10T12:19:59+08:00">
+                2019-06-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Design-Pattern/" itemprop="url" rel="index">
+                    <span itemprop="name">Design Pattern</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="備忘錄模式"><a href="#備忘錄模式" class="headerlink" title="備忘錄模式"></a>備忘錄模式</h1><p>在不破壞封裝的前提下，捕獲一個物件的內部狀態，並在該物件之外儲存這個狀態，這樣以後就可以把該物件恢復到原先的狀態<br><img src="/2019/06/10/DesignPatternWithMemento/1.png" alt="Architecture"></p>
+<h4 id="建立一個-類別-Unit"><a href="#建立一個-類別-Unit" class="headerlink" title="建立一個 類別 Unit"></a>建立一個 類別 <code>Unit</code></h4><pre><code>public class Unit
+{
+    public string ID { get; set; }
+    public string Name { get; set; }
+}
+</code></pre><h4 id="建立一個-類別-OriginalObject"><a href="#建立一個-類別-OriginalObject" class="headerlink" title="建立一個 類別 OriginalObject"></a>建立一個 類別 <code>OriginalObject</code></h4><pre><code>public class OriginalObject
+{
+    public List&lt;Unit&gt; Units { get; set; }
+
+    public OriginalObject(List&lt;Unit&gt; units)
+    {
+        this.Units = units;
+    }
+
+    public void SetMemento(Memento memento)
+    {
+        this.Units = memento.Units;
+    }
+
+    public Memento CreateMemento()
+    {
+        return new Memento(new List&lt;Unit&gt;(this.Units));
+    }
+
+    public void ShowUnits()
+    {
+        Console.WriteLine($&quot;================Total：{Units.Count}=============================&quot;);
+        foreach (Unit unit in Units)
+        {
+            Console.WriteLine($&quot;部門代號：{unit.ID}，部門名稱：{unit.Name}&quot;);
+        }
+    }
+}
+</code></pre><h4 id="建立一個-類別-Memento"><a href="#建立一個-類別-Memento" class="headerlink" title="建立一個 類別 Memento"></a>建立一個 類別 <code>Memento</code></h4><pre><code>public class Memento
+{
+    public List&lt;Unit&gt; Units;
+
+    public Memento(List&lt;Unit&gt; units)
+    {
+        this.Units = units;
+    }
+}
+</code></pre><h4 id="建立一個-類別-CareTaker"><a href="#建立一個-類別-CareTaker" class="headerlink" title="建立一個 類別 CareTaker"></a>建立一個 類別 <code>CareTaker</code></h4><pre><code>public class CareTaker
+{
+    public Memento Memento { get; set; }
+}
+</code></pre><h4 id="引用方式"><a href="#引用方式" class="headerlink" title="引用方式"></a>引用方式</h4><pre><code>class Program
+{
+    static void Main(string[] args)
+    {
+        List&lt;Unit&gt; Units = new List&lt;Unit&gt;()
+        {
+            new Unit() {ID=&quot;HR&quot;,Name = &quot;人事&quot; },
+            new Unit() {ID=&quot;RD&quot;,Name = &quot;研發&quot; },
+            new Unit() {ID=&quot;Sales&quot;,Name = &quot;銷售&quot; }
+        };
+        OriginalObject original = new OriginalObject(Units);
+
+        Memento firstMemento = original.CreateMemento();
+        CareTaker caretaker = new CareTaker();
+        caretaker.Memento = firstMemento;
+        original.ShowUnits();
+
+        original.Units.RemoveAt(1);
+        original.ShowUnits();
+
+        original.SetMemento(caretaker.Memento);
+        original.ShowUnits();
+
+        Console.ReadKey();
+    }
+}
+</code></pre><h4 id="適用場景"><a href="#適用場景" class="headerlink" title="適用場景"></a>適用場景</h4><ol>
+<li>如果系統需要提供回滾操作時，使用備忘錄模式非常合適。例如文本編輯器的Ctrl + Z鍵撤銷操作的實現，數據庫中事務操作</li>
+</ol>
+<h4 id="優點"><a href="#優點" class="headerlink" title="優點"></a>優點</h4><ol>
+<li>如果某個操作錯誤地破壞了數據的完整性，此時可以使用備忘錄模式將數據恢復成原來正確的數據</li>
+</ol>
+<h4 id="缺點"><a href="#缺點" class="headerlink" title="缺點"></a>缺點</h4><ol>
+<li>在實際的系統中，可能需要維護多個備份，需要額外的資源，這樣對資源的消耗比較嚴重</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://en.wikipedia.org/wiki/Memento_pattern" target="_blank" rel="noopener">Memento pattern</a><br><a href="https://www.cnblogs.com/zhili/p/MementoPattern.html" target="_blank" rel="noopener">C#设计模式(23)——备忘录模式（Memento Pattern）</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/10/DesignPatternWithMediator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/10/DesignPatternWithMediator/" itemprop="url">行為型模式 - 中介者模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-06-10T11:23:27+08:00">
+                2019-06-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Design-Pattern/" itemprop="url" rel="index">
+                    <span itemprop="name">Design Pattern</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="中介者模式"><a href="#中介者模式" class="headerlink" title="中介者模式"></a>中介者模式</h1><p>用一个中介对象来封装一系列的对象交互<br><img src="/2019/06/10/DesignPatternWithMediator/1.png" alt="Architecture"></p>
+<h4 id="建立-抽象類別"><a href="#建立-抽象類別" class="headerlink" title="建立 抽象類別"></a>建立 抽象類別</h4><pre><code>public abstract class Colleague
+{
+    protected Mediator mediator;
+    public Colleague(Mediator mediator)
+    {
+        this.mediator = mediator;
+    }
+
+    public abstract void Send(string message);
+    public abstract void Receive(string message);
+}
+
+public abstract class Mediator
+{
+    public abstract void SendMessage(Colleague sender, string message);
+}
+</code></pre><h4 id="建立-類別-繼承-Colleague"><a href="#建立-類別-繼承-Colleague" class="headerlink" title="建立 類別 繼承 Colleague"></a>建立 類別 繼承 <code>Colleague</code></h4><pre><code>public class ConcreteColleague1 : Colleague
+{
+    public ConcreteColleague1(Mediator mediator) : base(mediator) { }
+
+    public override void Send(string message) =&gt; this.mediator.SendMessage(this, message);
+
+    public override void Receive(string message) =&gt; Console.WriteLine($&quot;Colleague1 gets message: {message}&quot;);
+}
+
+public class ConcreteColleague2 : Colleague
+{
+    public ConcreteColleague2(Mediator mediator) : base(mediator) { }
+
+    public override void Send(string message) =&gt; this.mediator.SendMessage(this, message);
+
+    public override void Receive(string message) =&gt; Console.WriteLine($&quot;Colleague2 gets message: {message}&quot;);
+}
+</code></pre><h4 id="建立-類別-繼承-Mediator"><a href="#建立-類別-繼承-Mediator" class="headerlink" title="建立 類別 繼承 Mediator"></a>建立 類別 繼承 <code>Mediator</code></h4><pre><code>public class ConcreteMediator : Mediator
+{
+    private ConcreteColleague1 colleague1;
+    private ConcreteColleague2 colleague2;
+    public ConcreteColleague1 Colleague1
+    {
+        set { this.colleague1 = value; }
+    }
+
+    public ConcreteColleague2 Colleague2
+    {
+        set { this.colleague2 = value; }
+    }
+
+    public override void SendMessage(Colleague sender, string message)
+    {
+        if (sender == this.colleague1)
+        {
+            this.colleague1.Receive(message);
+        }
+        else if (sender == this.colleague2)
+        {
+            this.colleague2.Receive(message);
+        }
+    }
+}
+</code></pre><h4 id="引用方式"><a href="#引用方式" class="headerlink" title="引用方式"></a>引用方式</h4><pre><code>class Program
+{
+    static void Main(string[] args)
+    {
+        ConcreteMediator mediator = new ConcreteMediator();
+
+        ConcreteColleague1 colleague1 = new ConcreteColleague1(mediator);
+        ConcreteColleague2 colleague2 = new ConcreteColleague2(mediator);
+
+        mediator.Colleague1 = colleague1;
+        mediator.Colleague2 = colleague2;
+
+        colleague1.Send(&quot;Do the first half&quot;);
+        colleague2.Send(&quot;Do the second half&quot;);
+
+        Console.ReadKey();
+    }
+}
+</code></pre><h4 id="適用場景"><a href="#適用場景" class="headerlink" title="適用場景"></a>適用場景</h4><ol>
+<li>一組對象定義良好但是使用複雜的通信方式。產生的相互依賴關係結構混亂且難以理解</li>
+<li>想定制一個分佈在多個類中的行為，而又不想生成太多的子類</li>
+</ol>
+<h4 id="優點"><a href="#優點" class="headerlink" title="優點"></a>優點</h4><ol>
+<li>提供系統的靈活性，使得各個同事對象獨立而易於复用</li>
+</ol>
+<h4 id="缺點"><a href="#缺點" class="headerlink" title="缺點"></a>缺點</h4><ol>
+<li>如果同事對象之間的交互非常多，而且比較複雜，當這些複雜性全都集中到中介者的時候，會導致中介者對象變的十分複雜，而且難於維護和管理</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://zh.wikipedia.org/wiki/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F" target="_blank" rel="noopener">維基百科-中介者模式</a><br><a href="https://www.cnblogs.com/gaochundong/p/design_pattern_mediator.html" target="_blank" rel="noopener">Mediator（中介者）</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/06/DesignPatternWithIterator/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2166,340 +2620,11 @@ public class AirConditioning
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/30/InstallHTTPRedirection/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/30/InstallHTTPRedirection/" itemprop="url">Windows Server 2016 HTTP 重新導向</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-05-30T15:42:20+08:00">
-                2019-05-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MIS/" itemprop="url" rel="index">
-                    <span itemprop="name">MIS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="啟用-HTTP-Redirection"><a href="#啟用-HTTP-Redirection" class="headerlink" title="啟用 HTTP Redirection"></a>啟用 HTTP Redirection</h1><h3 id="HTTP-Redirection-安裝"><a href="#HTTP-Redirection-安裝" class="headerlink" title="HTTP Redirection 安裝"></a>HTTP Redirection 安裝</h3><ol>
-<li><p><strong>Server Manager</strong> → <strong>Add roles and features</strong><br><img src="/2019/05/30/InstallHTTPRedirection/1.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/05/30/InstallHTTPRedirection/2.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/05/30/InstallHTTPRedirection/3.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/05/30/InstallHTTPRedirection/4.png" alt="Architecture"></p>
-</li>
-<li><p>勾選 <strong>HTTP Redirection</strong><br><img src="/2019/05/30/InstallHTTPRedirection/5.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/05/30/InstallHTTPRedirection/6.png" alt="Architecture"></p>
-</li>
-<li><p>勾選 <strong>Restart the destination server automatically if required</strong><br><img src="/2019/05/30/InstallHTTPRedirection/7.png" alt="Architecture"></p>
-</li>
-<li><p>完成<br><img src="/2019/05/30/InstallHTTPRedirection/8.png" alt="Architecture"></p>
-</li>
-</ol>
-<h3 id="IIS-設定"><a href="#IIS-設定" class="headerlink" title="IIS 設定"></a>IIS 設定</h3><ol>
-<li><p><strong>Server Manager</strong> → <strong>Tools</strong> → 點擊 <strong>Internet Information Services (IIS) Manager</strong><br><img src="/2019/05/30/InstallHTTPRedirection/9.png" alt="Architecture"></p>
-</li>
-<li><p>選取 <strong>Sites</strong> → <strong>IIS</strong> → <strong>HTTP Redirect</strong><br><img src="/2019/05/30/InstallHTTPRedirection/10.png" alt="Architecture"></p>
-</li>
-<li><p>勾選 <strong>Redirect requests to this destination</strong><br>輸入網址<br>勾選 <strong>Redirect all requests to exact destination (instead of relative to destination)</strong><br>選取 <strong>Status code</strong><br><img src="/2019/05/30/InstallHTTPRedirection/11.png" alt="Architecture"></p>
-</li>
-</ol>
-<h3 id="Web-config-設定"><a href="#Web-config-設定" class="headerlink" title="Web.config 設定"></a>Web.config 設定</h3><p><img src="/2019/05/30/InstallHTTPRedirection/12.png" alt="Architecture"></p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="http://codeplanet.me/archives/2014/10/http-redirection-on-iis/" target="_blank" rel="noopener">IIS 7.5, 8 - 設定 HTTP 重新導向</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/30/OpenFirewallSpecificPort/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/30/OpenFirewallSpecificPort/" itemprop="url">Windows Server 2016 FireWall Port 開啟</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-05-30T11:03:46+08:00">
-                2019-05-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MIS/" itemprop="url" rel="index">
-                    <span itemprop="name">MIS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="FireWall-Port-開啟"><a href="#FireWall-Port-開啟" class="headerlink" title="FireWall Port 開啟"></a>FireWall Port 開啟</h1><ol>
-<li><p>開啟 <strong>Control Panel</strong> → <strong>Small icons</strong> → <strong>Windows Firewall</strong><br><img src="/2019/05/30/OpenFirewallSpecificPort/1.png" alt="Architecture"></p>
-</li>
-<li><p>點選 <strong>Advanced settings</strong><br><img src="/2019/05/30/OpenFirewallSpecificPort/2.png" alt="Architecture"></p>
-</li>
-<li><p>點選 <strong>Inbound Rules</strong> → <strong>New Rule…</strong><br><img src="/2019/05/30/OpenFirewallSpecificPort/3.png" alt="Architecture"></p>
-</li>
-<li><p>選取 <strong>Port</strong><br><img src="/2019/05/30/OpenFirewallSpecificPort/4.png" alt="Architecture"></p>
-</li>
-<li><p>輸入 <code>Port No</code><br><img src="/2019/05/30/OpenFirewallSpecificPort/5.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/05/30/OpenFirewallSpecificPort/6.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/05/30/OpenFirewallSpecificPort/7.png" alt="Architecture"></p>
-</li>
-<li><p>輸入 <code>Name</code><br><img src="/2019/05/30/OpenFirewallSpecificPort/8.png" alt="Architecture"></p>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://wiki.mcneel.com/zh-tw/zoo/window7firewall" target="_blank" rel="noopener">從Windows防火牆開啟TCP Port 80</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2547,7 +2672,7 @@ public class AirConditioning
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-count">91</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
