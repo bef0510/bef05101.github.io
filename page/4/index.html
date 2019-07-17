@@ -252,6 +252,201 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/05/PythonSetAndDictionary/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/05/PythonSetAndDictionary/" itemprop="url">Python Set 及 Dictionary</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-05T10:54:29+08:00">
+                2019-07-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Set-集合的運算"><a href="#Set-集合的運算" class="headerlink" title="Set 集合的運算"></a>Set 集合的運算</h1><h4 id="判斷是否在列表內-in"><a href="#判斷是否在列表內-in" class="headerlink" title="判斷是否在列表內 (in)"></a>判斷是否在列表內 (in)</h4><pre><code>s1 = {3, 4, 5}
+print(3 in s1)
+
+s1 = {3, 4, 5}
+print(10 in s1)
+</code></pre><h4 id="判斷是否在列表內-not-in"><a href="#判斷是否在列表內-not-in" class="headerlink" title="判斷是否在列表內 (not in)"></a>判斷是否在列表內 (not in)</h4><pre><code>s1 = {3, 4, 5}
+print(10 not in s1)
+</code></pre><h4 id="交集"><a href="#交集" class="headerlink" title="交集"></a>交集</h4><pre><code>s1 = {3, 4, 5}
+s2 = {4, 5, 6, 7}
+s3 = s1 &amp; s2
+print(s3)
+</code></pre><h4 id="聯集"><a href="#聯集" class="headerlink" title="聯集"></a>聯集</h4><pre><code>s1 = {3, 4, 5}
+s2 = {4, 5, 6, 7}
+s3 = s1 | s2
+print(s3)
+</code></pre><h4 id="差集"><a href="#差集" class="headerlink" title="差集"></a>差集</h4><pre><code>s1 = {3, 4, 5}
+s2 = {4, 5, 6, 7}
+s3 = s1 - s2
+print(s3)
+</code></pre><h4 id="反交集"><a href="#反交集" class="headerlink" title="反交集"></a>反交集</h4><pre><code>s1 = {3, 4, 5}
+s2 = {4, 5, 6, 7}
+s3 = s1 ^ s2
+print(s3)
+</code></pre><h4 id="使用-set-函式轉換成集合資料"><a href="#使用-set-函式轉換成集合資料" class="headerlink" title="使用 set 函式轉換成集合資料"></a>使用 set 函式轉換成集合資料</h4><pre><code>s = set(&quot;Hello&quot;)
+print(s)
+</code></pre><h4 id="使用-set-函式-加判斷"><a href="#使用-set-函式-加判斷" class="headerlink" title="使用 set 函式 加判斷"></a>使用 set 函式 加判斷</h4><pre><code>s = set(&quot;Hello&quot;)
+print(&quot;H&quot; in s)
+
+s = set(&quot;Hello&quot;)
+print(&quot;A&quot; in s)
+
+s = set(&quot;Hello&quot;)
+print(&quot;A&quot; not in s)
+</code></pre><h1 id="字典的運算"><a href="#字典的運算" class="headerlink" title="字典的運算"></a>字典的運算</h1><h4 id="基本運用"><a href="#基本運用" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code>dic = {&quot;name&quot;:&quot;姓名&quot;, &quot;age&quot;:&quot;年齡&quot;}
+print(dic)
+</code></pre><h4 id="修改資料"><a href="#修改資料" class="headerlink" title="修改資料"></a>修改資料</h4><pre><code>dic = {&quot;name&quot;:&quot;姓名&quot;, &quot;age&quot;:&quot;年齡&quot;}
+dic[&quot;name&quot;] = &quot;暱稱&quot;
+print(dic[&quot;name&quot;])
+</code></pre><h4 id="判斷-key-是否存在"><a href="#判斷-key-是否存在" class="headerlink" title="判斷 key 是否存在"></a>判斷 key 是否存在</h4><pre><code>dic = {&quot;name&quot;:&quot;姓名&quot;, &quot;age&quot;:&quot;年齡&quot;}
+print(&quot;name&quot; in dic)
+
+dic = {&quot;name&quot;:&quot;姓名&quot;, &quot;age&quot;:&quot;年齡&quot;}
+print(&quot;nickName&quot; in dic)
+
+dic = {&quot;name&quot;:&quot;姓名&quot;, &quot;age&quot;:&quot;年齡&quot;}
+print(&quot;nickName&quot; not in dic)
+</code></pre><h4 id="刪除字典中的鍵值對"><a href="#刪除字典中的鍵值對" class="headerlink" title="刪除字典中的鍵值對"></a>刪除字典中的鍵值對</h4><pre><code>dic = {&quot;name&quot;:&quot;姓名&quot;, &quot;age&quot;:&quot;年齡&quot;}
+print(dic)
+del dic[&quot;name&quot;]
+print(dic)
+</code></pre><h4 id="以列表的資料當基礎產生字典"><a href="#以列表的資料當基礎產生字典" class="headerlink" title="以列表的資料當基礎產生字典"></a>以列表的資料當基礎產生字典</h4><pre><code># dic = {x:x*2 for x in 列表}
+dic = {x:x*2 for x in [3, 4, 5]}
+print(dic)
+</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=L3-KuGYhw78" target="_blank" rel="noopener">Python 集合、字典的基本運算 - Set、Dictionary By 彭彭</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/05/PythonListAndTuple/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1745,352 +1940,6 @@ False
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/21/AspNetGeneric/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/21/AspNetGeneric/" itemprop="url">C# 泛型</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-06-21T11:26:41+08:00">
-                2019-06-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ASP-Net/" itemprop="url" rel="index">
-                    <span itemprop="name">ASP.Net</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h1><h4 id="泛型類別"><a href="#泛型類別" class="headerlink" title="泛型類別"></a>泛型類別</h4><pre><code>public class Generic&lt;T&gt;
-{
-    public T Name;
-    public T NickName;
-}
-
-class Program
-{
-    static void Main(string[] args)
-    {
-        Generic&lt;string&gt; generic = new Generic&lt;string&gt;();
-        generic.Name = &quot;Patrick&quot;;
-        generic.NickName = &quot;Pat&quot;;
-
-        Console.WriteLine($&quot;Name：{generic.Name}&quot;);
-        Console.WriteLine($&quot;NickName：{generic.NickName}&quot;);
-
-        Console.ReadKey();
-    }
-}
-</code></pre><h4 id="泛型方法-使用型別參數宣告的方法"><a href="#泛型方法-使用型別參數宣告的方法" class="headerlink" title="泛型方法 使用型別參數宣告的方法"></a>泛型方法 使用型別參數宣告的方法</h4><pre><code>public class Generic
-{
-    public void Dump&lt;T&gt;(T s)
-    {
-        Console.WriteLine(s.ToString());
-    }
-}
-
-class Program
-{
-    static void Main(string[] args)
-    {
-        Generic generic = new Generic();
-
-        generic.Dump(&quot;Patrick&quot;);
-
-        Console.ReadKey();
-    }
-}
-</code></pre><h4 id="泛型方法-條件約束"><a href="#泛型方法-條件約束" class="headerlink" title="泛型方法 + 條件約束"></a>泛型方法 + 條件約束</h4><pre><code>public class Generic
-{
-    public T Max&lt;T&gt;(T param1, T param2) where T : IComparable&lt;T&gt;
-    {
-        T result = param2;
-
-        if (param1.CompareTo(param2) &gt; 0)
-        {
-            result = param1;
-        }
-
-        return result;
-    }
-}
-
-class Program
-{
-    static void Main(string[] args)
-    {
-        Generic generic = new Generic();
-
-        int resultInt = generic.Max&lt;int&gt;(10, 12);
-
-        // 推論型別 省略 &lt;float&gt;
-        float resultFloat = generic.Max(3.6F, 3.5F);
-
-        // 推論型別 使用 var
-        var resultObject = generic.Max(&quot;Gen&quot;, &quot;Eric&quot;);
-
-        Console.WriteLine(resultInt);
-        Console.WriteLine(resultFloat);
-        Console.WriteLine(resultObject);
-
-        Console.ReadKey();
-    }
-}
-</code></pre><h4 id="泛型方法-條件約束-擴充方法"><a href="#泛型方法-條件約束-擴充方法" class="headerlink" title="泛型方法 + 條件約束 + 擴充方法"></a>泛型方法 + 條件約束 + 擴充方法</h4><pre><code>public class Student
-{
-    public string Name { get; set; }
-    public int Age { get; set; }
-    public DateTime Time { get; set; }
-}
-
-public static class StringExtension
-{
-    public static void Dump&lt;T&gt;(this T s) =&gt; Console.WriteLine(s.ToString());
-
-    public static void Dump&lt;T&gt;(this T s, string formate)
-    {
-        if (s.GetType() == typeof(DateTime))
-        {
-            DateTimeOffset.Parse(s.ToString()).DateTime.ToString(formate).Dump();
-        }
-    }
-
-    public static void ObjectDump&lt;T&gt;(this T obj) where T : class, new()
-    {
-        Type type = obj.GetType();
-        PropertyInfo[] props = type.GetProperties();
-        foreach(var prop in props)
-        {
-            if(prop.GetIndexParameters().Length == 0)
-            {
-                $&quot;({prop.PropertyType.Name}) {prop.Name}：{prop.GetValue(obj)}&quot;.Dump();
-            }
-            else
-            {
-                $&quot;({prop.PropertyType.Name}) {prop.Name}：&lt;Indexed&gt;&quot;.Dump();
-            }
-        }
-    }
-}
-
-class Program
-{
-    static void Main(string[] args)
-    {
-        string name = &quot;Patrick&quot;;
-        int age = 26;
-        DateTime time = DateTime.Now;
-        Student student = new Student() { Name = name, Age = age, Time = time };
-
-        name.Dump();
-        age.Dump();
-        time.Dump(&quot;yyyy-MM-dd HH:mm:ss&quot;);
-        student.ObjectDump();
-
-        Console.ReadKey();
-    }
-}
-</code></pre><h4 id="泛型委派"><a href="#泛型委派" class="headerlink" title="泛型委派"></a>泛型委派</h4><pre><code>class Program
-{
-    public delegate T Payment&lt;T, T1, T2&gt;(T1 momey1, T2 momey2);
-
-    static string Bill(int momey1, int momey2)
-    {
-        string result = &quot;超商繳款&quot;;
-
-        int total = momey1 + momey2;
-
-        if (total &gt; 30000)
-        {
-            result = &quot;銀行繳款&quot;;
-        }
-        return result;
-    }
-
-    static bool Bill(float momey1, float momey2)
-    {
-        return (momey1 + momey2) &gt; 30000;
-    }
-
-    static void Main(string[] args)
-    {
-        Payment&lt;string, int, int&gt; paymentType = new Payment&lt;string, int, int&gt;(Bill);
-        string resultString = paymentType(10000, 16000);
-
-        Payment&lt;bool, float, float&gt; isByBank = new Payment&lt;bool, float, float&gt;(Bill);
-        bool resultBool = isByBank(16000.0F, 20000.0F);
-
-        Console.WriteLine(resultString);
-        Console.WriteLine(resultBool);
-
-        Console.ReadKey();
-    }
-}
-</code></pre><h4 id="泛型委派-泛型類別"><a href="#泛型委派-泛型類別" class="headerlink" title="泛型委派 + 泛型類別"></a>泛型委派 + 泛型類別</h4><pre><code>class Stack&lt;T&gt;
-{
-    T[] items;
-    int index;
-
-    public delegate void StackDelegate(T[] items, int index = -1);
-}
-
-class Program
-{
-    public static void DoWork(float[] items, int index)
-    {
-        if (index &gt;= 0)
-        {
-            if(index &gt;= items.Length)
-            {
-                index = items.Length - 1;
-            }
-            Console.WriteLine(items[index]);
-        }
-        else
-        {
-            foreach (float item in items)
-            {
-                Console.WriteLine(item);
-            }
-        }
-    }
-
-    static void Main(string[] args)
-    {
-        float[] items = new float[] { 4.5F, 4.8F };
-        Stack&lt;float&gt; s = new Stack&lt;float&gt;();
-        Stack&lt;float&gt;.StackDelegate d = DoWork;
-        d(items);
-
-        Console.ReadKey();
-    }
-}
-</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://docs.microsoft.com/zh-tw/dotnet/csharp/programming-guide/generics/" target="_blank" rel="noopener">泛型 (C# 程式設計手冊)</a><br><a href="https://docs.microsoft.com/zh-tw/dotnet/csharp/programming-guide/generics/constraints-on-type-parameters" target="_blank" rel="noopener">型別參數的條件約束 (C# 程式設計手冊)</a><br><a href="https://docs.microsoft.com/zh-tw/dotnet/api/system.reflection.propertyinfo.getvalue?view=netframework-4.8" target="_blank" rel="noopener">PropertyInfo.GetValue Method</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2143,7 +1992,7 @@ class Program
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">92</span>
+                  <span class="site-state-item-count">93</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
