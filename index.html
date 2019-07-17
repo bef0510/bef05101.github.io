@@ -252,6 +252,176 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/AngularOuputDecorator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/16/AngularOuputDecorator/" itemprop="url">Angular Input Ouput Decorator</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-16T17:27:19+08:00">
+                2019-07-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Angular/" itemprop="url" rel="index">
+                    <span itemprop="name">Angular</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Input-Decorator"><a href="#Input-Decorator" class="headerlink" title="Input Decorator"></a>Input Decorator</h1><ol>
+<li><p><strong>app.component.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-root'</span>,</span><br><span class="line">  templateUrl: <span class="string">'./app.component.html'</span>,</span><br><span class="line">  styleUrls: [<span class="string">'./app.component.css'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line">  title = <span class="string">"app"</span>;</span><br><span class="line">  public name = <span class="string">"Hello World"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>app.component.html</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div style=<span class="string">"text-align:center"</span>&gt;</span><br><span class="line">  &lt;h1&gt;</span><br><span class="line">    Welcome to &#123;&#123; title &#125;&#125;!</span><br><span class="line">  &lt;/h1&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;app-test [parentData]=<span class="string">"name"</span> [<span class="built_in">alias</span>]=<span class="string">"name"</span>&gt;&lt;/app-test&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>test.component.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component, OnInit, Input &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-test'</span>,</span><br><span class="line">  templateUrl: <span class="string">'./test.component.html'</span>,</span><br><span class="line">  styleUrls: [<span class="string">'./test.component.css'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class TestComponent implements OnInit &#123;</span><br><span class="line"></span><br><span class="line">  @Input() public parentData;</span><br><span class="line">  @Input(<span class="string">'alias'</span>) public name;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="title">constructor</span></span>() &#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">ngOnInit</span></span>() &#123;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>test.component.html</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;h2&gt; &#123;&#123; <span class="string">"Hello "</span> + parentData &#125;&#125; &lt;/h2&gt;</span><br><span class="line">&lt;h2&gt; &#123;&#123; <span class="string">"Hello "</span> + name &#125;&#125; &lt;/h2&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="Ouput-Decorator"><a href="#Ouput-Decorator" class="headerlink" title="Ouput Decorator"></a>Ouput Decorator</h1><ol>
+<li><p><strong>app.component.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-root'</span>,</span><br><span class="line">  templateUrl: <span class="string">'./app.component.html'</span>,</span><br><span class="line">  styleUrls: [<span class="string">'./app.component.css'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line">  title = <span class="string">"app"</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="title">greet</span></span>() &#123;</span><br><span class="line">    alert(<span class="string">"Hello World"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  greetParam(name: string) &#123;</span><br><span class="line">    alert(<span class="string">"Hello "</span> + name);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>app.component.html</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1&gt;Parent Component&lt;/h1&gt;</span><br><span class="line">&lt;app-child (greetEvent)=<span class="string">"greet()"</span>&gt;&lt;/app-child&gt;</span><br><span class="line">&lt;app-child (greetEventParam)=<span class="string">"greetParam(<span class="variable">$event</span>)"</span>&gt;&lt;/app-child&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>child.component.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component, OnInit, Output, EventEmitter &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-child'</span>,</span><br><span class="line">  templateUrl: <span class="string">'./child.component.html'</span>,</span><br><span class="line">  styleUrls: [<span class="string">'./child.component.css'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class ChildComponent implements OnInit &#123;</span><br><span class="line"></span><br><span class="line">  @Output() greetEvent = new EventEmitter();</span><br><span class="line">  @Output() greetEventParam = new EventEmitter();</span><br><span class="line">  name= <span class="string">"Codevolution"</span>;</span><br><span class="line">  <span class="function"><span class="title">constructor</span></span>() &#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">ngOnInit</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">callParentGreet</span></span>() &#123;</span><br><span class="line">    this.greetEvent.emit();</span><br><span class="line">    this.greetEventParam.emit(this.name);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>child.component.html</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;h2&gt;Child Component&lt;/h2&gt;</span><br><span class="line">&lt;button (click)=<span class="string">"callParentGreet()"</span>&gt;Greet&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=QQ4gYIeZQrs&amp;list=PLC3y8-rFHvwgKhaLU8GTyF-5Bb8qT-wzV&amp;index=13" target="_blank" rel="noopener">Angular Component Interaction - 13 - Output Decorator</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/AngularStructuralDirectives/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1952,191 +2122,6 @@ plt.show()
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/11/MSSqlPublishSSIS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/11/MSSqlPublishSSIS/" itemprop="url">MS SQL SSIS 佈署</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-11T15:26:46+08:00">
-                2019-07-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MS-SQL/" itemprop="url" rel="index">
-                    <span itemprop="name">MS SQL</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="SSIS-佈署"><a href="#SSIS-佈署" class="headerlink" title="SSIS 佈署"></a>SSIS 佈署</h1><h4 id="建置部署公用程式"><a href="#建置部署公用程式" class="headerlink" title="建置部署公用程式"></a>建置部署公用程式</h4><ol>
-<li><p>開啟 <strong>SQL Server Business Intelligence Development Studio</strong><br><img src="/2019/07/11/MSSqlPublishSSIS/1.png" alt="Architecture"></p>
-</li>
-<li><p>開啟 <strong>.sln</strong> 檔<br><img src="/2019/07/11/MSSqlPublishSSIS/2.png" alt="Architecture"></p>
-</li>
-<li><p>設定參數<br><img src="/2019/07/11/MSSqlPublishSSIS/3.png" alt="Architecture"></p>
-</li>
-<li><p>建置<br><img src="/2019/07/11/MSSqlPublishSSIS/4.png" alt="Architecture"></p>
-</li>
-<li><p>檢查是否有產生部署公用程式<br><img src="/2019/07/11/MSSqlPublishSSIS/5.png" alt="Architecture"></p>
-</li>
-</ol>
-<h2 id="建立封裝組態"><a href="#建立封裝組態" class="headerlink" title="建立封裝組態"></a>建立封裝組態</h2><h4 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h4><p>若佈署到 <strong>SQL Server</strong> 上，要多設定一個「封裝組態」，否則會因為帳號密碼權限的問題，不能執行封裝</p>
-<h4 id="Source-DB-新增欄位，重新部署"><a href="#Source-DB-新增欄位，重新部署" class="headerlink" title="Source DB 新增欄位，重新部署"></a>Source DB 新增欄位，重新部署</h4><ol>
-<li><p>先將原始檔案複製一份，留存</p>
-</li>
-<li><p>開啟 <strong>.sln</strong> 檔<br><img src="/2019/07/11/MSSqlPublishSSIS/6.png" alt="Architecture"></p>
-</li>
-<li><p>將資料來源 設定帳密<br>&nbsp;&nbsp;&nbsp;&nbsp;目的：開啟 <strong>Source DB</strong>、<strong>Targer DB</strong> 可以看到欄位，並建立關連<br><img src="/2019/07/11/MSSqlPublishSSIS/7.png" alt="Architecture"></p>
-</li>
-<li><p>檢查 <strong>Source DB</strong> 的 <strong>SCHEMA</strong> 是否已建立<br><img src="/2019/07/11/MSSqlPublishSSIS/8.png" alt="Architecture"></p>
-</li>
-<li><p>新增 <strong>Target DB SCHEMA</strong><br><img src="/2019/07/11/MSSqlPublishSSIS/9.png" alt="Architecture"></p>
-</li>
-<li><p>建立 <strong>Source DB &amp; Target DB</strong> 對應<br><img src="/2019/07/11/MSSqlPublishSSIS/10.png" alt="Architecture"></p>
-</li>
-<li><p>依照 <code>Z:\經營總表\10-BI\系統文件\BI 平台系統文件-SSIS封裝佈署.doc</code> 步驟，重新部署<br> 7.1 啟用封裝組態<br> <img src="/2019/07/11/MSSqlPublishSSIS/11.png" alt="Architecture"></p>
-<p> 7.2 切換至「屬性」，於 <strong>ProtectionLevel</strong> 下拉選單，選取 <strong>DontSaveSensitive</strong><br> <img src="/2019/07/11/MSSqlPublishSSIS/12.jpg" alt="Architecture"></p>
-<p> 7.3 CUBE封裝以外的其他三個封裝皆完成以上動作後，請切換回「方案總管」，並於資料庫上按右鍵，選取「建置」<br> <img src="/2019/07/11/MSSqlPublishSSIS/13.jpg" alt="Architecture"></p>
-<p> 7.4 佈署封裝檔：</p>
-<pre><code>封裝建置完成後，請開啟檔案總管，至 `D:\BI\SSIS\禮儀資料轉檔\bin\Deployment` 目錄下，點選檔案「禮儀資料轉檔 **.SSISDeploymentManifest** 」
-</code></pre><p> <img src="/2019/07/11/MSSqlPublishSSIS/14.jpg" alt="Architecture"></p>
-<p> 7.5 點選後會開啟以下的封裝安裝精靈，請按下一步<br> <img src="/2019/07/11/MSSqlPublishSSIS/15.jpg" alt="Architecture"></p>
-<p> 7.6 封裝安裝位置請選「SQL Server佈署」，請按下一步<br> <img src="/2019/07/11/MSSqlPublishSSIS/16.jpg" alt="Architecture"></p>
-<p> 7.7 伺服器名稱預設為 ( <strong>local</strong> ) 無需修改，帳密資訊輸入後，封裝路徑請按右方「<strong>…</strong>」按鈕，再點選「<strong>SSIS</strong>封裝」目錄，即根目錄，按確定後回到主畫面按下一步<br> <img src="/2019/07/11/MSSqlPublishSSIS/17.jpg" alt="Architecture"></p>
-<p> 7.8 安裝資料夾依預設值即可，無需修改，請持續按下一步至設定封裝畫面<br> <img src="/2019/07/11/MSSqlPublishSSIS/18.jpg" alt="Architecture"></p>
-<p> 7.9 設定封裝畫面，可看到有三個組態檔，每個組態檔都要點進去，並點開下方的 <strong>Property</strong> 以輸入密碼，三個組態檔皆完成後，請按下一步進行佈署<br> <img src="/2019/07/11/MSSqlPublishSSIS/19.jpg" alt="Architecture"></p>
-<p> 7.10 出現以下畫面即代表封裝已佈署完成，請按完成按鈕<br> <img src="/2019/07/11/MSSqlPublishSSIS/20.jpg" alt="Architecture"></p>
-</li>
-<li><p>回復原始設定，才能直接用 <strong>SSIS</strong> 介面執行工作<br> 8.1 再將啟用封裝組態 勾勾 拿掉<br> <img src="/2019/07/11/MSSqlPublishSSIS/21.png" alt="Architecture"></p>
-<p> 8.2 「屬性」，於 <strong>ProtectionLevel</strong> 下拉選單，選取「<strong>EncrptSensitiveWithUserKey</strong>」<br> <img src="/2019/07/11/MSSqlPublishSSIS/22.png" alt="Architecture"></p>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://docs.microsoft.com/zh-tw/sql/integration-services/lesson-2-1-building-the-deployment-utility?view=sql-server-2017" target="_blank" rel="noopener">建置部署公用程式</a><br><a href="http://tsengpm.blogspot.com/2011/09/ssis-sql-server.html" target="_blank" rel="noopener">建立封裝組態</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2189,7 +2174,7 @@ plt.show()
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">91</span>
+                  <span class="site-state-item-count">92</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
@@ -2211,7 +2196,7 @@ plt.show()
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">標籤</span>
                 </a>
               </div>
