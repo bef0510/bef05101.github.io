@@ -252,6 +252,171 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/17/AngularService/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/17/AngularService/" itemprop="url">Angular Service</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-17T17:19:00+08:00">
+                2019-07-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Angular/" itemprop="url" rel="index">
+                    <span itemprop="name">Angular</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h1><ol>
+<li><strong>Share data</strong></li>
+<li><strong>Implement application logic</strong></li>
+<li><strong>External Interaction</strong><br><img src="/2019/07/17/AngularService/1.png" alt="Architecture"></li>
+<li><strong>Create a new service command</strong><br> <code>ng generate service user</code><br> <code>ng generate service user --spec false</code><br> <code>ng g s user --spec false</code></li>
+</ol>
+<h4 id="Service-1"><a href="#Service-1" class="headerlink" title="Service"></a>Service</h4><ol>
+<li><p><strong>app.module.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">import &#123; BrowserModule &#125; from <span class="string">'@angular/platform-browser'</span>;</span><br><span class="line">import &#123; NgModule &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import &#123; FormsModule &#125; from <span class="string">'@angular/forms'</span>;</span><br><span class="line">import &#123; AppRoutingModule &#125; from <span class="string">'./app-routing.module'</span>;</span><br><span class="line">import &#123; AppComponent &#125; from <span class="string">'./app.component'</span>;</span><br><span class="line">import &#123; EmployeeListComponent &#125; from <span class="string">'./employee-list/employee-list.component'</span>;</span><br><span class="line">import &#123; EmployeeDetailComponent &#125; from <span class="string">'./employee-detail/employee-detail.component'</span>;</span><br><span class="line">import &#123; EmployeeService &#125; from <span class="string">'./employee.service'</span>;</span><br><span class="line"></span><br><span class="line">@NgModule(&#123;</span><br><span class="line">  declarations: [</span><br><span class="line">    AppComponent,</span><br><span class="line">    EmployeeListComponent,</span><br><span class="line">    EmployeeDetailComponent</span><br><span class="line">  ],</span><br><span class="line">  imports: [</span><br><span class="line">    BrowserModule,</span><br><span class="line">    AppRoutingModule,</span><br><span class="line">    FormsModule</span><br><span class="line">  ],</span><br><span class="line">  providers: [EmployeeService],</span><br><span class="line">  bootstrap: [AppComponent]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppModule &#123; &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>employee.service.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Injectable &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line">@Injectable(&#123;</span><br><span class="line">  providedIn: <span class="string">'root'</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class EmployeeService &#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">constructor</span></span>() &#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">getEmployees</span></span>() &#123;</span><br><span class="line">    <span class="built_in">return</span> [</span><br><span class="line">      &#123; <span class="string">"id"</span> : 1, <span class="string">"name"</span> : <span class="string">"Andrew"</span>, <span class="string">"age"</span> : 30 &#125;,</span><br><span class="line">      &#123; <span class="string">"id"</span> : 2, <span class="string">"name"</span> : <span class="string">"Brandon"</span>, <span class="string">"age"</span> : 25 &#125;,</span><br><span class="line">      &#123; <span class="string">"id"</span> : 3, <span class="string">"name"</span> : <span class="string">"Christina"</span>, <span class="string">"age"</span> : 26 &#125;,</span><br><span class="line">      &#123; <span class="string">"id"</span> : 4, <span class="string">"name"</span> : <span class="string">"Elena"</span>, <span class="string">"age"</span> : 28 &#125;</span><br><span class="line">    ];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>app.component.html</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;div style=<span class="string">"text-align:center"</span>&gt;</span><br><span class="line">    &lt;h1&gt;</span><br><span class="line">      Welcome to &#123;&#123; title &#125;&#125;!</span><br><span class="line">    &lt;/h1&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;app-employee-list&gt;&lt;/app-employee-list&gt;</span><br><span class="line">&lt;app-employee-detail&gt;&lt;/app-employee-detail&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>employee-list.component.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component, OnInit &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import &#123; EmployeeService &#125; from <span class="string">'../employee.service'</span>;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-employee-list'</span>,</span><br><span class="line">  template: `</span><br><span class="line">    &lt;h2&gt;Employee List&lt;/h2&gt;</span><br><span class="line">    &lt;ul *ngFor=<span class="string">"let employee of employees"</span>&gt;</span><br><span class="line">      &lt;li&gt; &#123;&#123; employee.name &#125;&#125; &lt;/li&gt;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line">  `,</span><br><span class="line">  styleUrls: []</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class EmployeeListComponent implements OnInit &#123;</span><br><span class="line"></span><br><span class="line">  public employees = [];</span><br><span class="line"></span><br><span class="line">  constructor(private employeeService: EmployeeService) &#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">ngOnInit</span></span>() &#123;</span><br><span class="line">    this.employees = this.employeeService.getEmployees();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>employee-detail.component.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component, OnInit &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import &#123; EmployeeService &#125; from <span class="string">'../employee.service'</span>;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-employee-detail'</span>,</span><br><span class="line">  template: `</span><br><span class="line">    &lt;h2&gt;Employee Detail&lt;/h2&gt;</span><br><span class="line">    &lt;ul *ngFor=<span class="string">"let employee of employees"</span>&gt;</span><br><span class="line">      &lt;li&gt; &#123;&#123; employee.id &#125;&#125;. &#123;&#123; employee.name &#125;&#125; - &#123;&#123; employee.age &#125;&#125; &lt;/li&gt;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line">  `,</span><br><span class="line">  styleUrls: []</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class EmployeeDetailComponent implements OnInit &#123;</span><br><span class="line"></span><br><span class="line">  public employees = [];</span><br><span class="line"></span><br><span class="line">  constructor(private employeeService: EmployeeService) &#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">ngOnInit</span></span>() &#123;</span><br><span class="line">    this.employees = this.employeeService.getEmployees();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=69VeYoKzL6I&amp;list=PLC3y8-rFHvwhBRAgFinJR8KHIrCdTkZcZ&amp;index=19" target="_blank" rel="noopener">Angular 8 Tutorial - 19 - Using a Service</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/17/AngularPipe/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -346,17 +511,17 @@
         
           
             <h1 id="Pipe"><a href="#Pipe" class="headerlink" title="Pipe"></a>Pipe</h1><ol>
-<li>UpperCasePipe</li>
-<li>LowerCasePipe</li>
-<li>TitleCasePipe</li>
-<li>SlicePipe</li>
-<li>JsonPipe</li>
-<li>DecimalPipe</li>
-<li>PercentPipe</li>
-<li>CurrencyPipe</li>
-<li>DatePipe</li>
-<li>AsyncPipe</li>
-<li>Customer</li>
+<li><strong>UpperCasePipe</strong></li>
+<li><strong>LowerCasePipe</strong></li>
+<li><strong>TitleCasePipe</strong></li>
+<li><strong>SlicePipe</strong></li>
+<li><strong>JsonPipe</strong></li>
+<li><strong>DecimalPipe</strong></li>
+<li><strong>PercentPipe</strong></li>
+<li><strong>CurrencyPipe</strong></li>
+<li><strong>DatePipe</strong></li>
+<li><strong>AsyncPipe</strong></li>
+<li><strong>Customer</strong></li>
 </ol>
 <h4 id="UpperCasePipe"><a href="#UpperCasePipe" class="headerlink" title="UpperCasePipe"></a>UpperCasePipe</h4><ol>
 <li><p><strong>test.component.ts</strong></p>
@@ -580,7 +745,8 @@
       
         
           
-            <h1 id="Input-Decorator"><a href="#Input-Decorator" class="headerlink" title="Input Decorator"></a>Input Decorator</h1><ol>
+            <h1 id="Input-Ouput-Decorator"><a href="#Input-Ouput-Decorator" class="headerlink" title="Input Ouput Decorator"></a>Input Ouput Decorator</h1><p><img src="/2019/07/16/AngularOuputDecorator/1.png" alt="Architecture"></p>
+<h4 id="Input-Decorator"><a href="#Input-Decorator" class="headerlink" title="Input Decorator"></a>Input Decorator</h4><ol>
 <li><p><strong>app.component.ts</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-root'</span>,</span><br><span class="line">  templateUrl: <span class="string">'./app.component.html'</span>,</span><br><span class="line">  styleUrls: [<span class="string">'./app.component.css'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line">  title = <span class="string">"app"</span>;</span><br><span class="line">  public name = <span class="string">"Hello World"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
@@ -594,7 +760,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;h2&gt; &#123;&#123; <span class="string">"Hello "</span> + parentData &#125;&#125; &lt;/h2&gt;</span><br><span class="line">&lt;h2&gt; &#123;&#123; <span class="string">"Hello "</span> + name &#125;&#125; &lt;/h2&gt;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<h1 id="Ouput-Decorator"><a href="#Ouput-Decorator" class="headerlink" title="Ouput Decorator"></a>Ouput Decorator</h1><ol>
+<h4 id="Ouput-Decorator"><a href="#Ouput-Decorator" class="headerlink" title="Ouput Decorator"></a>Ouput Decorator</h4><ol>
 <li><p><strong>app.component.ts</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-root'</span>,</span><br><span class="line">  templateUrl: <span class="string">'./app.component.html'</span>,</span><br><span class="line">  styleUrls: [<span class="string">'./app.component.css'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line">  title = <span class="string">"app"</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="title">greet</span></span>() &#123;</span><br><span class="line">    alert(<span class="string">"Hello World"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  greetParam(name: string) &#123;</span><br><span class="line">    alert(<span class="string">"Hello "</span> + name);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
@@ -1943,217 +2109,6 @@ show(p)
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/12/PythonSeaborn/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/12/PythonSeaborn/" itemprop="url">Python 靜態資料視覺化 Seaborn 模組</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-12T16:56:16+08:00">
-                2019-07-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="靜態資料視覺化-Seaborn-模組"><a href="#靜態資料視覺化-Seaborn-模組" class="headerlink" title="靜態資料視覺化 Seaborn 模組"></a>靜態資料視覺化 Seaborn 模組</h1><ol>
-<li><p>安裝模組 <strong>pip install seaborn</strong><br><img src="/2019/07/12/PythonSeaborn/1.png" alt="Architecture"></p>
-</li>
-<li><p>以 <strong>matplotlib</strong> 為基礎建構的高階繪圖套件</p>
-</li>
-<li><p>圖形<br> 直方圖（Histogram）<br> 散佈圖（Scatter plot）<br> 線圖（Line plot）<br> 長條圖（Bar plot）<br> 盒鬚圖（Box plot）</p>
-</li>
-</ol>
-<h4 id="直方圖（Histogram）"><a href="#直方圖（Histogram）" class="headerlink" title="直方圖（Histogram）"></a>直方圖（Histogram）</h4><pre><code>import seaborn as sns
-import numpy as np
-import matplotlib.pyplot as plt
-
-normal_samples = np.random.normal(size = 100000) # 生成 100000 組標準常態分配（平均值為 0，標準差為 1 的常態分配）隨機變數
-sns.distplot(normal_samples)
-
-plt.show()
-</code></pre><p><img src="/2019/07/12/PythonSeaborn/2.png" alt="Architecture"></p>
-<h4 id="散佈圖（Scatter-plot）"><a href="#散佈圖（Scatter-plot）" class="headerlink" title="散佈圖（Scatter plot）"></a>散佈圖（Scatter plot）</h4><pre><code>import seaborn as sns
-import pandas as pd
-import matplotlib.pyplot as plt
-
-speed = [4, 4, 7, 7, 8, 9, 10, 10, 10, 11, 11, 12, 12, 12, 12, 13, 13, 13, 13, 14, 14, 14, 14, 15, 15, 15, 16, 16, 17, 17, 17, 18, 18, 18, 18, 19, 19, 19, 20, 20, 20, 20, 20, 22, 23, 24, 24, 24, 24, 25]
-dist = [2, 10, 4, 22, 16, 10, 18, 26, 34, 17, 28, 14, 20, 24, 28, 26, 34, 34, 46, 26, 36, 60, 80, 20, 26, 54, 32, 40, 32, 40, 50, 42, 56, 76, 84, 36, 46, 68, 32, 48, 52, 56, 64, 66, 54, 70, 92, 93, 120, 85]
-
-cars_df = pd.DataFrame({
-            &quot;speed&quot;: speed,
-            &quot;dist&quot;: dist
-        })
-
-sns.jointplot(x = &quot;speed&quot;, y = &quot;dist&quot;, data = cars_df)
-
-plt.show()
-</code></pre><p><img src="/2019/07/12/PythonSeaborn/3.png" alt="Architecture"></p>
-<h4 id="線圖（Line-plot）"><a href="#線圖（Line-plot）" class="headerlink" title="線圖（Line plot）"></a>線圖（Line plot）</h4><pre><code>import seaborn as sns
-import pandas as pd
-import matplotlib.pyplot as plt
-
-speed = [4, 4, 7, 7, 8, 9, 10, 10, 10, 11, 11, 12, 12, 12, 12, 13, 13, 13, 13, 14, 14, 14, 14, 15, 15, 15, 16, 16, 17, 17, 17, 18, 18, 18, 18, 19, 19, 19, 20, 20, 20, 20, 20, 22, 23, 24, 24, 24, 24, 25]
-dist = [2, 10, 4, 22, 16, 10, 18, 26, 34, 17, 28, 14, 20, 24, 28, 26, 34, 34, 46, 26, 36, 60, 80, 20, 26, 54, 32, 40, 32, 40, 50, 42, 56, 76, 84, 36, 46, 68, 32, 48, 52, 56, 64, 66, 54, 70, 92, 93, 120, 85]
-
-cars_df = pd.DataFrame({
-                &quot;speed&quot;: speed,
-                &quot;dist&quot;: dist
-            })
-
-sns.factorplot(data = cars_df, x=&quot;speed&quot;, y=&quot;dist&quot;, ci = None)
-
-plt.show()
-</code></pre><p><img src="/2019/07/12/PythonSeaborn/4.png" alt="Architecture"></p>
-<h4 id="長條圖（Bar-plot）"><a href="#長條圖（Bar-plot）" class="headerlink" title="長條圖（Bar plot）"></a>長條圖（Bar plot）</h4><pre><code>import seaborn as sns
-import pandas as pd
-import matplotlib.pyplot as plt
-
-cyl = [6 ,6 ,4 ,6 ,8 ,6 ,8 ,4 ,4 ,6 ,6 ,8 ,8 ,8 ,8 ,8 ,8 ,4 ,4 ,4 ,4 ,8 ,8 ,8 ,8 ,4 ,4 ,4 ,8 ,6 ,8 ,4]
-cyl_df = pd.DataFrame({&quot;cyl&quot;: cyl})
-
-sns.countplot(x = &quot;cyl&quot;, data=cyl_df)
-
-plt.show()
-</code></pre><p><img src="/2019/07/12/PythonSeaborn/5.png" alt="Architecture"></p>
-<h4 id="盒鬚圖（Box-plot）"><a href="#盒鬚圖（Box-plot）" class="headerlink" title="盒鬚圖（Box plot）"></a>盒鬚圖（Box plot）</h4><pre><code>import seaborn as sns
-import numpy as np
-import matplotlib.pyplot as plt
-
-normal_samples = np.random.normal(size = 100000) # 生成 100000 組標準常態分配（平均值為 0，標準差為 1 的常態分配）隨機變數
-sns.boxplot(normal_samples)
-
-plt.show()
-</code></pre><p><img src="/2019/07/12/PythonSeaborn/6.png" alt="Architecture"></p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://ithelp.ithome.com.tw/articles/10186624" target="_blank" rel="noopener">[第 19 天] 資料視覺化（2）Seaborn</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2206,7 +2161,7 @@ plt.show()
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-count">94</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
