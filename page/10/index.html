@@ -252,6 +252,198 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/29/AspNetSessionStateUsingRedis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/29/AspNetSessionStateUsingRedis/" itemprop="url">Session 使用 Redis</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-04-29T15:12:56+08:00">
+                2019-04-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ASP-Net/" itemprop="url" rel="index">
+                    <span itemprop="name">ASP.Net</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="安裝-Redis"><a href="#安裝-Redis" class="headerlink" title="安裝 Redis"></a>安裝 Redis</h1><h3 id="下載"><a href="#下載" class="headerlink" title="下載"></a>下載</h3><p><a href="https://github.com/MicrosoftArchive/redis/releases/download/win-3.0.504/Redis-x64-3.0.504.msi" target="_blank" rel="noopener">Redis</a><br><a href="https://sourceforge.net/projects/redis-desktop-manager.mirror/files/0.8.8/redis-desktop-manager-0.8.8.384.exe/download" target="_blank" rel="noopener">Redis Desktop Manager</a></p>
+<h3 id="安裝"><a href="#安裝" class="headerlink" title="安裝"></a>安裝</h3><p>預設使用 <code>6379</code> <strong>port</strong>，勾選加入防火牆例外清單<br><img src="/2019/04/29/AspNetSessionStateUsingRedis/1.png" alt="DefaultPort"></p>
+<h3 id="設定使用記憶體上限"><a href="#設定使用記憶體上限" class="headerlink" title="設定使用記憶體上限"></a>設定使用記憶體上限</h3><p>依實際最大值設定，而不是平均值，官方建議要設，防止 <strong>out of max memory</strong><br><img src="/2019/04/29/AspNetSessionStateUsingRedis/2.png" alt="MaxMemory"></p>
+<h1 id="安裝套件"><a href="#安裝套件" class="headerlink" title="安裝套件"></a>安裝套件</h1><h3 id="NuGet-GUI"><a href="#NuGet-GUI" class="headerlink" title="NuGet GUI"></a>NuGet GUI</h3><p>使用 <strong>NuGet</strong> 下載 <code>Microsoft.Web.RedisSessionStateProvider</code><br><strong>Web.Config</strong> 自動產生下列資訊</p>
+<pre><code>  &lt;sessionState mode=&quot;Custom&quot; customProvider=&quot;MySessionStateStore&quot;&gt;
+  &lt;providers&gt;
+    &lt;!-- For more details check https://github.com/Azure/aspnet-redis-providers/wiki --&gt;
+    &lt;!-- Either use &apos;connectionString&apos; OR &apos;settingsClassName&apos; and &apos;settingsMethodName&apos; OR use &apos;host&apos;,&apos;port&apos;,&apos;accessKey&apos;,&apos;ssl&apos;,&apos;connectionTimeoutInMilliseconds&apos; and &apos;operationTimeoutInMilliseconds&apos;. --&gt;
+    &lt;!-- &apos;throwOnError&apos;,&apos;retryTimeoutInMilliseconds&apos;,&apos;databaseId&apos; and &apos;applicationName&apos; can be used with both options. --&gt;
+    &lt;!--
+      &lt;add name=&quot;MySessionStateStore&quot; 
+        host = &quot;127.0.0.1&quot; [String]
+        port = &quot;&quot; [number]
+        accessKey = &quot;&quot; [String]
+        ssl = &quot;false&quot; [true|false]
+        throwOnError = &quot;true&quot; [true|false]
+        retryTimeoutInMilliseconds = &quot;5000&quot; [number]
+        databaseId = &quot;0&quot; [number]
+        applicationName = &quot;&quot; [String]
+        connectionTimeoutInMilliseconds = &quot;5000&quot; [number]
+        operationTimeoutInMilliseconds = &quot;1000&quot; [number]
+        connectionString = &quot;&lt;Valid StackExchange.Redis connection string&gt;&quot; [String]
+        settingsClassName = &quot;&lt;Assembly qualified class name that contains settings method specified below. Which basically return &apos;connectionString&apos; value&gt;&quot; [String]
+        settingsMethodName = &quot;&lt;Settings method should be defined in settingsClass. It should be public, static, does not take any parameters and should have a return type of &apos;String&apos;, which is basically &apos;connectionString&apos; value.&gt;&quot; [String]
+        loggingClassName = &quot;&lt;Assembly qualified class name that contains logging method specified below&gt;&quot; [String]
+        loggingMethodName = &quot;&lt;Logging method should be defined in loggingClass. It should be public, static, does not take any parameters and should have a return type of System.IO.TextWriter.&gt;&quot; [String]
+        redisSerializerType = &quot;&lt;Assembly qualified class name that implements Microsoft.Web.Redis.ISerializer&gt;&quot; [String]
+      /&gt;
+    --&gt;
+    &lt;add name=&quot;MySessionStateStore&quot; type=&quot;Microsoft.Web.Redis.RedisSessionStateProvider&quot; host=&quot;&quot; accessKey=&quot;&quot; ssl=&quot;true&quot; /&gt;
+  &lt;/providers&gt;
+&lt;/sessionState&gt;
+</code></pre><h3 id="啟用-redis-server"><a href="#啟用-redis-server" class="headerlink" title="啟用 redis-server"></a>啟用 redis-server</h3><p>點擊 <code>C:\Program Files\Redis\redis-server.exe</code> 啟用<br><img src="/2019/04/29/AspNetSessionStateUsingRedis/3.png" alt="RedisServer"></p>
+<p>出現 <strong>No connection is available</strong> 錯誤<br><img src="/2019/04/29/AspNetSessionStateUsingRedis/4.png" alt="ConnectionError"><br>修改 <strong>ssl=”<font color="red">false</font>“</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;add name=<span class="string">"MySessionStateStore"</span> <span class="built_in">type</span>=<span class="string">"Microsoft.Web.Redis.RedisSessionStateProvider"</span> host=<span class="string">""</span> accessKey=<span class="string">""</span> ssl=<span class="string">"false"</span> /&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Command-驗證-Session"><a href="#Command-驗證-Session" class="headerlink" title="Command 驗證 Session"></a>Command 驗證 Session</h3><ol>
+<li><p>加入 <strong>Session</strong><br><img src="/2019/04/29/AspNetSessionStateUsingRedis/5.png" alt="AddSession"></p>
+</li>
+<li><p>開啟 <strong>redis-cli.exe</strong><br><img src="/2019/04/29/AspNetSessionStateUsingRedis/6.png" alt="OpenRedis-cli"></p>
+</li>
+<li><p>查看所有 <strong>key</strong><br>輸入 <strong>keys *</strong><br><img src="/2019/04/29/AspNetSessionStateUsingRedis/7.png" alt="ListKeys"></p>
+</li>
+<li><p>查看特定 <strong>key</strong> 內容<br>輸入 <strong>hgetall key</strong><br><img src="/2019/04/29/AspNetSessionStateUsingRedis/8.png" alt="SpecificKey"></p>
+</li>
+</ol>
+<h3 id="Redis-Desktop-Manager-驗證-Session"><a href="#Redis-Desktop-Manager-驗證-Session" class="headerlink" title="Redis Desktop Manager 驗證 Session"></a>Redis Desktop Manager 驗證 Session</h3><ol>
+<li><p>開啟 <strong>Redis Desktop Manager 工具</strong><br><img src="/2019/04/29/AspNetSessionStateUsingRedis/9.png" alt="InputInformation"></p>
+</li>
+<li><p>查看 <strong>Session</strong> 資訊<br><img src="/2019/04/29/AspNetSessionStateUsingRedis/10.png" alt="OpenInformation"></p>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://docs.microsoft.com/zh-tw/azure/azure-cache-for-redis/cache-aspnet-session-state-provider" target="_blank" rel="noopener">適用於 Azure Cache for Redis 的 ASP.NET 工作階段狀態提供者</a><br><a href="https://blog.yowko.com/redis-aspnet-mvc-session-state-server/" target="_blank" rel="noopener">使用 Redis 當做 ASP.NET MVC 的 Session State Server</a><br><a href="https://dotblogs.com.tw/zackmyself/2017/04/27/005621" target="_blank" rel="noopener">Windows 安裝 Redis</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/29/AspNetSessionStateUsingSqlServer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1320,7 +1512,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">96</span>
+                  <span class="site-state-item-count">97</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>

@@ -252,6 +252,194 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/19/AngularTemplateDrivenFormValidation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/19/AngularTemplateDrivenFormValidation/" itemprop="url">Angular Template Driven Form Validation</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-19T09:17:09+08:00">
+                2019-07-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Angular/" itemprop="url" rel="index">
+                    <span itemprop="name">Angular</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Template-Driven-Form-Validation"><a href="#Template-Driven-Form-Validation" class="headerlink" title="Template Driven Form Validation"></a>Template Driven Form Validation</h1><ol>
+<li><strong><a href="/2019/07/18/AngularBuildExpressServer/">Create Express Server</a></strong></li>
+<li><strong>index.html import bootstrap</strong></li>
+<li><strong>app.modules.ts import FormsModule</strong></li>
+<li><strong>app.modules.ts import HttpClientModule</strong></li>
+</ol>
+<h4 id="Form-Validate-and-submit"><a href="#Form-Validate-and-submit" class="headerlink" title="Form Validate and submit"></a>Form Validate and submit</h4><ol>
+<li><strong>form</strong> 標籤下的 <strong>novalidate</strong> 屬性，是為了要防止瀏覽器自己執行 <strong>native</strong> 的驗證<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;form <span class="comment">#userForm="ngForm" (ngSubmit)="onSubmit(userForm)" novalidate&gt;</span></span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="Text-Validate"><a href="#Text-Validate" class="headerlink" title="Text Validate"></a>Text Validate</h4><ol>
+<li><strong>Html</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;input <span class="built_in">type</span>=<span class="string">"text"</span> required <span class="comment">#name="ngModel" [class.is-invalid]="name.invalid &amp;&amp; name.touched" class="form-control" name="userName" [(ngModel)]="userModel.name" /&gt;</span></span><br><span class="line">&lt;!--Error Messages--&gt;</span><br><span class="line">&lt;small class=<span class="string">"text-danger"</span> [class.d-none]=<span class="string">"name.valid || name.untouched"</span>&gt; Name is required &lt;/small&gt;</span><br><span class="line"></span><br><span class="line">&lt;input <span class="built_in">type</span>=<span class="string">"tel"</span> required <span class="comment">#phone="ngModel" pattern="^\d&#123;10&#125;$" [class.is-invalid]="phone.invalid &amp;&amp; phone.touched" class="form-control" name="phone" [(ngModel)]="userModel.phone" /&gt;</span></span><br><span class="line">&lt;!--Error Messages--&gt;</span><br><span class="line">&lt;!--&lt;small class=<span class="string">"text-danger"</span> [class.d-none]=<span class="string">"phone.valid || phone.untouched"</span>&gt; Phone number is required and must be 10 digits &lt;/small&gt;--&gt;</span><br><span class="line">&lt;div *ngIf=<span class="string">"phone.errors &amp;&amp; (phone.invalid || phone.touched)"</span>&gt;</span><br><span class="line">    &lt;small class=<span class="string">"text-danger"</span> *ngIf=<span class="string">"phone.errors.required"</span>&gt; Phone number is required &lt;/small&gt;</span><br><span class="line">    &lt;small class=<span class="string">"text-danger"</span> *ngIf=<span class="string">"phone.errors.pattern"</span>&gt; Phone number must be 10 digits &lt;/small&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="Select-Option-Validate"><a href="#Select-Option-Validate" class="headerlink" title="Select Option Validate"></a>Select Option Validate</h4><ol>
+<li><p><strong>Html</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;select (blur)=<span class="string">"validateTopic(topic.value)"</span> (change)=<span class="string">"validateTopic(topic.value)"</span> required <span class="comment">#topic="ngModel" [class.is-invalid]="topicHasError &amp;&amp; topic.touched" class="custom-select" name="topic" [(ngModel)]="userModel.topic"&gt;</span></span><br><span class="line">    &lt;option value=<span class="string">"default"</span>&gt;I am interested <span class="keyword">in</span>&lt;/option&gt;</span><br><span class="line">    &lt;option *ngFor=<span class="string">"let topic of topics"</span>&gt; &#123;&#123; topic &#125;&#125; &lt;/option&gt;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line">&lt;!--Error Messages--&gt;</span><br><span class="line">&lt;small class=<span class="string">"text-danger"</span> [class.d-none]=<span class="string">"!topicHasError || topic.untouched"</span>&gt; Please choose a topic &lt;/small&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line">  topics = [<span class="string">"Angular"</span>, <span class="string">"React"</span>, <span class="string">"Vue"</span>];</span><br><span class="line">  topicHasError = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">  validateTopic(value) &#123;</span><br><span class="line">    this.topicHasError = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (value === <span class="string">"default"</span>) &#123;</span><br><span class="line">      this.topicHasError = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="Button-Submit"><a href="#Button-Submit" class="headerlink" title="Button Submit"></a>Button Submit</h4><ol>
+<li><strong>Html</strong><br><strong>Need to be combined with the above verification</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;button [disabled]=<span class="string">"userForm.form.invalid || topicHasError"</span> class=<span class="string">"btn btn-primary"</span> <span class="built_in">type</span>=<span class="string">"submit"</span>&gt; Submit form &lt;/button&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="All-Html"><a href="#All-Html" class="headerlink" title="All Html"></a>All Html</h1><ol>
+<li><p><strong>index.html</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;!doctype html&gt;</span><br><span class="line">&lt;html lang=<span class="string">"en"</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset=<span class="string">"utf-8"</span>&gt;</span><br><span class="line">  &lt;title&gt;TemplateDrivenform&lt;/title&gt;</span><br><span class="line">  &lt;base href=<span class="string">"/"</span>&gt;</span><br><span class="line"></span><br><span class="line">  &lt;meta name=<span class="string">"viewport"</span> content=<span class="string">"width=device-width, initial-scale=1"</span>&gt;</span><br><span class="line">  &lt;link rel=<span class="string">"icon"</span> <span class="built_in">type</span>=<span class="string">"image/x-icon"</span> href=<span class="string">"favicon.ico"</span>&gt;</span><br><span class="line">  &lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"</span> integrity=<span class="string">"sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"</span> crossorigin=<span class="string">"anonymous"</span>&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;app-root&gt;&lt;/app-root&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>app.module.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">import &#123; BrowserModule &#125; from <span class="string">'@angular/platform-browser'</span>;</span><br><span class="line">import &#123; NgModule &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import &#123; FormsModule &#125; from <span class="string">'@angular/forms'</span>;</span><br><span class="line">import &#123; HttpClientModule &#125; from <span class="string">'@angular/common/http'</span>;</span><br><span class="line">import &#123; AppRoutingModule &#125; from <span class="string">'./app-routing.module'</span>;</span><br><span class="line">import &#123; AppComponent &#125; from <span class="string">'./app.component'</span>;</span><br><span class="line"></span><br><span class="line">@NgModule(&#123;</span><br><span class="line">  declarations: [</span><br><span class="line">    AppComponent</span><br><span class="line">  ],</span><br><span class="line">  imports: [</span><br><span class="line">    BrowserModule,</span><br><span class="line">    AppRoutingModule,</span><br><span class="line">    FormsModule,</span><br><span class="line">    HttpClientModule</span><br><span class="line">  ],</span><br><span class="line">  providers: [],</span><br><span class="line">  bootstrap: [AppComponent]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppModule &#123; &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>user.ts</strong><br><strong>Create model</strong><br><code>ng g class user --spec false</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> class User &#123;</span><br><span class="line">    constructor (</span><br><span class="line">        public name: string,</span><br><span class="line">        public email: string,</span><br><span class="line">        public phone: number,</span><br><span class="line">        public topic: string,</span><br><span class="line">        public timePreference: string,</span><br><span class="line">        public subscribe: boolean</span><br><span class="line">    ) &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>enrollment.service.ts</strong><br><strong>Create service</strong><br><code>ng g s enrollment --spec false</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Injectable &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import &#123; HttpClient, HttpErrorResponse &#125; from <span class="string">'@angular/common/http'</span>;</span><br><span class="line">import &#123; User &#125; from <span class="string">'./user'</span>;</span><br><span class="line">import &#123; catchError &#125; from <span class="string">'rxjs/operators'</span>;</span><br><span class="line">import &#123; throwError &#125; from <span class="string">'rxjs'</span>;</span><br><span class="line"></span><br><span class="line">@Injectable(&#123;</span><br><span class="line">  providedIn: <span class="string">'root'</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class EnrollmentService &#123;</span><br><span class="line"></span><br><span class="line">  url = <span class="string">"http://localhost:3000/enroll"</span>;</span><br><span class="line"></span><br><span class="line">  constructor(private http: HttpClient) &#123; &#125;</span><br><span class="line"></span><br><span class="line">  enroll(user: User) &#123;</span><br><span class="line">    <span class="built_in">return</span> this.http.post&lt;any&gt;(this.url, user)</span><br><span class="line">            .pipe(catchError(this.errorHandler));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  errorHandler(error: HttpErrorResponse) &#123;</span><br><span class="line">    <span class="built_in">return</span> throwError(error);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>app.component.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import &#123; User &#125; from <span class="string">'./user'</span>;</span><br><span class="line">import &#123; EnrollmentService &#125; from <span class="string">'./enrollment.service'</span>;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-root'</span>,</span><br><span class="line">  templateUrl: <span class="string">'./app.component.html'</span>,</span><br><span class="line">  styleUrls: [<span class="string">'./app.component.css'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line">  topics = [<span class="string">"Angular"</span>, <span class="string">"React"</span>, <span class="string">"Vue"</span>];</span><br><span class="line">  topicHasError = <span class="literal">true</span>;</span><br><span class="line">  submitted = <span class="literal">false</span>;</span><br><span class="line">  errorMsg = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">  userModel = new User(<span class="string">""</span>, <span class="string">"rob@test.com"</span>, 5556665566, <span class="string">"default"</span>, <span class="string">"morning"</span>, <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">  constructor(private enrollmentService: EnrollmentService) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  validateTopic(value) &#123;</span><br><span class="line">    this.topicHasError = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (value === <span class="string">"default"</span>) &#123;</span><br><span class="line">      this.topicHasError = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  onSubmit(userForm) &#123;</span><br><span class="line">    console.log(userForm)</span><br><span class="line">    this.submitted = <span class="literal">true</span>;</span><br><span class="line">    this.enrollmentService.enroll(this.userModel)</span><br><span class="line">      .subscribe(</span><br><span class="line">        data =&gt; console.log(<span class="string">"Success!"</span>, data),</span><br><span class="line">        error =&gt; this.errorMsg = error.statusText</span><br><span class="line">      );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>app.component.html</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">"container-fluid"</span>&gt;</span><br><span class="line">  &lt;h1&gt; Bootcamp Enrollment Form &lt;/h1&gt;</span><br><span class="line">  &lt;div class=<span class="string">"alert alert-danger"</span> *ngIf=<span class="string">"errorMsg"</span>&gt;</span><br><span class="line">    &#123;&#123; errorMsg &#125;&#125;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">  </span><br><span class="line">  &lt;form <span class="comment">#userForm="ngForm" *ngIf="!submitted" (ngSubmit)="onSubmit(userForm)" novalidate&gt;</span></span><br><span class="line">  </span><br><span class="line">    &lt;div class=<span class="string">"form-group"</span>&gt;</span><br><span class="line">      &lt;label&gt; Name &lt;/label&gt;</span><br><span class="line">      &lt;input <span class="built_in">type</span>=<span class="string">"text"</span> required <span class="comment">#name="ngModel"</span></span><br><span class="line">        [class.is-invalid]=<span class="string">"name.invalid &amp;&amp; name.touched"</span> class=<span class="string">"form-control"</span> </span><br><span class="line">        name=<span class="string">"userName"</span> [(ngModel)]=<span class="string">"userModel.name"</span> /&gt;</span><br><span class="line">      &lt;!--Error Messages--&gt;</span><br><span class="line">      &lt;small class=<span class="string">"text-danger"</span> [class.d-none]=<span class="string">"name.valid || name.untouched"</span>&gt; Name is required &lt;/small&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">   </span><br><span class="line">    &lt;div class=<span class="string">"form-group"</span>&gt;</span><br><span class="line">      &lt;label&gt; Email &lt;/label&gt;</span><br><span class="line">      &lt;input <span class="built_in">type</span>=<span class="string">"email"</span> class=<span class="string">"form-control"</span> name=<span class="string">"email"</span> [(ngModel)]=<span class="string">"userModel.email"</span> /&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;div class=<span class="string">"form-group"</span>&gt;</span><br><span class="line">      &lt;label&gt; Phone &lt;/label&gt;</span><br><span class="line">      &lt;input <span class="built_in">type</span>=<span class="string">"tel"</span> required <span class="comment">#phone="ngModel" pattern="^\d&#123;10&#125;$"</span></span><br><span class="line">        [class.is-invalid]=<span class="string">"phone.invalid &amp;&amp; phone.touched"</span> class=<span class="string">"form-control"</span> name=<span class="string">"phone"</span> [(ngModel)]=<span class="string">"userModel.phone"</span> /&gt;</span><br><span class="line">      &lt;!--Error Messages--&gt;</span><br><span class="line">      &lt;!--&lt;small class=<span class="string">"text-danger"</span> [class.d-none]=<span class="string">"phone.valid || phone.untouched"</span>&gt; Phone number is required and must be 10 digits &lt;/small&gt;--&gt;</span><br><span class="line">      &lt;div *ngIf=<span class="string">"phone.errors &amp;&amp; (phone.invalid || phone.touched)"</span>&gt;</span><br><span class="line">        &lt;small class=<span class="string">"text-danger"</span> *ngIf=<span class="string">"phone.errors.required"</span>&gt; Phone number is required &lt;/small&gt;</span><br><span class="line">        &lt;small class=<span class="string">"text-danger"</span> *ngIf=<span class="string">"phone.errors.pattern"</span>&gt; Phone number must be 10 digits &lt;/small&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;div class=<span class="string">"form-group"</span>&gt;</span><br><span class="line">      &lt;select (blur)=<span class="string">"validateTopic(topic.value)"</span> (change)=<span class="string">"validateTopic(topic.value)"</span> required <span class="comment">#topic="ngModel" </span></span><br><span class="line">        [class.is-invalid]=<span class="string">"topicHasError &amp;&amp; topic.touched"</span> class=<span class="string">"custom-select"</span> name=<span class="string">"topic"</span> [(ngModel)]=<span class="string">"userModel.topic"</span>&gt;</span><br><span class="line">        &lt;option value=<span class="string">"default"</span>&gt;I am interested <span class="keyword">in</span>&lt;/option&gt;</span><br><span class="line">        &lt;option *ngFor=<span class="string">"let topic of topics"</span>&gt; &#123;&#123; topic &#125;&#125; &lt;/option&gt;</span><br><span class="line">      &lt;/select&gt;</span><br><span class="line">      &lt;!--Error Messages--&gt;</span><br><span class="line">      &lt;small class=<span class="string">"text-danger"</span> [class.d-none]=<span class="string">"!topicHasError || topic.untouched"</span>&gt; Please choose a topic &lt;/small&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;div class=<span class="string">"mb-3"</span>&gt;</span><br><span class="line">      &lt;label&gt; Time preference &lt;/label&gt;</span><br><span class="line">      &lt;div class=<span class="string">"form-check"</span>&gt;</span><br><span class="line">        &lt;input <span class="built_in">type</span>=<span class="string">"radio"</span> class=<span class="string">"form-check-input"</span> name=<span class="string">"timePreference"</span> value=<span class="string">"morning"</span> [(ngModel)]=<span class="string">"userModel.timePreference"</span>&gt;</span><br><span class="line">        &lt;label class=<span class="string">"form-check-label"</span>&gt; Morning (9AM - 12PM) &lt;/label&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">      &lt;div class=<span class="string">"form-check"</span>&gt;</span><br><span class="line">        &lt;input <span class="built_in">type</span>=<span class="string">"radio"</span> class=<span class="string">"form-check-input"</span> name=<span class="string">"timePreference"</span> value=<span class="string">"evening"</span> [(ngModel)]=<span class="string">"userModel.timePreference"</span>&gt;</span><br><span class="line">        &lt;label class=<span class="string">"form-check-label"</span>&gt; Evening (5PM - 8PM) &lt;/label&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;div class=<span class="string">"mb-3"</span>&gt;</span><br><span class="line">      &lt;div class=<span class="string">"form-check"</span>&gt;</span><br><span class="line">        &lt;input <span class="built_in">type</span>=<span class="string">"checkbox"</span> class=<span class="string">"form-check-input"</span> name=<span class="string">"subscribe"</span> [(ngModel)]=<span class="string">"userModel.subscribe"</span>&gt;</span><br><span class="line">        &lt;label class=<span class="string">"form-check-label"</span>&gt; Send me promotional offers &lt;/label&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;button [disabled]=<span class="string">"userForm.form.invalid || topicHasError"</span> class=<span class="string">"btn btn-primary"</span> <span class="built_in">type</span>=<span class="string">"submit"</span>&gt; Submit form &lt;/button&gt;</span><br><span class="line">    </span><br><span class="line">  &lt;/form&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=_sJHvvgfE9o&amp;list=PLC3y8-rFHvwhBRAgFinJR8KHIrCdTkZcZ&amp;index=46" target="_blank" rel="noopener">Angular Forms Tutorial - 14 - Error Handling</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/18/AngularTemplateDrivenForm/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -369,7 +557,7 @@
 </li>
 </ol>
 <h4 id="One-way-binding"><a href="#One-way-binding" class="headerlink" title="One way binding"></a>One way binding</h4><ol>
-<li><p><strong>Create user model</strong><br><code>ng g class user --spec false</code></p>
+<li><p><strong>Create model</strong><br><code>ng g class user --spec false</code></p>
 </li>
 <li><p><strong>app.component.ts</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import &#123; User &#125; from <span class="string">'./user'</span>;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-root'</span>,</span><br><span class="line">  templateUrl: <span class="string">'./app.component.html'</span>,</span><br><span class="line">  styleUrls: [<span class="string">'./app.component.css'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line">  topics = [<span class="string">"Angular"</span>, <span class="string">"React"</span>, <span class="string">"Vue"</span>];</span><br><span class="line"></span><br><span class="line">  userModel = new User(<span class="string">""</span>, <span class="string">"rob@test.com"</span>, 5556665566, <span class="string">"default"</span>, <span class="string">"morning"</span>, <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -1808,238 +1996,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/15/AngularBinding/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/15/AngularBinding/" itemprop="url">Angular Binding</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-15T17:52:53+08:00">
-                2019-07-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Angular/" itemprop="url" rel="index">
-                    <span itemprop="name">Angular</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Binding"><a href="#Binding" class="headerlink" title="Binding"></a>Binding</h1><ol>
-<li><strong>Interpolation</strong></li>
-<li><strong>Property Binding</strong></li>
-<li><strong>Event Binding</strong></li>
-<li><strong>Two-way Binding</strong></li>
-<li><strong>Class Binding</strong></li>
-<li><strong>Style Binding</strong></li>
-<li><strong>Event Binding</strong><br><img src="/2019/07/15/AngularBinding/1.png" alt="Architecture"><br><img src="/2019/07/15/AngularBinding/2.png" alt="Architecture"></li>
-</ol>
-<h2 id="import-FormsModule"><a href="#import-FormsModule" class="headerlink" title="import FormsModule"></a>import FormsModule</h2><p><img src="/2019/07/15/AngularBinding/3.png" alt="Architecture"></p>
-<h4 id="Interpolation"><a href="#Interpolation" class="headerlink" title="Interpolation { { } }"></a>Interpolation { { } }</h4><ol>
-<li><p><strong>app.component.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line">  pageTitle = <span class="string">'helloworld'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>app.component.html</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1&gt;&#123;&#123; pageTitle &#125;&#125;&lt;/h1&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="Property-Binding"><a href="#Property-Binding" class="headerlink" title="Property Binding []"></a>Property Binding []</h2><h4 id="Property-Binding-1"><a href="#Property-Binding-1" class="headerlink" title="Property Binding 1"></a>Property Binding 1</h4><ol>
-<li><p><strong>app.component.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line">  imgUrl = <span class="string">'https://picsum.photos/200'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>app.component.html</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;img [src]=<span class="string">"imgUrl"</span> alt=<span class="string">"Image"</span> /&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="Property-Binding-2"><a href="#Property-Binding-2" class="headerlink" title="Property Binding 2"></a>Property Binding 2</h4><ol>
-<li><p><strong>test.component.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-test'</span>,</span><br><span class="line">  template: `</span><br><span class="line">    &lt;h2&gt;</span><br><span class="line">      Welcome &#123;&#123; name &#125;&#125;</span><br><span class="line">    &lt;/h2&gt;</span><br><span class="line">    &lt;input [id]=<span class="string">"myId"</span> <span class="built_in">type</span>=<span class="string">"text"</span> value=<span class="string">"NickName"</span> /&gt;</span><br><span class="line">    &lt;input id=<span class="string">"&#123;&#123;myId&#125;&#125;"</span> <span class="built_in">type</span>=<span class="string">"text"</span> value=<span class="string">"NickName"</span> /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;input disabled=<span class="string">"false"</span> <span class="built_in">type</span>=<span class="string">"text"</span> value=<span class="string">"NickName"</span> /&gt;</span><br><span class="line">    &lt;input disabled=<span class="string">"&#123;&#123;false&#125;&#125;"</span> <span class="built_in">type</span>=<span class="string">"text"</span> value=<span class="string">"NickName"</span> /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;input [disabled]=<span class="string">"isDisabled"</span> <span class="built_in">type</span>=<span class="string">"text"</span> value=<span class="string">"NickName"</span> /&gt;</span><br><span class="line">    &lt;input <span class="built_in">bind</span>-disabled=<span class="string">"isDisabled"</span> <span class="built_in">type</span>=<span class="string">"text"</span> value=<span class="string">"NickName"</span> /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;button (click)=<span class="string">"onChangeDisabled()"</span>&gt;Click&lt;/button&gt;</span><br><span class="line">  `,</span><br><span class="line">  styleUrls: []</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class TestComponent implements OnInit &#123;</span><br><span class="line"></span><br><span class="line">  public name = <span class="string">"Hello World"</span>;</span><br><span class="line">  public myId = <span class="string">"testId"</span>;</span><br><span class="line">  public isDisabled = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">constructor</span></span>() &#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">ngOnInit</span></span>() &#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">onChangeDisabled</span></span>() &#123;</span><br><span class="line">    this.isDisabled = !this.isDisabled;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>app.component.html</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;app-test&gt;&lt;/app-test&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="Event-Binding"><a href="#Event-Binding" class="headerlink" title="Event Binding ()"></a>Event Binding ()</h4><ol>
-<li><p><strong>app.component.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line">  count = 0;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">incrementCount</span></span>() &#123;</span><br><span class="line">    this.count += 1;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>app.component.html</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;button (click)=<span class="string">"incrementCount()"</span>&gt;Click&lt;/button&gt;</span><br><span class="line">  &lt;p&gt;Clicked &#123;&#123; count &#125;&#125; <span class="built_in">times</span>&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="Two-way-Binding"><a href="#Two-way-Binding" class="headerlink" title="Two-way Binding [()]"></a>Two-way Binding [()]</h2><h4 id="Two-way-Binding-1"><a href="#Two-way-Binding-1" class="headerlink" title="Two-way Binding 1"></a>Two-way Binding 1</h4><ol>
-<li><p><strong>app.component.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line">  userName: string;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>app.component.html</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;input <span class="built_in">type</span>=<span class="string">"text"</span> [ngModel]=<span class="string">"userName"</span> (ngModelChange)=<span class="string">"userName=<span class="variable">$event</span>"</span>&gt;</span><br><span class="line">  &lt;p&gt;Welcome &#123;&#123; userName &#125;&#125;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="Two-way-Binding-2"><a href="#Two-way-Binding-2" class="headerlink" title="Two-way Binding 2"></a>Two-way Binding 2</h4><ol>
-<li><p><strong>app.component.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line">  nickName: string;</span><br><span class="line"></span><br><span class="line">  greetNickName(updatedValue) &#123;</span><br><span class="line">    this.nickName = updatedValue;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(updatedValue == <span class="string">'Nickname'</span>)&#123;</span><br><span class="line">      alert(<span class="string">'Welcome back Nickname'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>app.component.html</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;input <span class="built_in">type</span>=<span class="string">"text"</span> [ngModel]=<span class="string">"nickName"</span> (ngModelChange)=<span class="string">"greetNickName(<span class="variable">$event</span>)"</span>&gt;</span><br><span class="line">  &lt;p&gt;Welcome &#123;&#123; nickName &#125;&#125;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="Two-way-Binding-3"><a href="#Two-way-Binding-3" class="headerlink" title="Two-way Binding 3"></a>Two-way Binding 3</h4><ol>
-<li><p><strong>app.component.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line">  name: string;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>app.component.html</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;input <span class="built_in">type</span>=<span class="string">"text"</span> [(ngModel)]=<span class="string">"name"</span>&gt;</span><br><span class="line">  &lt;p&gt;Welcome &#123;&#123; name &#125;&#125;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="Class-Binding"><a href="#Class-Binding" class="headerlink" title="Class Binding"></a>Class Binding</h4><ol>
-<li><p><strong>test.component.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-test'</span>,</span><br><span class="line">  template: `</span><br><span class="line">    &lt;h2&gt;</span><br><span class="line">      Welcome &#123;&#123; name &#125;&#125;</span><br><span class="line">    &lt;/h2&gt;</span><br><span class="line">    &lt;h2 class=<span class="string">"text-success"</span>&gt;Hello&lt;/h2&gt;</span><br><span class="line">    &lt;h2 [class]=<span class="string">"successClass"</span>&gt;Hello&lt;/h2&gt;</span><br><span class="line"></span><br><span class="line">    &lt;h2 class=<span class="string">"text-special"</span> [class]=<span class="string">"successClass"</span>&gt;Hello&lt;/h2&gt; &lt;!--text-special not work--&gt;</span><br><span class="line"></span><br><span class="line">    &lt;h2 [class.text-danger]=<span class="string">"hasError"</span>&gt;Hello&lt;/h2&gt; &lt;!--single class--&gt;</span><br><span class="line"></span><br><span class="line">    &lt;h2 [ngClass]=<span class="string">"messageClasses"</span>&gt;Hello&lt;/h2&gt; &lt;!--multiple classes--&gt;</span><br><span class="line"></span><br><span class="line">    &lt;button (click)=<span class="string">"onChangeClass()"</span>&gt;Click&lt;/button&gt;</span><br><span class="line">  `,</span><br><span class="line">  styles: [`</span><br><span class="line">    .text-success &#123;</span><br><span class="line">      color: green;</span><br><span class="line">    &#125;</span><br><span class="line">    .text-danger &#123;</span><br><span class="line">      color: red;</span><br><span class="line">    &#125;</span><br><span class="line">    .text-special &#123;</span><br><span class="line">      font-style: italic;</span><br><span class="line">    &#125;</span><br><span class="line">  `]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class TestComponent implements OnInit &#123;</span><br><span class="line"></span><br><span class="line">  public name = <span class="string">"Hello World"</span>;</span><br><span class="line">  public successClass = <span class="string">"text-success"</span></span><br><span class="line">  public hasError = <span class="literal">false</span>;</span><br><span class="line">  public isSpecial = <span class="literal">true</span>;</span><br><span class="line">  public messageClasses = &#123;</span><br><span class="line">    <span class="string">"text-success"</span>: !this.hasError,</span><br><span class="line">    <span class="string">"text-danger"</span>: this.hasError,</span><br><span class="line">    <span class="string">"text-special"</span>: this.isSpecial</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">constructor</span></span>() &#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">ngOnInit</span></span>() &#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">onChangeClass</span></span>() &#123;</span><br><span class="line">    this.hasError = !this.hasError;</span><br><span class="line">    this.messageClasses[<span class="string">"text-danger"</span>] = this.hasError;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>app.component.html</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;app-test&gt;&lt;/app-test&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="Style-Binding"><a href="#Style-Binding" class="headerlink" title="Style Binding"></a>Style Binding</h4><ol>
-<li><p><strong>test.component.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-test'</span>,</span><br><span class="line">  template: `</span><br><span class="line">    &lt;h2&gt;</span><br><span class="line">      Welcome &#123;&#123; name &#125;&#125;</span><br><span class="line">    &lt;/h2&gt;</span><br><span class="line"></span><br><span class="line">    &lt;h2 [style.color]=<span class="string">"'orange'"</span>&gt;Style Binding&lt;/h2&gt;</span><br><span class="line">    &lt;h2 [style.color]=<span class="string">"hasError ? 'red' : 'green'"</span>&gt;Style Binding&lt;/h2&gt;</span><br><span class="line">    &lt;h2 [style.color]=<span class="string">"highlightColor"</span>&gt;Style Binding 2&lt;/h2&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;h2 [ngStyle]=<span class="string">"titleStyles"</span>&gt;Style Binding 3&lt;/h2&gt;</span><br><span class="line"></span><br><span class="line">    &lt;button (click)=<span class="string">"onChangeClass()"</span>&gt;Click&lt;/button&gt;</span><br><span class="line">  `,</span><br><span class="line">  styles: []</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class TestComponent implements OnInit &#123;</span><br><span class="line"></span><br><span class="line">  public name = <span class="string">"Hello World"</span>;</span><br><span class="line">  public hasError = <span class="literal">false</span>;</span><br><span class="line">  public highlightColor = <span class="string">"orange"</span>;</span><br><span class="line">  public titleStyles = &#123;</span><br><span class="line">    color: <span class="string">"blue"</span>,</span><br><span class="line">    fontStyle: <span class="string">"italic"</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">constructor</span></span>() &#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">ngOnInit</span></span>() &#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">onChangeClass</span></span>() &#123;</span><br><span class="line">    this.hasError = !this.hasError;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>app.component.html</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;app-test&gt;&lt;/app-test&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="Event-Binding-1"><a href="#Event-Binding-1" class="headerlink" title="Event Binding"></a>Event Binding</h4><ol>
-<li><p><strong>test.component.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-test'</span>,</span><br><span class="line">  template: `</span><br><span class="line">    &lt;h2&gt;</span><br><span class="line">      Welcome &#123;&#123; name &#125;&#125;</span><br><span class="line">    &lt;/h2&gt;</span><br><span class="line"></span><br><span class="line">    &lt;button (click)=<span class="string">"onClick()"</span>&gt;Click Function&lt;/button&gt;</span><br><span class="line">    &#123;&#123; greeting &#125;&#125;</span><br><span class="line"></span><br><span class="line">    &lt;button (click)=<span class="string">"onClickEvent(<span class="variable">$event</span>)"</span>&gt;Click Event&lt;/button&gt;</span><br><span class="line">    &#123;&#123; greetingEvent &#125;&#125;</span><br><span class="line"></span><br><span class="line">    &lt;button (click)=<span class="string">"greeting = 'Hello'"</span>&gt;Click&lt;/button&gt;</span><br><span class="line">  `,</span><br><span class="line">  styles: []</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class TestComponent implements OnInit &#123;</span><br><span class="line"></span><br><span class="line">  public name = <span class="string">"Hello World"</span>;</span><br><span class="line">  public greeting = <span class="string">""</span>;</span><br><span class="line">  public greetingEvent = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">constructor</span></span>() &#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">ngOnInit</span></span>() &#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">onClick</span></span>() &#123;</span><br><span class="line">    console.log(this.name);</span><br><span class="line">    this.greeting = this.name;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  onClickEvent(event) &#123;</span><br><span class="line">    console.log(event);</span><br><span class="line">    this.greetingEvent = event.type;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>app.component.html</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;app-test&gt;&lt;/app-test&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=rH-xfNvpm_o&amp;list=PLC3y8-rFHvwgKhaLU8GTyF-5Bb8qT-wzV&amp;index=3" target="_blank" rel="noopener">Angular Component Interaction - 3 - Binding</a><br><a href="https://www.youtube.com/watch?v=N8FBmB2jme8&amp;list=PLC3y8-rFHvwhBRAgFinJR8KHIrCdTkZcZ&amp;index=6" target="_blank" rel="noopener">Angular 8 Tutorial - 6 - Property Binding</a><br><a href="https://www.youtube.com/watch?v=Y6OP-lPJxgs&amp;list=PLC3y8-rFHvwhBRAgFinJR8KHIrCdTkZcZ&amp;index=7" target="_blank" rel="noopener">Angular 8 Tutorial - 7 - Class Binding</a><br><a href="https://www.youtube.com/watch?v=q256X6-u9Q8&amp;list=PLC3y8-rFHvwhBRAgFinJR8KHIrCdTkZcZ&amp;index=8" target="_blank" rel="noopener">Angular 8 Tutorial - 8 - Style Binding</a><br><a href="https://www.youtube.com/watch?v=ZfIc1_oj7uM&amp;list=PLC3y8-rFHvwhBRAgFinJR8KHIrCdTkZcZ&amp;index=9" target="_blank" rel="noopener">Angular 8 Tutorial - 9 - Event Binding</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2092,7 +2048,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">96</span>
+                  <span class="site-state-item-count">97</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
