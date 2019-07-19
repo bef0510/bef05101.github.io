@@ -252,6 +252,349 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/30/AngularUseRouter/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/30/AngularUseRouter/" itemprop="url">Router</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-04-30T17:22:21+08:00">
+                2019-04-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Angular/" itemprop="url" rel="index">
+                    <span itemprop="name">Angular</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="使用路由"><a href="#使用路由" class="headerlink" title="使用路由"></a>使用路由</h1><p><code>app.component.html</code> 修改成下列程式</p>
+<pre><code>&lt;div class=&quot;container&quot;&gt;
+    &lt;nav class=&quot;navbar navbar-default&quot;&gt;
+        &lt;ul class=&quot;nav navbar-nav&quot;&gt;
+            &lt;li&gt;
+                &lt;a routerLinkActive=&quot;active&quot; routerLink=&quot;list&quot;&gt;List&lt;/a&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+                &lt;a routerLinkActive=&quot;active&quot; routerLink=&quot;create&quot;&gt;Create&lt;/a&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/nav&gt;
+    &lt;router-outlet&gt;&lt;/router-outlet&gt;
+&lt;/div&gt;
+</code></pre><p>加入三個 <strong>Component</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ng g c list --spec <span class="literal">false</span></span><br><span class="line">$ ng g c create --spec <span class="literal">false</span></span><br><span class="line">$ ng g c not-fond --spec <span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
+<p>加入路由<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ng g m app-routing --flat --module=app</span><br></pre></td></tr></table></figure></p>
+<p><code>app-routing.module.ts</code> 修改成下列程式</p>
+<pre><code>import { NgModule } from &apos;@angular/core&apos;;
+import { Routes, RouterModule } from &apos;@angular/router&apos;;
+import { ListStudentsComponent } from &apos;./student/list-students/list-students.component&apos;;
+import { CreateStudentComponent } from &apos;./student/create-student/create-student.component&apos;;
+import { ErrorPageComponent } from &apos;./error-page/error-page.component&apos;;
+
+const routes: Routes = [
+    { path: &apos;list&apos;, component: ListStudentsComponent },
+    { path: &apos;create&apos;, component: CreateStudentComponent },
+    { path: &apos;&apos;, redirectTo: &apos;/list&apos;, pathMatch: &apos;full&apos; },
+    { path: &apos;not-found&apos;, component: ErrorPageComponent },
+    { path: &apos;**&apos;, redirectTo: &apos;/not-found&apos; }
+];
+
+@NgModule({
+    declarations: [],
+    imports: [ RouterModule.forRoot(routes) ],
+    exports: [RouterModule]
+})
+export class AppRoutingModule { }
+</code></pre><p>啟動 <strong>Server</strong> 確認<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ng s</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/04/30/AngularUseRouter/1.gif" alt="Router"></p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://angular.io/cli/generate" target="_blank" rel="noopener">Angular-generate</a><br><a href="https://angular.io/tutorial/toh-pt5" target="_blank" rel="noopener">Angular-Routing</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/30/AngularCreateProjectAndUseBootstrap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/30/AngularCreateProjectAndUseBootstrap/" itemprop="url">Angular 建置，使用 Bootstrap</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-04-30T15:03:57+08:00">
+                2019-04-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Angular/" itemprop="url" rel="index">
+                    <span itemprop="name">Angular</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="準備環境"><a href="#準備環境" class="headerlink" title="準備環境"></a>準備環境</h1><p><a href="https://nodejs.org/en/" target="_blank" rel="noopener">Node.js</a> 下載並安裝<br><a href="https://code.visualstudio.com/docs/?dv=win" target="_blank" rel="noopener">Visual Studio Code</a> 下載並安裝<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g @angular/cli</span><br></pre></td></tr></table></figure></p>
+<h3 id="建立專案"><a href="#建立專案" class="headerlink" title="建立專案"></a>建立專案</h3><p>用 <strong>VS Code</strong> 開啟檔案，預設 <strong>Port</strong> <code>http://localhost:4200/</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ng new my-angular</span><br><span class="line">$ <span class="built_in">cd</span> my-angular</span><br><span class="line">$ ng serve -o</span><br></pre></td></tr></table></figure></p>
+<h3 id="Bootstrap-amp-jQuery"><a href="#Bootstrap-amp-jQuery" class="headerlink" title="Bootstrap &amp; jQuery"></a>Bootstrap &amp; jQuery</h3><p>透過 <strong>npm</strong> 載入 <strong>Bootstrap</strong> 及 <strong>jQuery</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install bootstrap@3 jquery --save</span><br></pre></td></tr></table></figure></p>
+<p><code>angular.json</code> 加入 <strong>styles</strong> 及 <strong>scripts</strong> 設定</p>
+<pre><code>&quot;styles&quot;: [
+    &quot;src/styles.css&quot;,
+    &quot;node_modules/bootstrap/dist/css/bootstrap.min.css&quot;
+],
+&quot;scripts&quot;: [
+    &quot;node_modules/jquery/dist/jquery.min.js&quot;,
+    &quot;node_modules/bootstrap/dist/js/bootstrap.min.js&quot;
+],
+</code></pre><p>啟動 <strong>Server</strong>，確認 <strong>Bootstrap</strong> 有引用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ng s</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/04/30/AngularCreateProjectAndUseBootstrap/1.png" alt="ImportBootstrap"></p>
+<p><code>app.component.html</code> 加入 <strong>Bootstrap button</strong></p>
+<pre><code>&lt;li&gt;
+    &lt;button class=&quot;btn btn-primary&quot;&gt;Bootstrap Styled Button&lt;/button&gt;
+&lt;/li&gt;
+</code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ng s</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/04/30/AngularCreateProjectAndUseBootstrap/2.png" alt="BootstrapButton"></p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://cli.angular.io/" target="_blank" rel="noopener">Angular CLI</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/30/AspNetSessionMode/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1672,7 +2015,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-count">100</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>

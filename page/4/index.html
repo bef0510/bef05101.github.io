@@ -252,6 +252,407 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/08/PythonClass/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/08/PythonClass/" itemprop="url">Python 類別</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-08T11:44:26+08:00">
+                2019-07-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="class-類別"><a href="#class-類別" class="headerlink" title="class 類別"></a>class 類別</h1><ol>
+<li>類別與類別屬性</li>
+<li>類別與實體物體、實體屬性、實體方法</li>
+</ol>
+<h2 id="類別與類別屬性"><a href="#類別與類別屬性" class="headerlink" title="類別與類別屬性"></a>類別與類別屬性</h2><h4 id="基本運用"><a href="#基本運用" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code># 定義一個類別 IO，有兩個屬性 supportedSrcs 和 read
+class IO:
+    supportedSrcs = [&quot;console&quot;, &quot;file&quot;]
+    def read(src):
+        print(&quot;Read from&quot;, src)
+
+# 使用類別
+print(IO.supportedSrcs)
+IO.read(&quot;file&quot;)
+</code></pre><h4 id="加入判斷式"><a href="#加入判斷式" class="headerlink" title="加入判斷式"></a>加入判斷式</h4><pre><code>class IO:
+supportedSrcs = [&quot;console&quot;, &quot;file&quot;]
+def read(src):
+    if src not in IO.supportedSrcs:
+        print(&quot;Not Supported&quot;)
+    else:
+        print(&quot;Read from&quot;, src)
+
+print(IO.supportedSrcs)
+IO.read(&quot;internet&quot;)
+IO.read(&quot;file&quot;)
+</code></pre><h2 id="類別與實體物體、實體屬性"><a href="#類別與實體物體、實體屬性" class="headerlink" title="類別與實體物體、實體屬性"></a>類別與實體物體、實體屬性</h2><ol>
+<li><p>基本定義<br><img src="/2019/07/08/PythonClass/1.png" alt="Architecture"></p>
+</li>
+<li><p>進階定義<br><img src="/2019/07/08/PythonClass/2.png" alt="Architecture"></p>
+</li>
+</ol>
+<h4 id="基本運用-1"><a href="#基本運用-1" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code>class Point:
+    # 初始化，construct 的概念
+    def __init__(self):
+        self.x = 3
+        self.y = 4
+
+# 建立第一個實體物件
+p1 = Point()
+print(p1.x, p1.y)
+
+# 建立第二個實體物件
+p2 = Point()
+print(p2.x, p2.y)
+</code></pre><h4 id="實體化物件時，給參數"><a href="#實體化物件時，給參數" class="headerlink" title="實體化物件時，給參數"></a>實體化物件時，給參數</h4><pre><code>class Point:
+    # 初始化，construct 的概念
+    def __init__(self, firstName, lastName):
+        self.firstName = firstName
+        self.lastName = lastName
+
+p1 = Point(&quot;Joey&quot;, &quot;Tribbiani&quot;)
+print(p1.firstName, p1.lastName)
+
+p2 = Point(&quot;Chandler&quot;, &quot;Bing&quot;)
+print(p2.firstName, p2.lastName)
+</code></pre><h4 id="加入實體化方法"><a href="#加入實體化方法" class="headerlink" title="加入實體化方法"></a>加入實體化方法</h4><pre><code>class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def show(self):
+        print(self.x, self.y)
+
+    def distance(self, targetX, targetY):
+        return(((self.x - targetX) ** 2) + ((self.y - targetY) ** 2)) ** 0.5
+
+p = Point(3, 4)
+p.show()
+result = p.distance(0, 0)
+print(result)
+</code></pre><h2 id="包裝檔案讀取的程式"><a href="#包裝檔案讀取的程式" class="headerlink" title="包裝檔案讀取的程式"></a>包裝檔案讀取的程式</h2><p>建立兩個 <strong>txt</strong> 檔，任意輸入文字<br><img src="/2019/07/08/PythonClass/3.png" alt="Architecture"></p>
+<h4 id="File-實體物件的設計"><a href="#File-實體物件的設計" class="headerlink" title="File 實體物件的設計"></a>File 實體物件的設計</h4><pre><code>class File:
+    def __init__(self, name):
+        self.name = name
+        self.file = None # 尚末開啟檔案：初始值是 None
+
+    def open(self):
+        self.file = open(self.name, mode=&quot;r&quot;, encoding=&quot;utf-8&quot;)
+
+    def read(self):
+        return self.file.read()
+
+# 讀取第一個檔案
+f1 = File(&quot;data1.txt&quot;)
+f1.open()
+data = f1.read()
+print(data)
+
+# 讀取第二個檔案
+f2 = File(&quot;data2.txt&quot;)
+f2.open()
+data = f2.read()
+print(data)
+</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=GGp-7VHgsKk" target="_blank" rel="noopener">Python Package 封包的設計與使用 By 彭彭</a><br><a href="https://www.youtube.com/watch?v=Lr5N2r1rmtM" target="_blank" rel="noopener">Python 實體物件的建立與使用 - 上篇 - 實體屬性 Instance Attributes By 彭彭</a><br><a href="https://www.youtube.com/watch?v=MZtTClJ74NU" target="_blank" rel="noopener">Python 實體物件的建立與使用 - 下篇 - 實體方法 - Instance Methods By 彭彭</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/08/PythonPackage/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/08/PythonPackage/" itemprop="url">Python 封包</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-08T11:13:33+08:00">
+                2019-07-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="package-封包"><a href="#package-封包" class="headerlink" title="package 封包"></a>package 封包</h1><ol>
+<li><p>檔案配置<br><img src="/2019/07/08/PythonPackage/1.png" alt="Architecture"></p>
+</li>
+<li><p>建立一個資料夾 <strong>geometry</strong> 及三個檔案 <strong>__init__.py</strong> 、<strong>line.py</strong> 、<strong>point.py</strong> 及一個主程式 <strong>main.py</strong><br><img src="/2019/07/08/PythonPackage/2.png" alt="Architecture"></p>
+</li>
+<li><p><strong>__init__.py</strong> 這個檔案一定要，讓 <strong>python</strong> 知道這個資料夾是一個封包，裡面不一定要有程式</p>
+</li>
+</ol>
+<h4 id="line-py-寫入下方-code"><a href="#line-py-寫入下方-code" class="headerlink" title="line.py 寫入下方 code"></a>line.py 寫入下方 code</h4><pre><code># 計算兩個點的距離
+def line(x1, y1, x2, y2):
+    return (((x2 - x1) ** 2) + ((y2 - y1) ** 2)) ** 0.5
+
+# 計算線段的斜率
+def slope(x1, y1, x2, y2):
+    return (y2 - y1) / (x2 - x1)
+</code></pre><h4 id="point-py-寫入下方-code"><a href="#point-py-寫入下方-code" class="headerlink" title="point.py 寫入下方 code"></a>point.py 寫入下方 code</h4><pre><code># 平面座標與原點距離
+def distance(x, y):
+    return (x ** 2 + y ** 2) ** 0.5
+</code></pre><h4 id="主程式引用"><a href="#主程式引用" class="headerlink" title="主程式引用"></a>主程式引用</h4><pre><code>import geometry.point as point
+result = point.distance(3, 4)
+print(&quot;距離&quot;, result)
+
+import geometry.line as line
+result = line.slope(1, 1, 3, 3)
+print(&quot;斜率&quot;, result)
+</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=GGp-7VHgsKk" target="_blank" rel="noopener">ython Package 封包的設計與使用 By 彭彭</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/08/PythonModule/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1710,348 +2111,6 @@ s = &quot;Hello&quot;
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/05/PythonDataType/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/05/PythonDataType/" itemprop="url">Python 資料型態</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-05T09:33:05+08:00">
-                2019-07-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Python-資料型態"><a href="#Python-資料型態" class="headerlink" title="Python 資料型態"></a>Python 資料型態</h1><h2 id="基本語法"><a href="#基本語法" class="headerlink" title="基本語法"></a>基本語法</h2><h4 id="變數，直接給值"><a href="#變數，直接給值" class="headerlink" title="變數，直接給值"></a>變數，直接給值</h4><pre><code>age = 25
-name = &quot;Ross&quot;
-temperature = 36.2
-</code></pre><h4 id="單行注解"><a href="#單行注解" class="headerlink" title="單行注解"></a>單行注解</h4><pre><code># age = 25
-# name = &quot;Ross&quot;
-# temperature = 36.2
-</code></pre><h4 id="多行注解"><a href="#多行注解" class="headerlink" title="多行注解"></a>多行注解</h4><pre><code>&apos;&apos;&apos;age = 25
-name = &quot;Ross&quot;
-temperature = 36.2&apos;&apos;&apos;
-</code></pre><h2 id="資料型態"><a href="#資料型態" class="headerlink" title="資料型態"></a>資料型態</h2><h4 id="Numbers-整數、長整數、浮點數-小數"><a href="#Numbers-整數、長整數、浮點數-小數" class="headerlink" title="Numbers 整數、長整數、浮點數(小數)"></a>Numbers 整數、長整數、浮點數(小數)</h4><pre><code>3456
-3.45
-</code></pre><h4 id="String-任意的文字"><a href="#String-任意的文字" class="headerlink" title="String 任意的文字"></a>String 任意的文字</h4><pre><code>&quot;Hello World&quot;
-</code></pre><h4 id="Boolean-布林值"><a href="#Boolean-布林值" class="headerlink" title="Boolean 布林值"></a>Boolean 布林值</h4><pre><code>True
-False
-</code></pre><h4 id="List-可變列表，有順序、可變動的資料集合"><a href="#List-可變列表，有順序、可變動的資料集合" class="headerlink" title="List 可變列表，有順序、可變動的資料集合"></a>List 可變列表，有順序、可變動的資料集合</h4><pre><code>[3, 4, 5]
-[&quot;Hello&quot;, &quot;World&quot;]
-</code></pre><h4 id="Tuple-固定列表，有順序、不可變動的資料集合"><a href="#Tuple-固定列表，有順序、不可變動的資料集合" class="headerlink" title="Tuple 固定列表，有順序、不可變動的資料集合"></a>Tuple 固定列表，有順序、不可變動的資料集合</h4><pre><code>(3, 4, 5)
-(&quot;Hello&quot;, &quot;World&quot;)
-</code></pre><h4 id="Set-集合，無順序的資料集合"><a href="#Set-集合，無順序的資料集合" class="headerlink" title="Set 集合，無順序的資料集合"></a>Set 集合，無順序的資料集合</h4><pre><code>{3, 4, 5}
-{&quot;Hello&quot;, &quot;World&quot;}
-</code></pre><h4 id="Dictionary-字典-key-value-的集合"><a href="#Dictionary-字典-key-value-的集合" class="headerlink" title="Dictionary 字典, key-value 的集合"></a>Dictionary 字典, key-value 的集合</h4><pre><code>{&quot;name&quot;:&quot;姓名&quot;, &quot;age&quot;:&quot;年齡&quot;}
-</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=FMruNSjHOzQ" target="_blank" rel="noopener">Python 變數與資料型態 By 彭彭</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/04/PythonInstall/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/04/PythonInstall/" itemprop="url">使用 Visual Studio Code 開發 Python</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-04T13:42:54+08:00">
-                2019-07-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="使用-Visual-Studio-Code-開發-Python"><a href="#使用-Visual-Studio-Code-開發-Python" class="headerlink" title="使用 Visual Studio Code 開發 Python"></a>使用 Visual Studio Code 開發 Python</h1><ol>
-<li>安裝 <a href="https://www.python.org/downloads/" target="_blank" rel="noopener">Python</a></li>
-<li>安裝 <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">Visual Studio Code</a></li>
-<li>安裝 Python Extension</li>
-</ol>
-<h4 id="安裝-Python"><a href="#安裝-Python" class="headerlink" title="安裝 Python"></a>安裝 Python</h4><ol>
-<li><p>勾選 <strong>Add Python 3.7 to PATH</strong> → 點選 <strong>Install Now</strong><br><img src="/2019/07/04/PythonInstall/1.png" alt="Architecture"></p>
-</li>
-<li><p>點選 <strong>Disable path length limit</strong><br><img src="/2019/07/04/PythonInstall/2.png" alt="Architecture"></p>
-</li>
-<li><p>開啟 <strong>cmd</strong> → 輸入 <code>python -v</code> 查看版號<br><img src="/2019/07/04/PythonInstall/3.png" alt="Architecture"></p>
-</li>
-</ol>
-<h4 id="Visual-Studio-Code-安裝-Python-Extension"><a href="#Visual-Studio-Code-安裝-Python-Extension" class="headerlink" title="Visual Studio Code 安裝 Python Extension"></a>Visual Studio Code 安裝 Python Extension</h4><ol>
-<li><p>開啟 <strong>VS Code</strong><br><img src="/2019/07/04/PythonInstall/4.png" alt="Architecture"></p>
-</li>
-<li><p>安裝 Python Extension<br><img src="/2019/07/04/PythonInstall/5.png" alt="Architecture"></p>
-</li>
-<li><p>有未安裝的訊息，點選安裝<br><img src="/2019/07/04/PythonInstall/5-1.png" alt="Architecture"></p>
-</li>
-<li><p>重啟 <strong>VS Code</strong></p>
-</li>
-</ol>
-<h4 id="撰寫-Hello-World"><a href="#撰寫-Hello-World" class="headerlink" title="撰寫 Hello World"></a>撰寫 Hello World</h4><ol>
-<li><p>新增資料夾<br><img src="/2019/07/04/PythonInstall/6.png" alt="Architecture"></p>
-</li>
-<li><p><strong>VS Code</strong> 開啟資料夾<br><img src="/2019/07/04/PythonInstall/7-1.png" alt="Architecture"><br><img src="/2019/07/04/PythonInstall/7-2.png" alt="Architecture"></p>
-</li>
-<li><p>新增 <strong>HelloWorld.py</strong> 檔案<br><img src="/2019/07/04/PythonInstall/8.png" alt="Architecture"></p>
-</li>
-<li><p>開啟 <strong>Terminal</strong><br><img src="/2019/07/04/PythonInstall/9.png" alt="Architecture"></p>
-</li>
-<li><p>撰寫 <strong>Hello World</strong><br><img src="/2019/07/04/PythonInstall/10.png" alt="Architecture"></p>
-</li>
-<li><p>執行程式<br><img src="/2019/07/04/PythonInstall/11.png" alt="Architecture"></p>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://code.visualstudio.com/docs/python/python-tutorial" target="_blank" rel="noopener">Getting Started with Python in VS Code</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2104,7 +2163,7 @@ False
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-count">100</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>

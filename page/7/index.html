@@ -252,6 +252,471 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/10/DesignPatternWithMediator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/10/DesignPatternWithMediator/" itemprop="url">行為型模式 - 中介者模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-06-10T11:23:27+08:00">
+                2019-06-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Design-Pattern/" itemprop="url" rel="index">
+                    <span itemprop="name">Design Pattern</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="中介者模式"><a href="#中介者模式" class="headerlink" title="中介者模式"></a>中介者模式</h1><p>用一个中介对象来封装一系列的对象交互<br><img src="/2019/06/10/DesignPatternWithMediator/1.png" alt="Architecture"></p>
+<h4 id="建立-抽象類別"><a href="#建立-抽象類別" class="headerlink" title="建立 抽象類別"></a>建立 抽象類別</h4><pre><code>public abstract class Colleague
+{
+    protected Mediator mediator;
+    public Colleague(Mediator mediator)
+    {
+        this.mediator = mediator;
+    }
+
+    public abstract void Send(string message);
+    public abstract void Receive(string message);
+}
+
+public abstract class Mediator
+{
+    public abstract void SendMessage(Colleague sender, string message);
+}
+</code></pre><h4 id="建立-類別-繼承-Colleague"><a href="#建立-類別-繼承-Colleague" class="headerlink" title="建立 類別 繼承 Colleague"></a>建立 類別 繼承 <code>Colleague</code></h4><pre><code>public class ConcreteColleague1 : Colleague
+{
+    public ConcreteColleague1(Mediator mediator) : base(mediator) { }
+
+    public override void Send(string message) =&gt; this.mediator.SendMessage(this, message);
+
+    public override void Receive(string message) =&gt; Console.WriteLine($&quot;Colleague1 gets message: {message}&quot;);
+}
+
+public class ConcreteColleague2 : Colleague
+{
+    public ConcreteColleague2(Mediator mediator) : base(mediator) { }
+
+    public override void Send(string message) =&gt; this.mediator.SendMessage(this, message);
+
+    public override void Receive(string message) =&gt; Console.WriteLine($&quot;Colleague2 gets message: {message}&quot;);
+}
+</code></pre><h4 id="建立-類別-繼承-Mediator"><a href="#建立-類別-繼承-Mediator" class="headerlink" title="建立 類別 繼承 Mediator"></a>建立 類別 繼承 <code>Mediator</code></h4><pre><code>public class ConcreteMediator : Mediator
+{
+    private ConcreteColleague1 colleague1;
+    private ConcreteColleague2 colleague2;
+    public ConcreteColleague1 Colleague1
+    {
+        set { this.colleague1 = value; }
+    }
+
+    public ConcreteColleague2 Colleague2
+    {
+        set { this.colleague2 = value; }
+    }
+
+    public override void SendMessage(Colleague sender, string message)
+    {
+        if (sender == this.colleague1)
+        {
+            this.colleague1.Receive(message);
+        }
+        else if (sender == this.colleague2)
+        {
+            this.colleague2.Receive(message);
+        }
+    }
+}
+</code></pre><h4 id="引用方式"><a href="#引用方式" class="headerlink" title="引用方式"></a>引用方式</h4><pre><code>class Program
+{
+    static void Main(string[] args)
+    {
+        ConcreteMediator mediator = new ConcreteMediator();
+
+        ConcreteColleague1 colleague1 = new ConcreteColleague1(mediator);
+        ConcreteColleague2 colleague2 = new ConcreteColleague2(mediator);
+
+        mediator.Colleague1 = colleague1;
+        mediator.Colleague2 = colleague2;
+
+        colleague1.Send(&quot;Do the first half&quot;);
+        colleague2.Send(&quot;Do the second half&quot;);
+
+        Console.ReadKey();
+    }
+}
+</code></pre><h4 id="適用場景"><a href="#適用場景" class="headerlink" title="適用場景"></a>適用場景</h4><ol>
+<li>一組對象定義良好但是使用複雜的通信方式。產生的相互依賴關係結構混亂且難以理解</li>
+<li>想定制一個分佈在多個類中的行為，而又不想生成太多的子類</li>
+</ol>
+<h4 id="優點"><a href="#優點" class="headerlink" title="優點"></a>優點</h4><ol>
+<li>提供系統的靈活性，使得各個同事對象獨立而易於复用</li>
+</ol>
+<h4 id="缺點"><a href="#缺點" class="headerlink" title="缺點"></a>缺點</h4><ol>
+<li>如果同事對象之間的交互非常多，而且比較複雜，當這些複雜性全都集中到中介者的時候，會導致中介者對象變的十分複雜，而且難於維護和管理</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://zh.wikipedia.org/wiki/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F" target="_blank" rel="noopener">維基百科-中介者模式</a><br><a href="https://www.cnblogs.com/gaochundong/p/design_pattern_mediator.html" target="_blank" rel="noopener">Mediator（中介者）</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/06/DesignPatternWithIterator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/06/DesignPatternWithIterator/" itemprop="url">行為型模式 - 迭代器模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-06-06T17:15:52+08:00">
+                2019-06-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Design-Pattern/" itemprop="url" rel="index">
+                    <span itemprop="name">Design Pattern</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="迭代器模式"><a href="#迭代器模式" class="headerlink" title="迭代器模式"></a>迭代器模式</h1><p>提供一種方法順序訪問一個聚合對象中的各種元素，而又不暴露該對象的內部表示<br><img src="/2019/06/06/DesignPatternWithIterator/1.png" alt="Architecture"></p>
+<h4 id="建立-介面-Iterator-及-IListCollection"><a href="#建立-介面-Iterator-及-IListCollection" class="headerlink" title="建立 介面 Iterator 及 IListCollection"></a>建立 介面 <code>Iterator</code> 及 <code>IListCollection</code></h4><pre><code>public interface Iterator
+{
+    bool MoveNext();
+
+    object GetCurrent();
+
+    void Next();
+
+    void Reset();
+}
+
+public interface IListCollection
+{
+    Iterator GetIterator();
+}
+</code></pre><h4 id="建立一個-類別-ConcreteList-繼承-IListCollection"><a href="#建立一個-類別-ConcreteList-繼承-IListCollection" class="headerlink" title="建立一個 類別 ConcreteList 繼承 IListCollection"></a>建立一個 類別 <code>ConcreteList</code> 繼承 <code>IListCollection</code></h4><pre><code>public class ConcreteList : IListCollection
+{
+    int[] collection;
+
+    public ConcreteList()
+    {
+        this.collection = new int[] { 1, 2, 3, 4, 5, 6 };
+    }
+
+    public Iterator GetIterator() =&gt; new ConcreteIterator(this);
+
+    public int Length =&gt; this.collection.Length;
+
+    public int GetElement(int index) =&gt; this.collection[index];
+}
+</code></pre><h4 id="建立一個-類別-ConcreteIterator-繼承-Iterator"><a href="#建立一個-類別-ConcreteIterator-繼承-Iterator" class="headerlink" title="建立一個 類別 ConcreteIterator 繼承 Iterator"></a>建立一個 類別 <code>ConcreteIterator</code> 繼承 <code>Iterator</code></h4><pre><code>public class ConcreteIterator : Iterator
+{
+    private ConcreteList list;
+    private int index;
+
+    public ConcreteIterator(ConcreteList list)
+    {
+        this.list = list;
+        this.index = 0;
+    }
+
+    public bool MoveNext()
+    {
+        if (this.index &lt; this.list.Length)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public object GetCurrent() =&gt; this.list.GetElement(this.index);
+
+    public void Reset() =&gt; this.index = 0;
+
+    public void Next()
+    {
+        if (this.index &lt; this.list.Length)
+        {
+            this.index++;
+        }
+    }
+}
+</code></pre><h4 id="引用方式"><a href="#引用方式" class="headerlink" title="引用方式"></a>引用方式</h4><pre><code>class Program
+{
+    static void Main(string[] args)
+    {
+        Iterator iterator;
+        IListCollection list = new ConcreteList();
+        iterator = list.GetIterator();
+        int i = 0;
+
+        while (iterator.MoveNext())
+        {
+            i = (int)iterator.GetCurrent();
+            Console.WriteLine(i.ToString());
+            iterator.Next();
+        }
+
+        Console.ReadKey();
+    }
+}
+</code></pre><h4 id="適用場景"><a href="#適用場景" class="headerlink" title="適用場景"></a>適用場景</h4><ol>
+<li>訪問一個聚合對象的內容而無需暴露它的內部表示</li>
+<li>支持對聚合對象的多種遍歷</li>
+</ol>
+<h4 id="優點"><a href="#優點" class="headerlink" title="優點"></a>優點</h4><ol>
+<li>迭代器模式使得訪問一個聚合對象的內容而無需暴露它的內部表示</li>
+<li>迭代器模式為遍歷不同的集合結構提供了一個統一的接口，從而支持同樣的算法在不同的集合結構上進行操作</li>
+</ol>
+<h4 id="缺點"><a href="#缺點" class="headerlink" title="缺點"></a>缺點</h4><ol>
+<li>迭代器模式在遍歷的同時更改迭代器所在的集合結構會導致出現異常。所以使用的foreach語句只能在對集合進行遍歷，不能在遍歷的同時更改集合中的元素</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://zh.wikipedia.org/wiki/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F" target="_blank" rel="noopener">維基百科-疊代器模式</a><br><a href="https://blog.csdn.net/heyangyi_19940703/article/details/51330510" target="_blank" rel="noopener">C#设计模式-迭代器模式</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/06/DesignPatternWithInterpreter/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2100,476 +2565,6 @@ public class AirConditioning
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/30/OpenFirewallSpecificPort/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/30/OpenFirewallSpecificPort/" itemprop="url">Windows Server 2016 FireWall Port 開啟</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-05-30T11:03:46+08:00">
-                2019-05-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MIS/" itemprop="url" rel="index">
-                    <span itemprop="name">MIS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="FireWall-Port-開啟"><a href="#FireWall-Port-開啟" class="headerlink" title="FireWall Port 開啟"></a>FireWall Port 開啟</h1><ol>
-<li><p>開啟 <strong>Control Panel</strong> → <strong>Small icons</strong> → <strong>Windows Firewall</strong><br><img src="/2019/05/30/OpenFirewallSpecificPort/1.png" alt="Architecture"></p>
-</li>
-<li><p>點選 <strong>Advanced settings</strong><br><img src="/2019/05/30/OpenFirewallSpecificPort/2.png" alt="Architecture"></p>
-</li>
-<li><p>點選 <strong>Inbound Rules</strong> → <strong>New Rule…</strong><br><img src="/2019/05/30/OpenFirewallSpecificPort/3.png" alt="Architecture"></p>
-</li>
-<li><p>選取 <strong>Port</strong><br><img src="/2019/05/30/OpenFirewallSpecificPort/4.png" alt="Architecture"></p>
-</li>
-<li><p>輸入 <code>Port No</code><br><img src="/2019/05/30/OpenFirewallSpecificPort/5.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/05/30/OpenFirewallSpecificPort/6.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/05/30/OpenFirewallSpecificPort/7.png" alt="Architecture"></p>
-</li>
-<li><p>輸入 <code>Name</code><br><img src="/2019/05/30/OpenFirewallSpecificPort/8.png" alt="Architecture"></p>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://wiki.mcneel.com/zh-tw/zoo/window7firewall" target="_blank" rel="noopener">從Windows防火牆開啟TCP Port 80</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/28/AspNetMultiThread/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/28/AspNetMultiThread/" itemprop="url">C# 多執行緒 演變</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-05-28T14:50:21+08:00">
-                2019-05-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ASP-Net/" itemprop="url" rel="index">
-                    <span itemprop="name">ASP.Net</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="C-多執行緒"><a href="#C-多執行緒" class="headerlink" title="C# 多執行緒"></a>C# 多執行緒</h1><h4 id="C-1-0-具名"><a href="#C-1-0-具名" class="headerlink" title="C# 1.0 具名"></a>C# 1.0 具名</h4><pre><code>public class MultiThread10
-{
-    private int itemCount = 0;
-    private object locker = new object();
-    public void Run()
-    {
-        Thread t = new Thread(Work);
-        t.Start(300);
-
-        Thread t1 = new Thread(Work);
-        t1.Start(100);
-    }
-
-    private void Work(object delay)
-    {
-        lock (locker)
-        {
-            this.itemCount++;
-
-            Thread.Sleep((int)delay);
-
-            Console.WriteLine($&quot;C# 1.0 Items in cart：{itemCount}&quot;);
-        }
-    }
-}
-</code></pre><h4 id="C-2-0-匿名"><a href="#C-2-0-匿名" class="headerlink" title="C# 2.0 匿名"></a>C# 2.0 匿名</h4><pre><code>public class MultiThread20
-{
-    private int itemCount = 0;
-    private object locker = new object();
-
-    public void Run()
-    {
-        Thread t = new Thread(delegate (object delay)
-        {
-            lock (locker)
-            {
-                this.itemCount++;
-
-                Thread.Sleep((int)delay);
-
-                Console.WriteLine($&quot;C# 2.0 Items in cart：{itemCount}&quot;);
-            }
-        });
-
-        t.Start(300);
-
-        Thread t1 = new Thread(delegate (object delay)
-        {
-            lock (locker)
-            {
-                this.itemCount++;
-
-                Thread.Sleep((int)delay);
-
-                Console.WriteLine($&quot;C# 2.0 Items in cart：{itemCount}&quot;);
-            }
-        });
-
-        t1.Start(100);
-    }
-}
-</code></pre><h4 id="C-3-0-Lambda"><a href="#C-3-0-Lambda" class="headerlink" title="C# 3.0 Lambda"></a>C# 3.0 Lambda</h4><pre><code>public class MultiThread30
-{
-    private int itemCount = 0;
-    private object locker = new object();
-
-    public void Run()
-    {
-        Thread t = new Thread((object delay) =&gt;
-        {
-            lock (locker)
-            {
-                this.itemCount++;
-
-                Thread.Sleep((int)delay);
-
-                Console.WriteLine($&quot;C# 3.0 Items in cart：{itemCount}&quot;);
-            }
-        });
-
-        t.Start(300);
-
-        Thread t1 = new Thread((object delay) =&gt;
-        {
-            lock (locker)
-            {
-                this.itemCount++;
-
-                Thread.Sleep((int)delay);
-
-                Console.WriteLine($&quot;C# 3.0 Items in cart：{itemCount}&quot;);
-            }
-        });
-
-        t1.Start(100);
-    }
-}
-</code></pre><h4 id="C-4-0-Task"><a href="#C-4-0-Task" class="headerlink" title="C# 4.0 Task"></a>C# 4.0 Task</h4><pre><code>public class MultiThread40
-{
-    private int itemCount = 0;
-    private object locker = new object();
-
-    public void Run()
-    {
-        Task t = new Task(() =&gt;
-        {
-            lock (locker)
-            {
-                this.itemCount++;
-
-                Thread.Sleep(300);
-
-                Console.WriteLine($&quot;C# 4.0 Items in cart：{itemCount}&quot;);
-            }
-        });
-
-        t.Start();
-
-        Task t1 = new Task(() =&gt;
-        {
-            lock (locker)
-            {
-                this.itemCount++;
-
-                Thread.Sleep(100);
-
-                Console.WriteLine($&quot;C# 4.0 Items in cart：{itemCount}&quot;);
-            }
-        });
-
-        t1.Start();
-    }
-}
-</code></pre><h4 id="C-4-0-Async-Await"><a href="#C-4-0-Async-Await" class="headerlink" title="C# 4.0 Async/Await"></a>C# 4.0 Async/Await</h4><pre><code>public class MultiThreadAync
-{
-    private int itemCount = 0;
-    private object locker = new object();
-
-    public void Run()
-    {
-        T1();
-        T2();
-    }
-
-    public async void T1()
-    {
-        await Task.Delay(3000);
-
-        lock (locker)
-        {
-            this.itemCount++;
-
-            Console.WriteLine($&quot;C# Aync Items in cart：{itemCount}&quot;);
-        }
-    }
-
-    public async void T2()
-    {
-        await Task.Delay(1000);
-
-        lock (locker)
-        {
-            this.itemCount++;
-
-            Console.WriteLine($&quot;C# Aync Items in cart：{itemCount}&quot;);
-        }
-    }
-}
-</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.huanlintalk.com/2013/05/csharp-notes-multithreading-2.html" target="_blank" rel="noopener">C# 學習筆記：多執行緒 (2) - 分道揚鑣</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2622,7 +2617,7 @@ public class AirConditioning
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-count">100</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
