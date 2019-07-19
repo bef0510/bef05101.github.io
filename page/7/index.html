@@ -252,6 +252,263 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/06/DesignPatternWithInterpreter/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/06/DesignPatternWithInterpreter/" itemprop="url">行為型模式 - 解釋器模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-06-06T16:01:16+08:00">
+                2019-06-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Design-Pattern/" itemprop="url" rel="index">
+                    <span itemprop="name">Design Pattern</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="解釋器模式"><a href="#解釋器模式" class="headerlink" title="解釋器模式"></a>解釋器模式</h1><p>定義一個語言的文法，並且建立一個解釋器來解釋該語言中的句子<br><img src="/2019/06/06/DesignPatternWithInterpreter/1.png" alt="Architecture"></p>
+<h4 id="建立一個-類別-Context"><a href="#建立一個-類別-Context" class="headerlink" title="建立一個 類別 Context"></a>建立一個 類別 <code>Context</code></h4><pre><code>public class Context
+{
+    public string Input { get; set; }
+    public int Output { get; set; }
+
+    public Context(string input)
+    {
+        this.Input = input;
+    }
+}
+</code></pre><h4 id="建立一個-抽象類別-Expression"><a href="#建立一個-抽象類別-Expression" class="headerlink" title="建立一個 抽象類別 Expression"></a>建立一個 抽象類別 <code>Expression</code></h4><pre><code>public abstract class Expression
+{
+    public void Interpret(Context context)
+    {
+        if (context.Input.Length == 0)
+        {
+            return;
+        }
+
+        if (context.Input.StartsWith(Nine()))
+        {
+            context.Output += (9 * Multiplier());
+            context.Input = context.Input.Substring(2);
+        }
+        else if (context.Input.StartsWith(Four()))
+        {
+            context.Output += (4 * Multiplier());
+            context.Input = context.Input.Substring(2);
+        }
+        else if (context.Input.StartsWith(Five()))
+        {
+            context.Output += (5 * Multiplier());
+            context.Input = context.Input.Substring(1);
+        }
+
+        while (context.Input.StartsWith(One()))
+        {
+            context.Output += (1 * Multiplier());
+            context.Input = context.Input.Substring(1);
+        }
+    }
+
+    public abstract string One();
+    public abstract string Four();
+    public abstract string Five();
+    public abstract string Nine();
+    public abstract int Multiplier();
+}
+</code></pre><h4 id="建立一個-類別-ThousandExpression-繼承-Expression"><a href="#建立一個-類別-ThousandExpression-繼承-Expression" class="headerlink" title="建立一個 類別 ThousandExpression 繼承 Expression"></a>建立一個 類別 <code>ThousandExpression</code> 繼承 <code>Expression</code></h4><pre><code>public class ThousandExpression : Expression
+{
+    public override string One() { return &quot;M&quot;; }
+    public override string Four() { return &quot; &quot;; }
+    public override string Five() { return &quot; &quot;; }
+    public override string Nine() { return &quot; &quot;; }
+    public override int Multiplier() { return 1000; }
+}
+</code></pre><h4 id="建立一個-類別-HundredExpression-繼承-Expression"><a href="#建立一個-類別-HundredExpression-繼承-Expression" class="headerlink" title="建立一個 類別 HundredExpression 繼承 Expression"></a>建立一個 類別 <code>HundredExpression</code> 繼承 <code>Expression</code></h4><pre><code>public class HundredExpression : Expression
+{
+    public override string One() { return &quot;C&quot;; }
+    public override string Four() { return &quot;CD&quot;; }
+    public override string Five() { return &quot;D&quot;; }
+    public override string Nine() { return &quot;CM&quot;; }
+    public override int Multiplier() { return 100; }
+}
+</code></pre><h4 id="建立一個-類別-TenExpression-繼承-Expression"><a href="#建立一個-類別-TenExpression-繼承-Expression" class="headerlink" title="建立一個 類別 TenExpression 繼承 Expression"></a>建立一個 類別 <code>TenExpression</code> 繼承 <code>Expression</code></h4><pre><code>public class TenExpression : Expression
+{
+    public override string One() { return &quot;X&quot;; }
+    public override string Four() { return &quot;XL&quot;; }
+    public override string Five() { return &quot;L&quot;; }
+    public override string Nine() { return &quot;XC&quot;; }
+    public override int Multiplier() { return 10; }
+}
+</code></pre><h4 id="建立一個-類別-OneExpression-繼承-Expression"><a href="#建立一個-類別-OneExpression-繼承-Expression" class="headerlink" title="建立一個 類別 OneExpression 繼承 Expression"></a>建立一個 類別 <code>OneExpression</code> 繼承 <code>Expression</code></h4><pre><code>public class OneExpression : Expression
+{
+    public override string One() { return &quot;I&quot;; }
+    public override string Four() { return &quot;IV&quot;; }
+    public override string Five() { return &quot;V&quot;; }
+    public override string Nine() { return &quot;IX&quot;; }
+    public override int Multiplier() { return 1; }
+}
+</code></pre><h4 id="引用方式"><a href="#引用方式" class="headerlink" title="引用方式"></a>引用方式</h4><pre><code>class Program
+{
+    static void Main(string[] args)
+    {
+        string roman = &quot;MCMXXVIII&quot;;
+        Context context = new Context(roman);
+
+        List&lt;Expression&gt; tree = new List&lt;Expression&gt;();
+        tree.Add(new ThousandExpression());
+        tree.Add(new HundredExpression());
+        tree.Add(new TenExpression());
+        tree.Add(new OneExpression());
+
+        foreach (Expression exp in tree)
+        {
+            exp.Interpret(context);
+        }
+
+        Console.WriteLine($&quot;{roman} = {context.Output}&quot;);
+
+        Console.ReadKey();
+    }
+}
+</code></pre><h4 id="適用場景"><a href="#適用場景" class="headerlink" title="適用場景"></a>適用場景</h4><ol>
+<li>一些重複發生的問題，比如加減乘除四則運算，數字、中英文轉換</li>
+</ol>
+<h4 id="優點"><a href="#優點" class="headerlink" title="優點"></a>優點</h4><ol>
+<li>易於改變和擴展文法</li>
+<li>每一條文法規則都可以表示為一個類，因此可以方便地實現一個簡單的語言</li>
+</ol>
+<h4 id="缺點"><a href="#缺點" class="headerlink" title="缺點"></a>缺點</h4><ol>
+<li>對於複雜文法難以維護</li>
+<li>執行效率較低</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://en.wikipedia.org/wiki/Interpreter_pattern" target="_blank" rel="noopener">Interpreter pattern</a><br><a href="https://www.dofactory.com/net/interpreter-design-pattern" target="_blank" rel="noopener">Interpreter</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/05/DesignPatternWithCommand/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2313,214 +2570,6 @@ public class AirConditioning
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/28/AspNetPropertyGetterSetter/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/28/AspNetPropertyGetterSetter/" itemprop="url">C# 屬性 GET/SET 演變</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-05-28T12:10:41+08:00">
-                2019-05-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ASP-Net/" itemprop="url" rel="index">
-                    <span itemprop="name">ASP.Net</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="C-屬性-GET-SET"><a href="#C-屬性-GET-SET" class="headerlink" title="C# 屬性 GET/SET"></a>C# 屬性 GET/SET</h1><h4 id="C-1-0"><a href="#C-1-0" class="headerlink" title="C# 1.0"></a>C# 1.0</h4><pre><code>public class Employee
-{
-    private string name;
-
-    public string Name
-    {
-        get { return this.name; }
-        set { this.name = value; }
-    }
-
-    private int age;
-
-    public int Age
-    {
-        get { return this.age; }
-        set { this.age = value; }
-    }
-}
-</code></pre><h4 id="C-2-0-可限定存取範圍"><a href="#C-2-0-可限定存取範圍" class="headerlink" title="C# 2.0 可限定存取範圍"></a>C# 2.0 可限定存取範圍</h4><pre><code>public class Employee
-{
-    private string name;
-
-    public Employee(string name, int age)
-    {
-        this.name = name;
-        this.age = age;
-    }
-
-    public string Name
-    {
-        get { return this.name; }
-        private set { this.name = value; }
-    }
-
-    private int age;
-
-    public int Age
-    {
-        get { return this.age; }
-        private set { this.age = value; }
-    }
-}
-</code></pre><h4 id="C-3-0-自動屬性"><a href="#C-3-0-自動屬性" class="headerlink" title="C# 3.0 自動屬性"></a>C# 3.0 自動屬性</h4><pre><code>public class Employee
-{
-    public Employee(int age)
-    {
-        this.Age = age;
-    }
-
-    public string Name { get; set; }
-
-    public int Age { get; private set; }
-}
-</code></pre><h4 id="C-6-0-唯讀自動屬性"><a href="#C-6-0-唯讀自動屬性" class="headerlink" title="C# 6.0 唯讀自動屬性"></a>C# 6.0 唯讀自動屬性</h4><pre><code>public class Employee
-{
-    public Employee(int age)
-    {
-        this.Age = age;
-    }
-
-    public string Name { get; set; } = &quot;Michael&quot;;
-
-    public int Age { get; } = 30;
-
-    public string Birth =&gt; &quot;1989/12/31&quot;;
-}
-</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.huanlintalk.com/2018/02/c-readonly-auto-property-from-beginning.html" target="_blank" rel="noopener">C# 的唯讀自動屬性是怎樣煉成的</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2573,7 +2622,7 @@ public class AirConditioning
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">97</span>
+                  <span class="site-state-item-count">98</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>

@@ -252,6 +252,198 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/19/AspNetCustomExtension/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/19/AspNetCustomExtension/" itemprop="url">C# 自訂擴充方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-06-19T14:08:01+08:00">
+                2019-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ASP-Net/" itemprop="url" rel="index">
+                    <span itemprop="name">ASP.Net</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="自訂擴充方法"><a href="#自訂擴充方法" class="headerlink" title="自訂擴充方法"></a>自訂擴充方法</h1><ol>
+<li>需宣告一個 <strong>static class</strong></li>
+<li>第一個參數需加上 <strong>this</strong> 關鍵字</li>
+</ol>
+<h4 id="建立自訂類別"><a href="#建立自訂類別" class="headerlink" title="建立自訂類別"></a>建立自訂類別</h4><pre><code>public static class StringExtension
+{
+    public static string Reverse(this string s)
+    {
+        List&lt;string&gt; characters = s.Select(c =&gt; c.ToString()).ToList();
+
+        characters.Reverse();
+
+        return string.Join(&quot;&quot;, characters.ToArray());
+    }
+
+    public static bool IsNumeric(this string s)
+    {
+        double output;
+
+        return double.TryParse(s, out output);
+    }
+
+    public static string ToRocDateString(this DateTime date, char separator)
+        =&gt; $&quot;{(date.Year - 1911)}{separator}{date.Month}{separator}{date.Day}&quot;;
+
+    public static string GetName(this Account account)
+        =&gt; account.Name;
+}
+
+public class Account
+{
+    public string Name { get; set; }
+}
+</code></pre><h4 id="引用方式"><a href="#引用方式" class="headerlink" title="引用方式"></a>引用方式</h4><pre><code>class Program
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine(&quot;123456789&quot;.Reverse());
+
+        Console.WriteLine(&quot;100&quot;.IsNumeric());
+
+        Console.WriteLine(DateTime.Now.ToRocDateString(&apos;/&apos;));
+
+        Account account = new Account { Name = &quot;Joey&quot; };
+
+        Console.WriteLine(account.GetName());
+
+        Console.ReadKey();
+    }
+}
+</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://docs.microsoft.com/zh-tw/dotnet/csharp/programming-guide/classes-and-structs/extension-methods" target="_blank" rel="noopener">擴充方法 (C# 程式設計手冊)</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/18/AspNetLog4Net/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2216,263 +2408,6 @@ public interface IListCollection
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/06/DesignPatternWithInterpreter/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/06/DesignPatternWithInterpreter/" itemprop="url">行為型模式 - 解釋器模式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-06-06T16:01:16+08:00">
-                2019-06-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Design-Pattern/" itemprop="url" rel="index">
-                    <span itemprop="name">Design Pattern</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="解釋器模式"><a href="#解釋器模式" class="headerlink" title="解釋器模式"></a>解釋器模式</h1><p>定義一個語言的文法，並且建立一個解釋器來解釋該語言中的句子<br><img src="/2019/06/06/DesignPatternWithInterpreter/1.png" alt="Architecture"></p>
-<h4 id="建立一個-類別-Context"><a href="#建立一個-類別-Context" class="headerlink" title="建立一個 類別 Context"></a>建立一個 類別 <code>Context</code></h4><pre><code>public class Context
-{
-    public string Input { get; set; }
-    public int Output { get; set; }
-
-    public Context(string input)
-    {
-        this.Input = input;
-    }
-}
-</code></pre><h4 id="建立一個-抽象類別-Expression"><a href="#建立一個-抽象類別-Expression" class="headerlink" title="建立一個 抽象類別 Expression"></a>建立一個 抽象類別 <code>Expression</code></h4><pre><code>public abstract class Expression
-{
-    public void Interpret(Context context)
-    {
-        if (context.Input.Length == 0)
-        {
-            return;
-        }
-
-        if (context.Input.StartsWith(Nine()))
-        {
-            context.Output += (9 * Multiplier());
-            context.Input = context.Input.Substring(2);
-        }
-        else if (context.Input.StartsWith(Four()))
-        {
-            context.Output += (4 * Multiplier());
-            context.Input = context.Input.Substring(2);
-        }
-        else if (context.Input.StartsWith(Five()))
-        {
-            context.Output += (5 * Multiplier());
-            context.Input = context.Input.Substring(1);
-        }
-
-        while (context.Input.StartsWith(One()))
-        {
-            context.Output += (1 * Multiplier());
-            context.Input = context.Input.Substring(1);
-        }
-    }
-
-    public abstract string One();
-    public abstract string Four();
-    public abstract string Five();
-    public abstract string Nine();
-    public abstract int Multiplier();
-}
-</code></pre><h4 id="建立一個-類別-ThousandExpression-繼承-Expression"><a href="#建立一個-類別-ThousandExpression-繼承-Expression" class="headerlink" title="建立一個 類別 ThousandExpression 繼承 Expression"></a>建立一個 類別 <code>ThousandExpression</code> 繼承 <code>Expression</code></h4><pre><code>public class ThousandExpression : Expression
-{
-    public override string One() { return &quot;M&quot;; }
-    public override string Four() { return &quot; &quot;; }
-    public override string Five() { return &quot; &quot;; }
-    public override string Nine() { return &quot; &quot;; }
-    public override int Multiplier() { return 1000; }
-}
-</code></pre><h4 id="建立一個-類別-HundredExpression-繼承-Expression"><a href="#建立一個-類別-HundredExpression-繼承-Expression" class="headerlink" title="建立一個 類別 HundredExpression 繼承 Expression"></a>建立一個 類別 <code>HundredExpression</code> 繼承 <code>Expression</code></h4><pre><code>public class HundredExpression : Expression
-{
-    public override string One() { return &quot;C&quot;; }
-    public override string Four() { return &quot;CD&quot;; }
-    public override string Five() { return &quot;D&quot;; }
-    public override string Nine() { return &quot;CM&quot;; }
-    public override int Multiplier() { return 100; }
-}
-</code></pre><h4 id="建立一個-類別-TenExpression-繼承-Expression"><a href="#建立一個-類別-TenExpression-繼承-Expression" class="headerlink" title="建立一個 類別 TenExpression 繼承 Expression"></a>建立一個 類別 <code>TenExpression</code> 繼承 <code>Expression</code></h4><pre><code>public class TenExpression : Expression
-{
-    public override string One() { return &quot;X&quot;; }
-    public override string Four() { return &quot;XL&quot;; }
-    public override string Five() { return &quot;L&quot;; }
-    public override string Nine() { return &quot;XC&quot;; }
-    public override int Multiplier() { return 10; }
-}
-</code></pre><h4 id="建立一個-類別-OneExpression-繼承-Expression"><a href="#建立一個-類別-OneExpression-繼承-Expression" class="headerlink" title="建立一個 類別 OneExpression 繼承 Expression"></a>建立一個 類別 <code>OneExpression</code> 繼承 <code>Expression</code></h4><pre><code>public class OneExpression : Expression
-{
-    public override string One() { return &quot;I&quot;; }
-    public override string Four() { return &quot;IV&quot;; }
-    public override string Five() { return &quot;V&quot;; }
-    public override string Nine() { return &quot;IX&quot;; }
-    public override int Multiplier() { return 1; }
-}
-</code></pre><h4 id="引用方式"><a href="#引用方式" class="headerlink" title="引用方式"></a>引用方式</h4><pre><code>class Program
-{
-    static void Main(string[] args)
-    {
-        string roman = &quot;MCMXXVIII&quot;;
-        Context context = new Context(roman);
-
-        List&lt;Expression&gt; tree = new List&lt;Expression&gt;();
-        tree.Add(new ThousandExpression());
-        tree.Add(new HundredExpression());
-        tree.Add(new TenExpression());
-        tree.Add(new OneExpression());
-
-        foreach (Expression exp in tree)
-        {
-            exp.Interpret(context);
-        }
-
-        Console.WriteLine($&quot;{roman} = {context.Output}&quot;);
-
-        Console.ReadKey();
-    }
-}
-</code></pre><h4 id="適用場景"><a href="#適用場景" class="headerlink" title="適用場景"></a>適用場景</h4><ol>
-<li>一些重複發生的問題，比如加減乘除四則運算，數字、中英文轉換</li>
-</ol>
-<h4 id="優點"><a href="#優點" class="headerlink" title="優點"></a>優點</h4><ol>
-<li>易於改變和擴展文法</li>
-<li>每一條文法規則都可以表示為一個類，因此可以方便地實現一個簡單的語言</li>
-</ol>
-<h4 id="缺點"><a href="#缺點" class="headerlink" title="缺點"></a>缺點</h4><ol>
-<li>對於複雜文法難以維護</li>
-<li>執行效率較低</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://en.wikipedia.org/wiki/Interpreter_pattern" target="_blank" rel="noopener">Interpreter pattern</a><br><a href="https://www.dofactory.com/net/interpreter-design-pattern" target="_blank" rel="noopener">Interpreter</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2525,7 +2460,7 @@ public interface IListCollection
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">97</span>
+                  <span class="site-state-item-count">98</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>

@@ -252,6 +252,195 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/08/PythonModule/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/08/PythonModule/" itemprop="url">Python 模組</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-08T09:53:03+08:00">
+                2019-07-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="module-函式"><a href="#module-函式" class="headerlink" title="module 函式"></a>module 函式</h1><h4 id="基本運用"><a href="#基本運用" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code># 內建 sys 模組取得資訊
+import sys
+print(sys.platform)
+print(sys.maxsize)
+
+# 使用別名
+import sys as system
+print(system.platform)
+print(system.maxsize)
+</code></pre><h2 id="自訂義模組，載入使用"><a href="#自訂義模組，載入使用" class="headerlink" title="自訂義模組，載入使用"></a>自訂義模組，載入使用</h2><p>新增 <strong>geometry.py</strong> 檔案<br><img src="/2019/07/08/PythonModule/1.png" alt="Architecture"></p>
+<h4 id="在-geometry-模組中定義幾何運算功能"><a href="#在-geometry-模組中定義幾何運算功能" class="headerlink" title="在 geometry 模組中定義幾何運算功能"></a>在 geometry 模組中定義幾何運算功能</h4><pre><code># 計算兩個點的距離
+def distance(x1, y1, x2, y2):
+    return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
+
+# 計算線段的斜率
+def slope(x1, y1, x2, y2):
+    return (y2 - y1) / (x2 - x1)
+</code></pre><h4 id="在主程式端-載入使用"><a href="#在主程式端-載入使用" class="headerlink" title="在主程式端 載入使用"></a>在主程式端 載入使用</h4><pre><code>import geometry as geo
+
+result = geo.distance(1, 1, 5, 5)
+print(result)
+
+result = geo.slope(1, 2, 5, 6)
+print(result)
+</code></pre><h2 id="調整搜尋模組的路徑"><a href="#調整搜尋模組的路徑" class="headerlink" title="調整搜尋模組的路徑"></a>調整搜尋模組的路徑</h2><ol>
+<li><p>新增 <strong>modules</strong> 資料夾<br><img src="/2019/07/08/PythonModule/2.png" alt="Architecture"></p>
+</li>
+<li><p>將 <strong>geometry.py</strong> 檔案移至 <strong>modules</strong> 資料夾底下<br><img src="/2019/07/08/PythonModule/3.png" alt="Architecture"></p>
+</li>
+</ol>
+<h4 id="在主程式端-新增路徑"><a href="#在主程式端-新增路徑" class="headerlink" title="在主程式端 新增路徑"></a>在主程式端 新增路徑</h4><pre><code>import sys
+sys.path.append(&quot;modules&quot;) # 在模組的搜尋路徑列表中 新增路徑
+print(sys.path) # 印出模組的搜尋路徑列表
+
+import geometry
+print(geometry.distance(1, 1, 5, 5))
+</code></pre><p>印出的路徑可看到 <strong>modules</strong> 在最後<br><img src="/2019/07/08/PythonModule/4.png" alt="Architecture"></p>
+<h4 id="程式正常，但-import-時有紅色波浪覺得討厭解法"><a href="#程式正常，但-import-時有紅色波浪覺得討厭解法" class="headerlink" title="程式正常，但 import 時有紅色波浪覺得討厭解法"></a>程式正常，但 import 時有紅色波浪覺得討厭解法</h4><ol>
+<li><p>紅色波浪<br><img src="/2019/07/08/PythonModule/5.png" alt="Architecture"></p>
+</li>
+<li><p>按組合鍵 <strong>Ctrl+Shift+P</strong> → 輸入 <strong>Preferences:Configure language specific settings</strong><br><img src="/2019/07/08/PythonModule/6.png" alt="Architecture"></p>
+</li>
+<li><p>輸入 <strong>TypeScript</strong><br><img src="/2019/07/08/PythonModule/7.png" alt="Architecture"></p>
+</li>
+<li><p><strong>settings.json</strong> 輸入 <strong>“python.linting.pylintArgs”: [“–disable-msg=C0103”]</strong> → 存檔<br><img src="/2019/07/08/PythonModule/8.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=Et0DjY2cGiE" target="_blank" rel="noopener">Python Module 模組的載入與使用 By 彭彭</a><br><a href="https://code.visualstudio.com/docs/getstarted/settings" target="_blank" rel="noopener">User and Workspace Settings</a><br><a href="https://blog.csdn.net/yzh201612/article/details/68491707" target="_blank" rel="noopener">Visual Studio Code中修改Pylint设置，及python版本切换</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/08/PythonFunction/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1863,188 +2052,6 @@ False
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/04/AspNetVSIX/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/04/AspNetVSIX/" itemprop="url">Visual Studio 2015 使用 SideWaffle 建立 Project Templat</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-04T13:08:13+08:00">
-                2019-07-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ASP-Net/" itemprop="url" rel="index">
-                    <span itemprop="name">ASP.Net</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="使用-SideWaffle-建立-VSIX"><a href="#使用-SideWaffle-建立-VSIX" class="headerlink" title="使用 SideWaffle 建立 VSIX"></a>使用 SideWaffle 建立 VSIX</h1><ol>
-<li><p>安裝 <strong>Visual Studio</strong> 擴充性工具<br><img src="/2019/07/04/AspNetVSIX/1-1.png" alt="Architecture"><br><img src="/2019/07/04/AspNetVSIX/1-2.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Extensions and Updates</strong> 安裝 <strong>SideWaffle Template Pack</strong><br><img src="/2019/07/04/AspNetVSIX/2.png" alt="Architecture"></p>
-</li>
-<li><p>建立 <strong>VSIX</strong> 專案<br><img src="/2019/07/04/AspNetVSIX/3.png" alt="Architecture"></p>
-</li>
-<li><p>移除 <code>index.html</code> 及 <code>stylesheet.css</code><br><img src="/2019/07/04/AspNetVSIX/4.png" alt="Architecture"></p>
-</li>
-<li><p>加入一個專案<br><img src="/2019/07/04/AspNetVSIX/5.png" alt="Architecture"></p>
-</li>
-<li><p><strong>VSIX</strong> 專案右鍵 → <strong>Add</strong> → <strong>Add Template Reference (SideWaffle project)</strong> → 加入要當 <strong>Template</strong> 專案<br><img src="/2019/07/04/AspNetVSIX/6-1.png" alt="Architecture"><br><img src="/2019/07/04/AspNetVSIX/6-2.png" alt="Architecture"></p>
-</li>
-<li><p>產生檔案<br><img src="/2019/07/04/AspNetVSIX/7.png" alt="Architecture"></p>
-</li>
-<li><p>修改 <code>_project.vstemplate.xml</code> 檔案，修改 <code>File 屬性</code> 改為專案名稱，刪除 <code>WizardExtension tag</code><br><img src="/2019/07/04/AspNetVSIX/8-1.png" alt="Architecture"><br><img src="/2019/07/04/AspNetVSIX/8-2.png" alt="Architecture"></p>
-</li>
-<li><p><code>_preprocess.xml</code> 檔案，<code>TemplateInfo</code> 路徑為 範本位置<br><img src="/2019/07/04/AspNetVSIX/9.png" alt="Architecture"></p>
-</li>
-<li><p>修改 <strong>Configuration Manager</strong>，取消 <strong>Template</strong> 專案 <strong>Build</strong><br><img src="/2019/07/04/AspNetVSIX/10-1.png" alt="Architecture"><br><img src="/2019/07/04/AspNetVSIX/10-2.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Run</strong> 專案，會 <strong>Build</strong> 起另一個 <strong>Visual Studio - Experimental Instance</strong><br><img src="/2019/07/04/AspNetVSIX/11-1.png" alt="Architecture"><br><img src="/2019/07/04/AspNetVSIX/11-2.png" alt="Architecture"></p>
-</li>
-<li><p>新增專案<br><img src="/2019/07/04/AspNetVSIX/12.png" alt="Architecture"></p>
-</li>
-<li><p>新增的專案，直接有 <strong>Template</strong> 程式<br><img src="/2019/07/04/AspNetVSIX/13.png" alt="Architecture"></p>
-</li>
-<li><p>複製 <strong>.vsix</strong> 檔<br><img src="/2019/07/04/AspNetVSIX/14.png" alt="Architecture"></p>
-</li>
-<li><p>安裝 <strong>.vsix</strong> 檔<br><img src="/2019/07/04/AspNetVSIX/15.png" alt="Architecture"></p>
-</li>
-<li><p>安裝後 <strong>Visual Studio</strong> 就有自訂義的 <strong>Template</strong><br><img src="/2019/07/04/AspNetVSIX/16.png" alt="Architecture"></p>
-</li>
-</ol>
-<h1 id="刪除-VSIX"><a href="#刪除-VSIX" class="headerlink" title="刪除 VSIX"></a>刪除 VSIX</h1><ol>
-<li><p>刪除檔案<br><code>%userprofile%\AppData\Local\Microsoft\VisualStudio\14.0\Extensions\gtan0kof.kp4\Output\ProjectTemplates\%template路徑%</code><br><img src="/2019/07/04/AspNetVSIX/17.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Template</strong> 已移除<br><img src="/2019/07/04/AspNetVSIX/18.png" alt="Architecture"></p>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://blog.alantsai.net/posts/2017/09/buildyourowntemplate-use-sidewaffle-to-create-project-template" target="_blank" rel="noopener">SideWaffle建立Project Template</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2097,7 +2104,7 @@ False
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">97</span>
+                  <span class="site-state-item-count">98</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
