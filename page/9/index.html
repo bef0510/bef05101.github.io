@@ -252,6 +252,334 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/17/InstallIIS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/17/InstallIIS/" itemprop="url">Windows Server 2016 啟用 IIS</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-05-17T11:09:12+08:00">
+                2019-05-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MIS/" itemprop="url" rel="index">
+                    <span itemprop="name">MIS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="啟用-IIS"><a href="#啟用-IIS" class="headerlink" title="啟用 IIS"></a>啟用 IIS</h1><ol>
+<li><p>開啟 <strong>Server Manager</strong> → 點選 <strong>Add roles and features</strong><br><img src="/2019/05/17/InstallIIS/1.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Next</strong><br><img src="/2019/05/17/InstallIIS/2.png" alt="Architecture"></p>
+</li>
+<li><p>選擇 <strong>Role-base or feature-based installation</strong><br><img src="/2019/05/17/InstallIIS/3.png" alt="Architecture"></p>
+</li>
+<li><p>點選 <strong>Server Pool</strong><br><img src="/2019/05/17/InstallIIS/4.png" alt="Architecture"></p>
+</li>
+<li><p>點選 <strong>Add Features</strong><br><img src="/2019/05/17/InstallIIS/5.png" alt="Architecture"></p>
+</li>
+<li><p>勾選 <strong>Web Server (IIS)</strong><br><img src="/2019/05/17/InstallIIS/6.png" alt="Architecture"></p>
+</li>
+<li><p>勾選 <strong>.NET Framework 3.5</strong><br>勾選 <strong>ASP.NET 4.6</strong><br><img src="/2019/05/17/InstallIIS/7.png" alt="Architecture"></p>
+</li>
+<li><p>下一步<br><img src="/2019/05/17/InstallIIS/8.png" alt="Architecture"></p>
+</li>
+<li><p>勾選 <strong>.NET Extensibility 3.5</strong><br>勾選 <strong>.NET Extensibility 4.6</strong><br>勾選 <strong>Application Initialization</strong><br>勾選 <strong>ASP</strong><br>勾選 <strong>ASP.NET 3.5</strong><br>勾選 <strong>ASP.NET 4.6</strong><br><img src="/2019/05/17/InstallIIS/9.png" alt="Architecture"></p>
+</li>
+<li><p>勾選 <strong>Restart the destination server automatically if required</strong><br>點選 <strong>Specify an alternate source path</strong><br><img src="/2019/05/17/InstallIIS/10.png" alt="Architecture"></p>
+</li>
+<li><p>輸入 <strong>SxS</strong> 路徑<br><img src="/2019/05/17/InstallIIS/11.png" alt="Architecture"></p>
+</li>
+<li><p>點擊 <strong>Install</strong><br><img src="/2019/05/17/InstallIIS/12.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Installing</strong><br><img src="/2019/05/17/InstallIIS/13.png" alt="Architecture"></p>
+</li>
+<li><p>完成<br><img src="/2019/05/17/InstallIIS/14.png" alt="Architecture"></p>
+</li>
+<li><p>新增 Web Site<br><img src="/2019/05/17/InstallIIS/15.png" alt="Architecture"></p>
+</li>
+<li><p>輸入 資訊<br><img src="/2019/05/17/InstallIIS/16.png" alt="Architecture"></p>
+</li>
+<li><p>完成<br><img src="/2019/05/17/InstallIIS/17.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.rootusers.com/how-to-install-iis-in-windows-server-2016/" target="_blank" rel="noopener">How To Install IIS In Windows Server 2016</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/17/StartRemoteAssistance/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/17/StartRemoteAssistance/" itemprop="url">Windows Server 2016 開啟遠端桌面</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-05-17T10:59:22+08:00">
+                2019-05-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MIS/" itemprop="url" rel="index">
+                    <span itemprop="name">MIS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="開啟遠端桌面"><a href="#開啟遠端桌面" class="headerlink" title="開啟遠端桌面"></a>開啟遠端桌面</h1><ol>
+<li><p>開啟 <code>Server Manager</code><br><img src="/2019/05/17/StartRemoteAssistance/1.png" alt="Architecture"></p>
+</li>
+<li><p>點選 <code>Local Server</code> → 點選 <code>Remote Desktop</code><br><img src="/2019/05/17/StartRemoteAssistance/2.png" alt="Architecture"></p>
+</li>
+<li><p>選擇 <code>Remote</code> Tab → 選擇 <code>Allo remote connections to this computer</code><br><img src="/2019/05/17/StartRemoteAssistance/3.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://blog.yowko.com/windows-server-2016-enable-remote-desktop/" target="_blank" rel="noopener">如何開啟 Windows Server 2016 遠端桌面</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/17/HyperVRestoreVHDX/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2117,506 +2445,11 @@ public class HuaLienBubbleTeaStore : BubbleTeaStore
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/13/DesignPatternWithSingleton/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/13/DesignPatternWithSingleton/" itemprop="url">創建型模式 - 單例模式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-05-13T10:03:03+08:00">
-                2019-05-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Design-Pattern/" itemprop="url" rel="index">
-                    <span itemprop="name">Design Pattern</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="單例模式"><a href="#單例模式" class="headerlink" title="單例模式"></a>單例模式</h1><p>在應用這個模式時，單例對象的類必須保證只有一個實例存在。許多時候整個系統只需要擁有一個的全局對象，這樣有利於我們協調系統整體的行為</p>
-<h4 id="單一執行緒做法"><a href="#單一執行緒做法" class="headerlink" title="單一執行緒做法"></a>單一執行緒做法</h4><pre><code>public class Singleton
-{
-    private static Singleton instance = null;
-
-    private Singleton() { }
-
-    public static Singleton Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = new Singleton();
-            }
-            return instance;
-        }
-    }
-
-    public static void Hello()
-    {
-        Console.WriteLine(&quot;Hello World!&quot;);
-    }
-
-    public void DoSomething()
-    {
-        Console.WriteLine(&quot;Do something!&quot;);
-    }
-}
-</code></pre><h4 id="多執行緒做法"><a href="#多執行緒做法" class="headerlink" title="多執行緒做法"></a>多執行緒做法</h4><pre><code>public class Singleton
-{
-    private static Singleton instance = null;
-    private static readonly object padlock = new object();
-
-    private Singleton() { }
-
-    public static Singleton Instance
-    {
-        get
-        {
-            lock (padlock)
-            {
-                if(instance == null)
-                {
-                    instance = new Singleton();
-                }
-                return instance;
-            }
-        }
-    }
-
-    public static void Hello()
-    {
-        Console.WriteLine(&quot;Hello World!&quot;);
-    }
-
-    public void DoSomething()
-    {
-        Console.WriteLine(&quot;Do something!&quot;);
-    }
-}
-</code></pre><h4 id="NET-4-0-前做法"><a href="#NET-4-0-前做法" class="headerlink" title=".NET 4.0 前做法"></a>.NET 4.0 前做法</h4><pre><code>public class Singleton
-{
-    private class Nested
-    {
-        internal static readonly Singleton instance = new Singleton();
-
-        static Nested() { }
-    }
-    private Singleton() { }
-
-    public static Singleton Instance
-    {
-        get
-        {
-            return Nested.instance;
-        }
-    }
-
-    public static void Hello()
-    {
-        Console.WriteLine(&quot;Hello World!&quot;);
-    }
-
-    public void DoSomething()
-    {
-        Console.WriteLine(&quot;Do something!&quot;);
-    }
-}
-</code></pre><h4 id="Lazy-泛型做法"><a href="#Lazy-泛型做法" class="headerlink" title="Lazy 泛型做法"></a>Lazy<t> 泛型做法</t></h4><pre><code>public class Singleton
-{
-    private static readonly Lazy&lt;Singleton&gt; LazyInstance = new Lazy&lt;Singleton&gt;(() =&gt; new Singleton());
-
-    private Singleton() { }
-
-    public static Singleton Instance
-    {
-        get
-        {
-            return LazyInstance.Value;
-        }
-    }
-
-    public static void Hello()
-    {
-        Console.WriteLine(&quot;Hello World!&quot;);
-    }
-
-    public void DoSomething()
-    {
-        Console.WriteLine(&quot;Do something!&quot;);
-    }
-}
-</code></pre><h4 id="引用方式"><a href="#引用方式" class="headerlink" title="引用方式"></a>引用方式</h4><pre><code>class Program
-{
-    static void Main(string[] args)
-    {
-        var instance = Singleton.Instance;
-        Singleton.Hello();
-        instance.DoSomething();
-
-        Console.ReadKey();
-    }
-}
-</code></pre><h4 id="適用場景"><a href="#適用場景" class="headerlink" title="適用場景"></a>適用場景</h4><ol>
-<li>需要生成唯一序列的環境</li>
-<li>需要頻繁實例化然後銷毀的對象</li>
-<li>創建對象時耗時過多或者耗資源過多，但又經常用到的對象</li>
-<li>方便資源相互通信的環境</li>
-</ol>
-<h4 id="優點"><a href="#優點" class="headerlink" title="優點"></a>優點</h4><ol>
-<li>實現了對唯一實例訪問的可控</li>
-<li>對於一些需要頻繁創建和銷毀的對象來說可以提高系統的性能</li>
-</ol>
-<h4 id="缺點"><a href="#缺點" class="headerlink" title="缺點"></a>缺點</h4><ol>
-<li>不適用於變化頻繁的對象</li>
-<li>開發人員必須記住自己不能使用新的關鍵字實例化對象</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://zh.wikipedia.org/wiki/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F" target="_blank" rel="noopener">維基百科-單例模式</a><br><a href="https://csharpindepth.com/Articles/Singleton" target="_blank" rel="noopener">C# in Depth</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/10/DesignPatternWithBridge/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/10/DesignPatternWithBridge/" itemprop="url">結構型模式 - 橋接模式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-05-10T15:56:02+08:00">
-                2019-05-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Design-Pattern/" itemprop="url" rel="index">
-                    <span itemprop="name">Design Pattern</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="橋接模式"><a href="#橋接模式" class="headerlink" title="橋接模式"></a>橋接模式</h1><p>將一個抽象與實現解耦，以便兩者可以獨立的變化</p>
-<pre><code>各種車子，有不同顏色
-廠牌：BMW、BENZ、Toyota...
-顏色：紅、藍、黑
-</code></pre><p><img src="/2019/05/10/DesignPatternWithBridge/2.png" alt="Architecture"></p>
-<h4 id="定義一個-抽象類別-廠牌-CarBase"><a href="#定義一個-抽象類別-廠牌-CarBase" class="headerlink" title="定義一個 抽象類別 廠牌 CarBase"></a>定義一個 抽象類別 廠牌 <code>CarBase</code></h4><pre><code>public abstract class CarBase
-{
-    public abstract void GetCar(IColor color);
-}
-</code></pre><h4 id="定義一個-介面-提供-取得顏色方法-IColor"><a href="#定義一個-介面-提供-取得顏色方法-IColor" class="headerlink" title="定義一個 介面 提供 取得顏色方法 IColor"></a>定義一個 介面 提供 取得顏色方法 <code>IColor</code></h4><pre><code>public interface IColor
-{
-    string GetColor();
-}
-</code></pre><h4 id="實作-各顏色，繼承-IColor"><a href="#實作-各顏色，繼承-IColor" class="headerlink" title="實作 各顏色，繼承 IColor"></a>實作 各顏色，繼承 <code>IColor</code></h4><pre><code>public class BlueColor : IColor
-{
-    public string GetColor()
-    {
-        return &quot;Blue&quot;;
-    }
-}
-
-public class RedColor : IColor
-{
-    public string GetColor()
-    {
-        return &quot;Red&quot;;
-    }
-}
-</code></pre><h4 id="實作-各廠牌，繼承-CarBase"><a href="#實作-各廠牌，繼承-CarBase" class="headerlink" title="實作 各廠牌，繼承 CarBase"></a>實作 各廠牌，繼承 <code>CarBase</code></h4><pre><code>public class Toyota : CarBase
-{
-    public override void GetCar(IColor color)
-    {
-        Console.WriteLine($&quot;It&apos;s Toyota, color is {color.GetColor()}&quot;);
-    }
-}
-
-public class BMW : CarBase
-{
-    public override void GetCar(IColor color)
-    {
-        Console.WriteLine($&quot;It&apos;s BMW, color is {color.GetColor()}&quot;);
-    }
-}
-</code></pre><h4 id="引用方式"><a href="#引用方式" class="headerlink" title="引用方式"></a>引用方式</h4><pre><code>class Program
-{
-    static void Main(string[] args)
-    {
-        Toyota t = new Toyota();
-        t.GetCar(new BlueColor());
-        t.GetCar(new RedColor());
-
-        BMW b = new BMW();
-        b.GetCar(new BlueColor());
-        b.GetCar(new RedColor());
-
-        Console.ReadKey();
-    }
-}
-</code></pre><h4 id="適用場景"><a href="#適用場景" class="headerlink" title="適用場景"></a>適用場景</h4><ol>
-<li>系統需要在抽象化和具體化之間增加更多的靈活性，避免在兩個層次之間建立靜態的繼承關係，通過橋接模式可以使它們在抽象層建立一個關聯關係</li>
-<li>“抽象部分” 和 “實現部分” 可以以繼承的方式獨立擴展而互不影響，在程序運行時可以動態將一個抽象化子類的對象和一個實現化子類的對象進行組合，即系統需要對抽象化角色和實現化角色進行動態耦合</li>
-<li>一個類存在兩個（或多個）獨立變化的維度，且這兩個（或多個）維度都需要獨立進行擴展</li>
-<li>對於那些不希望使用繼承或因為多層繼承導致系統類的個數急劇增加的系統，橋接模式尤為適用</li>
-</ol>
-<h4 id="優點"><a href="#優點" class="headerlink" title="優點:"></a>優點:</h4><ol>
-<li>分離抽象接口及其實現部分。</li>
-<li>橋接模式有時類似於多繼承方案，但是多繼承方案違背了類的單一職責原則（即一個類只有一個變化的原因），復用性比較差，而且多繼承結構中類的個數非常龐大，橋接模式是比多繼承方案更好的解決方法。</li>
-<li>橋接模式提高了系統的可擴充性，在兩個變化維度中任意擴展一個維度，都不需要修改原有系統。</li>
-<li>實現細節對客戶透明，可以對用戶隱藏實現細節</li>
-</ol>
-<h4 id="缺點"><a href="#缺點" class="headerlink" title="缺點"></a>缺點</h4><ol>
-<li>橋接模式的引入會增加系統的理解與設計難度，由於聚合關聯hＨ關係建立在抽象層，要求開發者針對抽象進</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://zh.wikipedia.org/wiki/%E6%A9%8B%E6%8E%A5%E6%A8%A1%E5%BC%8F" target="_blank" rel="noopener">維基百科-橋接模式</a><br><a href="https://kknews.cc/tech/8m2kv9g.html" target="_blank" rel="noopener">大話設計模式-橋接模式</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2664,7 +2497,7 @@ public class BMW : CarBase
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-count">102</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
