@@ -252,6 +252,372 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/10/AspNetDelegateAdvanced/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/10/AspNetDelegateAdvanced/" itemprop="url">C# Delegate、Action、Func、Predicate</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-06-10T15:24:24+08:00">
+                2019-06-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ASP-Net/" itemprop="url" rel="index">
+                    <span itemprop="name">ASP.Net</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="委派-Delegate、Action、Func、Predicate"><a href="#委派-Delegate、Action、Func、Predicate" class="headerlink" title="委派 Delegate、Action、Func、Predicate"></a>委派 Delegate、Action、Func、Predicate</h1><h3 id="使用-Delegate"><a href="#使用-Delegate" class="headerlink" title="使用 Delegate"></a>使用 <strong>Delegate</strong></h3><ol>
+<li>使用 delegate</li>
+<li>定義委派型別的 signature 的方法</li>
+</ol>
+<h4 id="Delegate"><a href="#Delegate" class="headerlink" title="Delegate"></a><strong>Delegate</strong></h4><pre><code>class Program
+{
+    private delegate void Payment();
+
+    static void Main(string[] args)
+    {
+        Payment payment = new Payment(Bill);
+        payment();
+
+        Console.ReadKey();
+    }
+
+    public static void Bill()
+    {
+        Console.WriteLine(&quot;繳款方式：便利商店&quot;);
+    }
+}
+</code></pre><h1 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h1><h3 id="改用-Action，無參數"><a href="#改用-Action，無參數" class="headerlink" title="改用 Action，無參數"></a>改用 <strong>Action</strong>，無參數</h3><ol>
+<li>省去定義方法</li>
+<li><code>Action</code> 封裝沒有參數且沒有傳回值的方法</li>
+</ol>
+<h4 id="Action-1"><a href="#Action-1" class="headerlink" title="Action"></a><strong>Action</strong></h4><pre><code>class Program
+{
+    static void Main(string[] args)
+    {
+        Action payment = new Action(Bill);
+        payment();
+
+        Console.ReadKey();
+    }
+
+    public static void Bill() =&gt; Console.WriteLine(&quot;繳款方式：便利商店&quot;);
+}
+</code></pre><h3 id="改用-Action，有參數"><a href="#改用-Action，有參數" class="headerlink" title="改用 Action，有參數"></a>改用 <strong>Action</strong>，有參數</h3><ol>
+<li><code>Action&lt;T&gt;</code> 封裝至多 16 個參數的方法，並且不會傳回值</li>
+</ol>
+<h4 id="Action-2"><a href="#Action-2" class="headerlink" title="Action"></a><strong>Action</strong></h4><pre><code>class Program
+{
+    static void Main(string[] args)
+    {
+        Action&lt;string&gt; payment = new Action&lt;string&gt;(Bill);
+        payment(&quot;便利商店&quot;);
+
+        Console.ReadKey();
+    }
+
+    public static void Bill(string place) =&gt; Console.WriteLine($&quot;繳款方式：{place}&quot;);
+}
+</code></pre><h4 id="Action-匿名委派"><a href="#Action-匿名委派" class="headerlink" title="Action 匿名委派"></a><strong>Action</strong> 匿名委派</h4><pre><code>class Program
+{
+    static void Main(string[] args)
+    {
+        Action&lt;string&gt; payment = delegate (string place)
+        {
+            Console.WriteLine($&quot;繳款方式：{place}&quot;);
+        };
+        payment(&quot;便利商店&quot;);
+
+        Console.ReadKey();
+    }
+}
+</code></pre><h4 id="Action-Lambda"><a href="#Action-Lambda" class="headerlink" title="Action Lambda"></a><strong>Action</strong> Lambda</h4><pre><code>class Program
+{
+    static void Main(string[] args)
+    {
+        Action&lt;string&gt; payment = (string place) =&gt; Console.WriteLine($&quot;繳款方式：{place}&quot;);
+
+        payment(&quot;便利商店&quot;);
+
+        Console.ReadKey();
+    }
+}
+</code></pre><h1 id="Func"><a href="#Func" class="headerlink" title="Func"></a>Func</h1><h3 id="改用-Func，無參數"><a href="#改用-Func，無參數" class="headerlink" title="改用 Func，無參數"></a>改用 <strong>Func</strong>，無參數</h3><ol>
+<li><code>Func&lt;TResult&gt;</code> 封裝沒有參數並傳回 TResult 參數所指定之型別值的方法</li>
+</ol>
+<h4 id="Func-1"><a href="#Func-1" class="headerlink" title="Func"></a><strong>Func</strong></h4><pre><code>class Program
+{
+    static void Main(string[] args)
+    {
+        Func&lt;string&gt; payment = new Func&lt;string&gt;(Bill);
+        Console.WriteLine(payment());
+
+        Console.ReadKey();
+    }
+
+    public static string Bill()
+    {
+        return $&quot;繳款方式：便利商店&quot;;
+    }
+}
+</code></pre><h3 id="改用-Func，有參數"><a href="#改用-Func，有參數" class="headerlink" title="改用 Func，有參數"></a>改用 <strong>Func</strong>，有參數</h3><ol>
+<li><code>Func&lt;T, TResult&gt;</code> 封裝具至多 16 個參數的方法，並傳回由 TResult 參數指定之類型的值</li>
+</ol>
+<h4 id="Func-2"><a href="#Func-2" class="headerlink" title="Func"></a><strong>Func</strong></h4><pre><code>class Program
+{
+    static void Main(string[] args)
+    {
+        Func&lt;string, string&gt; payment = new Func&lt;string, string&gt;(Bill);
+        Console.WriteLine(payment(&quot;CVS&quot;));
+
+        Console.ReadKey();
+    }
+
+    public static string Bill(string type)
+    {
+        string place = string.Empty;
+        switch (type)
+        {
+            case &quot;CVS&quot;:
+                place = &quot;便利商店&quot;;
+                break;
+            case &quot;POST&quot;:
+                place = &quot;郵局轉帳&quot;;
+                break;
+            case &quot;BANK&quot;:
+                place = &quot;銀行轉帳&quot;;
+                break;
+            default:
+                place = &quot;逾期未繳&quot;;
+                break;
+        }
+        return $&quot;繳款方式：{place}&quot;;
+    }
+}
+</code></pre><h4 id="Func-匿名委派"><a href="#Func-匿名委派" class="headerlink" title="Func 匿名委派"></a><strong>Func</strong> 匿名委派</h4><pre><code>class Program
+{
+    static void Main(string[] args)
+    {
+        Func&lt;string, string&gt; payment = delegate (string type)
+        {
+            string place = string.Empty;
+            switch (type)
+            {
+                case &quot;CVS&quot;:
+                    place = &quot;便利商店&quot;;
+                    break;
+                case &quot;POST&quot;:
+                    place = &quot;郵局轉帳&quot;;
+                    break;
+                case &quot;BANK&quot;:
+                    place = &quot;銀行轉帳&quot;;
+                    break;
+                default:
+                    place = &quot;逾期未繳&quot;;
+                    break;
+            }
+            return $&quot;繳款方式：{place}&quot;;
+        };
+        Console.WriteLine(payment(&quot;CVS&quot;));
+
+        Console.ReadKey();
+    }
+}
+</code></pre><h4 id="Func-Lambda"><a href="#Func-Lambda" class="headerlink" title="Func Lambda"></a><strong>Func</strong> Lambda</h4><pre><code>class Program
+{
+    static void Main(string[] args)
+    {
+        Func&lt;string, string&gt; payment = (string type) =&gt;
+        {
+            string place = string.Empty;
+            switch (type)
+            {
+                case &quot;CVS&quot;:
+                    place = &quot;便利商店&quot;;
+                    break;
+                case &quot;POST&quot;:
+                    place = &quot;郵局轉帳&quot;;
+                    break;
+                case &quot;BANK&quot;:
+                    place = &quot;銀行轉帳&quot;;
+                    break;
+                default:
+                    place = &quot;逾期未繳&quot;;
+                    break;
+            }
+            return $&quot;繳款方式：{place}&quot;;
+        };
+        Console.WriteLine(payment(&quot;CVS&quot;));
+
+        Console.ReadKey();
+    }
+}
+</code></pre><h3 id="Predicate"><a href="#Predicate" class="headerlink" title="Predicate"></a><strong>Predicate</strong></h3><ol>
+<li>等同於 <code>Func&lt;T, bool&gt;</code></li>
+</ol>
+<h4 id="Predicate-1"><a href="#Predicate-1" class="headerlink" title="Predicate"></a><strong>Predicate</strong></h4><pre><code>class Program
+{
+    static void Main(string[] args)
+    {
+        Predicate&lt;string&gt; payment = new Predicate&lt;string&gt;(Bill);
+        string isWay = payment(&quot;CVS&quot;) ? &quot;是&quot; : &quot;否&quot;;
+        Console.WriteLine($&quot;是否有此繳費方式：{isWay}&quot;);
+
+        Console.ReadKey();
+    }
+
+    public static bool Bill(string type)
+    {
+        List&lt;string&gt; lists = new List&lt;string&gt;() { &quot;CVS&quot;, &quot;POST&quot;, &quot;BANK&quot; };
+
+        return lists.Where(o=&gt;o == type).ToList().Count &gt; 0;
+    }
+}
+</code></pre><h4 id="Predicate-Lambda"><a href="#Predicate-Lambda" class="headerlink" title="Predicate Lambda"></a><strong>Predicate</strong> Lambda</h4><pre><code>class Program
+{
+    static void Main(string[] args)
+    {
+        Predicate&lt;string&gt; payment = (string type) =&gt;
+        {
+            List&lt;string&gt; lists = new List&lt;string&gt;() { &quot;CVS&quot;, &quot;POST&quot;, &quot;BANK&quot; };
+
+            return lists.Where(o =&gt; o == type).ToList().Count &gt; 0;
+        };
+        string isWay = payment(&quot;CVS&quot;) ? &quot;是&quot; : &quot;否&quot;;
+
+        Console.WriteLine($&quot;是否有此繳費方式：{isWay}&quot;);
+
+        Console.ReadKey();
+    }
+}
+</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://docs.microsoft.com/zh-tw/dotnet/csharp/language-reference/keywords/delegate" target="_blank" rel="noopener">delegate (C# 參考)</a><br><a href="https://docs.microsoft.com/zh-tw/dotnet/api/system.action-1?view=netframework-4.8" target="_blank" rel="noopener">Action<t> Delegate</t></a><br><a href="https://docs.microsoft.com/zh-tw/dotnet/api/system.func-2?view=netframework-4.8" target="_blank" rel="noopener">Func&lt;T,TResult&gt; Delegate</a><br><a href="https://docs.microsoft.com/zh-tw/dotnet/api/system.predicate-1?view=netframework-4.8" target="_blank" rel="noopener">Predicate<t> Delegate</t></a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/10/DesignPatternWithObserver/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2361,254 +2727,6 @@ public class Poker
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/05/DesignPatternWithFacade/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/05/DesignPatternWithFacade/" itemprop="url">結構型模式 - 外觀模式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-06-05T11:12:22+08:00">
-                2019-06-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Design-Pattern/" itemprop="url" rel="index">
-                    <span itemprop="name">Design Pattern</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="外觀模式"><a href="#外觀模式" class="headerlink" title="外觀模式"></a>外觀模式</h1><p>為子系統中的一組接口提供一個統一的高層接口，使得子系統更容易使用<br><img src="/2019/06/05/DesignPatternWithFacade/1.png" alt="Architecture"></p>
-<h4 id="建立-子類別"><a href="#建立-子類別" class="headerlink" title="建立 子類別"></a>建立 子類別</h4><pre><code>public class Audioelectronics
-{
-    public void On() =&gt;
-        Console.WriteLine(&quot;Audioelectronics is On&quot;);
-
-    public void Off() =&gt;
-        Console.WriteLine(&quot;Audioelectronics is Off&quot;);
-}
-
-public class PowerWindow
-{
-    public void Up() =&gt;
-        Console.WriteLine(&quot;PowerWindow is Up&quot;);
-
-    public void Down() =&gt;
-        Console.WriteLine(&quot;PowerWindow is Down&quot;);
-}
-
-public class SideviewMirror
-{
-    public void Fold() =&gt;
-        Console.WriteLine(&quot;SideviewMirror is Fold&quot;);
-
-    public void Unfold() =&gt;
-        Console.WriteLine(&quot;SideviewMirror is Unfold&quot;);
-}
-
-
-public class AirConditioning
-{
-    public void On() =&gt; 
-        Console.WriteLine(&quot;AirConditioning is On&quot;);
-
-    public void Off() =&gt; 
-        Console.WriteLine(&quot;AirConditioning is Off&quot;);
-
-    public void SetTemperature(int temperature) =&gt; 
-        Console.WriteLine($&quot;temperature is {temperature}&quot;);
-}
-</code></pre><h4 id="建立-類別"><a href="#建立-類別" class="headerlink" title="建立 類別"></a>建立 類別</h4><pre><code>public class ControlPanel
-{
-    private readonly Audioelectronics audioelectronics;
-    private readonly PowerWindow powerWindow;
-    private readonly SideviewMirror sideviewMirror;
-    private readonly AirConditioning airConditioning;
-
-    public ControlPanel(Audioelectronics audioelectronics, PowerWindow powerWindow,
-        SideviewMirror sideviewMirror, AirConditioning airConditioning)
-    {
-        this.audioelectronics = audioelectronics;
-        this.powerWindow = powerWindow;
-        this.sideviewMirror = sideviewMirror;
-        this.airConditioning = airConditioning;
-    }
-
-    public void TurnOnEngine()
-    {
-        Console.WriteLine(&quot;starting...&quot;);
-
-        audioelectronics.On();
-        powerWindow.Down();
-        sideviewMirror.Unfold();
-        airConditioning.On();
-        airConditioning.SetTemperature(23);
-
-        Console.WriteLine(&quot;Engine is started&quot;);
-    }
-
-    public void TurnOffEngine()
-    {
-        Console.WriteLine(&quot;Shutting down...&quot;);
-
-        audioelectronics.Off();
-        powerWindow.Up();
-        sideviewMirror.Fold();
-        airConditioning.Off();
-
-        Console.WriteLine(&quot;Engine is off&quot;);
-    }
-}
-</code></pre><h4 id="引用方式"><a href="#引用方式" class="headerlink" title="引用方式"></a>引用方式</h4><pre><code>class Program
-{
-    static void Main(string[] args)
-    {
-        ControlPanel controlPanel = new ControlPanel(new Audioelectronics(), new PowerWindow(), 
-            new SideviewMirror(), new AirConditioning());
-
-        controlPanel.TurnOnEngine();
-
-        controlPanel.TurnOffEngine();
-
-        Console.ReadKey();
-    }
-}
-</code></pre><h4 id="適用場景"><a href="#適用場景" class="headerlink" title="適用場景"></a>適用場景</h4><ol>
-<li>為一個複雜的子系統對外提供一個簡單的接口</li>
-<li>提供子系統的獨立性</li>
-</ol>
-<h4 id="優點"><a href="#優點" class="headerlink" title="優點"></a>優點</h4><ol>
-<li>降低與子類別的耦合度，實現子類別與客戶之間的松耦合關係</li>
-<li>降低原有系統的複雜度和系統中的編譯依賴性，並簡化了系統在不同平台之間的移植過程</li>
-</ol>
-<h4 id="缺點"><a href="#缺點" class="headerlink" title="缺點"></a>缺點</h4><ol>
-<li>不能很好地限制客戶使用子系統類，如果對客戶訪問子系統類做太多的限制則減少了可變性和靈活性</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://zh.wikipedia.org/wiki/%E5%A4%96%E8%A7%80%E6%A8%A1%E5%BC%8F" target="_blank" rel="noopener">維基百科-外觀模式</a><br><a href="https://dotblogs.com.tw/pin0513/2010/11/01/18721" target="_blank" rel="noopener">表象模式(Facade Pattern)</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2661,7 +2779,7 @@ public class AirConditioning
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-count">103</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
@@ -2683,7 +2801,7 @@ public class AirConditioning
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-count">47</span>
                   <span class="site-state-item-name">標籤</span>
                 </a>
               </div>
