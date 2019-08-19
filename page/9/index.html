@@ -252,6 +252,229 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/InstallDFSManager/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/22/InstallDFSManager/" itemprop="url">Windows Server 2016 DFS 複寫備援</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-05-22T16:30:13+08:00">
+                2019-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MIS/" itemprop="url" rel="index">
+                    <span itemprop="name">MIS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="DFS-複寫備援"><a href="#DFS-複寫備援" class="headerlink" title="DFS 複寫備援"></a>DFS 複寫備援</h1><pre><code>需先安裝 AD 及 DNS
+</code></pre><p> <a href="/2019/05/24/InstallADAndDNS/">Windows Server 2016 啟用 AD 及 DNS</a></p>
+<h3 id="DFS-安裝"><a href="#DFS-安裝" class="headerlink" title="DFS 安裝"></a>DFS 安裝</h3><p><strong>Server</strong> 設定</p>
+<ol>
+<li><p><strong>Server Manager</strong> → <strong>Add roles and features</strong><br><img src="/2019/05/22/InstallDFSManager/1.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Next</strong><br><img src="/2019/05/22/InstallDFSManager/2.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Next</strong><br><img src="/2019/05/22/InstallDFSManager/3.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Next</strong><br><img src="/2019/05/22/InstallDFSManager/4.png" alt="Architecture"></p>
+</li>
+<li><p>勾選 <strong>File Server</strong><br>勾選 <strong>DFS Namespaces</strong><br>勾選 <strong>DFS Replication</strong><br><img src="/2019/05/22/InstallDFSManager/5.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Next</strong><br><img src="/2019/05/22/InstallDFSManager/6.png" alt="Architecture"></p>
+</li>
+<li><p>勾選 重啟電腦 → <strong>Install</strong><br><img src="/2019/05/22/InstallDFSManager/7.png" alt="Architecture"></p>
+</li>
+</ol>
+<h3 id="Namespaces-A-Server-設定"><a href="#Namespaces-A-Server-設定" class="headerlink" title="Namespaces A Server 設定"></a>Namespaces A Server 設定</h3><ol>
+<li><p><strong>Server Manager</strong> → <strong>Tools</strong> → 點擊 <strong>DFS Management</strong><br><img src="/2019/05/22/InstallDFSManager/8.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Namespaces</strong> 右鍵 → <strong>New Namespace…</strong><br><img src="/2019/05/22/InstallDFSManager/9.png" alt="Architecture"></p>
+</li>
+<li><p>輸入 <strong>A Server Name</strong><br><img src="/2019/05/22/InstallDFSManager/10.png" alt="Architecture"></p>
+</li>
+<li><p>輸入 名稱 → 點擊　<strong>Edit Settings</strong><br><img src="/2019/05/22/InstallDFSManager/11.png" alt="Architecture"></p>
+</li>
+<li><p>選擇 檔案路徑 → 選擇 <strong>All users have read and write permissions</strong><br><img src="/2019/05/22/InstallDFSManager/12.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Next</strong><br><img src="/2019/05/22/InstallDFSManager/13.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Next</strong><br><img src="/2019/05/22/InstallDFSManager/14.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Create</strong><br><img src="/2019/05/22/InstallDFSManager/15.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Close</strong><br><img src="/2019/05/22/InstallDFSManager/16.png" alt="Architecture"></p>
+</li>
+</ol>
+<h3 id="Namespaces-B-Server-設定"><a href="#Namespaces-B-Server-設定" class="headerlink" title="Namespaces B Server 設定"></a>Namespaces B Server 設定</h3><ol>
+<li><p><strong>A Server</strong> 右鍵 → <strong>Add Namespace Server…</strong><br><img src="/2019/05/22/InstallDFSManager/17.png" alt="Architecture"></p>
+</li>
+<li><p>輸入 名稱 → 點擊　<strong>Edit Settings</strong><br><img src="/2019/05/22/InstallDFSManager/18.png" alt="Architecture"></p>
+</li>
+<li><p>選擇 檔案路徑 → 選擇 <strong>All users have read and write permissions</strong><br><img src="/2019/05/22/InstallDFSManager/19.png" alt="Architecture"></p>
+</li>
+<li><p><strong>OK</strong><br><img src="/2019/05/22/InstallDFSManager/20.png" alt="Architecture"></p>
+</li>
+</ol>
+<h3 id="Replication-設定"><a href="#Replication-設定" class="headerlink" title="Replication 設定"></a>Replication 設定</h3><ol>
+<li><p><strong>Replication</strong> 右鍵 → <strong>New Replication Group…</strong><br><img src="/2019/05/22/InstallDFSManager/22.png" alt="Architecture"></p>
+</li>
+<li><p>選擇 <strong>Replication group for data collection</strong><br><img src="/2019/05/22/InstallDFSManager/23.png" alt="Architecture"></p>
+</li>
+<li><p>輸入 名稱 → <strong>Next</strong><br><img src="/2019/05/22/InstallDFSManager/24.png" alt="Architecture"></p>
+</li>
+<li><p>輸入 <strong>A Server Name</strong><br><img src="/2019/05/22/InstallDFSManager/25.png" alt="Architecture"></p>
+</li>
+<li><p>點擊 <strong>Add…</strong><br><img src="/2019/05/22/InstallDFSManager/26.png" alt="Architecture"></p>
+</li>
+<li><p>選擇 路徑 → <strong>OK</strong><br><img src="/2019/05/22/InstallDFSManager/27.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Next</strong><br><img src="/2019/05/22/InstallDFSManager/28.png" alt="Architecture"></p>
+</li>
+<li><p>輸入 <strong>B Server Name</strong><br><img src="/2019/05/22/InstallDFSManager/29.png" alt="Architecture"></p>
+</li>
+<li><p>選擇 路徑 → <strong>Next</strong><br><img src="/2019/05/22/InstallDFSManager/30.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Next</strong><br><img src="/2019/05/22/InstallDFSManager/31.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Create</strong><br><img src="/2019/05/22/InstallDFSManager/32.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Close</strong><br><img src="/2019/05/22/InstallDFSManager/33.png" alt="Architecture"></p>
+</li>
+</ol>
+<h3 id="Folder-Share"><a href="#Folder-Share" class="headerlink" title="Folder Share"></a>Folder Share</h3><ol>
+<li><p>確認 <strong>Share</strong> 給正確路徑<br><img src="/2019/05/22/InstallDFSManager/34.png" alt="Architecture"></p>
+</li>
+<li><p>加入 <strong>Domain Users</strong> 權限<br><img src="/2019/05/22/InstallDFSManager/35.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="http://itbillboard.blogspot.com/2016/11/windows-serverdfs-rdfsdfs-ndfs.html" target="_blank" rel="noopener">IT BillBoard</a><br><a href="https://blog.pmail.idv.tw/?p=10523" target="_blank" rel="noopener">MIS的背影</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/ModifyComputerSID/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2104,296 +2327,6 @@ public class HuaLienBubbleTeaStore : BubbleTeaStore
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/13/DesignPatternWithFactoryMethod/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/13/DesignPatternWithFactoryMethod/" itemprop="url">創建型模式 - 工廠方法模式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-05-13T16:28:42+08:00">
-                2019-05-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Design-Pattern/" itemprop="url" rel="index">
-                    <span itemprop="name">Design Pattern</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="工廠方法模式"><a href="#工廠方法模式" class="headerlink" title="工廠方法模式"></a>工廠方法模式</h1><p>工廠方法模式定義了一個創建對象的接口，但是讓子類來決定具體創建的是哪一個對象。工廠方法讓一個類延遲實例化，直到子類的出現<br><img src="/2019/05/13/DesignPatternWithFactoryMethod/1.png" alt="Architecture"></p>
-<h4 id="建立一個抽象類別-產品-BubbleTea"><a href="#建立一個抽象類別-產品-BubbleTea" class="headerlink" title="建立一個抽象類別 產品 BubbleTea"></a>建立一個抽象類別 產品 <code>BubbleTea</code></h4><pre><code>public abstract class BubbleTea
-{
-    public string Name { get; protected set; }
-    public string Tea { get; protected set; }
-    public string Sugar { get; protected set; }
-    public string Tapioca { get; protected set; }
-
-    public List&lt;string&gt; Toppings = new List&lt;string&gt;();
-
-    public void Prepare()
-    {
-        Console.WriteLine($&quot;Preparing: {Name}&quot;);
-        Console.WriteLine($&quot;Tea: {Tea}&quot;);
-        Console.WriteLine($&quot;Sugar: {Sugar}&quot;);
-        Console.WriteLine($&quot;Tapioca: {Tapioca}&quot;);
-        Console.WriteLine(&quot;Adding toppings: &quot;);
-        Toppings.ForEach(x =&gt; Console.WriteLine($&quot;  {x}&quot;));
-    }
-
-    public void Shake() =&gt; Console.WriteLine(&quot;Shake for 5 times&quot;);
-
-    public void Bag() =&gt; Console.WriteLine(&quot;Reusable shopping bag&quot;);
-}
-</code></pre><h4 id="建立-類別-產品-TPPearlMilkTea-繼承-BubbleTea"><a href="#建立-類別-產品-TPPearlMilkTea-繼承-BubbleTea" class="headerlink" title="建立 類別 產品 TPPearlMilkTea 繼承 BubbleTea"></a>建立 類別 產品 <code>TPPearlMilkTea</code> 繼承 <code>BubbleTea</code></h4><pre><code>public class TPPearlMilkTea : BubbleTea
-{
-    public TPPearlMilkTea()
-    {
-        Name = &quot;TaiPei Bubble Tea&quot;;
-        Sugar = &quot;Sucrose Sugar&quot;;
-        Tapioca = &quot;Cassava Tapioca&quot;;
-        Toppings.Add(&quot;Coconut Jelly&quot;);
-        Toppings.Add(&quot;Grass Jelly&quot;);
-    }
-}
-
-public class TPCaramelMilkTea : BubbleTea
-{
-    public TPCaramelMilkTea()
-    {
-        Name = &quot;TaiPei Caramel Milk Tea&quot;;
-        Sugar = &quot;Fructose Sugar&quot;;
-        Tapioca = &quot;Potato Tapioca&quot;;
-    }
-}
-
-public class HLPearlMilkTea : BubbleTea
-{
-    public HLPearlMilkTea()
-    {
-        Name = &quot;HuaLien Bubble Tea&quot;;
-        Sugar = &quot;Sucrose Sugar&quot;;
-        Tapioca = &quot;Cassava Tapioca&quot;;
-        Toppings.Add(&quot;Coconut Jelly&quot;);
-        Toppings.Add(&quot;Grass Jelly&quot;);
-    }
-}
-
-public class HLCaramelMilkTea : BubbleTea
-{
-    public HLCaramelMilkTea()
-    {
-        Name = &quot;HuaLien Caramel Milk Tea&quot;;
-        Sugar = &quot;Fructose Sugar&quot;;
-        Tapioca = &quot;Potato Tapioca&quot;;
-    }
-}
-</code></pre><h4 id="建立一個抽象類別-商店-BubbleTeaStore"><a href="#建立一個抽象類別-商店-BubbleTeaStore" class="headerlink" title="建立一個抽象類別 商店 BubbleTeaStore"></a>建立一個抽象類別 商店 <code>BubbleTeaStore</code></h4><pre><code>public abstract class BubbleTeaStore
-{
-    public BubbleTea OrderBubbleTea(string type)
-    {
-        BubbleTea bubbleTea = CreateBubbleTea(type);
-        bubbleTea.Prepare();
-        bubbleTea.Shake();
-        bubbleTea.Bag();
-        return bubbleTea;
-    }
-    protected abstract BubbleTea CreateBubbleTea(string type);
-}
-</code></pre><h4 id="建立-類別-各地區商店-TaiPeiBubbleTeaStore-繼承-BubbleTeaStore"><a href="#建立-類別-各地區商店-TaiPeiBubbleTeaStore-繼承-BubbleTeaStore" class="headerlink" title="建立 類別 各地區商店 TaiPeiBubbleTeaStore 繼承 BubbleTeaStore"></a>建立 類別 各地區商店 <code>TaiPeiBubbleTeaStore</code> 繼承 <code>BubbleTeaStore</code></h4><pre><code>public class TaiPeiBubbleTeaStore : BubbleTeaStore
-{
-    protected override BubbleTea CreateBubbleTea(string type)
-    {
-        BubbleTea bubbleTea = null;
-        switch (type)
-        {
-            case &quot;pearl&quot;:
-                bubbleTea = new TPPearlMilkTea();
-                break;
-            case &quot;caramel&quot;:
-                bubbleTea = new TPCaramelMilkTea();
-                break;
-        }
-        return bubbleTea;
-    }
-}
-
-public class HuaLienBubbleTeaStore : BubbleTeaStore
-{
-    protected override BubbleTea CreateBubbleTea(string type)
-    {
-        BubbleTea bubbleTea = null;
-        switch (type)
-        {
-            case &quot;pearl&quot;:
-                bubbleTea = new HLPearlMilkTea();
-                break;
-            case &quot;caramel&quot;:
-                bubbleTea = new HLCaramelMilkTea();
-                break;
-        }
-        return bubbleTea;
-    }
-}
-</code></pre><h4 id="引用方式"><a href="#引用方式" class="headerlink" title="引用方式"></a>引用方式</h4><pre><code>class Program
-{
-    static void Main(string[] args)
-    {
-        var tpStore = new TaiPeiBubbleTeaStore();
-        var hlStore = new HuaLienBubbleTeaStore();
-
-        var softDrinks = tpStore.OrderBubbleTea(&quot;pearl&quot;);
-        Console.WriteLine($&quot;Ordered a {softDrinks.Name} in TaiPei&quot;);
-
-        Console.WriteLine(&quot;-----------------------------------------------------------&quot;);
-
-        var softDrinks2 = hlStore.OrderBubbleTea(&quot;caramel&quot;);
-        Console.WriteLine($&quot;Ordered a {softDrinks2.Name} in HuaLien&quot;);
-
-        Console.ReadKey();
-    }
-}
-</code></pre><h4 id="適用場景"><a href="#適用場景" class="headerlink" title="適用場景"></a>適用場景</h4><ol>
-<li>客戶端不需要知道具體產品類的類名，只需要知道所對應的工廠即可</li>
-<li>對於抽象工廠類只需要提供一個創建產品的接口，而由其子類來確定具體要創建的對象，利用面向對象的多態性和裡氏代換原則，在程序運行時，子類對象將覆蓋父類對象，從而使得系統更容易擴展</li>
-<li>將創建對象的任務委託給多個工廠子類中的某一個，客戶端在使用時可以無須關心是哪一個工廠子類創建產品子類，需要時再動態指定，可將具體工廠類的類名存儲在配置文件或數據庫中</li>
-</ol>
-<h4 id="優點"><a href="#優點" class="headerlink" title="優點"></a>優點</h4><ol>
-<li>新增一種產品時，只需要增加相應的具體產品類和相應的工廠子類即可</li>
-<li>每個具體工廠類只負責創建對應的產品</li>
-<li>不使用靜態工廠方法，可以形成基於繼承的等級結構</li>
-</ol>
-<h4 id="缺點"><a href="#缺點" class="headerlink" title="缺點"></a>缺點</h4><ol>
-<li>添加新產品時，除了增加新產品類外，還要提供與之對應的具體工廠類，系統類的個數將成對增加，在一定程度上增加了系統的複雜度;同時，有更多的類需要編譯和運行，會給系統帶來一些額外的開銷</li>
-<li>由於考慮到系統的可擴展性，需要引入抽象層，在客戶端代碼中均使用抽象層進行定義，增加了系統的抽象性和理解難度，且在實現時可能需要用到DOM，反射等技術，增加了系統的實現難度</li>
-<li>雖然保證了工廠方法內的對修改關閉，但對於使用工廠方法的類，如果要更換另外一種產品，仍然需要修改實例化的具體工廠類</li>
-<li>一個具體工廠只能創建一種具體產品</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://zh.wikipedia.org/wiki/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95" target="_blank" rel="noopener">維基百科-工廠方法</a><br><a href="https://www.cnblogs.com/cgzl/p/8760250.html" target="_blank" rel="noopener">和工厂方法设计模式</a><br><a href="https://blog.techbridge.cc/2017/05/22/factory-method-and-abstract-factory/" target="_blank" rel="noopener">設計模式 - 工廠方法及抽象工廠</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2446,7 +2379,7 @@ public class HuaLienBubbleTeaStore : BubbleTeaStore
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">103</span>
+                  <span class="site-state-item-count">104</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
@@ -2468,7 +2401,7 @@ public class HuaLienBubbleTeaStore : BubbleTeaStore
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">49</span>
                   <span class="site-state-item-name">標籤</span>
                 </a>
               </div>
