@@ -252,6 +252,210 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/09/PythonNumpy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/09/PythonNumpy/" itemprop="url">Python Numpy 模組</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-09T15:19:04+08:00">
+                2019-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Numpy-模組"><a href="#Numpy-模組" class="headerlink" title="Numpy 模組"></a>Numpy 模組</h1><ol>
+<li>安裝模組 <strong>pip install numpy</strong><br><img src="/2019/07/09/PythonNumpy/1.png" alt="Architecture"></li>
+<li><strong>Numpy</strong> 的 <strong>ndarray</strong> 支援多維度陣列；<strong>python</strong> 的 <strong>array</strong> 只支援單維度(1維)</li>
+<li>支援矩陣 <strong>(Martix)</strong> 的類別</li>
+</ol>
+<h4 id="基本運用"><a href="#基本運用" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code>import numpy as np
+
+a = np.array([1, 2, 3, 4, 5, 6])
+print(&quot;陣列 =&gt; {0}&quot;.format(a))
+
+# 陣列轉成 m * n 距陣
+a.shape = (3, 2)
+print(&quot;距陣 =&gt; {0}&quot;.format(a))
+
+# 距陣轉成陣列
+b = a.ravel()
+print(&quot;陣列 =&gt; {0}&quot;.format(b))
+</code></pre><h4 id="距陣串接"><a href="#距陣串接" class="headerlink" title="距陣串接"></a>距陣串接</h4><pre><code>a = np.array([[1, 2], [3, 4]])
+b = np.array([[5, 6], [7, 8]])
+print(&quot;矩陣 =&gt; {0}&quot;.format(a))
+print(&quot;矩陣 =&gt; {0}&quot;.format(b))
+
+c = np.vstack([a, b])
+print(&quot;堆疊串接 =&gt; {0}&quot;.format(c))
+c = np.hstack([a, b])
+print(&quot;水平串接 =&gt; {0}&quot;.format(c))
+</code></pre><h4 id="基本函式"><a href="#基本函式" class="headerlink" title="基本函式"></a>基本函式</h4><pre><code>a = np.exp(2)
+print(&quot;exp =&gt; {0}&quot;.format(a))
+a = np.exp2(2)
+print(&quot;exp2 =&gt; {0}&quot;.format(a))
+a = np.sqrt(2)
+print(&quot;sqrt =&gt; {0}&quot;.format(a))
+a = np.sin([2,3])
+print(&quot;sin =&gt; {0}&quot;.format(a))
+a = np.log(2)
+print(&quot;log =&gt; {0}&quot;.format(a))
+a = np.log10(2)
+print(&quot;log10 =&gt; {0}&quot;.format(a))
+a = np.log2(2)
+print(&quot;log2 =&gt; {0}&quot;.format(a))
+a = np.max([1, 2, 3, 4])
+print(&quot;max =&gt; {0}&quot;.format(a))
+</code></pre><h4 id="二維陣列操作"><a href="#二維陣列操作" class="headerlink" title="二維陣列操作"></a>二維陣列操作</h4><pre><code>a = np.array([[1, 2], [-1, 4]])
+b = np.array([[2, 0], [3, 4]])
+
+c = a * b
+d = np.dot(a, b) # 或者 a.dot(b)
+
+print(&quot;元素相乘 =&gt; {0}&quot;.format(c))
+print(&quot;矩陣相乘 =&gt; {0}&quot;.format(d))
+</code></pre><h4 id="線性代數"><a href="#線性代數" class="headerlink" title="線性代數"></a>線性代數</h4><pre><code>import numpy.linalg as ling 
+# from numpy import linalg 與上方引用相同，建議用上方的寫法
+
+a = np.array([[1, 2], [-1, 4]])
+b = np.array([[2, 0], [3, 4]])
+
+print(&quot;轉置 a =&gt; {0}&quot;.format(a.transpose()))
+print(&quot;逆矩陣 a =&gt; {0}&quot;.format(ling.inv(a)))
+
+eigenvalues, eigenvectors = linalg.eig(a)
+print(&quot;特徵值 a =&gt; {0}&quot;.format(eigenvalues))
+print(&quot;特徵矩陣 a =&gt; {0}&quot;.format(eigenvectors))
+</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://blog.csdn.net/Jerr__y/article/details/54968548" target="_blank" rel="noopener">numpy 常用操作</a>    </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/09/PythonWebCrawler/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1963,189 +2167,6 @@ else:
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/05/PythonCondition/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/05/PythonCondition/" itemprop="url">Python 判斷式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-05T11:29:22+08:00">
-                2019-07-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="判斷式"><a href="#判斷式" class="headerlink" title="判斷式"></a>判斷式</h1><p>目前只有 if，沒有 switch</p>
-<h4 id="基本判斷"><a href="#基本判斷" class="headerlink" title="基本判斷"></a>基本判斷</h4><pre><code>if True:
-    print(&quot;true&quot;)
-else:
-    print(&quot;false&quot;)
-</code></pre><h4 id="抓取輸入值判斷"><a href="#抓取輸入值判斷" class="headerlink" title="抓取輸入值判斷"></a>抓取輸入值判斷</h4><pre><code>x = input(&quot;輸入數字：&quot;)
-x = int(x)
-
-if x &gt; 200:
-    print(&quot;大於 200&quot;)
-elif x &gt; 100:
-    print(&quot;大於 100， 小於等於 200&quot;)
-else:
-    print(&quot;小於等於 100&quot;)
-</code></pre><h4 id="四則運算"><a href="#四則運算" class="headerlink" title="四則運算"></a>四則運算</h4><pre><code>n1 = int(input(&quot;輸入數字一：&quot;))
-n2 = int(input(&quot;輸入數字二：&quot;))
-op = input(&quot;輸入運算：+, -, *, /&quot;)
-
-if op == &quot;+&quot;:
-    print(n1 + n2)
-elif op == &quot;-&quot;:
-    print(n1 - n2)
-elif op == &quot;*&quot;:
-    print(n1 * n2)
-elif op == &quot;/&quot;:
-    print(n1 / n2)
-else:
-    print(&quot;沒有這運算符號&quot;)
-</code></pre><h4 id="三元運算子"><a href="#三元運算子" class="headerlink" title="三元運算子"></a>三元運算子</h4><pre><code># 條件為真, 反回真 否則 反回假
-# condition_is_true if condition else condition_is_false
-
-is_fat = True
-state = &quot;fat&quot; if is_fat else &quot;not fat&quot;
-print(state)
-
-#(反回假, 反回真)[真或假]
-#(if_test_is_false, if_test_is_true)[test]
-
-fat = False
-fitness = (&quot;skinny&quot;, &quot;fat&quot;)[fat]
-print(&quot;Ali is&quot;, fitness)
-</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=A93BsHB-lWo" target="_blank" rel="noopener">Python 流程控制：if 判斷式 By 彭彭</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2198,7 +2219,7 @@ print(&quot;Ali is&quot;, fitness)
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">105</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>

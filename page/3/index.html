@@ -252,6 +252,261 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/15/PythonBokeh/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/15/PythonBokeh/" itemprop="url">Python 高階繪圖套件 Bokeh</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-15T11:50:53+08:00">
+                2019-07-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="高階繪圖套件-Bokeh"><a href="#高階繪圖套件-Bokeh" class="headerlink" title="高階繪圖套件 Bokeh"></a>高階繪圖套件 Bokeh</h1><ol>
+<li>安裝模組 <strong>pip install bokeh</strong></li>
+<li>使用 <strong>JavaScript</strong> 縮放圖形的效果</li>
+</ol>
+<h2 id="分散標記"><a href="#分散標記" class="headerlink" title="分散標記"></a>分散標記</h2><h4 id="圓形"><a href="#圓形" class="headerlink" title="圓形"></a>圓形</h4><pre><code>from bokeh.plotting import figure, output_file, show
+
+output_file(&quot;line.html&quot;)
+p = figure(plot_width=400, plot_height=400)
+p.circle([1, 2, 3, 4, 5], [6, 7, 2, 4, 5], size=20, color=&quot;navy&quot;, alpha=0.5)
+
+show(p)
+</code></pre><p><img src="/2019/07/15/PythonBokeh/1.png" alt="Architecture"></p>
+<h4 id="正方形"><a href="#正方形" class="headerlink" title="正方形"></a>正方形</h4><pre><code>from bokeh.plotting import figure, output_file, show
+
+output_file(&quot;square.html&quot;)
+p = figure(plot_width=400, plot_height=400)
+p.square([1, 2, 3, 4, 5], [6, 7, 2, 4, 5], size=20, color=&quot;olive&quot;, alpha=0.5)
+
+show(p)
+</code></pre><p><img src="/2019/07/15/PythonBokeh/2.png" alt="Architecture"></p>
+<h4 id="折線圖"><a href="#折線圖" class="headerlink" title="折線圖"></a>折線圖</h4><pre><code>from bokeh.plotting import figure, output_file, show
+
+output_file(&quot;line.html&quot;)
+p = figure(plot_width=400, plot_height=400)
+p.line([1, 2, 3, 4, 5], [6, 7, 2, 4, 5], line_width=2)
+
+show(p)
+</code></pre><p><img src="/2019/07/15/PythonBokeh/3.png" alt="Architecture"></p>
+<h4 id="Multiple-Lines"><a href="#Multiple-Lines" class="headerlink" title="Multiple Lines"></a>Multiple Lines</h4><pre><code>from bokeh.plotting import figure, output_file, show
+
+output_file(&quot;patch.html&quot;)
+p = figure(plot_width=400, plot_height=400)
+p.multi_line([[1, 3, 2], [3, 4, 6, 6]], [[2, 1, 4], [4, 7, 8, 5]],
+         color=[&quot;firebrick&quot;, &quot;navy&quot;], alpha=[0.8, 0.3], line_width=4)
+
+show(p)
+</code></pre><p><img src="/2019/07/15/PythonBokeh/4.png" alt="Architecture"></p>
+<h4 id="Missing-Points"><a href="#Missing-Points" class="headerlink" title="Missing Points"></a>Missing Points</h4><pre><code>from bokeh.plotting import figure, output_file, show
+
+output_file(&quot;line.html&quot;)
+p = figure(plot_width=400, plot_height=400)
+nan = float(&apos;nan&apos;)
+p.line([1, 2, 3, nan, 4, 5], [6, 7, 2, 4, 4, 5], line_width=2)
+
+show(p)
+</code></pre><p><img src="/2019/07/15/PythonBokeh/5.png" alt="Architecture"></p>
+<h4 id="Bars-and-Rectangles"><a href="#Bars-and-Rectangles" class="headerlink" title="Bars and Rectangles"></a>Bars and Rectangles</h4><pre><code>from bokeh.plotting import figure, show, output_file
+
+output_file(&apos;vbar.html&apos;)
+p = figure(plot_width=400, plot_height=400)
+p.vbar(x=[1, 2, 3], width=0.5, bottom=0,
+    top=[1.2, 2.5, 3.7], color=&quot;firebrick&quot;)
+
+show(p)
+</code></pre><p><img src="/2019/07/15/PythonBokeh/6.png" alt="Architecture"></p>
+<h4 id="Stacked-Bars"><a href="#Stacked-Bars" class="headerlink" title="Stacked Bars"></a>Stacked Bars</h4><pre><code>from bokeh.models import ColumnDataSource
+from bokeh.plotting import figure, output_file, show
+
+output_file(&quot;hbar_stack.html&quot;)
+source = ColumnDataSource(data=dict(
+    y=[1, 2, 3, 4, 5],
+    x1=[1, 2, 4, 3, 4],
+    x2=[1, 4, 2, 2, 3],
+))
+
+p = figure(plot_width=400, plot_height=400)
+p.hbar_stack([&apos;x1&apos;, &apos;x2&apos;], y=&apos;y&apos;, height=0.8, color=(&quot;grey&quot;, &quot;lightgrey&quot;), source=source)
+
+show(p)
+</code></pre><p><img src="/2019/07/15/PythonBokeh/7.png" alt="Architecture"></p>
+<h4 id="Multiple-MultiPolygons"><a href="#Multiple-MultiPolygons" class="headerlink" title="Multiple MultiPolygons"></a>Multiple MultiPolygons</h4><pre><code>from bokeh.plotting import figure, show, output_file
+
+output_file(&apos;multipolygons.html&apos;)
+p = figure(plot_width=400, plot_height=400)
+p.multi_polygons(
+    xs=[
+        [[ [1, 1, 2, 2], [1.2, 1.6, 1.6], [1.8, 1.8, 1.6] ], [ [3, 3, 4] ]],
+        [[ [1, 2, 2, 1], [1.3, 1.3, 1.7, 1.7] ]]],
+    ys=[
+        [[ [4, 3, 3, 4], [3.2, 3.2, 3.6], [3.4, 3.8, 3.8] ], [ [1, 3, 1] ]],
+        [[ [1, 1, 2, 2], [1.3, 1.7, 1.7, 1.3] ]]],
+    color=[&apos;blue&apos;, &apos;red&apos;])
+
+show(p)
+</code></pre><p><img src="/2019/07/15/PythonBokeh/8.png" alt="Architecture"></p>
+<h4 id="Wedges-and-Arcs"><a href="#Wedges-and-Arcs" class="headerlink" title="Wedges and Arcs"></a>Wedges and Arcs</h4><pre><code>from bokeh.plotting import figure, show
+
+p = figure(plot_width=400, plot_height=400)
+p.annulus(x=[1, 2, 3], y=[1, 2, 3], inner_radius=0.1, outer_radius=0.25,
+        color=&quot;orange&quot;, alpha=0.6)
+
+show(p)
+</code></pre><p><img src="/2019/07/15/PythonBokeh/9.png" alt="Architecture"></p>
+<h4 id="Twin-Axes"><a href="#Twin-Axes" class="headerlink" title="Twin Axes"></a>Twin Axes</h4><pre><code>from numpy import pi, arange, sin, linspace
+from bokeh.plotting import output_file, figure, show
+from bokeh.models import LinearAxis, Range1d
+
+x = arange(-2*pi, 2*pi, 0.1)
+y = sin(x)
+y2 = linspace(0, 100, len(y))
+
+output_file(&quot;twin_axis.html&quot;)
+
+p = figure(x_range=(-6.5, 6.5), y_range=(-1.1, 1.1))
+
+p.circle(x, y, color=&quot;red&quot;)
+
+p.extra_y_ranges = {&quot;foo&quot;: Range1d(start=0, end=100)}
+p.circle(x, y2, color=&quot;blue&quot;, y_range_name=&quot;foo&quot;)
+p.add_layout(LinearAxis(y_range_name=&quot;foo&quot;), &apos;left&apos;)
+
+show(p)
+</code></pre><p><img src="/2019/07/15/PythonBokeh/10.png" alt="Architecture"></p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://bokeh.pydata.org/en/latest/docs/user_guide/plotting.html#userguide-plotting" target="_blank" rel="noopener">Plotting with Basic Glyphs</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/12/PythonSeaborn/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2034,210 +2289,6 @@ print(wp.to_frame(filter_observations=False))
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/09/PythonNumpy/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/09/PythonNumpy/" itemprop="url">Python Numpy 模組</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-09T15:19:04+08:00">
-                2019-07-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Numpy-模組"><a href="#Numpy-模組" class="headerlink" title="Numpy 模組"></a>Numpy 模組</h1><ol>
-<li>安裝模組 <strong>pip install numpy</strong><br><img src="/2019/07/09/PythonNumpy/1.png" alt="Architecture"></li>
-<li><strong>Numpy</strong> 的 <strong>ndarray</strong> 支援多維度陣列；<strong>python</strong> 的 <strong>array</strong> 只支援單維度(1維)</li>
-<li>支援矩陣 <strong>(Martix)</strong> 的類別</li>
-</ol>
-<h4 id="基本運用"><a href="#基本運用" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code>import numpy as np
-
-a = np.array([1, 2, 3, 4, 5, 6])
-print(&quot;陣列 =&gt; {0}&quot;.format(a))
-
-# 陣列轉成 m * n 距陣
-a.shape = (3, 2)
-print(&quot;距陣 =&gt; {0}&quot;.format(a))
-
-# 距陣轉成陣列
-b = a.ravel()
-print(&quot;陣列 =&gt; {0}&quot;.format(b))
-</code></pre><h4 id="距陣串接"><a href="#距陣串接" class="headerlink" title="距陣串接"></a>距陣串接</h4><pre><code>a = np.array([[1, 2], [3, 4]])
-b = np.array([[5, 6], [7, 8]])
-print(&quot;矩陣 =&gt; {0}&quot;.format(a))
-print(&quot;矩陣 =&gt; {0}&quot;.format(b))
-
-c = np.vstack([a, b])
-print(&quot;堆疊串接 =&gt; {0}&quot;.format(c))
-c = np.hstack([a, b])
-print(&quot;水平串接 =&gt; {0}&quot;.format(c))
-</code></pre><h4 id="基本函式"><a href="#基本函式" class="headerlink" title="基本函式"></a>基本函式</h4><pre><code>a = np.exp(2)
-print(&quot;exp =&gt; {0}&quot;.format(a))
-a = np.exp2(2)
-print(&quot;exp2 =&gt; {0}&quot;.format(a))
-a = np.sqrt(2)
-print(&quot;sqrt =&gt; {0}&quot;.format(a))
-a = np.sin([2,3])
-print(&quot;sin =&gt; {0}&quot;.format(a))
-a = np.log(2)
-print(&quot;log =&gt; {0}&quot;.format(a))
-a = np.log10(2)
-print(&quot;log10 =&gt; {0}&quot;.format(a))
-a = np.log2(2)
-print(&quot;log2 =&gt; {0}&quot;.format(a))
-a = np.max([1, 2, 3, 4])
-print(&quot;max =&gt; {0}&quot;.format(a))
-</code></pre><h4 id="二維陣列操作"><a href="#二維陣列操作" class="headerlink" title="二維陣列操作"></a>二維陣列操作</h4><pre><code>a = np.array([[1, 2], [-1, 4]])
-b = np.array([[2, 0], [3, 4]])
-
-c = a * b
-d = np.dot(a, b) # 或者 a.dot(b)
-
-print(&quot;元素相乘 =&gt; {0}&quot;.format(c))
-print(&quot;矩陣相乘 =&gt; {0}&quot;.format(d))
-</code></pre><h4 id="線性代數"><a href="#線性代數" class="headerlink" title="線性代數"></a>線性代數</h4><pre><code>import numpy.linalg as ling 
-# from numpy import linalg 與上方引用相同，建議用上方的寫法
-
-a = np.array([[1, 2], [-1, 4]])
-b = np.array([[2, 0], [3, 4]])
-
-print(&quot;轉置 a =&gt; {0}&quot;.format(a.transpose()))
-print(&quot;逆矩陣 a =&gt; {0}&quot;.format(ling.inv(a)))
-
-eigenvalues, eigenvectors = linalg.eig(a)
-print(&quot;特徵值 a =&gt; {0}&quot;.format(eigenvalues))
-print(&quot;特徵矩陣 a =&gt; {0}&quot;.format(eigenvectors))
-</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://blog.csdn.net/Jerr__y/article/details/54968548" target="_blank" rel="noopener">numpy 常用操作</a>    </p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2290,7 +2341,7 @@ print(&quot;特徵矩陣 a =&gt; {0}&quot;.format(eigenvectors))
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">105</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>

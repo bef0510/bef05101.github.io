@@ -252,6 +252,368 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/14/DesignPatternWithAbstractFactory/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/14/DesignPatternWithAbstractFactory/" itemprop="url">創建型模式 - 抽象工廠模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-05-14T15:47:28+08:00">
+                2019-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Design-Pattern/" itemprop="url" rel="index">
+                    <span itemprop="name">Design Pattern</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="抽象工廠模式"><a href="#抽象工廠模式" class="headerlink" title="抽象工廠模式"></a>抽象工廠模式</h1><p>抽象工廠模式的實質是「提供介面，建立一系列相關或獨立的物件，而不指定這些物件的具體類<br><img src="/2019/05/14/DesignPatternWithAbstractFactory/1.png" alt="Architecture"></p>
+<h4 id="建立一個-原料-介面-IBubbleTeaIngredientFactory"><a href="#建立一個-原料-介面-IBubbleTeaIngredientFactory" class="headerlink" title="建立一個 原料 介面 IBubbleTeaIngredientFactory"></a>建立一個 原料 介面 <code>IBubbleTeaIngredientFactory</code></h4><pre><code>public interface IIngredient
+{
+    string Name { get; }
+}
+
+public interface ITea : IIngredient { }
+
+public interface ITapioca : IIngredient { }
+
+public interface ISugar : IIngredient { }
+
+public interface IBubbleTeaIngredientFactory
+{
+    ITea CreateTea();
+    ITapioca CreateTapioca();
+    ISugar CreateSugar();
+}
+</code></pre><h4 id="建立類別-實作原料"><a href="#建立類別-實作原料" class="headerlink" title="建立類別 實作原料"></a>建立類別 實作原料</h4><pre><code>public class BlackTea : ITea
+{
+    public string Name =&gt; &quot;Black Tea&quot;;
+}
+
+public class GreenTea : ITea
+{
+    public string Name =&gt; &quot;Green Tea&quot;;
+}
+
+public class SucroseSugar : ISugar
+{
+    public string Name =&gt; &quot;Sucrose Sugar&quot;;
+}
+
+public class FructoseSugar : ISugar
+{
+    public string Name =&gt; &quot;Fructose Sugar&quot;;
+}
+
+public class CassavaTapioca : ITapioca
+{
+    public string Name =&gt; &quot;Cassava Tapioca&quot;;
+}
+
+public class PotatoTapioca : ITapioca
+{
+    public string Name =&gt; &quot;Potato Tapioca&quot;;
+}
+</code></pre><h4 id="建立一個抽象類別-BubbleTea"><a href="#建立一個抽象類別-BubbleTea" class="headerlink" title="建立一個抽象類別 BubbleTea"></a>建立一個抽象類別 <code>BubbleTea</code></h4><pre><code>public abstract class BubbleTea
+{
+    public string Name { get; set; }
+    public ITea Tea { get; protected set; }
+    public ISugar Sugar { get; protected set; }
+    public ITapioca Tapioca { get; protected set; }
+
+    public abstract void Prepare();
+
+    public void Shake() =&gt; Console.WriteLine(&quot;Shake for 5 times&quot;);
+
+    public void Bag() =&gt; Console.WriteLine(&quot;Reusable shopping bag&quot;);
+}
+</code></pre><h4 id="建立一個類別-實作各式-BubbleTea"><a href="#建立一個類別-實作各式-BubbleTea" class="headerlink" title="建立一個類別 實作各式 BubbleTea"></a>建立一個類別 實作各式 <code>BubbleTea</code></h4><pre><code>public class PearlMilkTea : BubbleTea
+{
+    private readonly IBubbleTeaIngredientFactory bubbleTeaIngredientFactory;
+
+    public PearlMilkTea(IBubbleTeaIngredientFactory bubbleTeaIngredientFactory)
+    {
+        this.bubbleTeaIngredientFactory = bubbleTeaIngredientFactory;
+    }
+
+    public override void Prepare()
+    {
+        Console.WriteLine($&quot;Preparing: {Name}&quot;);
+        Tea = this.bubbleTeaIngredientFactory.CreateTea();
+        Sugar = this.bubbleTeaIngredientFactory.CreateSugar();
+        Tapioca = this.bubbleTeaIngredientFactory.CreateTapioca();
+        Console.WriteLine($&quot;    {Tea.Name}&quot;);
+        Console.WriteLine($&quot;    {Sugar.Name}&quot;);
+        Console.WriteLine($&quot;    {Tapioca.Name}&quot;);
+    }
+}
+
+public class CaramelMilkTea : BubbleTea
+{
+    private readonly IBubbleTeaIngredientFactory bubbleTeaIngredientFactory;
+
+    public CaramelMilkTea(IBubbleTeaIngredientFactory bubbleTeaIngredientFactory)
+    {
+        this.bubbleTeaIngredientFactory = bubbleTeaIngredientFactory;
+    }
+
+    public override void Prepare()
+    {
+        Console.WriteLine($&quot;Preparing: {Name}&quot;);
+        Tea = this.bubbleTeaIngredientFactory.CreateTea();
+        Sugar = this.bubbleTeaIngredientFactory.CreateSugar();
+        Tapioca = this.bubbleTeaIngredientFactory.CreateTapioca();
+        Console.WriteLine($&quot;    {Tea.Name}&quot;);
+        Console.WriteLine($&quot;    {Sugar.Name}&quot;);
+        Console.WriteLine($&quot;    {Tapioca.Name}&quot;);
+    }
+}
+</code></pre><h4 id="建立一個類別-繼承-原料，實作-各地原料-IBubbleTeaIngredientFactory"><a href="#建立一個類別-繼承-原料，實作-各地原料-IBubbleTeaIngredientFactory" class="headerlink" title="建立一個類別 繼承 原料，實作 各地原料 IBubbleTeaIngredientFactory"></a>建立一個類別 繼承 原料，實作 各地原料 <code>IBubbleTeaIngredientFactory</code></h4><pre><code>public class TaiPeiBubbleTeaIngredientFactory : IBubbleTeaIngredientFactory
+{
+    public ITea CreateTea()
+    {
+        return new BlackTea();
+    }
+
+    public ISugar CreateSugar()
+    {
+        return new SucroseSugar();
+    }
+
+    public ITapioca CreateTapioca()
+    {
+        return new CassavaTapioca();
+    }
+}
+
+public class HuaLienBubbleTeaIngredientFactory : IBubbleTeaIngredientFactory
+{
+    public ITea CreateTea()
+    {
+        return new GreenTea();
+    }
+
+    public ISugar CreateSugar()
+    {
+        return new FructoseSugar();
+    }
+
+    public ITapioca CreateTapioca()
+    {
+        return new PotatoTapioca();
+    }
+}
+</code></pre><h4 id="建立一個抽象類別-BubbleTeaStore"><a href="#建立一個抽象類別-BubbleTeaStore" class="headerlink" title="建立一個抽象類別 BubbleTeaStore"></a>建立一個抽象類別 <code>BubbleTeaStore</code></h4><pre><code>public abstract class BubbleTeaStore
+{
+    public BubbleTea OrderBubbleTea(string type)
+    {
+        var bubbleTea = CreateBubbleTea(type);
+        bubbleTea.Prepare();
+        bubbleTea.Shake();
+        bubbleTea.Bag();
+        return bubbleTea;
+    }
+
+    protected abstract BubbleTea CreateBubbleTea(string type);
+}
+</code></pre><h4 id="建立一個類別-實作-各地商店-BubbleTeaStore"><a href="#建立一個類別-實作-各地商店-BubbleTeaStore" class="headerlink" title="建立一個類別 實作 各地商店 BubbleTeaStore"></a>建立一個類別 實作 各地商店 <code>BubbleTeaStore</code></h4><pre><code>public class TaiPeiBubbleTeaStore : BubbleTeaStore
+{
+    protected override BubbleTea CreateBubbleTea(string type)
+    {
+        var factory = new TaiPeiBubbleTeaIngredientFactory();
+        BubbleTea bubbleTea = null;
+        switch (type)
+        {
+            case &quot;pearl&quot;:
+                bubbleTea = new PearlMilkTea(factory);
+                bubbleTea.Name = &quot;TaiPei Bubble Tea&quot;;
+                break;
+            case &quot;caramel&quot;:
+                bubbleTea = new CaramelMilkTea(factory);
+                bubbleTea.Name = &quot;TaiPei Caramel Milk Tea&quot;;
+                break;
+        }
+        return bubbleTea;
+    }
+}
+
+public class HuaLienBubbleTeaStore : BubbleTeaStore
+{
+    protected override BubbleTea CreateBubbleTea(string type)
+    {
+        var factory = new HuaLienBubbleTeaIngredientFactory();
+        BubbleTea bubbleTea = null;
+        switch (type)
+        {
+            case &quot;pearl&quot;:
+                bubbleTea = new PearlMilkTea(factory);
+                bubbleTea.Name = &quot;HuaLien Bubble Tea&quot;;
+                break;
+            case &quot;caramel&quot;:
+                bubbleTea = new CaramelMilkTea(factory);
+                bubbleTea.Name = &quot;HuaLien Caramel Milk Tea&quot;;
+                break;
+        }
+        return bubbleTea;
+    }
+}
+</code></pre><h4 id="引用方式"><a href="#引用方式" class="headerlink" title="引用方式"></a>引用方式</h4><pre><code>class Program
+{
+    static void Main(string[] args)
+    {
+        var tpStore = new TaiPeiBubbleTeaStore();
+        var hlStore = new HuaLienBubbleTeaStore();
+
+        var softDrinks = tpStore.OrderBubbleTea(&quot;pearl&quot;);
+
+        Console.WriteLine(&quot;-----------------------------------------------------------&quot;);
+
+        var softDrinks2 = hlStore.OrderBubbleTea(&quot;caramel&quot;);
+
+        Console.ReadKey();
+    }
+}
+</code></pre><h4 id="適用場景"><a href="#適用場景" class="headerlink" title="適用場景"></a>適用場景</h4><ol>
+<li>一個系統要獨立於它的產品的建立、組合和表示時</li>
+<li>一個系統要由多個產品系列中的一個來組態時</li>
+<li>需要強調一系列相關的產品物件的設計以便進行聯合使用時</li>
+<li>提供一個產品類別庫，而只想顯示它們的介面而不是實現時</li>
+</ol>
+<h4 id="優點"><a href="#優點" class="headerlink" title="優點"></a>優點</h4><ol>
+<li>具體產品從客戶程式碼中被分離出來</li>
+<li>容易改變產品的系列</li>
+<li>將一個系列的產品族統一到一起建立</li>
+</ol>
+<h4 id="缺點"><a href="#缺點" class="headerlink" title="缺點"></a>缺點</h4><ol>
+<li>在產品族中擴充新的產品是很困難的，它需要修改抽象工廠的介面</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://zh.wikipedia.org/wiki/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82" target="_blank" rel="noopener">維基百科-抽象工廠</a><br><a href="https://www.cnblogs.com/cgzl/p/8776868.html" target="_blank" rel="noopener">抽象工厂设计模式</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/13/DesignPatternWithFactoryMethod/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2064,205 +2426,6 @@ export class AppRoutingModule { }
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/26/NetworkLoadBalancing/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/26/NetworkLoadBalancing/" itemprop="url">NLB 網路負載平衡</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-04-26T17:34:29+08:00">
-                2019-04-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MIS/" itemprop="url" rel="index">
-                    <span itemprop="name">MIS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="網路負載平衡設定"><a href="#網路負載平衡設定" class="headerlink" title="網路負載平衡設定"></a>網路負載平衡設定</h1><pre><code>IP 皆為固定，叢集 IP 不能被使用
-</code></pre><ol>
-<li><strong>A server IP ：</strong> <code>172.27.59.161</code></li>
-<li><strong>B server IP ：</strong> <code>172.27.59.162</code></li>
-<li><strong>叢集 IP ：</strong> <code>172.27.59.163</code><br><img src="/2019/04/26/NetworkLoadBalancing/0.gif" alt="Architecture"></li>
-</ol>
-<h3 id="安裝-NLB"><a href="#安裝-NLB" class="headerlink" title="安裝 NLB"></a>安裝 NLB</h3><p><strong>Server</strong> 設定</p>
-<ol>
-<li><p><strong>Server Manager</strong> → <strong>Add roles and features</strong><br><img src="/2019/04/26/NetworkLoadBalancing/1.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/04/26/NetworkLoadBalancing/2.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/04/26/NetworkLoadBalancing/3.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/04/26/NetworkLoadBalancing/4.png" alt="Architecture"></p>
-</li>
-<li><p>勾選 <strong>Network Load Balancing</strong> → <strong>Next</strong><br><img src="/2019/04/26/NetworkLoadBalancing/5.png" alt="Architecture"></p>
-</li>
-<li><p>勾選 重啟電腦 → 點擊 <strong>Specify an alternate source path</strong><br><img src="/2019/04/26/NetworkLoadBalancing/6.png" alt="Architecture"></p>
-</li>
-<li><p>輸入 <code>sxs</code> <strong>Path</strong><br><img src="/2019/04/26/NetworkLoadBalancing/7.png" alt="Architecture"></p>
-</li>
-<li><p>點擊 <strong>Install</strong><br><img src="/2019/04/26/NetworkLoadBalancing/8.png" alt="Architecture"></p>
-</li>
-</ol>
-<h3 id="設定-A-Server-及-叢集"><a href="#設定-A-Server-及-叢集" class="headerlink" title="設定 A Server 及 叢集"></a>設定 A Server 及 叢集</h3><ol>
-<li><p><strong>Server Manager</strong> → <strong>Tools</strong> → 點擊 <strong>Network Load Balancing Manager</strong><br><img src="/2019/04/26/NetworkLoadBalancing/10.png" alt="Architecture"></p>
-</li>
-<li><p>右鍵 → 點擊 <strong>New Cluster</strong><br><img src="/2019/04/26/NetworkLoadBalancing/11.png" alt="Architecture"></p>
-</li>
-<li><p>輸入 <strong>A Server IP</strong><br><img src="/2019/04/26/NetworkLoadBalancing/12.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/04/26/NetworkLoadBalancing/13.png" alt="Architecture"></p>
-</li>
-<li><p>點擊 <strong>Add</strong><br><img src="/2019/04/26/NetworkLoadBalancing/14.png" alt="Architecture"></p>
-</li>
-<li><p>輸入 <strong>叢集 IP</strong><br><img src="/2019/04/26/NetworkLoadBalancing/15.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/04/26/NetworkLoadBalancing/16.png" alt="Architecture"></p>
-</li>
-<li><p>選擇 <strong>Multicast</strong><br><img src="/2019/04/26/NetworkLoadBalancing/17.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Finish</strong><br><img src="/2019/04/26/NetworkLoadBalancing/18.png" alt="Architecture"></p>
-</li>
-</ol>
-<h3 id="設定-B-Server"><a href="#設定-B-Server" class="headerlink" title="設定 B Server"></a>設定 B Server</h3><ol>
-<li><p>叢集右鍵 → <strong>Add Host To Cluster</strong><br><img src="/2019/04/26/NetworkLoadBalancing/20.png" alt="Architecture"></p>
-</li>
-<li><p>輸入 <strong>B Server IP</strong><br><img src="/2019/04/26/NetworkLoadBalancing/21.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Priority</strong> 選 <strong>2</strong><br><img src="/2019/04/26/NetworkLoadBalancing/22.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Finish</strong><br><img src="/2019/04/26/NetworkLoadBalancing/23.png" alt="Architecture"></p>
-</li>
-<li><p>設定完成<br><img src="/2019/04/26/NetworkLoadBalancing/24.png" alt="Architecture"></p>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://docs.microsoft.com/zh-tw/windows-server/networking/technologies/network-load-balancing" target="_blank" rel="noopener">網路負載平衡| Microsoft Docs</a><br><a href="https://www.youtube.com/watch?v=Zx4s59nFX3E&amp;t=1093s" target="_blank" rel="noopener">108-1網工班-Windows Server 2019-IIS Server 網路負載平衡-16-1</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2315,7 +2478,7 @@ export class AppRoutingModule { }
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">105</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
