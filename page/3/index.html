@@ -252,6 +252,397 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/15/AngularBinding/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/15/AngularBinding/" itemprop="url">Angular Binding</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-15T17:52:53+08:00">
+                2019-07-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Angular/" itemprop="url" rel="index">
+                    <span itemprop="name">Angular</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Binding"><a href="#Binding" class="headerlink" title="Binding"></a>Binding</h1><ol>
+<li><strong>Interpolation</strong></li>
+<li><strong>Property Binding</strong></li>
+<li><strong>Event Binding</strong></li>
+<li><strong>Two-way Binding</strong></li>
+<li><strong>Class Binding</strong></li>
+<li><strong>Style Binding</strong></li>
+<li><strong>Event Binding</strong><br><img src="/2019/07/15/AngularBinding/1.png" alt="Architecture"><br><img src="/2019/07/15/AngularBinding/2.png" alt="Architecture"></li>
+</ol>
+<h2 id="import-FormsModule"><a href="#import-FormsModule" class="headerlink" title="import FormsModule"></a>import FormsModule</h2><p><img src="/2019/07/15/AngularBinding/3.png" alt="Architecture"></p>
+<h4 id="Interpolation"><a href="#Interpolation" class="headerlink" title="Interpolation { { } }"></a>Interpolation { { } }</h4><ol>
+<li><p><strong>app.component.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line">  pageTitle = <span class="string">'helloworld'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>app.component.html</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1&gt;&#123;&#123; pageTitle &#125;&#125;&lt;/h1&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="Property-Binding"><a href="#Property-Binding" class="headerlink" title="Property Binding []"></a>Property Binding []</h2><h4 id="Property-Binding-1"><a href="#Property-Binding-1" class="headerlink" title="Property Binding 1"></a>Property Binding 1</h4><ol>
+<li><p><strong>app.component.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line">  imgUrl = <span class="string">'https://picsum.photos/200'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>app.component.html</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;img [src]=<span class="string">"imgUrl"</span> alt=<span class="string">"Image"</span> /&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="Property-Binding-2"><a href="#Property-Binding-2" class="headerlink" title="Property Binding 2"></a>Property Binding 2</h4><ol>
+<li><p><strong>test.component.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-test'</span>,</span><br><span class="line">  template: `</span><br><span class="line">    &lt;h2&gt;</span><br><span class="line">      Welcome &#123;&#123; name &#125;&#125;</span><br><span class="line">    &lt;/h2&gt;</span><br><span class="line">    &lt;input [id]=<span class="string">"myId"</span> <span class="built_in">type</span>=<span class="string">"text"</span> value=<span class="string">"NickName"</span> /&gt;</span><br><span class="line">    &lt;input id=<span class="string">"&#123;&#123;myId&#125;&#125;"</span> <span class="built_in">type</span>=<span class="string">"text"</span> value=<span class="string">"NickName"</span> /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;input disabled=<span class="string">"false"</span> <span class="built_in">type</span>=<span class="string">"text"</span> value=<span class="string">"NickName"</span> /&gt;</span><br><span class="line">    &lt;input disabled=<span class="string">"&#123;&#123;false&#125;&#125;"</span> <span class="built_in">type</span>=<span class="string">"text"</span> value=<span class="string">"NickName"</span> /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;input [disabled]=<span class="string">"isDisabled"</span> <span class="built_in">type</span>=<span class="string">"text"</span> value=<span class="string">"NickName"</span> /&gt;</span><br><span class="line">    &lt;input <span class="built_in">bind</span>-disabled=<span class="string">"isDisabled"</span> <span class="built_in">type</span>=<span class="string">"text"</span> value=<span class="string">"NickName"</span> /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;button (click)=<span class="string">"onChangeDisabled()"</span>&gt;Click&lt;/button&gt;</span><br><span class="line">  `,</span><br><span class="line">  styleUrls: []</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class TestComponent implements OnInit &#123;</span><br><span class="line"></span><br><span class="line">  public name = <span class="string">"Hello World"</span>;</span><br><span class="line">  public myId = <span class="string">"testId"</span>;</span><br><span class="line">  public isDisabled = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">constructor</span></span>() &#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">ngOnInit</span></span>() &#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">onChangeDisabled</span></span>() &#123;</span><br><span class="line">    this.isDisabled = !this.isDisabled;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>app.component.html</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;app-test&gt;&lt;/app-test&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="Event-Binding"><a href="#Event-Binding" class="headerlink" title="Event Binding ()"></a>Event Binding ()</h4><ol>
+<li><p><strong>app.component.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line">  count = 0;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">incrementCount</span></span>() &#123;</span><br><span class="line">    this.count += 1;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>app.component.html</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;button (click)=<span class="string">"incrementCount()"</span>&gt;Click&lt;/button&gt;</span><br><span class="line">  &lt;p&gt;Clicked &#123;&#123; count &#125;&#125; <span class="built_in">times</span>&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="Two-way-Binding"><a href="#Two-way-Binding" class="headerlink" title="Two-way Binding [()]"></a>Two-way Binding [()]</h2><h4 id="Two-way-Binding-1"><a href="#Two-way-Binding-1" class="headerlink" title="Two-way Binding 1"></a>Two-way Binding 1</h4><ol>
+<li><p><strong>app.component.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line">  userName: string;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>app.component.html</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;input <span class="built_in">type</span>=<span class="string">"text"</span> [ngModel]=<span class="string">"userName"</span> (ngModelChange)=<span class="string">"userName=<span class="variable">$event</span>"</span>&gt;</span><br><span class="line">  &lt;p&gt;Welcome &#123;&#123; userName &#125;&#125;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="Two-way-Binding-2"><a href="#Two-way-Binding-2" class="headerlink" title="Two-way Binding 2"></a>Two-way Binding 2</h4><ol>
+<li><p><strong>app.component.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line">  nickName: string;</span><br><span class="line"></span><br><span class="line">  greetNickName(updatedValue) &#123;</span><br><span class="line">    this.nickName = updatedValue;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(updatedValue == <span class="string">'Nickname'</span>)&#123;</span><br><span class="line">      alert(<span class="string">'Welcome back Nickname'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>app.component.html</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;input <span class="built_in">type</span>=<span class="string">"text"</span> [ngModel]=<span class="string">"nickName"</span> (ngModelChange)=<span class="string">"greetNickName(<span class="variable">$event</span>)"</span>&gt;</span><br><span class="line">  &lt;p&gt;Welcome &#123;&#123; nickName &#125;&#125;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="Two-way-Binding-3"><a href="#Two-way-Binding-3" class="headerlink" title="Two-way Binding 3"></a>Two-way Binding 3</h4><ol>
+<li><p><strong>app.component.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line">  name: string;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>app.component.html</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;input <span class="built_in">type</span>=<span class="string">"text"</span> [(ngModel)]=<span class="string">"name"</span>&gt;</span><br><span class="line">  &lt;p&gt;Welcome &#123;&#123; name &#125;&#125;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="Class-Binding"><a href="#Class-Binding" class="headerlink" title="Class Binding"></a>Class Binding</h4><ol>
+<li><p><strong>test.component.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-test'</span>,</span><br><span class="line">  template: `</span><br><span class="line">    &lt;h2&gt;</span><br><span class="line">      Welcome &#123;&#123; name &#125;&#125;</span><br><span class="line">    &lt;/h2&gt;</span><br><span class="line">    &lt;h2 class=<span class="string">"text-success"</span>&gt;Hello&lt;/h2&gt;</span><br><span class="line">    &lt;h2 [class]=<span class="string">"successClass"</span>&gt;Hello&lt;/h2&gt;</span><br><span class="line"></span><br><span class="line">    &lt;h2 class=<span class="string">"text-special"</span> [class]=<span class="string">"successClass"</span>&gt;Hello&lt;/h2&gt; &lt;!--text-special not work--&gt;</span><br><span class="line"></span><br><span class="line">    &lt;h2 [class.text-danger]=<span class="string">"hasError"</span>&gt;Hello&lt;/h2&gt; &lt;!--single class--&gt;</span><br><span class="line"></span><br><span class="line">    &lt;h2 [ngClass]=<span class="string">"messageClasses"</span>&gt;Hello&lt;/h2&gt; &lt;!--multiple classes--&gt;</span><br><span class="line"></span><br><span class="line">    &lt;button (click)=<span class="string">"onChangeClass()"</span>&gt;Click&lt;/button&gt;</span><br><span class="line">  `,</span><br><span class="line">  styles: [`</span><br><span class="line">    .text-success &#123;</span><br><span class="line">      color: green;</span><br><span class="line">    &#125;</span><br><span class="line">    .text-danger &#123;</span><br><span class="line">      color: red;</span><br><span class="line">    &#125;</span><br><span class="line">    .text-special &#123;</span><br><span class="line">      font-style: italic;</span><br><span class="line">    &#125;</span><br><span class="line">  `]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class TestComponent implements OnInit &#123;</span><br><span class="line"></span><br><span class="line">  public name = <span class="string">"Hello World"</span>;</span><br><span class="line">  public successClass = <span class="string">"text-success"</span></span><br><span class="line">  public hasError = <span class="literal">false</span>;</span><br><span class="line">  public isSpecial = <span class="literal">true</span>;</span><br><span class="line">  public messageClasses = &#123;</span><br><span class="line">    <span class="string">"text-success"</span>: !this.hasError,</span><br><span class="line">    <span class="string">"text-danger"</span>: this.hasError,</span><br><span class="line">    <span class="string">"text-special"</span>: this.isSpecial</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">constructor</span></span>() &#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">ngOnInit</span></span>() &#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">onChangeClass</span></span>() &#123;</span><br><span class="line">    this.hasError = !this.hasError;</span><br><span class="line">    this.messageClasses[<span class="string">"text-danger"</span>] = this.hasError;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>app.component.html</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;app-test&gt;&lt;/app-test&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="Style-Binding"><a href="#Style-Binding" class="headerlink" title="Style Binding"></a>Style Binding</h4><ol>
+<li><p><strong>test.component.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-test'</span>,</span><br><span class="line">  template: `</span><br><span class="line">    &lt;h2&gt;</span><br><span class="line">      Welcome &#123;&#123; name &#125;&#125;</span><br><span class="line">    &lt;/h2&gt;</span><br><span class="line"></span><br><span class="line">    &lt;h2 [style.color]=<span class="string">"'orange'"</span>&gt;Style Binding&lt;/h2&gt;</span><br><span class="line">    &lt;h2 [style.color]=<span class="string">"hasError ? 'red' : 'green'"</span>&gt;Style Binding&lt;/h2&gt;</span><br><span class="line">    &lt;h2 [style.color]=<span class="string">"highlightColor"</span>&gt;Style Binding 2&lt;/h2&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;h2 [ngStyle]=<span class="string">"titleStyles"</span>&gt;Style Binding 3&lt;/h2&gt;</span><br><span class="line"></span><br><span class="line">    &lt;button (click)=<span class="string">"onChangeClass()"</span>&gt;Click&lt;/button&gt;</span><br><span class="line">  `,</span><br><span class="line">  styles: []</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class TestComponent implements OnInit &#123;</span><br><span class="line"></span><br><span class="line">  public name = <span class="string">"Hello World"</span>;</span><br><span class="line">  public hasError = <span class="literal">false</span>;</span><br><span class="line">  public highlightColor = <span class="string">"orange"</span>;</span><br><span class="line">  public titleStyles = &#123;</span><br><span class="line">    color: <span class="string">"blue"</span>,</span><br><span class="line">    fontStyle: <span class="string">"italic"</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">constructor</span></span>() &#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">ngOnInit</span></span>() &#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">onChangeClass</span></span>() &#123;</span><br><span class="line">    this.hasError = !this.hasError;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>app.component.html</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;app-test&gt;&lt;/app-test&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="Event-Binding-1"><a href="#Event-Binding-1" class="headerlink" title="Event Binding"></a>Event Binding</h4><ol>
+<li><p><strong>test.component.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-test'</span>,</span><br><span class="line">  template: `</span><br><span class="line">    &lt;h2&gt;</span><br><span class="line">      Welcome &#123;&#123; name &#125;&#125;</span><br><span class="line">    &lt;/h2&gt;</span><br><span class="line"></span><br><span class="line">    &lt;button (click)=<span class="string">"onClick()"</span>&gt;Click Function&lt;/button&gt;</span><br><span class="line">    &#123;&#123; greeting &#125;&#125;</span><br><span class="line"></span><br><span class="line">    &lt;button (click)=<span class="string">"onClickEvent(<span class="variable">$event</span>)"</span>&gt;Click Event&lt;/button&gt;</span><br><span class="line">    &#123;&#123; greetingEvent &#125;&#125;</span><br><span class="line"></span><br><span class="line">    &lt;button (click)=<span class="string">"greeting = 'Hello'"</span>&gt;Click&lt;/button&gt;</span><br><span class="line">  `,</span><br><span class="line">  styles: []</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class TestComponent implements OnInit &#123;</span><br><span class="line"></span><br><span class="line">  public name = <span class="string">"Hello World"</span>;</span><br><span class="line">  public greeting = <span class="string">""</span>;</span><br><span class="line">  public greetingEvent = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">constructor</span></span>() &#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">ngOnInit</span></span>() &#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">onClick</span></span>() &#123;</span><br><span class="line">    console.log(this.name);</span><br><span class="line">    this.greeting = this.name;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  onClickEvent(event) &#123;</span><br><span class="line">    console.log(event);</span><br><span class="line">    this.greetingEvent = event.type;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>app.component.html</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;app-test&gt;&lt;/app-test&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=rH-xfNvpm_o&amp;list=PLC3y8-rFHvwgKhaLU8GTyF-5Bb8qT-wzV&amp;index=3" target="_blank" rel="noopener">Angular Component Interaction - 3 - Binding</a><br><a href="https://www.youtube.com/watch?v=N8FBmB2jme8&amp;list=PLC3y8-rFHvwhBRAgFinJR8KHIrCdTkZcZ&amp;index=6" target="_blank" rel="noopener">Angular 8 Tutorial - 6 - Property Binding</a><br><a href="https://www.youtube.com/watch?v=Y6OP-lPJxgs&amp;list=PLC3y8-rFHvwhBRAgFinJR8KHIrCdTkZcZ&amp;index=7" target="_blank" rel="noopener">Angular 8 Tutorial - 7 - Class Binding</a><br><a href="https://www.youtube.com/watch?v=q256X6-u9Q8&amp;list=PLC3y8-rFHvwhBRAgFinJR8KHIrCdTkZcZ&amp;index=8" target="_blank" rel="noopener">Angular 8 Tutorial - 8 - Style Binding</a><br><a href="https://www.youtube.com/watch?v=ZfIc1_oj7uM&amp;list=PLC3y8-rFHvwhBRAgFinJR8KHIrCdTkZcZ&amp;index=9" target="_blank" rel="noopener">Angular 8 Tutorial - 9 - Event Binding</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/15/PythonMachineLearning1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/15/PythonMachineLearning1/" itemprop="url">Python 使用 Scikit-learn 機器學習</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-15T12:27:52+08:00">
+                2019-07-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="常見的機器學習類別"><a href="#常見的機器學習類別" class="headerlink" title="常見的機器學習類別"></a>常見的機器學習類別</h1><ol>
+<li>監督式學習 <strong>(supervised learning)</strong></li>
+<li>非監督式學習 <strong>(unsupervised learning)</strong></li>
+<li>半監督式學習 <strong>(semi-supervised learning)</strong></li>
+<li>增強式學習 <strong>(reinforcement learning)</strong></li>
+</ol>
+<h4 id="監督式學習"><a href="#監督式學習" class="headerlink" title="監督式學習"></a>監督式學習</h4><pre><code>在訓練的過程中告訴機器答案、也就是「有標籤」的資料，比如給機器各看了 1000 張蘋果和橘子的照片後、詢問機器新的一張照片中是蘋果還是橘子
+若輸入資料有標籤，即為監督式學習
+</code></pre><h4 id="非監督式學習"><a href="#非監督式學習" class="headerlink" title="非監督式學習"></a>非監督式學習</h4><pre><code>訓練資料沒有標準答案、不需要事先以人力輸入標籤，故機器在學習時並不知道其分類結果是否正確。訓練時僅須對機器提供輸入範例，它會自動從這些範例中找出潛在的規則
+資料沒標籤、讓機器自行摸索出資料規律的則為非監督式學習，如集群（Clustering）演算法
+</code></pre><h4 id="半監督式學習"><a href="#半監督式學習" class="headerlink" title="半監督式學習"></a>半監督式學習</h4><pre><code>介於監督學習與非監督學習之間
+在將資料分群的過程當中，先使用有標籤過的資料先切出一條分界線，再利用剩下無標籤資料的整體分布，調整出兩大類別的新分界。如此不但具有非監督式學習高自動化的優點，又能降低標籤資料的成本
+</code></pre><h4 id="增強學習"><a href="#增強學習" class="headerlink" title="增強學習"></a>增強學習</h4><pre><code>透過觀察環境而行動，並會隨時根據新進來的資料逐步修正、以獲得最大利益
+</code></pre><h4 id="Scikit-learn"><a href="#Scikit-learn" class="headerlink" title="Scikit-learn"></a>Scikit-learn</h4><ol>
+<li>scikit-learn 套件是專門用來實作機器學習以及資料採礦</li>
+<li>安裝模組 <strong>pip install -U scikit-learn</strong><br><img src="/2019/07/15/PythonMachineLearning1/1.png" alt="Architecture"></li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.inside.com.tw/article/9945-machine-learning" target="_blank" rel="noopener">硬塞科技字典</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/15/PythonBokeh/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1802,493 +2193,6 @@ GROUP BY GroupItem
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/11/MSSqlDBStructrue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/11/MSSqlDBStructrue/" itemprop="url">MS SQL DB 結構</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-11T14:05:35+08:00">
-                2019-07-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MS-SQL/" itemprop="url" rel="index">
-                    <span itemprop="name">MS SQL</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="DB-結構"><a href="#DB-結構" class="headerlink" title="DB 結構"></a>DB 結構</h1><ol>
-<li><p>檔案<br><img src="/2019/07/11/MSSqlDBStructrue/1.png" alt="Architecture"><br>• 每個資料檔皆可設定檔案存放的位置，用以存放在不同的磁碟內，可改善效能，且減少Lock</p>
-</li>
-<li><p>檔案群組<br><img src="/2019/07/11/MSSqlDBStructrue/2.png" alt="Architecture"><br>• 建立TABLE –&gt;指定檔案群組 1</p>
-<ul>
-<li>SQL Server會依照各檔案大小，依比例將資料表的資料平均寫入各資料檔中</li>
-<li>此TABLE的資料會分散在不同磁碟(假設次要資料檔分別位於不同磁碟)，提高效能</li>
-</ul>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/09/PythonPandas/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/09/PythonPandas/" itemprop="url">Python Pandas 模組</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-09T16:54:20+08:00">
-                2019-07-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Pandas-模組"><a href="#Pandas-模組" class="headerlink" title="Pandas 模組"></a>Pandas 模組</h1><ol>
-<li>安裝模組 <strong>pip install pandas</strong><br><img src="/2019/07/09/PythonPandas/1.png" alt="Architecture"></li>
-<li><strong>pan(el)-da(ta)-s</strong><br> 2.1 主要提供三個資料結構：<strong>Panel、DataFrame、Series</strong></li>
-<li>以 <strong>numpy</strong> 模組為基礎的函式庫</li>
-<li><strong>Series</strong> 就是序列，只會儲存像是 <strong>key:value</strong> 的型態</li>
-<li>大部分談到 <strong>pandas</strong> 都會用 <strong>DataFrame</strong></li>
-<li>支援多種文字、二進位檔案與資料庫<br> 6.1 <strong>txt、csv、excel、SQL</strong></li>
-</ol>
-<h2 id="Series"><a href="#Series" class="headerlink" title="Series"></a>Series</h2><ol>
-<li>要先 <strong>import pandas</strong></li>
-</ol>
-<h4 id="基本運用"><a href="#基本運用" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code>import pandas as pd
-# 直接給一個 dictionary
-scores = pd.Series({&apos;小明&apos;:90, &apos;小華&apos;:80, &apos;小李&apos;:70})
-
-# 新增資料的方法
-scores[&apos;小強&apos;] = 55
-print(scores)
-
-# 統計數據
-print(scores.describe())
-# 平均值
-print(scores.mean())
-
-a = [&apos;apple&apos;, &apos;banana&apos;, &apos;cat&apos;, &apos;dog&apos;] #陣列一
-b = [123, 456, 789, 56789] #陣列二
-sr = pd.Series(b, index = a) # 合併陣列，指定 a 為 index
-print(sr)
-
-c = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-# pd.date_range是內建的日期序列產生器
-sr_2 = pd.Series(c, pd.date_range(start=&apos;2018-05-01&apos;, end=&apos;2018-05-9&apos;))
-print(sr_2)
-</code></pre><h4 id="判斷大小"><a href="#判斷大小" class="headerlink" title="判斷大小"></a>判斷大小</h4><pre><code>scores = pd.Series({&apos;小明&apos;:90, &apos;小華&apos;:80, &apos;小李&apos;:70, &apos;小強&apos;:55})
-print(scores &gt; 60)
-
-print(scores[scores &gt; 60])
-
-print((scores &gt; 60) &amp; (scores &lt; 90))
-
-print(scores[(scores &gt; 60) &amp; (scores &lt; 90)])
-
-new_scores = scores ** 0.5 * 10
-print(new_scores)
-</code></pre><h2 id="DataFrame"><a href="#DataFrame" class="headerlink" title="DataFrame"></a>DataFrame</h2><ol>
-<li><strong>df.shape：</strong> 這個 <strong>DataFrame</strong> 有幾列有幾欄</li>
-<li><strong>df.columns：</strong> 這個 <strong>DataFrame</strong> 的變數資訊</li>
-<li><strong>df.index：</strong> 這個 <strong>DataFrame</strong> 的列索引資訊</li>
-<li><strong>df.info()：</strong> 關於 <strong>DataFrame</strong> 的詳細資訊</li>
-<li><strong>df.describe()：</strong> 關於 <strong>DataFrame</strong> 各數值變數的描述統計</li>
-</ol>
-<h4 id="基本運用-三種方法結果一樣"><a href="#基本運用-三種方法結果一樣" class="headerlink" title="基本運用 (三種方法結果一樣)"></a>基本運用 (三種方法結果一樣)</h4><pre><code>import pandas as pd
-
-scores = [{&quot;姓名&quot;:&quot;小華&quot;, &quot;國文&quot;:80, &quot;數學&quot;:90},
-        {&quot;姓名&quot;:&quot;小明&quot;, &quot;國文&quot;:55, &quot;數學&quot;:70},
-        {&quot;姓名&quot;:&quot;小李&quot;, &quot;國文&quot;:75, &quot;數學&quot;:45}]
-score_df = pd.DataFrame(scores)
-print(score_df)
-
-# 純字典格式 -&gt; 利用 from_dict 功能
-scores = {&quot;姓名&quot;:[&quot;小華&quot;, &quot;小明&quot;, &quot;小李&quot;],
-        &quot;國文&quot;:[80, 55, 75],
-        &quot;數學&quot;:[90, 70, 45]}
-score_df = pd.DataFrame.from_dict(scores)
-print(score_df)
-
-a = {&quot;數學&quot;:90, &quot;國文&quot;:80}
-b = {&quot;數學&quot;:70, &quot;國文&quot;:55}
-c = {&quot;數學&quot;:45, &quot;國文&quot;:75}
-df = pd.DataFrame.from_dict([a, b, c])
-# 增加一列的方法
-df[&quot;姓名&quot;] = [&quot;小華&quot;, &quot;小明&quot;, &quot;小李&quot;]
-print(df)
-</code></pre><h4 id="Series-轉-Dataframe"><a href="#Series-轉-Dataframe" class="headerlink" title="Series 轉 Dataframe"></a>Series 轉 Dataframe</h4><pre><code>scores = pd.Series({&quot;小明&quot;:90, &quot;小華&quot;:80, &quot;小李&quot;:70, &quot;小強&quot;:55})
-score_df = scores.to_frame()
-print(score_df)
-</code></pre><h2 id="匯入檔案"><a href="#匯入檔案" class="headerlink" title="匯入檔案"></a>匯入檔案</h2><ol>
-<li>匯入 Excel 檔前要先安裝 <strong>pip install xlrd</strong><br><img src="/2019/07/09/PythonPandas/2.png" alt="Architecture"></li>
-</ol>
-<h4 id="CSV-檔"><a href="#CSV-檔" class="headerlink" title="CSV 檔"></a>CSV 檔</h4><pre><code>import pandas as pd
-
-csv_file = &quot;https://storage.googleapis.com/learn_pd_like_tidyverse/gapminder.csv&quot;
-gapminder = pd.read_csv(csv_file)
-print(type(gapminder))
-head5 = gapminder.head()   # 抓取最前面的值，預設值 5
-head3 = gapminder.head(3)
-tail5 = gapminder.tail()   # 抓取最後面的值，預設值 5
-print(head5)
-print(head3)
-print(tail5)
-</code></pre><h4 id="Excel-檔"><a href="#Excel-檔" class="headerlink" title="Excel 檔"></a>Excel 檔</h4><pre><code>import pandas as pd
-
-xlsx_file = &quot;https://storage.googleapis.com/learn_pd_like_tidyverse/gapminder.xlsx&quot;
-gapminder = pd.read_excel(xlsx_file)
-print(type(gapminder))
-head5 = gapminder.head()   # 抓取最前面的值，預設值 5
-tail5 = gapminder.tail()   # 抓取最後面的值，預設值 5
-print(head5)
-print(tail5)
-</code></pre><h4 id="Excel-結合-DataFrame-函式"><a href="#Excel-結合-DataFrame-函式" class="headerlink" title="Excel 結合 DataFrame 函式"></a>Excel 結合 DataFrame 函式</h4><pre><code>dfShape = gapminder.shape
-dfColumns = gapminder.columns
-dfIndex = gapminder.index
-gapminder.info()    # 直接 print 出來
-dfDescribe = gapminder.describe()
-
-print(dfShape)
-print(dfColumns)
-print(dfIndex)
-print(dfDescribe)
-</code></pre><h2 id="dplyr-的基本功能是六個能與-SQL-查詢語法相互呼應的函數"><a href="#dplyr-的基本功能是六個能與-SQL-查詢語法相互呼應的函數" class="headerlink" title="dplyr 的基本功能是六個能與 SQL 查詢語法相互呼應的函數"></a>dplyr 的基本功能是六個能與 SQL 查詢語法相互呼應的函數</h2><ol>
-<li><strong>filter()</strong> 函數：<strong>SQL</strong> 的 <strong>where</strong></li>
-<li><strong>select()</strong> 函數：<strong>SQL</strong> 的 <strong>select</strong></li>
-<li><strong>mutate()</strong> 函數：<strong>SQL</strong> 的衍生欄位</li>
-<li><strong>arrange()</strong> 函數：<strong>SQL</strong> 的 <strong>order by</strong></li>
-<li><strong>summarise()</strong> 函數：<strong>SQL</strong> 的 <strong>sum、avg</strong></li>
-<li><strong>group_by()</strong> 函數：<strong>SQL</strong> 的 <strong>group by</strong></li>
-</ol>
-<h4 id="filter"><a href="#filter" class="headerlink" title="filter()"></a>filter()</h4><pre><code>where1 = gapminder[gapminder[&quot;country&quot;] == &quot;Taiwan&quot;]
-where1 = gapminder[gapminder.country == &quot;Taiwan&quot;]
-print(where1)
-
-where2 = gapminder[(gapminder[&quot;year&quot;] == 2007) &amp; (gapminder[&quot;continent&quot;] == &quot;Asia&quot;)]
-where2 = gapminder[(gapminder.year == 2007) &amp; (gapminder.continent == &quot;Asia&quot;)]
-print(where2)
-</code></pre><h4 id="select"><a href="#select" class="headerlink" title="select()"></a>select()</h4><pre><code># 多筆資料
-selectMulty = gapminder[[&quot;country&quot;, &quot;continent&quot;]]
-print(selectMulty)
-
-# 單筆資料
-selectSingle = gapminder[&quot;country&quot;]
-selectSingle = gapminder.country
-print(selectSingle)
-</code></pre><h4 id="mutate"><a href="#mutate" class="headerlink" title="mutate()"></a>mutate()</h4><pre><code>gapminder[&quot;country_abb&quot;] = gapminder[&quot;country&quot;].apply(lambda x: x[:3])
-gapminder[&quot;country_abb&quot;] = gapminder.country.apply(lambda x: x[:3])
-print(gapminder)
-</code></pre><h4 id="arrange"><a href="#arrange" class="headerlink" title="arrange()"></a>arrange()</h4><pre><code>orderby1 = gapminder.sort_values(&quot;year&quot;)
-print(orderby1)
-</code></pre><h4 id="summarise"><a href="#summarise" class="headerlink" title="summarise()"></a>summarise()</h4><pre><code># 總合
-sum1 = gapminder[gapminder[&quot;year&quot;] == 2007][[&quot;pop&quot;]].sum()
-sum1 = gapminder[gapminder.year == 2007][[&quot;pop&quot;]].sum()
-print(sum1)
-
-# 平均
-mean1 = gapminder[gapminder[&quot;year&quot;] == 2007][[&quot;lifeExp&quot;, &quot;gdpPercap&quot;]].mean()
-mean1 = gapminder[gapminder.year == 2007][[&quot;lifeExp&quot;, &quot;gdpPercap&quot;]].mean()
-print(mean1)
-</code></pre><h4 id="group-by"><a href="#group-by" class="headerlink" title="group_by()"></a>group_by()</h4><pre><code>groupby1 = gapminder[gapminder[&quot;year&quot;] == 2007].groupby(by = &quot;continent&quot;)[&quot;pop&quot;].sum()
-groupby1 = gapminder[gapminder.year == 2007].groupby(by = &quot;continent&quot;)[&quot;pop&quot;].sum()
-print(groupby1)
-
-groupby2 = gapminder[gapminder[&quot;year&quot;] == 2007].groupby(by = &quot;continent&quot;)[[&quot;lifeExp&quot;, &quot;gdpPercap&quot;]].mean()
-groupby2 = gapminder[gapminder.year == 2007].groupby(by = &quot;continent&quot;)[[&quot;lifeExp&quot;, &quot;gdpPercap&quot;]].mean()
-print(groupby2)
-</code></pre><h2 id="Panel"><a href="#Panel" class="headerlink" title="Panel"></a>Panel</h2><ol>
-<li>三維資料，但不常使用</li>
-</ol>
-<h4 id="基本運用-1"><a href="#基本運用-1" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code>import pandas as pd
-
-p = pd.Panel()
-print(p)
-
-dates = pd.date_range(&quot;20130101&quot;, periods=6)
-df = pd.DataFrame(np.random.randn(6, 4), index=dates, columns=list(&quot;ABCD&quot;))
-print(df)
-
-print(df[&quot;A&quot;]) # 等同 df.A
-
-print(df[[&quot;A&quot;, &quot;B&quot;]])
-
-print(df[0:10])
-
-print(df[&quot;20130102&quot;:&quot;20130104&quot;])
-</code></pre><h4 id="以-numpy-建立"><a href="#以-numpy-建立" class="headerlink" title="以 numpy 建立"></a>以 numpy 建立</h4><pre><code>import pandas as pd
-import numpy as np
-
-wp = pd.Panel(np.random.randn(2, 5, 4), 
-            items = [&quot;Item1&quot;, &quot;Item2&quot;],
-            major_axis = pd.date_range(&quot;1/1/2000&quot;, periods=5),
-            minor_axis = [&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;])
-print(wp)
-</code></pre><h4 id="以-DataFrame-建立"><a href="#以-DataFrame-建立" class="headerlink" title="以 DataFrame 建立"></a>以 DataFrame 建立</h4><pre><code>import pandas as pd
-import numpy as np
-
-d = {&quot;Item1&quot; : pd.DataFrame({&quot;one&quot; : pd.Series([1., 2., 3.], index=[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]),
-                            &quot;two&quot; : pd.Series([1., 2., 3., 4.], index=[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;])}),
-    &quot;Item2&quot; : pd.DataFrame({&quot;thr&quot; : pd.Series([1., 2., 3.], index=[&quot;e&quot;, &quot;f&quot;, &quot;g&quot;])})}
-
-wp = pd.Panel(d)
-
-print(wp)
-
-print(wp.to_frame())
-
-print(wp.to_frame(filter_observations=False))
-</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://medium.com/datainpoint/%E5%BE%9E-pandas-%E9%96%8B%E5%A7%8B-python-%E8%88%87%E8%B3%87%E6%96%99%E7%A7%91%E5%AD%B8%E4%B9%8B%E6%97%85-8dee36796d4a" target="_blank" rel="noopener">從 pandas 開始 Python 與資料科學之旅</a><br><a href="https://zwindr.blogspot.com/2017/03/python-pandas.html" target="_blank" rel="noopener">[Python] pandas 基本教學</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2341,7 +2245,7 @@ print(wp.to_frame(filter_observations=False))
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">105</span>
+                  <span class="site-state-item-count">107</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
@@ -2352,7 +2256,7 @@ print(wp.to_frame(filter_observations=False))
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分類</span>
                 </a>
               </div>
@@ -2363,7 +2267,7 @@ print(wp.to_frame(filter_observations=False))
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">標籤</span>
                 </a>
               </div>
