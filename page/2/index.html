@@ -252,6 +252,362 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/19/AngularReactiveForms/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/19/AngularReactiveForms/" itemprop="url">Angular Reactive Forms</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-19T16:01:08+08:00">
+                2019-07-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Angular/" itemprop="url" rel="index">
+                    <span itemprop="name">Angular</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Reactive-Forms"><a href="#Reactive-Forms" class="headerlink" title="Reactive Forms"></a>Reactive Forms</h1><ol>
+<li><strong>Code and the logic resides in the component class</strong></li>
+<li><strong>No two way binding</strong></li>
+<li><strong>Well suited for complex scenarios</strong></li>
+<li><strong>Dynamic form fields</strong></li>
+<li><strong>Custom validation</strong></li>
+<li><strong>Dynamic validation</strong></li>
+<li><strong>Unit test</strong></li>
+<li><strong>Form</strong><br> 8.1 <strong>FormGroup</strong><br> 8.2 <strong>FormControl</strong><br> <img src="/2019/07/19/AngularReactiveForms/1.png" alt="Architecture"></li>
+<li><strong>index.html import bootstrap</strong></li>
+<li><strong>app.modules.ts import ReactiveFormsModule</strong></li>
+</ol>
+<h2 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h2><ol>
+<li><p><strong>strict set value</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">this.registrationForm.setValue(&#123;</span><br><span class="line">    userName: <span class="string">"Bruce"</span>,</span><br><span class="line">    password: <span class="string">"test"</span>,</span><br><span class="line">    confirmPassword: <span class="string">"test"</span>,</span><br><span class="line">    address: &#123;</span><br><span class="line">        city: <span class="string">"City"</span>,</span><br><span class="line">        state: <span class="string">"State"</span>,</span><br><span class="line">        postalCode: <span class="string">"123456"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Patch set value</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">this.registrationForm.setValue(&#123;</span><br><span class="line">    userName: <span class="string">"Bruce"</span>,</span><br><span class="line">    password: <span class="string">"test"</span>,</span><br><span class="line">    confirmPassword: <span class="string">"test"</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="All-Code"><a href="#All-Code" class="headerlink" title="All Code"></a>All Code</h4><ol>
+<li><p><strong>index.html</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;!doctype html&gt;</span><br><span class="line">&lt;html lang=<span class="string">"en"</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset=<span class="string">"utf-8"</span>&gt;</span><br><span class="line">  &lt;title&gt;ReactiveForm&lt;/title&gt;</span><br><span class="line">  &lt;base href=<span class="string">"/"</span>&gt;</span><br><span class="line"></span><br><span class="line">  &lt;meta name=<span class="string">"viewport"</span> content=<span class="string">"width=device-width, initial-scale=1"</span>&gt;</span><br><span class="line">  &lt;link rel=<span class="string">"icon"</span> <span class="built_in">type</span>=<span class="string">"image/x-icon"</span> href=<span class="string">"favicon.ico"</span>&gt;</span><br><span class="line">  &lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"</span> integrity=<span class="string">"sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"</span> crossorigin=<span class="string">"anonymous"</span>&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;app-root&gt;&lt;/app-root&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>app.module.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import &#123; BrowserModule &#125; from <span class="string">'@angular/platform-browser'</span>;</span><br><span class="line">import &#123; NgModule &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import &#123; ReactiveFormsModule &#125; from <span class="string">'@angular/forms'</span>;</span><br><span class="line">import &#123; AppRoutingModule &#125; from <span class="string">'./app-routing.module'</span>;</span><br><span class="line">import &#123; AppComponent &#125; from <span class="string">'./app.component'</span>;</span><br><span class="line"></span><br><span class="line">@NgModule(&#123;</span><br><span class="line">  declarations: [</span><br><span class="line">    AppComponent</span><br><span class="line">  ],</span><br><span class="line">  imports: [</span><br><span class="line">    BrowserModule,</span><br><span class="line">    AppRoutingModule,</span><br><span class="line">    ReactiveFormsModule</span><br><span class="line">  ],</span><br><span class="line">  providers: [],</span><br><span class="line">  bootstrap: [AppComponent]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppModule &#123; &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>app.component.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import &#123; FormGroup, FormControl &#125; from <span class="string">'@angular/forms'</span>;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-root'</span>,</span><br><span class="line">  templateUrl: <span class="string">'./app.component.html'</span>,</span><br><span class="line">  styleUrls: [<span class="string">'./app.component.css'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line"></span><br><span class="line">  registrationForm = new FormGroup(&#123;</span><br><span class="line">    userName: new FormControl(<span class="string">"Joey"</span>),</span><br><span class="line">    password: new FormControl(<span class="string">""</span>),</span><br><span class="line">    confirmPassword: new FormControl(<span class="string">""</span>),</span><br><span class="line">    address: new FormGroup(&#123;</span><br><span class="line">      city: new FormControl(<span class="string">""</span>),</span><br><span class="line">      state: new FormControl(<span class="string">""</span>),</span><br><span class="line">      postalCode: new FormControl(<span class="string">""</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">loadAPIData</span></span>() &#123;</span><br><span class="line">    // this.registrationForm.setValue(&#123;</span><br><span class="line">    //   userName: <span class="string">"Bruce"</span>,</span><br><span class="line">    //   password: <span class="string">"test"</span>,</span><br><span class="line">    //   confirmPassword: <span class="string">"test"</span>,</span><br><span class="line">    //   address: &#123;</span><br><span class="line">    //     city: <span class="string">"City"</span>,</span><br><span class="line">    //     state: <span class="string">"State"</span>,</span><br><span class="line">    //     postalCode: <span class="string">"123456"</span></span><br><span class="line">    //   &#125;</span><br><span class="line">    // &#125;);</span><br><span class="line">    this.registrationForm.patchValue(&#123;</span><br><span class="line">        userName: <span class="string">"Bruce"</span>,</span><br><span class="line">        password: <span class="string">"test"</span>,</span><br><span class="line">        confirmPassword: <span class="string">"test"</span></span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>app.component.html</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">"container-fluid"</span>&gt;</span><br><span class="line">  &lt;h2&gt; Registration Form &lt;/h2&gt;</span><br><span class="line"></span><br><span class="line">  &#123;&#123; registrationForm.value | json &#125;&#125;</span><br><span class="line"></span><br><span class="line">  &lt;form [formGroup]=<span class="string">"registrationForm"</span>&gt;</span><br><span class="line">    &lt;div class=<span class="string">"form-group"</span>&gt;</span><br><span class="line">      &lt;label&gt; Username &lt;/label&gt;</span><br><span class="line">      &lt;input formControlName=<span class="string">"userName"</span> <span class="built_in">type</span>=<span class="string">"text"</span> class=<span class="string">"form-control"</span> /&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;div class=<span class="string">"form-group"</span>&gt;</span><br><span class="line">      &lt;label&gt; Password &lt;/label&gt;</span><br><span class="line">      &lt;input formControlName=<span class="string">"password"</span> <span class="built_in">type</span>=<span class="string">"password"</span> class=<span class="string">"form-control"</span> /&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;div class=<span class="string">"form-group"</span>&gt;</span><br><span class="line">      &lt;label&gt; Confirm Password &lt;/label&gt;</span><br><span class="line">      &lt;input formControlName=<span class="string">"confirmPassword"</span> <span class="built_in">type</span>=<span class="string">"password"</span> class=<span class="string">"form-control"</span> /&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;div formGroupName=<span class="string">"address"</span>&gt;</span><br><span class="line">      &lt;div class=<span class="string">"form-group"</span>&gt;</span><br><span class="line">        &lt;label&gt; City &lt;/label&gt;</span><br><span class="line">        &lt;input formControlName=<span class="string">"city"</span> <span class="built_in">type</span>=<span class="string">"text"</span> class=<span class="string">"form-control"</span>&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">      &lt;div class=<span class="string">"form-group"</span>&gt;</span><br><span class="line">        &lt;label&gt; State &lt;/label&gt;</span><br><span class="line">        &lt;input formControlName=<span class="string">"state"</span> <span class="built_in">type</span>=<span class="string">"text"</span> class=<span class="string">"form-control"</span>&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">      &lt;div class=<span class="string">"form-group"</span>&gt;</span><br><span class="line">        &lt;label&gt; Postal Code &lt;/label&gt;</span><br><span class="line">        &lt;input formControlName=<span class="string">"postalCode"</span> <span class="built_in">type</span>=<span class="string">"text"</span> class=<span class="string">"form-control"</span>&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;button (click)=<span class="string">"loadAPIData()"</span> class=<span class="string">"btn btn-secondary ml-2"</span> <span class="built_in">type</span>=<span class="string">"button"</span>&gt; Load API Data &lt;/button&gt;</span><br><span class="line"></span><br><span class="line">  &lt;/form&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="FormBuilder-Service"><a href="#FormBuilder-Service" class="headerlink" title="FormBuilder Service"></a>FormBuilder Service</h4><ol>
+<li><p><strong>less Instantiation new FormControl()</strong></p>
+</li>
+<li><p><strong>app.component.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import &#123; FormBuilder &#125; from <span class="string">'@angular/forms'</span>;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-root'</span>,</span><br><span class="line">  templateUrl: <span class="string">'./app.component.html'</span>,</span><br><span class="line">  styleUrls: [<span class="string">'./app.component.css'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line"></span><br><span class="line">  constructor(private fb: FormBuilder) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  registrationForm = this.fb.group(&#123;</span><br><span class="line">    userName: [<span class="string">"Bruce"</span>],</span><br><span class="line">    password: [<span class="string">""</span>],</span><br><span class="line">    confirmPassword: [<span class="string">""</span>],</span><br><span class="line">    address: this.fb.group(&#123;</span><br><span class="line">      city: [<span class="string">""</span>],</span><br><span class="line">      state: [<span class="string">""</span>],</span><br><span class="line">      postalCode: [<span class="string">""</span>]</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">loadAPIData</span></span>() &#123;</span><br><span class="line">    this.registrationForm.patchValue(&#123;</span><br><span class="line">        userName: <span class="string">"Bruce"</span>,</span><br><span class="line">        password: <span class="string">"test"</span>,</span><br><span class="line">        confirmPassword: <span class="string">"test"</span></span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=3_dFnULt3FA&amp;list=PLC3y8-rFHvwhBRAgFinJR8KHIrCdTkZcZ&amp;index=53" target="_blank" rel="noopener">Angular Forms Tutorial - 21 - FormBuilder Service</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/19/AngularBuildExpressJsonServer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/19/AngularBuildExpressJsonServer/" itemprop="url">Angular Build Express Json Server</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-19T10:08:17+08:00">
+                2019-07-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Angular/" itemprop="url" rel="index">
+                    <span itemprop="name">Angular</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Build-Express-Server"><a href="#Build-Express-Server" class="headerlink" title="Build Express Server"></a>Build Express Server</h1><ol>
+<li><p><strong>Create Folder</strong></p>
+</li>
+<li><p><strong>Install</strong><br><code>npm install -g json-server</code><br><img src="/2019/07/19/AngularBuildExpressJsonServer/1.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Run Server</strong><br><code>json-server db.json</code><br><img src="/2019/07/19/AngularBuildExpressJsonServer/2.png" alt="Architecture"><br><img src="/2019/07/19/AngularBuildExpressJsonServer/3.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Change-listening-port-number"><a href="#Change-listening-port-number" class="headerlink" title="Change listening port number"></a>Change listening port number</h1><ol>
+<li><p><strong>Create json-server.json file</strong><br><img src="/2019/07/19/AngularBuildExpressJsonServer/4.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Input port number in json-server.json</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"port"</span>: 3020</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="/2019/07/19/AngularBuildExpressJsonServer/5.png" alt="Architecture"></p>
+<ol start="3">
+<li><strong>Run Server</strong><br><code>json-server db.json</code><br><img src="/2019/07/19/AngularBuildExpressJsonServer/6.png" alt="Architecture"></li>
+</ol>
+<h1 id="PostMan"><a href="#PostMan" class="headerlink" title="PostMan"></a>PostMan</h1><ol>
+<li><p><strong>GET (Get Data)</strong><br><img src="/2019/07/19/AngularBuildExpressJsonServer/7.png" alt="Architecture"><br><img src="/2019/07/19/AngularBuildExpressJsonServer/8.png" alt="Architecture"></p>
+</li>
+<li><p><strong>POST (Create Data)</strong><br><img src="/2019/07/19/AngularBuildExpressJsonServer/9.png" alt="Architecture"><br><img src="/2019/07/19/AngularBuildExpressJsonServer/10.png" alt="Architecture"></p>
+</li>
+<li><p><strong>PUT (Modify full Data)</strong><br><img src="/2019/07/19/AngularBuildExpressJsonServer/11.png" alt="Architecture"><br><img src="/2019/07/19/AngularBuildExpressJsonServer/12.png" alt="Architecture"></p>
+</li>
+<li><p><strong>PATCH (Modify partial Data)</strong><br><img src="/2019/07/19/AngularBuildExpressJsonServer/13.png" alt="Architecture"><br><img src="/2019/07/19/AngularBuildExpressJsonServer/14.png" alt="Architecture"></p>
+</li>
+<li><p><strong>DELETE (Delete Data)</strong> (刪除資料)<br><img src="/2019/07/19/AngularBuildExpressJsonServer/15.png" alt="Architecture"><br><img src="/2019/07/19/AngularBuildExpressJsonServer/16.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://ithelp.ithome.com.tw/articles/10212106" target="_blank" rel="noopener">JSON Server 使用</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/19/AngularTemplateDrivenFormValidation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1678,324 +2034,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/AngularInterpolation/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/16/AngularInterpolation/" itemprop="url">Angular Interpolation 使用 template</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-16T10:17:02+08:00">
-                2019-07-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Angular/" itemprop="url" rel="index">
-                    <span itemprop="name">Angular</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Interpolation-使用-template"><a href="#Interpolation-使用-template" class="headerlink" title="Interpolation 使用 template"></a>Interpolation 使用 template</h1><ol>
-<li><strong>template</strong> 下無法直接使用 <strong>javascript</strong>，要透過 <strong>ts</strong> 給變數</li>
-<li>無法使用 <code>a = 2 + 2 運算式</code>，只能顯示</li>
-</ol>
-<h4 id="Interpolation"><a href="#Interpolation" class="headerlink" title="Interpolation"></a>Interpolation</h4><ol>
-<li><p><strong>test.component.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component, OnInit &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-test'</span>,</span><br><span class="line">  template: `</span><br><span class="line">    &lt;h2&gt;</span><br><span class="line">      Welcome &#123;&#123; name &#125;&#125;</span><br><span class="line">    &lt;/h2&gt;</span><br><span class="line">    &lt;h2&gt; &#123;&#123; 2 + 2 &#125;&#125; &lt;/h2&gt;</span><br><span class="line">    &lt;h2&gt; &#123;&#123; <span class="string">"Welcome "</span> + name &#125;&#125; &lt;/h2&gt;</span><br><span class="line">    &lt;h2&gt; &#123;&#123; name.length &#125;&#125; &lt;/h2&gt;</span><br><span class="line">    &lt;h2&gt; &#123;&#123; name.toUpperCase() &#125;&#125; &lt;/h2&gt;</span><br><span class="line">    &lt;h2&gt; &#123;&#123; greetUser() &#125;&#125; &lt;/h2&gt;</span><br><span class="line">    &lt;h2&gt; &#123;&#123; siteUrl &#125;&#125; &lt;/h2&gt;</span><br><span class="line">  `,</span><br><span class="line">  styleUrls: []</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class TestComponent implements OnInit &#123;</span><br><span class="line"></span><br><span class="line">  public name = <span class="string">"Hello World"</span>;</span><br><span class="line">  public siteUrl = window.location.href;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">constructor</span></span>() &#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">ngOnInit</span></span>() &#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">greetUser</span></span>() &#123;</span><br><span class="line">    <span class="built_in">return</span> <span class="string">"Hi! "</span> + this.name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>app.component.html</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div style=<span class="string">"text-align:center"</span>&gt;</span><br><span class="line">  &lt;h1&gt;</span><br><span class="line">    From AppComponent</span><br><span class="line">  &lt;/h1&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;app-test&gt;&lt;/app-test&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=2a6OfacW_-I&amp;list=PLC3y8-rFHvwhBRAgFinJR8KHIrCdTkZcZ&amp;index=5" target="_blank" rel="noopener">Angular 8 Tutorial - 5 - Interpolation</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/AngularGetterAndSetter/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/16/AngularGetterAndSetter/" itemprop="url">Angular Getter and Setter</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-16T09:54:59+08:00">
-                2019-07-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Angular/" itemprop="url" rel="index">
-                    <span itemprop="name">Angular</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Getter-and-Setter"><a href="#Getter-and-Setter" class="headerlink" title="Getter and Setter"></a>Getter and Setter</h1><h4 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h4><ol>
-<li><p><strong>app.component.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line">  private _customerName: string;</span><br><span class="line"></span><br><span class="line">  get customerName(): string &#123;</span><br><span class="line">    <span class="built_in">return</span> this._customerName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">set</span> customerName(value:string) &#123;</span><br><span class="line">    this._customerName = value;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(value == <span class="string">'CustomerName'</span>)&#123;</span><br><span class="line">      alert(<span class="string">'Hello CustomerName'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>app.component.html</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;input <span class="built_in">type</span>=<span class="string">"text"</span> [(ngModel)]=<span class="string">"customerName"</span>&gt;</span><br><span class="line">  &lt;p&gt;Welcome &#123;&#123; customerName &#125;&#125;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="Input"><a href="#Input" class="headerlink" title="@Input"></a>@Input</h4><ol>
-<li><p><strong>app.component.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-root'</span>,</span><br><span class="line">  templateUrl: <span class="string">'./app.component.html'</span>,</span><br><span class="line">  styleUrls: [<span class="string">'./app.component.css'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line">  userLoggedIn = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>app.component.html</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1&gt;Parent Component&lt;/h1&gt;</span><br><span class="line">&lt;div&gt;</span><br><span class="line">    &lt;button (click)=<span class="string">"userLoggedIn=true"</span>&gt;Login&lt;/button&gt;</span><br><span class="line">    &lt;button (click)=<span class="string">"userLoggedIn=false"</span>&gt;Logout&lt;/button&gt;</span><br><span class="line">    &#123;&#123; userLoggedIn &#125;&#125;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;app-child [loggedIn]=<span class="string">"userLoggedIn"</span>&gt;&lt;/app-child&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>child.component.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component, OnInit, Input &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-child'</span>,</span><br><span class="line">  templateUrl: <span class="string">'./child.component.html'</span>,</span><br><span class="line">  styleUrls: [<span class="string">'./child.component.css'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class ChildComponent implements OnInit &#123;</span><br><span class="line"></span><br><span class="line">  private _loggedIn: boolean;</span><br><span class="line">  message: string;</span><br><span class="line"></span><br><span class="line">  get loggIn(): boolean &#123;</span><br><span class="line">    <span class="built_in">return</span> this._loggedIn;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @Input()</span><br><span class="line">  <span class="built_in">set</span> loggedIn(value: boolean) &#123;</span><br><span class="line">    this._loggedIn = value;</span><br><span class="line">    <span class="keyword">if</span>(value == <span class="literal">true</span>)&#123;</span><br><span class="line">      this.message = <span class="string">"Welcome back Vishwas"</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">      this.message = <span class="string">"Please log in"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">constructor</span></span>() &#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">ngOnInit</span></span>() &#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>child.component.html</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;h2&gt;Child Component&lt;/h2&gt;</span><br><span class="line">&#123;&#123; message &#125;&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=132VfEETYvs&amp;list=PLC3y8-rFHvwgKhaLU8GTyF-5Bb8qT-wzV&amp;index=5" target="_blank" rel="noopener">Angular Component Interaction - 5 - Getters and Setters</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2048,7 +2086,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">107</span>
+                  <span class="site-state-item-count">109</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
@@ -2070,7 +2108,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">標籤</span>
                 </a>
               </div>
