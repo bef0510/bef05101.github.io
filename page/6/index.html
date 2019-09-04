@@ -252,6 +252,178 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/05/PythonListAndTuple/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/05/PythonListAndTuple/" itemprop="url">Python List 及 Tuple</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-05T10:27:07+08:00">
+                2019-07-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="List-有序可變動列表"><a href="#List-有序可變動列表" class="headerlink" title="List 有序可變動列表"></a>List 有序可變動列表</h1><h4 id="基本運用"><a href="#基本運用" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code>grades = [12, 60, 15, 70, 90]
+print(grades)
+</code></pre><h4 id="用索引取元素"><a href="#用索引取元素" class="headerlink" title="用索引取元素"></a>用索引取元素</h4><pre><code>grades = [12, 60, 15, 70, 90]
+print(grades[3])
+</code></pre><h4 id="變更列表元素值"><a href="#變更列表元素值" class="headerlink" title="變更列表元素值"></a>變更列表元素值</h4><pre><code>grades = [12, 60, 15, 70, 90]
+grades[0] = 55  # 把 55 放到列表中的第一個位置
+print(grades)
+</code></pre><h4 id="用索引加起迄-包含起，不包含迄"><a href="#用索引加起迄-包含起，不包含迄" class="headerlink" title="用索引加起迄 (包含起，不包含迄)"></a>用索引加起迄 (包含起，不包含迄)</h4><pre><code>grades = [12, 60, 15, 70, 90]
+print(grades[1:4])
+</code></pre><h4 id="刪除列表中的資料"><a href="#刪除列表中的資料" class="headerlink" title="刪除列表中的資料"></a>刪除列表中的資料</h4><pre><code>grades = [12, 60, 15, 70, 90]
+grades[1:4] = []    # 連續刪除列表中 1 ~ 4 (不包含)
+print(grades)
+</code></pre><h4 id="列表加上資料"><a href="#列表加上資料" class="headerlink" title="列表加上資料"></a>列表加上資料</h4><pre><code>grades = [12, 60, 15, 70, 90]
+grades = grades + [12, 33]
+print(grades)
+</code></pre><h4 id="取列表長度"><a href="#取列表長度" class="headerlink" title="取列表長度"></a>取列表長度</h4><pre><code>grades = [12, 60, 15, 70, 90]
+length = len(grades) # 取長度
+print(length)
+</code></pre><h4 id="列表中再放列表-二維陣列"><a href="#列表中再放列表-二維陣列" class="headerlink" title="列表中再放列表 (二維陣列)"></a>列表中再放列表 (二維陣列)</h4><pre><code>listData = [[3, 4, 5], [6, 7, 8]]
+print(listData[0])
+print(listData[0][0])
+</code></pre><h4 id="變更列表元素值-二維陣列"><a href="#變更列表元素值-二維陣列" class="headerlink" title="變更列表元素值 (二維陣列)"></a>變更列表元素值 (二維陣列)</h4><pre><code>listData = [[3, 4, 5], [6, 7, 8]]
+print(listData)
+listData[0][0:2] = [5, 5, 5]
+print(listData)
+</code></pre><h1 id="Tuple-有序不可變動列表-使用方法，基本上跟-List一樣，差別是不可更改值"><a href="#Tuple-有序不可變動列表-使用方法，基本上跟-List一樣，差別是不可更改值" class="headerlink" title="Tuple 有序不可變動列表 (使用方法，基本上跟 List一樣，差別是不可更改值)"></a>Tuple 有序不可變動列表 (使用方法，基本上跟 List一樣，差別是不可更改值)</h1><h4 id="用索引加起迄-包含起，不包含迄-1"><a href="#用索引加起迄-包含起，不包含迄-1" class="headerlink" title="用索引加起迄 (包含起，不包含迄)"></a>用索引加起迄 (包含起，不包含迄)</h4><pre><code>tupleData = (3, 4, 5)
+print(tupleData[0:2])
+</code></pre><h4 id="錯誤式範"><a href="#錯誤式範" class="headerlink" title="錯誤式範"></a>錯誤式範</h4><pre><code>tupleData = (3, 4, 5)
+tupleData[0] = 5    # 錯誤：Tuple 資料不可變動
+print(tupleData[0:2])
+</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=JLU5oc4_VtA" target="_blank" rel="noopener">Python 有序列表的基本運算 - List、Tuple By 彭彭</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/05/PythonNumberAndString/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1919,179 +2091,6 @@ class Program
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/20/AspNetNugetPackageWithNugetPackager/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/20/AspNetNugetPackageWithNugetPackager/" itemprop="url">ASP.NET NuGet 打包，使用 NuGet Packager</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-06-20T15:35:06+08:00">
-                2019-06-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ASP-Net/" itemprop="url" rel="index">
-                    <span itemprop="name">ASP.Net</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="使用-NuGet-Packager-打包"><a href="#使用-NuGet-Packager-打包" class="headerlink" title="使用 NuGet Packager 打包"></a>使用 NuGet Packager 打包</h1><p>先建置 <a href="/2019/06/20/AspNetCreateNugetServer/">NuGet Server</a></p>
-<ol>
-<li><p><strong>Visual Studio</strong> → 工具 → 擴充功能和更新<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/1.png" alt="Architecture"></p>
-</li>
-<li><p>下載 <strong>NuGet Packager</strong><br>下載後要重啟 <strong>Visual Studio</strong><br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/2.png" alt="Architecture"></p>
-</li>
-<li><p>選擇 <strong>NuGet</strong> 範本<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/3.png" alt="Architecture"></p>
-</li>
-<li><p><strong>NuGet.config</strong> 修改 <code>packageSources</code> 值<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/4.png" alt="Architecture"></p>
-</li>
-<li><p>同方案底下，新增一個類別庫<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/5.png" alt="Architecture"><br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/5-1.png" alt="Architecture"></p>
-</li>
-<li><p>增加 <strong>Class1</strong> 屬性<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/6.png" alt="Architecture"></p>
-</li>
-<li><p>建置 <strong>TestLibrary2</strong> 專案，產生 <strong>dll</strong> 檔<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/7.png" alt="Architecture"></p>
-</li>
-<li><p>修改 <strong>NuGet.Packager</strong> 專案 → <strong>Package.nuspec</strong> 資訊<br>將 <strong>TestLibrary2</strong> 引用進來<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/8.png" alt="Architecture"></p>
-</li>
-<li><p>選擇 <strong>Release</strong>，重建 <strong>NuGet.Packager</strong> 專案<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/9.png" alt="Architecture"></p>
-</li>
-<li><p>輸入 <strong>A</strong> 及 <strong>API Key</strong><br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/10.png" alt="Architecture"></p>
-</li>
-<li><p>發佈成功<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/11.png" alt="Architecture"></p>
-</li>
-<li><p><strong>NuGet Server</strong> 專案 → <strong>Packages</strong> 產生 <strong>.nupkg</strong> 檔案<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/12.png" alt="Architecture"></p>
-</li>
-<li><p>到其他專案選擇 封裝來源，可以看剛發佈的 <strong>package</strong><br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/13.png" alt="Architecture"></p>
-</li>
-<li><p>可正常引用從 <strong>NuGet</strong> 下載的物件<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/14.png" alt="Architecture"></p>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://blog.darkthread.net/blog/nuget-packager/" target="_blank" rel="noopener">從Visual Studio發布NuGet Package的好幫手－NuGet Packager</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2144,7 +2143,7 @@ class Program
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">111</span>
+                  <span class="site-state-item-count">112</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
@@ -2166,7 +2165,7 @@ class Program
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">標籤</span>
                 </a>
               </div>

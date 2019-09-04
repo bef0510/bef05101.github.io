@@ -252,6 +252,179 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/20/AspNetNugetPackageWithNugetPackager/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/20/AspNetNugetPackageWithNugetPackager/" itemprop="url">ASP.NET NuGet 打包，使用 NuGet Packager</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-06-20T15:35:06+08:00">
+                2019-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ASP-Net/" itemprop="url" rel="index">
+                    <span itemprop="name">ASP.Net</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="使用-NuGet-Packager-打包"><a href="#使用-NuGet-Packager-打包" class="headerlink" title="使用 NuGet Packager 打包"></a>使用 NuGet Packager 打包</h1><p>先建置 <a href="/2019/06/20/AspNetCreateNugetServer/">NuGet Server</a></p>
+<ol>
+<li><p><strong>Visual Studio</strong> → 工具 → 擴充功能和更新<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/1.png" alt="Architecture"></p>
+</li>
+<li><p>下載 <strong>NuGet Packager</strong><br>下載後要重啟 <strong>Visual Studio</strong><br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/2.png" alt="Architecture"></p>
+</li>
+<li><p>選擇 <strong>NuGet</strong> 範本<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/3.png" alt="Architecture"></p>
+</li>
+<li><p><strong>NuGet.config</strong> 修改 <code>packageSources</code> 值<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/4.png" alt="Architecture"></p>
+</li>
+<li><p>同方案底下，新增一個類別庫<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/5.png" alt="Architecture"><br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/5-1.png" alt="Architecture"></p>
+</li>
+<li><p>增加 <strong>Class1</strong> 屬性<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/6.png" alt="Architecture"></p>
+</li>
+<li><p>建置 <strong>TestLibrary2</strong> 專案，產生 <strong>dll</strong> 檔<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/7.png" alt="Architecture"></p>
+</li>
+<li><p>修改 <strong>NuGet.Packager</strong> 專案 → <strong>Package.nuspec</strong> 資訊<br>將 <strong>TestLibrary2</strong> 引用進來<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/8.png" alt="Architecture"></p>
+</li>
+<li><p>選擇 <strong>Release</strong>，重建 <strong>NuGet.Packager</strong> 專案<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/9.png" alt="Architecture"></p>
+</li>
+<li><p>輸入 <strong>A</strong> 及 <strong>API Key</strong><br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/10.png" alt="Architecture"></p>
+</li>
+<li><p>發佈成功<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/11.png" alt="Architecture"></p>
+</li>
+<li><p><strong>NuGet Server</strong> 專案 → <strong>Packages</strong> 產生 <strong>.nupkg</strong> 檔案<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/12.png" alt="Architecture"></p>
+</li>
+<li><p>到其他專案選擇 封裝來源，可以看剛發佈的 <strong>package</strong><br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/13.png" alt="Architecture"></p>
+</li>
+<li><p>可正常引用從 <strong>NuGet</strong> 下載的物件<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/14.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://blog.darkthread.net/blog/nuget-packager/" target="_blank" rel="noopener">從Visual Studio發布NuGet Package的好幫手－NuGet Packager</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/20/AspNetNugetPackageWithNugetPackageExplorer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1987,230 +2160,6 @@ ORDER BY a.TABLE_NAME, ordinal_position
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/10/DesignPatternWithObserver/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/10/DesignPatternWithObserver/" itemprop="url">行為型模式 - 觀察者模式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-06-10T14:57:47+08:00">
-                2019-06-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Design-Pattern/" itemprop="url" rel="index">
-                    <span itemprop="name">Design Pattern</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="觀察者模式"><a href="#觀察者模式" class="headerlink" title="觀察者模式"></a>觀察者模式</h1><p>一對多的依賴關系，讓多個觀察者對象同時監聽某一個主題對象<br><img src="/2019/06/10/DesignPatternWithObserver/1.png" alt="Architecture"></p>
-<h4 id="建立-介面"><a href="#建立-介面" class="headerlink" title="建立 介面"></a>建立 介面</h4><pre><code>public interface IObserver
-{
-    void Update(string message);
-}
-public interface IObserverable
-{
-    void Add(IObserver observer);
-    void Remove(IObserver observer);
-    void NotifyObservers(string content);
-}
-</code></pre><h4 id="建立一個-類別-Subject-繼承-IObserverable"><a href="#建立一個-類別-Subject-繼承-IObserverable" class="headerlink" title="建立一個 類別 Subject 繼承 IObserverable"></a>建立一個 類別 <code>Subject</code> 繼承 <code>IObserverable</code></h4><pre><code>public class Subject : IObserverable
-{
-    List&lt;IObserver&gt; observers;
-    public string Name = &quot;Youtube&quot;;
-
-    public Subject()
-    {
-        this.observers = new List&lt;IObserver&gt;();
-    }
-
-    public void Add(IObserver observer)
-    {
-        this.observers.Add(observer);
-    }
-
-    public void Remove(IObserver observer)
-    {
-        if (this.observers.IndexOf(observer) &gt;=0)
-        {
-            this.observers.Remove(observer);
-        }
-    }
-
-    public void NotifyObservers(string content)
-    {
-        foreach(IObserver observer in this.observers)
-        {
-            observer.Update(content);
-        }
-    }
-}
-</code></pre><h4 id="建立一個-類別-Customer-繼承-IObserver"><a href="#建立一個-類別-Customer-繼承-IObserver" class="headerlink" title="建立一個 類別 Customer 繼承 IObserver"></a>建立一個 類別 <code>Customer</code> 繼承 <code>IObserver</code></h4><pre><code>public class Customer : IObserver
-{
-    public string Name { get; set; }
-
-    public Customer(string name)
-    {
-        this.Name = name;
-    }
-
-    public void Update(string message)
-    {
-        Console.WriteLine($&quot;{this.Name} used channel from {message}&quot;);
-    }
-}
-</code></pre><h4 id="引用方式"><a href="#引用方式" class="headerlink" title="引用方式"></a>引用方式</h4><pre><code>class Program
-{
-    static void Main(string[] args)
-    {
-        Subject subject = new Subject();
-        IObserver customer = new Customer(&quot;Joey&quot;);
-        subject.Add(customer);
-
-        IObserver customer1 = new Customer(&quot;Ross&quot;);
-        subject.Add(customer1);
-        subject.NotifyObservers(&quot;Youtube&quot;);
-
-        Console.ReadKey();
-    }
-}
-</code></pre><h4 id="適用場景"><a href="#適用場景" class="headerlink" title="適用場景"></a>適用場景</h4><ol>
-<li>當對一個對象的改變需要同時改變其他對象，而又不知道具體有多少對象有待改變的情況下</li>
-<li>當一個對象必須通知其他對象，而又不能假定其他對象是誰的情況下</li>
-</ol>
-<h4 id="優點"><a href="#優點" class="headerlink" title="優點"></a>優點</h4><ol>
-<li>可以有各種各樣不同的表示層</li>
-<li>抽象主題只依賴於抽象觀察者</li>
-</ol>
-<h4 id="缺點"><a href="#缺點" class="headerlink" title="缺點"></a>缺點</h4><ol>
-<li>如果某些觀察者的響應方法被阻塞，整個通知過程即被阻塞，其它觀察者不能及時被通知</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://zh.wikipedia.org/wiki/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F" target="_blank" rel="noopener">維基百科-觀察者模式</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2263,7 +2212,7 @@ public interface IObserverable
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">111</span>
+                  <span class="site-state-item-count">112</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
@@ -2285,7 +2234,7 @@ public interface IObserverable
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">標籤</span>
                 </a>
               </div>

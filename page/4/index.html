@@ -252,6 +252,191 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/11/MSSqlPublishSSIS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/11/MSSqlPublishSSIS/" itemprop="url">MS SQL SSIS 佈署</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-11T15:26:46+08:00">
+                2019-07-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MS-SQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MS SQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="SSIS-佈署"><a href="#SSIS-佈署" class="headerlink" title="SSIS 佈署"></a>SSIS 佈署</h1><h4 id="建置部署公用程式"><a href="#建置部署公用程式" class="headerlink" title="建置部署公用程式"></a>建置部署公用程式</h4><ol>
+<li><p>開啟 <strong>SQL Server Business Intelligence Development Studio</strong><br><img src="/2019/07/11/MSSqlPublishSSIS/1.png" alt="Architecture"></p>
+</li>
+<li><p>開啟 <strong>.sln</strong> 檔<br><img src="/2019/07/11/MSSqlPublishSSIS/2.png" alt="Architecture"></p>
+</li>
+<li><p>設定參數<br><img src="/2019/07/11/MSSqlPublishSSIS/3.png" alt="Architecture"></p>
+</li>
+<li><p>建置<br><img src="/2019/07/11/MSSqlPublishSSIS/4.png" alt="Architecture"></p>
+</li>
+<li><p>檢查是否有產生部署公用程式<br><img src="/2019/07/11/MSSqlPublishSSIS/5.png" alt="Architecture"></p>
+</li>
+</ol>
+<h2 id="建立封裝組態"><a href="#建立封裝組態" class="headerlink" title="建立封裝組態"></a>建立封裝組態</h2><h4 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h4><p>若佈署到 <strong>SQL Server</strong> 上，要多設定一個「封裝組態」，否則會因為帳號密碼權限的問題，不能執行封裝</p>
+<h4 id="Source-DB-新增欄位，重新部署"><a href="#Source-DB-新增欄位，重新部署" class="headerlink" title="Source DB 新增欄位，重新部署"></a>Source DB 新增欄位，重新部署</h4><ol>
+<li><p>先將原始檔案複製一份，留存</p>
+</li>
+<li><p>開啟 <strong>.sln</strong> 檔<br><img src="/2019/07/11/MSSqlPublishSSIS/6.png" alt="Architecture"></p>
+</li>
+<li><p>將資料來源 設定帳密<br>&nbsp;&nbsp;&nbsp;&nbsp;目的：開啟 <strong>Source DB</strong>、<strong>Targer DB</strong> 可以看到欄位，並建立關連<br><img src="/2019/07/11/MSSqlPublishSSIS/7.png" alt="Architecture"></p>
+</li>
+<li><p>檢查 <strong>Source DB</strong> 的 <strong>SCHEMA</strong> 是否已建立<br><img src="/2019/07/11/MSSqlPublishSSIS/8.png" alt="Architecture"></p>
+</li>
+<li><p>新增 <strong>Target DB SCHEMA</strong><br><img src="/2019/07/11/MSSqlPublishSSIS/9.png" alt="Architecture"></p>
+</li>
+<li><p>建立 <strong>Source DB &amp; Target DB</strong> 對應<br><img src="/2019/07/11/MSSqlPublishSSIS/10.png" alt="Architecture"></p>
+</li>
+<li><p>依照 <code>Z:\經營總表\10-BI\系統文件\BI 平台系統文件-SSIS封裝佈署.doc</code> 步驟，重新部署<br> 7.1 啟用封裝組態<br> <img src="/2019/07/11/MSSqlPublishSSIS/11.png" alt="Architecture"></p>
+<p> 7.2 切換至「屬性」，於 <strong>ProtectionLevel</strong> 下拉選單，選取 <strong>DontSaveSensitive</strong><br> <img src="/2019/07/11/MSSqlPublishSSIS/12.jpg" alt="Architecture"></p>
+<p> 7.3 CUBE封裝以外的其他三個封裝皆完成以上動作後，請切換回「方案總管」，並於資料庫上按右鍵，選取「建置」<br> <img src="/2019/07/11/MSSqlPublishSSIS/13.jpg" alt="Architecture"></p>
+<p> 7.4 佈署封裝檔：</p>
+<pre><code>封裝建置完成後，請開啟檔案總管，至 `D:\BI\SSIS\禮儀資料轉檔\bin\Deployment` 目錄下，點選檔案「禮儀資料轉檔 **.SSISDeploymentManifest** 」
+</code></pre><p> <img src="/2019/07/11/MSSqlPublishSSIS/14.jpg" alt="Architecture"></p>
+<p> 7.5 點選後會開啟以下的封裝安裝精靈，請按下一步<br> <img src="/2019/07/11/MSSqlPublishSSIS/15.jpg" alt="Architecture"></p>
+<p> 7.6 封裝安裝位置請選「SQL Server佈署」，請按下一步<br> <img src="/2019/07/11/MSSqlPublishSSIS/16.jpg" alt="Architecture"></p>
+<p> 7.7 伺服器名稱預設為 ( <strong>local</strong> ) 無需修改，帳密資訊輸入後，封裝路徑請按右方「<strong>…</strong>」按鈕，再點選「<strong>SSIS</strong>封裝」目錄，即根目錄，按確定後回到主畫面按下一步<br> <img src="/2019/07/11/MSSqlPublishSSIS/17.jpg" alt="Architecture"></p>
+<p> 7.8 安裝資料夾依預設值即可，無需修改，請持續按下一步至設定封裝畫面<br> <img src="/2019/07/11/MSSqlPublishSSIS/18.jpg" alt="Architecture"></p>
+<p> 7.9 設定封裝畫面，可看到有三個組態檔，每個組態檔都要點進去，並點開下方的 <strong>Property</strong> 以輸入密碼，三個組態檔皆完成後，請按下一步進行佈署<br> <img src="/2019/07/11/MSSqlPublishSSIS/19.jpg" alt="Architecture"></p>
+<p> 7.10 出現以下畫面即代表封裝已佈署完成，請按完成按鈕<br> <img src="/2019/07/11/MSSqlPublishSSIS/20.jpg" alt="Architecture"></p>
+</li>
+<li><p>回復原始設定，才能直接用 <strong>SSIS</strong> 介面執行工作<br> 8.1 再將啟用封裝組態 勾勾 拿掉<br> <img src="/2019/07/11/MSSqlPublishSSIS/21.png" alt="Architecture"></p>
+<p> 8.2 「屬性」，於 <strong>ProtectionLevel</strong> 下拉選單，選取「<strong>EncrptSensitiveWithUserKey</strong>」<br> <img src="/2019/07/11/MSSqlPublishSSIS/22.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://docs.microsoft.com/zh-tw/sql/integration-services/lesson-2-1-building-the-deployment-utility?view=sql-server-2017" target="_blank" rel="noopener">建置部署公用程式</a><br><a href="http://tsengpm.blogspot.com/2011/09/ssis-sql-server.html" target="_blank" rel="noopener">建立封裝組態</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/11/MSSqlDeadLock/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2035,185 +2220,6 @@ with open(&quot;data.txt&quot;, &quot;w&quot;, encoding=&quot;utf-8&quot;) as fi
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/09/PythonRandomAndStatistics/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/09/PythonRandomAndStatistics/" itemprop="url">Python 隨機模組、統計模組</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-09T10:25:58+08:00">
-                2019-07-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="隨機模組"><a href="#隨機模組" class="headerlink" title="隨機模組"></a>隨機模組</h1><p>要先 <strong>import random</strong></p>
-<h4 id="從列表中隨機選取"><a href="#從列表中隨機選取" class="headerlink" title="從列表中隨機選取"></a>從列表中隨機選取</h4><pre><code>import random
-data = random.choice([1, 5, 6, 10, 20])
-print(data)
-</code></pre><h4 id="從列表中隨機選取-N-筆資料，不能大於列表長度"><a href="#從列表中隨機選取-N-筆資料，不能大於列表長度" class="headerlink" title="從列表中隨機選取 N 筆資料，不能大於列表長度"></a>從列表中隨機選取 N 筆資料，不能大於列表長度</h4><pre><code>data = random.sample([1, 5, 6, 10, 20], 3)
-print(data)
-</code></pre><h4 id="隨機調換順序，洗牌的概念"><a href="#隨機調換順序，洗牌的概念" class="headerlink" title="隨機調換順序，洗牌的概念"></a>隨機調換順序，洗牌的概念</h4><pre><code>data = [1, 5, 8, 20]
-random.shuffle(data)
-print(data)
-</code></pre><h4 id="0-1-之間的隨機亂數"><a href="#0-1-之間的隨機亂數" class="headerlink" title="0 ~ 1 之間的隨機亂數"></a>0 ~ 1 之間的隨機亂數</h4><pre><code>data = random.random()
-print(data)
-</code></pre><h4 id="自訂義亂數"><a href="#自訂義亂數" class="headerlink" title="自訂義亂數"></a>自訂義亂數</h4><pre><code>data = random.uniform(0.0, 1.0) # 0.0 ~ 1.0 之間的隨機亂數
-print(data)
-
-data = random.uniform(60, 100) # 60 ~ 100 之間的隨機亂數
-print(data)
-</code></pre><h4 id="取得常態分配亂數"><a href="#取得常態分配亂數" class="headerlink" title="取得常態分配亂數"></a>取得常態分配亂數</h4><pre><code># 平均數 100，標準差 10，多數落在 90 ~ 110 之間
-data = random.normalvariate(100, 10)
-print(data)
-
-# 平均數 0，標準差 5，多數落在 -5 ~ 5 之間
-data = random.normalvariate(0, 5)
-print(data)
-</code></pre><h1 id="統計模組"><a href="#統計模組" class="headerlink" title="統計模組"></a>統計模組</h1><p>要先 <strong>import statistics</strong></p>
-<h4 id="平均數"><a href="#平均數" class="headerlink" title="平均數"></a>平均數</h4><pre><code>import statistics as stat
-data = stat.mean([1, 4, 5, 8])
-print(data)
-
-data = stat.mean([1, 2, 3, 4, 5, 8, 100])
-print(data)
-</code></pre><h4 id="中位數"><a href="#中位數" class="headerlink" title="中位數"></a>中位數</h4><pre><code>data = stat.median([1, 2, 3, 4, 5, 8, 100])
-print(data)
-</code></pre><h4 id="標準差"><a href="#標準差" class="headerlink" title="標準差"></a>標準差</h4><pre><code>data = stat.stdev([1, 2, 3, 4, 5, 8, 100])
-print(data)
-
-data = stat.stdev([1, 2, 3, 4, 5, 8, 10])
-print(data)
-</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=-xwCu6PN1jU" target="_blank" rel="noopener">Python 亂數與統計模組 By 彭彭</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2266,7 +2272,7 @@ print(data)
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">111</span>
+                  <span class="site-state-item-count">112</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
@@ -2288,7 +2294,7 @@ print(data)
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">標籤</span>
                 </a>
               </div>
