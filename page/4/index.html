@@ -252,6 +252,362 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/11/MSSqlDeadLock/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/11/MSSqlDeadLock/" itemprop="url">MS SQL 鎖定 (Dead Lock)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-11T14:57:42+08:00">
+                2019-07-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MS-SQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MS SQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="鎖定-Dead-Lock"><a href="#鎖定-Dead-Lock" class="headerlink" title="鎖定 (Dead Lock)"></a>鎖定 (Dead Lock)</h1><pre><code>SELECT * FROM sys.dm_tran_locks
+</code></pre><ul>
+<li>共享鎖 <strong>(S)</strong>：<br>  查詢資料時會在該資源放置共享鎖，允許不同連接讀取相同資料；但此時若有人想要更新資料，必須等到釋放共享鎖後，才可放置獨佔鎖，共享鎖在取完資料後就會釋放，不會等到持續到交易結束。</li>
+<li>獨佔鎖 <strong>(X)</strong>：<br>  新增、修改、刪除時，會對該資料放置獨佔鎖；獨佔鎖會一直保留到交易結束，且一個資源只會有一個獨佔鎖。</li>
+<li>更新鎖 <strong>(U)</strong>：<br>  當資源由查詢轉換為更新時，鎖定機制會先由共享鎖 –&gt; 更新鎖 –&gt; 獨佔鎖；<br>  例如: <strong>UPDATE…WHETE…</strong>，先搜尋 (放置共享鎖) –&gt; 找到資料後 (放置更新鎖) 共享鎖與更新鎖不互斥，先更新者由共享鎖轉為更新鎖後，因更新鎖彼此互斥，所以後更新者進入停止狀態，先更新者再將更新鎖轉為獨佔鎖，由於獨佔鎖與共享鎖互斥，所以更新時亦不可查詢資料，除非不下共享鎖 ( <strong>With NOLOCK</strong> )</li>
+<li>意圖鎖 <strong>(I)</strong>：<br>  放置共享鎖前，必須對該筆紀錄的更大範圍設定意圖鎖，例如對該筆資料的 <strong>Page</strong> 或 <strong>Table</strong> 放置意圖鎖，以避免其他交易對該 <strong>Page</strong> 或 <strong>Table</strong> 放置獨佔鎖；因為意圖鎖彼此不互斥，當修改某筆記錄，會在該筆記錄放置獨佔鎖，而在該分頁放置意圖獨佔鎖，此時，其他交易要修改同分頁的其他記錄，則可對其記錄下獨佔鎖，對同分頁下意圖獨佔鎖。</li>
+<li>大量更新 <strong>(BU)</strong>：<br>  當大量資料需複製到資料表時，指定 <strong>TABLOCK</strong> 或設 <strong>sp_tableoption</strong> 選項(將資料表設定為 <strong>“table lock on bulk load”</strong> ，則使用大量更新鎖。允許多個執行緒將資料同時大量載入同一資料表，同時禁止非大量載入資料的處理序存取資料，以提升大量匯入作業的效能</li>
+<li>索引鍵範圍 <strong>(Key-Range)</strong>：<br>  使用Serializable的隔離層次，保護使用者查詢時所讀取的資料列範圍，以確保其他交易無法插入受索引鍵範圍保護的資料列。此種鎖定可封鎖任何嘗試插入、更新、刪除含有索引鍵範圍的資料列。另外，<strong>UPDATE…WHERE…</strong> 在搜尋符合記錄時，也有可能下索引鍵範圍鎖。</li>
+<li>結構描述穩定性鎖定 <strong>(Sch-S)</strong>：<br>  查詢資料表結構時下的鎖定，只有在 <strong>Sch-M</strong> 不可執行。</li>
+<li>結構描述修改鎖定 <strong>(Sch-M)</strong>：<br>  變更資料表結構( <strong>DDL</strong> 作業)時下的鎖定，<strong>Sch-M</strong> 鎖定時，<strong>DDL</strong> 作業和並行 <strong>DML</strong> 作業皆無法在資料表上執行</li>
+<li>各種鎖定之間的互斥關係<br><img src="/2019/07/11/MSSqlDeadLock/1.png" alt="Architecture"></li>
+</ul>
+<h1 id="避免LOCK"><a href="#避免LOCK" class="headerlink" title="避免LOCK"></a>避免LOCK</h1><ul>
+<li><strong>NOLOCK</strong>：<br>  忽略鎖，直接從數據庫讀取數據，可能讀取到未認可的資料，使得資料不正確。通常使用在 <strong>Select</strong></li>
+<li><strong>ROWLOCK</strong>：<br>  只對某一行資料上鎖，可避免對同個 <strong>TABLE</strong> 或 <strong>PAGE</strong> 造成 <strong>LOCK</strong>，但過多的行級鎖，在開鎖時會消耗更多的效能，適合用在有指定主鍵的 <strong>Update</strong>、<strong>Delete</strong> 行為上</li>
+<li><strong>UPDLOCK</strong>：<br>  讀取表時使用更新鎖，而不使用共享鎖，並將鎖一直保留到處理序結束，通常使用在先 <strong>Select</strong> 後 <strong>Update</strong>，直接在 <strong>Select</strong> 時下更新鎖，不讓其他處理序有機會上獨佔鎖，直到原處理序結束，其他處理才能執行<br>• 一般使用前兩者皆可</li>
+</ul>
+<h1 id="隔離層次"><a href="#隔離層次" class="headerlink" title="隔離層次"></a>隔離層次</h1><ul>
+<li><strong>Serializable</strong>：<br>  強制所有的交易都必須按照順序，而且外部的查詢在 <strong>Serialize</strong> 的交易結束前，都不能讀取在交易中被鎖定住的資源</li>
+<li><strong>Read Uncommitted</strong>：<br>  允許其他查詢在交易未完成時，就可以讀取交易範圍內的資源</li>
+<li><strong>Read Committed</strong>：<br>  只允許其他查詢讀取已認可 <strong>(Committed)</strong> 的交易資料</li>
+<li><strong>Repeatable Read</strong>：<br>  它具有 <strong>Read Committed</strong> 的特性，但又不允許其他交易修改交易內參考到的資源，以保證資料是可重覆讀取 <strong>(Repeatable Read)</strong> 的</li>
+<li><strong>Snapshot Isolation</strong>：<br>  交易進行前會複製交易內相關的資源的資料到 <strong>tempdb</strong> 中，所有交易會在這個複本中進行，所以原本的資料讀取不會受到鎖定影響，而在多個交易同時進行時，<strong>Snapshot</strong> 會使用資料列版本 <strong>(rowversion)</strong> 的識別機制來判斷認可交易時的寫入順序，也因為它是在副本中進行，所以不會發生 <strong>Dirty Read</strong>, <strong>Nonrepeatable Read</strong> 與 <strong>Phantom Read</strong> 的狀態</li>
+</ul>
+<h1 id="開啟追蹤旗標"><a href="#開啟追蹤旗標" class="headerlink" title="開啟追蹤旗標"></a>開啟追蹤旗標</h1><pre><code>USE master
+GO
+-- 啟用追蹤旗標 1204、1222。
+DBCC TRACEON (1204, 1222,-1)
+GO
+</code></pre><h1 id="SQL-SERVER-記錄檔-查詢死結"><a href="#SQL-SERVER-記錄檔-查詢死結" class="headerlink" title="SQL SERVER  記錄檔 查詢死結"></a>SQL SERVER  記錄檔 查詢死結</h1><pre><code>EXEC master.dbo.xp_readerrorlog 0, 1, N&apos;deadlock-list&apos;
+EXEC master.dbo.xp_readerrorlog 0, 1, NULL,NULL,&apos;2016-08-30 15:32:32.170&apos;,&apos;2016-08-30 15:32:33.170&apos;,&apos;ASC&apos;
+參數說明：
+@p1 參數：0 表示目前的錯誤記錄檔，1 表示前一次的錯誤記錄檔之備份，2 表示前二次的錯誤記錄檔之備份，依此類推。
+@p2 參數：1 或是 NULL 表示 SQL Server 錯誤記錄檔；2 表示 SQL Server Agent 錯誤記錄檔
+@p3 參數：作為要查詢條件字串1。
+@p4 參數：作為要查詢條件字串2，與 @p3 參數為 AND 條件式。
+@p5 參數：指定錯誤記錄檔要讀取的起始日期。
+@p6 參數：指定錯誤記錄檔要讀取的終止日期。
+@p7 參數：可以設定查詢出來的資料之排序方式，依據「LogDate」資料行來排序，可以使用「ASC」或「DESC」參數值。
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/11/MSSqlFunction/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/11/MSSqlFunction/" itemprop="url">MS SQL 函式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-11T14:47:15+08:00">
+                2019-07-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MS-SQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MS SQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="函式"><a href="#函式" class="headerlink" title="函式"></a>函式</h1><h4 id="根據-A-欄位分割-以-B-欄位排序"><a href="#根據-A-欄位分割-以-B-欄位排序" class="headerlink" title="根據 A 欄位分割 以 B 欄位排序"></a>根據 A 欄位分割 以 B 欄位排序</h4><pre><code>ROW_NUMBER() OVER (PARTITION BY A欄位 ORDER BY B欄位)
+
+DENSE_RANK() OVER (PARTITION BY A欄位 ORDER BY B欄位)
+
+RANK() OVER (PARTITION BY A欄位 ORDER BY B欄位)
+</code></pre><h4 id="加上條件"><a href="#加上條件" class="headerlink" title="加上條件"></a>加上條件</h4><pre><code>ROW_NUMBER() OVER (PARTITION BY  A欄位 ,(CASE WHEN 條件式 THEN 1 ELSE 0 END ORDER BY B欄位)
+</code></pre><h4 id="EOMONTH-回傳月最後一天"><a href="#EOMONTH-回傳月最後一天" class="headerlink" title="EOMONTH 回傳月最後一天"></a>EOMONTH 回傳月最後一天</h4><pre><code>SELECT EOMONTH(GETDATE(),-1)  --上個月最後一天
+
+SELECT EOMONTH(GETDATE())      --這個月最後一天
+
+SELECT EOMONTH(GETDATE(),1)   --下個月最後一天
+</code></pre><h4 id="SUM-OVER-累計"><a href="#SUM-OVER-累計" class="headerlink" title="SUM OVER (累計)"></a>SUM OVER (累計)</h4><pre><code>SELECT SUM(AMT) OVER (ODDER BY YYYMM)
+</code></pre><h4 id="識別碼"><a href="#識別碼" class="headerlink" title="識別碼"></a>識別碼</h4><p>• <strong>SCOPE_IDENTITY</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;使用方式：<strong>SELECT SCOPE_IDENTITY()</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;說明：傳回當前作業(預存程序、觸發程序、函數或批次)中，最後一個識別值(索引值)。<br>• <strong>@@IDENTITY</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;使用方式：<strong>SELECT @@IDENTITY</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;說明：傳回資料庫所有作業中，最後一個識別值(索引值)。<br>• <strong>IDENT_CURRENT</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;使用方式：<strong>SELECT IDENT_CURRENT</strong>(‘資料表名稱’)<br>&nbsp;&nbsp;&nbsp;&nbsp;說明：傳回指定資料表中最後一個識別值(索引值)。<strong>P.S.</strong> 無法對暫存表使用</p>
+<h4 id="WITH-XLOCK-ROWLOCK"><a href="#WITH-XLOCK-ROWLOCK" class="headerlink" title="WITH(XLOCK, ROWLOCK)"></a>WITH(XLOCK, ROWLOCK)</h4><pre><code>SELECT 時 LOCK ROW
+</code></pre><h4 id="XACT-ABORT-XACT-STATE"><a href="#XACT-ABORT-XACT-STATE" class="headerlink" title="XACT_ABORT + XACT_STATE()"></a>XACT_ABORT + XACT_STATE()</h4><pre><code>SET XACT_ABORT ON;
+BEGIN TRY  
+    BEGIN TRANSACTION;  
+
+    COMMIT TRANSACTION;  
+END TRY  
+BEGIN CATCH   
+    IF (XACT_STATE()) = -1      -- 有錯誤、需要做 ROLLBACK
+    BEGIN       
+        ROLLBACK TRANSACTION;  
+    END;  
+
+                                --(XACT_STATE()) = 0 表示沒有 TRANSACTION，不需 ROLLBACK 或 COMMIT
+    IF (XACT_STATE()) = 1       -- 沒有錯誤且有T RANSACTION，需要做 COMMIT
+    BEGIN       
+        COMMIT TRANSACTION;     
+    END;  
+END CATCH; 
+</code></pre><p>假設 <strong>INSERT</strong> 三筆，第 1、3 筆成功，第 2 筆失敗<br>&nbsp;&nbsp;&nbsp;&nbsp;• <strong>SET XACT_ABORT ON : RollBack</strong> 3 筆資料<br>&nbsp;&nbsp;&nbsp;&nbsp;• <strong>SET XACT_ABORT OFF :</strong> 寫入第 1、3 筆，<strong>RollBack</strong> 第 2 筆資料</p>
+<h4 id="CURSOR"><a href="#CURSOR" class="headerlink" title="CURSOR"></a>CURSOR</h4><pre><code>要加 CURSOR LOCAL FORWARD_ONLY STATIC READ_ONLY FOR
+</code></pre><h4 id="修改發送MAIL的預設大小"><a href="#修改發送MAIL的預設大小" class="headerlink" title="修改發送MAIL的預設大小"></a>修改發送MAIL的預設大小</h4><pre><code>EXECUTE msdb.dbo.sysmail_configure_sp &apos;MaxFileSize&apos;, &apos;5242880&apos;;
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/11/MSSqlTSql/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1858,432 +2214,11 @@ print(data)
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/09/PythonFile/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/09/PythonFile/" itemprop="url">Python 文字檔案讀取與儲存</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-09T09:25:04+08:00">
-                2019-07-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="文字檔案讀取與儲存"><a href="#文字檔案讀取與儲存" class="headerlink" title="文字檔案讀取與儲存"></a>文字檔案讀取與儲存</h1><ol>
-<li>基本定義<br><img src="/2019/07/09/PythonFile/1.png" alt="Architecture"></li>
-</ol>
-<h2 id="文字檔案"><a href="#文字檔案" class="headerlink" title="文字檔案"></a>文字檔案</h2><p>新增一個 <strong>data.txt</strong> 檔<br><img src="/2019/07/09/PythonFile/2.png" alt="Architecture"></p>
-<h4 id="基本運用"><a href="#基本運用" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code>file = open(&quot;data.txt&quot;, mode=&quot;w&quot;, encoding=&quot;utf-8&quot;) # 開啟
-file.write(&quot;Hello File&quot;) # 基本操作
-file.write(&quot;Hello File\nSecond Line\n&quot;) # 換行
-file.write(&quot;測試中文&quot;) # 中文一定要設 encoding
-file.close() # 關閉
-</code></pre><h4 id="建議寫法，自動關閉檔案-省略-close"><a href="#建議寫法，自動關閉檔案-省略-close" class="headerlink" title="建議寫法，自動關閉檔案 (省略 .close())"></a>建議寫法，自動關閉檔案 (省略 .close())</h4><pre><code>with open(&quot;data.txt&quot;, mode=&quot;w&quot;, encoding=&quot;utf-8&quot;) as file:
-    file.write(&quot;測試中文\nSecond Line&quot;)
-</code></pre><h4 id="省略-mode"><a href="#省略-mode" class="headerlink" title="省略 mode"></a>省略 mode</h4><pre><code>with open(&quot;data.txt&quot;, &quot;w&quot;, encoding=&quot;utf-8&quot;) as file:
-    file.write(&quot;測試中文\nSecond Line&quot;)
-</code></pre><h4 id="讀取檔案"><a href="#讀取檔案" class="headerlink" title="讀取檔案"></a>讀取檔案</h4><pre><code>with open(&quot;data.txt&quot;, &quot;r&quot;, encoding=&quot;utf-8&quot;) as file:
-    data = file.read()
-print(data)
-</code></pre><h4 id="把檔案中的數字資料，一行一行的讀出來，計算總合"><a href="#把檔案中的數字資料，一行一行的讀出來，計算總合" class="headerlink" title="把檔案中的數字資料，一行一行的讀出來，計算總合"></a>把檔案中的數字資料，一行一行的讀出來，計算總合</h4><pre><code># 先寫入
-with open(&quot;data.txt&quot;, &quot;w&quot;, encoding=&quot;utf-8&quot;) as file:
-    file.write(&quot;5\n3&quot;)
-
-# 讀出及計算
-sum = 0
-with open(&quot;data.txt&quot;, &quot;r&quot;, encoding=&quot;utf-8&quot;) as file:
-    for line in file:
-        sum += int(line)
-print(sum)
-</code></pre><h2 id="json-檔案"><a href="#json-檔案" class="headerlink" title="json 檔案"></a>json 檔案</h2><p>新增一個 <strong>config.json</strong> 檔，及輸入 <strong>json</strong> 字串<br><img src="/2019/07/09/PythonFile/3.png" alt="Architecture"></p>
-<p>要先 <strong>import json</strong></p>
-<h4 id="基本運用-1"><a href="#基本運用-1" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code>import json
-with open(&quot;config.json&quot;, &quot;r&quot;) as file:
-    data = json.load(file)
-
-print(data) # data 是一個 Dictionary
-print(data[&quot;name&quot;])
-print(data[&quot;version&quot;])
-</code></pre><h4 id="讀取及寫入檔案"><a href="#讀取及寫入檔案" class="headerlink" title="讀取及寫入檔案"></a>讀取及寫入檔案</h4><pre><code>import json
-with open(&quot;config.json&quot;, &quot;r&quot;) as file:
-    data = json.load(file)
-
-print(data)
-data[&quot;name&quot;] = &quot;New Name&quot; # 修改變數中的資料
-
-# 把更新的資料複寫回檔案中
-with open(&quot;config.json&quot;, &quot;w&quot;) as file:
-    json.dump(data, file)
-</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=C4OkV6DrVRs" target="_blank" rel="noopener">Python 文字檔案的讀取和儲存 By 彭彭</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/08/PythonClass/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/08/PythonClass/" itemprop="url">Python 類別</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-08T11:44:26+08:00">
-                2019-07-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="class-類別"><a href="#class-類別" class="headerlink" title="class 類別"></a>class 類別</h1><ol>
-<li>類別與類別屬性</li>
-<li>類別與實體物體、實體屬性、實體方法</li>
-</ol>
-<h2 id="類別與類別屬性"><a href="#類別與類別屬性" class="headerlink" title="類別與類別屬性"></a>類別與類別屬性</h2><h4 id="基本運用"><a href="#基本運用" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code># 定義一個類別 IO，有兩個屬性 supportedSrcs 和 read
-class IO:
-    supportedSrcs = [&quot;console&quot;, &quot;file&quot;]
-    def read(src):
-        print(&quot;Read from&quot;, src)
-
-# 使用類別
-print(IO.supportedSrcs)
-IO.read(&quot;file&quot;)
-</code></pre><h4 id="加入判斷式"><a href="#加入判斷式" class="headerlink" title="加入判斷式"></a>加入判斷式</h4><pre><code>class IO:
-supportedSrcs = [&quot;console&quot;, &quot;file&quot;]
-def read(src):
-    if src not in IO.supportedSrcs:
-        print(&quot;Not Supported&quot;)
-    else:
-        print(&quot;Read from&quot;, src)
-
-print(IO.supportedSrcs)
-IO.read(&quot;internet&quot;)
-IO.read(&quot;file&quot;)
-</code></pre><h2 id="類別與實體物體、實體屬性"><a href="#類別與實體物體、實體屬性" class="headerlink" title="類別與實體物體、實體屬性"></a>類別與實體物體、實體屬性</h2><ol>
-<li><p>基本定義<br><img src="/2019/07/08/PythonClass/1.png" alt="Architecture"></p>
-</li>
-<li><p>進階定義<br><img src="/2019/07/08/PythonClass/2.png" alt="Architecture"></p>
-</li>
-</ol>
-<h4 id="基本運用-1"><a href="#基本運用-1" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code>class Point:
-    # 初始化，construct 的概念
-    def __init__(self):
-        self.x = 3
-        self.y = 4
-
-# 建立第一個實體物件
-p1 = Point()
-print(p1.x, p1.y)
-
-# 建立第二個實體物件
-p2 = Point()
-print(p2.x, p2.y)
-</code></pre><h4 id="實體化物件時，給參數"><a href="#實體化物件時，給參數" class="headerlink" title="實體化物件時，給參數"></a>實體化物件時，給參數</h4><pre><code>class Point:
-    # 初始化，construct 的概念
-    def __init__(self, firstName, lastName):
-        self.firstName = firstName
-        self.lastName = lastName
-
-p1 = Point(&quot;Joey&quot;, &quot;Tribbiani&quot;)
-print(p1.firstName, p1.lastName)
-
-p2 = Point(&quot;Chandler&quot;, &quot;Bing&quot;)
-print(p2.firstName, p2.lastName)
-</code></pre><h4 id="加入實體化方法"><a href="#加入實體化方法" class="headerlink" title="加入實體化方法"></a>加入實體化方法</h4><pre><code>class Point:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-
-    def show(self):
-        print(self.x, self.y)
-
-    def distance(self, targetX, targetY):
-        return(((self.x - targetX) ** 2) + ((self.y - targetY) ** 2)) ** 0.5
-
-p = Point(3, 4)
-p.show()
-result = p.distance(0, 0)
-print(result)
-</code></pre><h2 id="包裝檔案讀取的程式"><a href="#包裝檔案讀取的程式" class="headerlink" title="包裝檔案讀取的程式"></a>包裝檔案讀取的程式</h2><p>建立兩個 <strong>txt</strong> 檔，任意輸入文字<br><img src="/2019/07/08/PythonClass/3.png" alt="Architecture"></p>
-<h4 id="File-實體物件的設計"><a href="#File-實體物件的設計" class="headerlink" title="File 實體物件的設計"></a>File 實體物件的設計</h4><pre><code>class File:
-    def __init__(self, name):
-        self.name = name
-        self.file = None # 尚末開啟檔案：初始值是 None
-
-    def open(self):
-        self.file = open(self.name, mode=&quot;r&quot;, encoding=&quot;utf-8&quot;)
-
-    def read(self):
-        return self.file.read()
-
-# 讀取第一個檔案
-f1 = File(&quot;data1.txt&quot;)
-f1.open()
-data = f1.read()
-print(data)
-
-# 讀取第二個檔案
-f2 = File(&quot;data2.txt&quot;)
-f2.open()
-data = f2.read()
-print(data)
-</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=GGp-7VHgsKk" target="_blank" rel="noopener">Python Package 封包的設計與使用 By 彭彭</a><br><a href="https://www.youtube.com/watch?v=Lr5N2r1rmtM" target="_blank" rel="noopener">Python 實體物件的建立與使用 - 上篇 - 實體屬性 Instance Attributes By 彭彭</a><br><a href="https://www.youtube.com/watch?v=MZtTClJ74NU" target="_blank" rel="noopener">Python 實體物件的建立與使用 - 下篇 - 實體方法 - Instance Methods By 彭彭</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2331,7 +2266,7 @@ print(data)
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">109</span>
+                  <span class="site-state-item-count">111</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
@@ -2353,7 +2288,7 @@ print(data)
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">標籤</span>
                 </a>
               </div>
