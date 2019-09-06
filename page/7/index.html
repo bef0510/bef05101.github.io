@@ -252,6 +252,352 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/21/AspNetGeneric/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/21/AspNetGeneric/" itemprop="url">C# 泛型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-06-21T11:26:41+08:00">
+                2019-06-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ASP-Net/" itemprop="url" rel="index">
+                    <span itemprop="name">ASP.Net</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h1><h4 id="泛型類別"><a href="#泛型類別" class="headerlink" title="泛型類別"></a>泛型類別</h4><pre><code>public class Generic&lt;T&gt;
+{
+    public T Name;
+    public T NickName;
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Generic&lt;string&gt; generic = new Generic&lt;string&gt;();
+        generic.Name = &quot;Patrick&quot;;
+        generic.NickName = &quot;Pat&quot;;
+
+        Console.WriteLine($&quot;Name：{generic.Name}&quot;);
+        Console.WriteLine($&quot;NickName：{generic.NickName}&quot;);
+
+        Console.ReadKey();
+    }
+}
+</code></pre><h4 id="泛型方法-使用型別參數宣告的方法"><a href="#泛型方法-使用型別參數宣告的方法" class="headerlink" title="泛型方法 使用型別參數宣告的方法"></a>泛型方法 使用型別參數宣告的方法</h4><pre><code>public class Generic
+{
+    public void Dump&lt;T&gt;(T s)
+    {
+        Console.WriteLine(s.ToString());
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Generic generic = new Generic();
+
+        generic.Dump(&quot;Patrick&quot;);
+
+        Console.ReadKey();
+    }
+}
+</code></pre><h4 id="泛型方法-條件約束"><a href="#泛型方法-條件約束" class="headerlink" title="泛型方法 + 條件約束"></a>泛型方法 + 條件約束</h4><pre><code>public class Generic
+{
+    public T Max&lt;T&gt;(T param1, T param2) where T : IComparable&lt;T&gt;
+    {
+        T result = param2;
+
+        if (param1.CompareTo(param2) &gt; 0)
+        {
+            result = param1;
+        }
+
+        return result;
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Generic generic = new Generic();
+
+        int resultInt = generic.Max&lt;int&gt;(10, 12);
+
+        // 推論型別 省略 &lt;float&gt;
+        float resultFloat = generic.Max(3.6F, 3.5F);
+
+        // 推論型別 使用 var
+        var resultObject = generic.Max(&quot;Gen&quot;, &quot;Eric&quot;);
+
+        Console.WriteLine(resultInt);
+        Console.WriteLine(resultFloat);
+        Console.WriteLine(resultObject);
+
+        Console.ReadKey();
+    }
+}
+</code></pre><h4 id="泛型方法-條件約束-擴充方法"><a href="#泛型方法-條件約束-擴充方法" class="headerlink" title="泛型方法 + 條件約束 + 擴充方法"></a>泛型方法 + 條件約束 + 擴充方法</h4><pre><code>public class Student
+{
+    public string Name { get; set; }
+    public int Age { get; set; }
+    public DateTime Time { get; set; }
+}
+
+public static class StringExtension
+{
+    public static void Dump&lt;T&gt;(this T s) =&gt; Console.WriteLine(s.ToString());
+
+    public static void Dump&lt;T&gt;(this T s, string formate)
+    {
+        if (s.GetType() == typeof(DateTime))
+        {
+            DateTimeOffset.Parse(s.ToString()).DateTime.ToString(formate).Dump();
+        }
+    }
+
+    public static void ObjectDump&lt;T&gt;(this T obj) where T : class, new()
+    {
+        Type type = obj.GetType();
+        PropertyInfo[] props = type.GetProperties();
+        foreach(var prop in props)
+        {
+            if(prop.GetIndexParameters().Length == 0)
+            {
+                $&quot;({prop.PropertyType.Name}) {prop.Name}：{prop.GetValue(obj)}&quot;.Dump();
+            }
+            else
+            {
+                $&quot;({prop.PropertyType.Name}) {prop.Name}：&lt;Indexed&gt;&quot;.Dump();
+            }
+        }
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        string name = &quot;Patrick&quot;;
+        int age = 26;
+        DateTime time = DateTime.Now;
+        Student student = new Student() { Name = name, Age = age, Time = time };
+
+        name.Dump();
+        age.Dump();
+        time.Dump(&quot;yyyy-MM-dd HH:mm:ss&quot;);
+        student.ObjectDump();
+
+        Console.ReadKey();
+    }
+}
+</code></pre><h4 id="泛型委派"><a href="#泛型委派" class="headerlink" title="泛型委派"></a>泛型委派</h4><pre><code>class Program
+{
+    public delegate T Payment&lt;T, T1, T2&gt;(T1 momey1, T2 momey2);
+
+    static string Bill(int momey1, int momey2)
+    {
+        string result = &quot;超商繳款&quot;;
+
+        int total = momey1 + momey2;
+
+        if (total &gt; 30000)
+        {
+            result = &quot;銀行繳款&quot;;
+        }
+        return result;
+    }
+
+    static bool Bill(float momey1, float momey2)
+    {
+        return (momey1 + momey2) &gt; 30000;
+    }
+
+    static void Main(string[] args)
+    {
+        Payment&lt;string, int, int&gt; paymentType = new Payment&lt;string, int, int&gt;(Bill);
+        string resultString = paymentType(10000, 16000);
+
+        Payment&lt;bool, float, float&gt; isByBank = new Payment&lt;bool, float, float&gt;(Bill);
+        bool resultBool = isByBank(16000.0F, 20000.0F);
+
+        Console.WriteLine(resultString);
+        Console.WriteLine(resultBool);
+
+        Console.ReadKey();
+    }
+}
+</code></pre><h4 id="泛型委派-泛型類別"><a href="#泛型委派-泛型類別" class="headerlink" title="泛型委派 + 泛型類別"></a>泛型委派 + 泛型類別</h4><pre><code>class Stack&lt;T&gt;
+{
+    T[] items;
+    int index;
+
+    public delegate void StackDelegate(T[] items, int index = -1);
+}
+
+class Program
+{
+    public static void DoWork(float[] items, int index)
+    {
+        if (index &gt;= 0)
+        {
+            if(index &gt;= items.Length)
+            {
+                index = items.Length - 1;
+            }
+            Console.WriteLine(items[index]);
+        }
+        else
+        {
+            foreach (float item in items)
+            {
+                Console.WriteLine(item);
+            }
+        }
+    }
+
+    static void Main(string[] args)
+    {
+        float[] items = new float[] { 4.5F, 4.8F };
+        Stack&lt;float&gt; s = new Stack&lt;float&gt;();
+        Stack&lt;float&gt;.StackDelegate d = DoWork;
+        d(items);
+
+        Console.ReadKey();
+    }
+}
+</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://docs.microsoft.com/zh-tw/dotnet/csharp/programming-guide/generics/" target="_blank" rel="noopener">泛型 (C# 程式設計手冊)</a><br><a href="https://docs.microsoft.com/zh-tw/dotnet/csharp/programming-guide/generics/constraints-on-type-parameters" target="_blank" rel="noopener">型別參數的條件約束 (C# 程式設計手冊)</a><br><a href="https://docs.microsoft.com/zh-tw/dotnet/api/system.reflection.propertyinfo.getvalue?view=netframework-4.8" target="_blank" rel="noopener">PropertyInfo.GetValue Method</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/20/AspNetNugetPackageWithNugetPackager/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1794,372 +2140,6 @@ ORDER BY a.TABLE_NAME, ordinal_position
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/10/AspNetDelegateAdvanced/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/10/AspNetDelegateAdvanced/" itemprop="url">C# Delegate、Action、Func、Predicate</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-06-10T15:24:24+08:00">
-                2019-06-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ASP-Net/" itemprop="url" rel="index">
-                    <span itemprop="name">ASP.Net</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="委派-Delegate、Action、Func、Predicate"><a href="#委派-Delegate、Action、Func、Predicate" class="headerlink" title="委派 Delegate、Action、Func、Predicate"></a>委派 Delegate、Action、Func、Predicate</h1><h3 id="使用-Delegate"><a href="#使用-Delegate" class="headerlink" title="使用 Delegate"></a>使用 <strong>Delegate</strong></h3><ol>
-<li>使用 delegate</li>
-<li>定義委派型別的 signature 的方法</li>
-</ol>
-<h4 id="Delegate"><a href="#Delegate" class="headerlink" title="Delegate"></a><strong>Delegate</strong></h4><pre><code>class Program
-{
-    private delegate void Payment();
-
-    static void Main(string[] args)
-    {
-        Payment payment = new Payment(Bill);
-        payment();
-
-        Console.ReadKey();
-    }
-
-    public static void Bill()
-    {
-        Console.WriteLine(&quot;繳款方式：便利商店&quot;);
-    }
-}
-</code></pre><h1 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h1><h3 id="改用-Action，無參數"><a href="#改用-Action，無參數" class="headerlink" title="改用 Action，無參數"></a>改用 <strong>Action</strong>，無參數</h3><ol>
-<li>省去定義方法</li>
-<li><code>Action</code> 封裝沒有參數且沒有傳回值的方法</li>
-</ol>
-<h4 id="Action-1"><a href="#Action-1" class="headerlink" title="Action"></a><strong>Action</strong></h4><pre><code>class Program
-{
-    static void Main(string[] args)
-    {
-        Action payment = new Action(Bill);
-        payment();
-
-        Console.ReadKey();
-    }
-
-    public static void Bill() =&gt; Console.WriteLine(&quot;繳款方式：便利商店&quot;);
-}
-</code></pre><h3 id="改用-Action，有參數"><a href="#改用-Action，有參數" class="headerlink" title="改用 Action，有參數"></a>改用 <strong>Action</strong>，有參數</h3><ol>
-<li><code>Action&lt;T&gt;</code> 封裝至多 16 個參數的方法，並且不會傳回值</li>
-</ol>
-<h4 id="Action-2"><a href="#Action-2" class="headerlink" title="Action"></a><strong>Action</strong></h4><pre><code>class Program
-{
-    static void Main(string[] args)
-    {
-        Action&lt;string&gt; payment = new Action&lt;string&gt;(Bill);
-        payment(&quot;便利商店&quot;);
-
-        Console.ReadKey();
-    }
-
-    public static void Bill(string place) =&gt; Console.WriteLine($&quot;繳款方式：{place}&quot;);
-}
-</code></pre><h4 id="Action-匿名委派"><a href="#Action-匿名委派" class="headerlink" title="Action 匿名委派"></a><strong>Action</strong> 匿名委派</h4><pre><code>class Program
-{
-    static void Main(string[] args)
-    {
-        Action&lt;string&gt; payment = delegate (string place)
-        {
-            Console.WriteLine($&quot;繳款方式：{place}&quot;);
-        };
-        payment(&quot;便利商店&quot;);
-
-        Console.ReadKey();
-    }
-}
-</code></pre><h4 id="Action-Lambda"><a href="#Action-Lambda" class="headerlink" title="Action Lambda"></a><strong>Action</strong> Lambda</h4><pre><code>class Program
-{
-    static void Main(string[] args)
-    {
-        Action&lt;string&gt; payment = (string place) =&gt; Console.WriteLine($&quot;繳款方式：{place}&quot;);
-
-        payment(&quot;便利商店&quot;);
-
-        Console.ReadKey();
-    }
-}
-</code></pre><h1 id="Func"><a href="#Func" class="headerlink" title="Func"></a>Func</h1><h3 id="改用-Func，無參數"><a href="#改用-Func，無參數" class="headerlink" title="改用 Func，無參數"></a>改用 <strong>Func</strong>，無參數</h3><ol>
-<li><code>Func&lt;TResult&gt;</code> 封裝沒有參數並傳回 TResult 參數所指定之型別值的方法</li>
-</ol>
-<h4 id="Func-1"><a href="#Func-1" class="headerlink" title="Func"></a><strong>Func</strong></h4><pre><code>class Program
-{
-    static void Main(string[] args)
-    {
-        Func&lt;string&gt; payment = new Func&lt;string&gt;(Bill);
-        Console.WriteLine(payment());
-
-        Console.ReadKey();
-    }
-
-    public static string Bill()
-    {
-        return $&quot;繳款方式：便利商店&quot;;
-    }
-}
-</code></pre><h3 id="改用-Func，有參數"><a href="#改用-Func，有參數" class="headerlink" title="改用 Func，有參數"></a>改用 <strong>Func</strong>，有參數</h3><ol>
-<li><code>Func&lt;T, TResult&gt;</code> 封裝具至多 16 個參數的方法，並傳回由 TResult 參數指定之類型的值</li>
-</ol>
-<h4 id="Func-2"><a href="#Func-2" class="headerlink" title="Func"></a><strong>Func</strong></h4><pre><code>class Program
-{
-    static void Main(string[] args)
-    {
-        Func&lt;string, string&gt; payment = new Func&lt;string, string&gt;(Bill);
-        Console.WriteLine(payment(&quot;CVS&quot;));
-
-        Console.ReadKey();
-    }
-
-    public static string Bill(string type)
-    {
-        string place = string.Empty;
-        switch (type)
-        {
-            case &quot;CVS&quot;:
-                place = &quot;便利商店&quot;;
-                break;
-            case &quot;POST&quot;:
-                place = &quot;郵局轉帳&quot;;
-                break;
-            case &quot;BANK&quot;:
-                place = &quot;銀行轉帳&quot;;
-                break;
-            default:
-                place = &quot;逾期未繳&quot;;
-                break;
-        }
-        return $&quot;繳款方式：{place}&quot;;
-    }
-}
-</code></pre><h4 id="Func-匿名委派"><a href="#Func-匿名委派" class="headerlink" title="Func 匿名委派"></a><strong>Func</strong> 匿名委派</h4><pre><code>class Program
-{
-    static void Main(string[] args)
-    {
-        Func&lt;string, string&gt; payment = delegate (string type)
-        {
-            string place = string.Empty;
-            switch (type)
-            {
-                case &quot;CVS&quot;:
-                    place = &quot;便利商店&quot;;
-                    break;
-                case &quot;POST&quot;:
-                    place = &quot;郵局轉帳&quot;;
-                    break;
-                case &quot;BANK&quot;:
-                    place = &quot;銀行轉帳&quot;;
-                    break;
-                default:
-                    place = &quot;逾期未繳&quot;;
-                    break;
-            }
-            return $&quot;繳款方式：{place}&quot;;
-        };
-        Console.WriteLine(payment(&quot;CVS&quot;));
-
-        Console.ReadKey();
-    }
-}
-</code></pre><h4 id="Func-Lambda"><a href="#Func-Lambda" class="headerlink" title="Func Lambda"></a><strong>Func</strong> Lambda</h4><pre><code>class Program
-{
-    static void Main(string[] args)
-    {
-        Func&lt;string, string&gt; payment = (string type) =&gt;
-        {
-            string place = string.Empty;
-            switch (type)
-            {
-                case &quot;CVS&quot;:
-                    place = &quot;便利商店&quot;;
-                    break;
-                case &quot;POST&quot;:
-                    place = &quot;郵局轉帳&quot;;
-                    break;
-                case &quot;BANK&quot;:
-                    place = &quot;銀行轉帳&quot;;
-                    break;
-                default:
-                    place = &quot;逾期未繳&quot;;
-                    break;
-            }
-            return $&quot;繳款方式：{place}&quot;;
-        };
-        Console.WriteLine(payment(&quot;CVS&quot;));
-
-        Console.ReadKey();
-    }
-}
-</code></pre><h3 id="Predicate"><a href="#Predicate" class="headerlink" title="Predicate"></a><strong>Predicate</strong></h3><ol>
-<li>等同於 <code>Func&lt;T, bool&gt;</code></li>
-</ol>
-<h4 id="Predicate-1"><a href="#Predicate-1" class="headerlink" title="Predicate"></a><strong>Predicate</strong></h4><pre><code>class Program
-{
-    static void Main(string[] args)
-    {
-        Predicate&lt;string&gt; payment = new Predicate&lt;string&gt;(Bill);
-        string isWay = payment(&quot;CVS&quot;) ? &quot;是&quot; : &quot;否&quot;;
-        Console.WriteLine($&quot;是否有此繳費方式：{isWay}&quot;);
-
-        Console.ReadKey();
-    }
-
-    public static bool Bill(string type)
-    {
-        List&lt;string&gt; lists = new List&lt;string&gt;() { &quot;CVS&quot;, &quot;POST&quot;, &quot;BANK&quot; };
-
-        return lists.Where(o=&gt;o == type).ToList().Count &gt; 0;
-    }
-}
-</code></pre><h4 id="Predicate-Lambda"><a href="#Predicate-Lambda" class="headerlink" title="Predicate Lambda"></a><strong>Predicate</strong> Lambda</h4><pre><code>class Program
-{
-    static void Main(string[] args)
-    {
-        Predicate&lt;string&gt; payment = (string type) =&gt;
-        {
-            List&lt;string&gt; lists = new List&lt;string&gt;() { &quot;CVS&quot;, &quot;POST&quot;, &quot;BANK&quot; };
-
-            return lists.Where(o =&gt; o == type).ToList().Count &gt; 0;
-        };
-        string isWay = payment(&quot;CVS&quot;) ? &quot;是&quot; : &quot;否&quot;;
-
-        Console.WriteLine($&quot;是否有此繳費方式：{isWay}&quot;);
-
-        Console.ReadKey();
-    }
-}
-</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://docs.microsoft.com/zh-tw/dotnet/csharp/language-reference/keywords/delegate" target="_blank" rel="noopener">delegate (C# 參考)</a><br><a href="https://docs.microsoft.com/zh-tw/dotnet/api/system.action-1?view=netframework-4.8" target="_blank" rel="noopener">Action<t> Delegate</t></a><br><a href="https://docs.microsoft.com/zh-tw/dotnet/api/system.func-2?view=netframework-4.8" target="_blank" rel="noopener">Func&lt;T,TResult&gt; Delegate</a><br><a href="https://docs.microsoft.com/zh-tw/dotnet/api/system.predicate-1?view=netframework-4.8" target="_blank" rel="noopener">Predicate<t> Delegate</t></a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2212,7 +2192,7 @@ ORDER BY a.TABLE_NAME, ordinal_position
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">112</span>
+                  <span class="site-state-item-count">113</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
@@ -2223,7 +2203,7 @@ ORDER BY a.TABLE_NAME, ordinal_position
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分類</span>
                 </a>
               </div>
@@ -2234,7 +2214,7 @@ ORDER BY a.TABLE_NAME, ordinal_position
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">標籤</span>
                 </a>
               </div>
