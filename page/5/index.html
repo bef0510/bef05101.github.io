@@ -252,6 +252,546 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/09/PythonPandas/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/09/PythonPandas/" itemprop="url">Python Pandas 模組</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-09T16:54:20+08:00">
+                2019-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Pandas-模組"><a href="#Pandas-模組" class="headerlink" title="Pandas 模組"></a>Pandas 模組</h1><ol>
+<li>安裝模組 <strong>pip install pandas</strong><br><img src="/2019/07/09/PythonPandas/1.png" alt="Architecture"></li>
+<li><strong>pan(el)-da(ta)-s</strong><br> 2.1 主要提供三個資料結構：<strong>Panel、DataFrame、Series</strong></li>
+<li>以 <strong>numpy</strong> 模組為基礎的函式庫</li>
+<li><strong>Series</strong> 就是序列，只會儲存像是 <strong>key:value</strong> 的型態</li>
+<li>大部分談到 <strong>pandas</strong> 都會用 <strong>DataFrame</strong></li>
+<li>支援多種文字、二進位檔案與資料庫<br> 6.1 <strong>txt、csv、excel、SQL</strong></li>
+</ol>
+<h2 id="Series"><a href="#Series" class="headerlink" title="Series"></a>Series</h2><ol>
+<li>要先 <strong>import pandas</strong></li>
+</ol>
+<h4 id="基本運用"><a href="#基本運用" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code>import pandas as pd
+# 直接給一個 dictionary
+scores = pd.Series({&apos;小明&apos;:90, &apos;小華&apos;:80, &apos;小李&apos;:70})
+
+# 新增資料的方法
+scores[&apos;小強&apos;] = 55
+print(scores)
+
+# 統計數據
+print(scores.describe())
+# 平均值
+print(scores.mean())
+
+a = [&apos;apple&apos;, &apos;banana&apos;, &apos;cat&apos;, &apos;dog&apos;] #陣列一
+b = [123, 456, 789, 56789] #陣列二
+sr = pd.Series(b, index = a) # 合併陣列，指定 a 為 index
+print(sr)
+
+c = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+# pd.date_range是內建的日期序列產生器
+sr_2 = pd.Series(c, pd.date_range(start=&apos;2018-05-01&apos;, end=&apos;2018-05-9&apos;))
+print(sr_2)
+</code></pre><h4 id="判斷大小"><a href="#判斷大小" class="headerlink" title="判斷大小"></a>判斷大小</h4><pre><code>scores = pd.Series({&apos;小明&apos;:90, &apos;小華&apos;:80, &apos;小李&apos;:70, &apos;小強&apos;:55})
+print(scores &gt; 60)
+
+print(scores[scores &gt; 60])
+
+print((scores &gt; 60) &amp; (scores &lt; 90))
+
+print(scores[(scores &gt; 60) &amp; (scores &lt; 90)])
+
+new_scores = scores ** 0.5 * 10
+print(new_scores)
+</code></pre><h2 id="DataFrame"><a href="#DataFrame" class="headerlink" title="DataFrame"></a>DataFrame</h2><ol>
+<li><strong>df.shape：</strong> 這個 <strong>DataFrame</strong> 有幾列有幾欄</li>
+<li><strong>df.columns：</strong> 這個 <strong>DataFrame</strong> 的變數資訊</li>
+<li><strong>df.index：</strong> 這個 <strong>DataFrame</strong> 的列索引資訊</li>
+<li><strong>df.info()：</strong> 關於 <strong>DataFrame</strong> 的詳細資訊</li>
+<li><strong>df.describe()：</strong> 關於 <strong>DataFrame</strong> 各數值變數的描述統計</li>
+</ol>
+<h4 id="基本運用-三種方法結果一樣"><a href="#基本運用-三種方法結果一樣" class="headerlink" title="基本運用 (三種方法結果一樣)"></a>基本運用 (三種方法結果一樣)</h4><pre><code>import pandas as pd
+
+scores = [{&quot;姓名&quot;:&quot;小華&quot;, &quot;國文&quot;:80, &quot;數學&quot;:90},
+        {&quot;姓名&quot;:&quot;小明&quot;, &quot;國文&quot;:55, &quot;數學&quot;:70},
+        {&quot;姓名&quot;:&quot;小李&quot;, &quot;國文&quot;:75, &quot;數學&quot;:45}]
+score_df = pd.DataFrame(scores)
+print(score_df)
+
+# 純字典格式 -&gt; 利用 from_dict 功能
+scores = {&quot;姓名&quot;:[&quot;小華&quot;, &quot;小明&quot;, &quot;小李&quot;],
+        &quot;國文&quot;:[80, 55, 75],
+        &quot;數學&quot;:[90, 70, 45]}
+score_df = pd.DataFrame.from_dict(scores)
+print(score_df)
+
+a = {&quot;數學&quot;:90, &quot;國文&quot;:80}
+b = {&quot;數學&quot;:70, &quot;國文&quot;:55}
+c = {&quot;數學&quot;:45, &quot;國文&quot;:75}
+df = pd.DataFrame.from_dict([a, b, c])
+# 增加一列的方法
+df[&quot;姓名&quot;] = [&quot;小華&quot;, &quot;小明&quot;, &quot;小李&quot;]
+print(df)
+</code></pre><h4 id="Series-轉-Dataframe"><a href="#Series-轉-Dataframe" class="headerlink" title="Series 轉 Dataframe"></a>Series 轉 Dataframe</h4><pre><code>scores = pd.Series({&quot;小明&quot;:90, &quot;小華&quot;:80, &quot;小李&quot;:70, &quot;小強&quot;:55})
+score_df = scores.to_frame()
+print(score_df)
+</code></pre><h2 id="匯入檔案"><a href="#匯入檔案" class="headerlink" title="匯入檔案"></a>匯入檔案</h2><ol>
+<li>匯入 Excel 檔前要先安裝 <strong>pip install xlrd</strong><br><img src="/2019/07/09/PythonPandas/2.png" alt="Architecture"></li>
+</ol>
+<h4 id="CSV-檔"><a href="#CSV-檔" class="headerlink" title="CSV 檔"></a>CSV 檔</h4><pre><code>import pandas as pd
+
+csv_file = &quot;https://storage.googleapis.com/learn_pd_like_tidyverse/gapminder.csv&quot;
+gapminder = pd.read_csv(csv_file)
+print(type(gapminder))
+head5 = gapminder.head()   # 抓取最前面的值，預設值 5
+head3 = gapminder.head(3)
+tail5 = gapminder.tail()   # 抓取最後面的值，預設值 5
+print(head5)
+print(head3)
+print(tail5)
+</code></pre><h4 id="Excel-檔"><a href="#Excel-檔" class="headerlink" title="Excel 檔"></a>Excel 檔</h4><pre><code>import pandas as pd
+
+xlsx_file = &quot;https://storage.googleapis.com/learn_pd_like_tidyverse/gapminder.xlsx&quot;
+gapminder = pd.read_excel(xlsx_file)
+print(type(gapminder))
+head5 = gapminder.head()   # 抓取最前面的值，預設值 5
+tail5 = gapminder.tail()   # 抓取最後面的值，預設值 5
+print(head5)
+print(tail5)
+</code></pre><h4 id="Excel-結合-DataFrame-函式"><a href="#Excel-結合-DataFrame-函式" class="headerlink" title="Excel 結合 DataFrame 函式"></a>Excel 結合 DataFrame 函式</h4><pre><code>dfShape = gapminder.shape
+dfColumns = gapminder.columns
+dfIndex = gapminder.index
+gapminder.info()    # 直接 print 出來
+dfDescribe = gapminder.describe()
+
+print(dfShape)
+print(dfColumns)
+print(dfIndex)
+print(dfDescribe)
+</code></pre><h2 id="dplyr-的基本功能是六個能與-SQL-查詢語法相互呼應的函數"><a href="#dplyr-的基本功能是六個能與-SQL-查詢語法相互呼應的函數" class="headerlink" title="dplyr 的基本功能是六個能與 SQL 查詢語法相互呼應的函數"></a>dplyr 的基本功能是六個能與 SQL 查詢語法相互呼應的函數</h2><ol>
+<li><strong>filter()</strong> 函數：<strong>SQL</strong> 的 <strong>where</strong></li>
+<li><strong>select()</strong> 函數：<strong>SQL</strong> 的 <strong>select</strong></li>
+<li><strong>mutate()</strong> 函數：<strong>SQL</strong> 的衍生欄位</li>
+<li><strong>arrange()</strong> 函數：<strong>SQL</strong> 的 <strong>order by</strong></li>
+<li><strong>summarise()</strong> 函數：<strong>SQL</strong> 的 <strong>sum、avg</strong></li>
+<li><strong>group_by()</strong> 函數：<strong>SQL</strong> 的 <strong>group by</strong></li>
+</ol>
+<h4 id="filter"><a href="#filter" class="headerlink" title="filter()"></a>filter()</h4><pre><code>where1 = gapminder[gapminder[&quot;country&quot;] == &quot;Taiwan&quot;]
+where1 = gapminder[gapminder.country == &quot;Taiwan&quot;]
+print(where1)
+
+where2 = gapminder[(gapminder[&quot;year&quot;] == 2007) &amp; (gapminder[&quot;continent&quot;] == &quot;Asia&quot;)]
+where2 = gapminder[(gapminder.year == 2007) &amp; (gapminder.continent == &quot;Asia&quot;)]
+print(where2)
+</code></pre><h4 id="select"><a href="#select" class="headerlink" title="select()"></a>select()</h4><pre><code># 多筆資料
+selectMulty = gapminder[[&quot;country&quot;, &quot;continent&quot;]]
+print(selectMulty)
+
+# 單筆資料
+selectSingle = gapminder[&quot;country&quot;]
+selectSingle = gapminder.country
+print(selectSingle)
+</code></pre><h4 id="mutate"><a href="#mutate" class="headerlink" title="mutate()"></a>mutate()</h4><pre><code>gapminder[&quot;country_abb&quot;] = gapminder[&quot;country&quot;].apply(lambda x: x[:3])
+gapminder[&quot;country_abb&quot;] = gapminder.country.apply(lambda x: x[:3])
+print(gapminder)
+</code></pre><h4 id="arrange"><a href="#arrange" class="headerlink" title="arrange()"></a>arrange()</h4><pre><code>orderby1 = gapminder.sort_values(&quot;year&quot;)
+print(orderby1)
+</code></pre><h4 id="summarise"><a href="#summarise" class="headerlink" title="summarise()"></a>summarise()</h4><pre><code># 總合
+sum1 = gapminder[gapminder[&quot;year&quot;] == 2007][[&quot;pop&quot;]].sum()
+sum1 = gapminder[gapminder.year == 2007][[&quot;pop&quot;]].sum()
+print(sum1)
+
+# 平均
+mean1 = gapminder[gapminder[&quot;year&quot;] == 2007][[&quot;lifeExp&quot;, &quot;gdpPercap&quot;]].mean()
+mean1 = gapminder[gapminder.year == 2007][[&quot;lifeExp&quot;, &quot;gdpPercap&quot;]].mean()
+print(mean1)
+</code></pre><h4 id="group-by"><a href="#group-by" class="headerlink" title="group_by()"></a>group_by()</h4><pre><code>groupby1 = gapminder[gapminder[&quot;year&quot;] == 2007].groupby(by = &quot;continent&quot;)[&quot;pop&quot;].sum()
+groupby1 = gapminder[gapminder.year == 2007].groupby(by = &quot;continent&quot;)[&quot;pop&quot;].sum()
+print(groupby1)
+
+groupby2 = gapminder[gapminder[&quot;year&quot;] == 2007].groupby(by = &quot;continent&quot;)[[&quot;lifeExp&quot;, &quot;gdpPercap&quot;]].mean()
+groupby2 = gapminder[gapminder.year == 2007].groupby(by = &quot;continent&quot;)[[&quot;lifeExp&quot;, &quot;gdpPercap&quot;]].mean()
+print(groupby2)
+</code></pre><h2 id="Panel"><a href="#Panel" class="headerlink" title="Panel"></a>Panel</h2><ol>
+<li>三維資料，但不常使用</li>
+</ol>
+<h4 id="基本運用-1"><a href="#基本運用-1" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code>import pandas as pd
+
+p = pd.Panel()
+print(p)
+
+dates = pd.date_range(&quot;20130101&quot;, periods=6)
+df = pd.DataFrame(np.random.randn(6, 4), index=dates, columns=list(&quot;ABCD&quot;))
+print(df)
+
+print(df[&quot;A&quot;]) # 等同 df.A
+
+print(df[[&quot;A&quot;, &quot;B&quot;]])
+
+print(df[0:10])
+
+print(df[&quot;20130102&quot;:&quot;20130104&quot;])
+</code></pre><h4 id="以-numpy-建立"><a href="#以-numpy-建立" class="headerlink" title="以 numpy 建立"></a>以 numpy 建立</h4><pre><code>import pandas as pd
+import numpy as np
+
+wp = pd.Panel(np.random.randn(2, 5, 4), 
+            items = [&quot;Item1&quot;, &quot;Item2&quot;],
+            major_axis = pd.date_range(&quot;1/1/2000&quot;, periods=5),
+            minor_axis = [&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;])
+print(wp)
+</code></pre><h4 id="以-DataFrame-建立"><a href="#以-DataFrame-建立" class="headerlink" title="以 DataFrame 建立"></a>以 DataFrame 建立</h4><pre><code>import pandas as pd
+import numpy as np
+
+d = {&quot;Item1&quot; : pd.DataFrame({&quot;one&quot; : pd.Series([1., 2., 3.], index=[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]),
+                            &quot;two&quot; : pd.Series([1., 2., 3., 4.], index=[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;])}),
+    &quot;Item2&quot; : pd.DataFrame({&quot;thr&quot; : pd.Series([1., 2., 3.], index=[&quot;e&quot;, &quot;f&quot;, &quot;g&quot;])})}
+
+wp = pd.Panel(d)
+
+print(wp)
+
+print(wp.to_frame())
+
+print(wp.to_frame(filter_observations=False))
+</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://medium.com/datainpoint/%E5%BE%9E-pandas-%E9%96%8B%E5%A7%8B-python-%E8%88%87%E8%B3%87%E6%96%99%E7%A7%91%E5%AD%B8%E4%B9%8B%E6%97%85-8dee36796d4a" target="_blank" rel="noopener">從 pandas 開始 Python 與資料科學之旅</a><br><a href="https://zwindr.blogspot.com/2017/03/python-pandas.html" target="_blank" rel="noopener">[Python] pandas 基本教學</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/09/PythonNumpy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/09/PythonNumpy/" itemprop="url">Python Numpy 模組</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-09T15:19:04+08:00">
+                2019-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Numpy-模組"><a href="#Numpy-模組" class="headerlink" title="Numpy 模組"></a>Numpy 模組</h1><ol>
+<li>安裝模組 <strong>pip install numpy</strong><br><img src="/2019/07/09/PythonNumpy/1.png" alt="Architecture"></li>
+<li><strong>Numpy</strong> 的 <strong>ndarray</strong> 支援多維度陣列；<strong>python</strong> 的 <strong>array</strong> 只支援單維度(1維)</li>
+<li>支援矩陣 <strong>(Martix)</strong> 的類別</li>
+</ol>
+<h4 id="基本運用"><a href="#基本運用" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code>import numpy as np
+
+a = np.array([1, 2, 3, 4, 5, 6])
+print(&quot;陣列 =&gt; {0}&quot;.format(a))
+
+# 陣列轉成 m * n 距陣
+a.shape = (3, 2)
+print(&quot;距陣 =&gt; {0}&quot;.format(a))
+
+# 距陣轉成陣列
+b = a.ravel()
+print(&quot;陣列 =&gt; {0}&quot;.format(b))
+</code></pre><h4 id="距陣串接"><a href="#距陣串接" class="headerlink" title="距陣串接"></a>距陣串接</h4><pre><code>a = np.array([[1, 2], [3, 4]])
+b = np.array([[5, 6], [7, 8]])
+print(&quot;矩陣 =&gt; {0}&quot;.format(a))
+print(&quot;矩陣 =&gt; {0}&quot;.format(b))
+
+c = np.vstack([a, b])
+print(&quot;堆疊串接 =&gt; {0}&quot;.format(c))
+c = np.hstack([a, b])
+print(&quot;水平串接 =&gt; {0}&quot;.format(c))
+</code></pre><h4 id="基本函式"><a href="#基本函式" class="headerlink" title="基本函式"></a>基本函式</h4><pre><code>a = np.exp(2)
+print(&quot;exp =&gt; {0}&quot;.format(a))
+a = np.exp2(2)
+print(&quot;exp2 =&gt; {0}&quot;.format(a))
+a = np.sqrt(2)
+print(&quot;sqrt =&gt; {0}&quot;.format(a))
+a = np.sin([2,3])
+print(&quot;sin =&gt; {0}&quot;.format(a))
+a = np.log(2)
+print(&quot;log =&gt; {0}&quot;.format(a))
+a = np.log10(2)
+print(&quot;log10 =&gt; {0}&quot;.format(a))
+a = np.log2(2)
+print(&quot;log2 =&gt; {0}&quot;.format(a))
+a = np.max([1, 2, 3, 4])
+print(&quot;max =&gt; {0}&quot;.format(a))
+</code></pre><h4 id="二維陣列操作"><a href="#二維陣列操作" class="headerlink" title="二維陣列操作"></a>二維陣列操作</h4><pre><code>a = np.array([[1, 2], [-1, 4]])
+b = np.array([[2, 0], [3, 4]])
+
+c = a * b
+d = np.dot(a, b) # 或者 a.dot(b)
+
+print(&quot;元素相乘 =&gt; {0}&quot;.format(c))
+print(&quot;矩陣相乘 =&gt; {0}&quot;.format(d))
+</code></pre><h4 id="線性代數"><a href="#線性代數" class="headerlink" title="線性代數"></a>線性代數</h4><pre><code>import numpy.linalg as ling 
+# from numpy import linalg 與上方引用相同，建議用上方的寫法
+
+a = np.array([[1, 2], [-1, 4]])
+b = np.array([[2, 0], [3, 4]])
+
+print(&quot;轉置 a =&gt; {0}&quot;.format(a.transpose()))
+print(&quot;逆矩陣 a =&gt; {0}&quot;.format(ling.inv(a)))
+
+eigenvalues, eigenvectors = linalg.eig(a)
+print(&quot;特徵值 a =&gt; {0}&quot;.format(eigenvalues))
+print(&quot;特徵矩陣 a =&gt; {0}&quot;.format(eigenvectors))
+</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://blog.csdn.net/Jerr__y/article/details/54968548" target="_blank" rel="noopener">numpy 常用操作</a>    </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/09/PythonWebCrawler/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1770,382 +2310,6 @@ avg(1, 4, -1, -8)
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/05/PythonLoop/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/05/PythonLoop/" itemprop="url">Python while 及 for 迴圈</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-05T12:09:43+08:00">
-                2019-07-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="while-迴圈"><a href="#while-迴圈" class="headerlink" title="while 迴圈"></a>while 迴圈</h1><h4 id="基本運用"><a href="#基本運用" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code>n = 1
-sum = 0
-while n &lt;= 10:
-    sum = sum + n
-    n += 1
-print(sum)
-</code></pre><h4 id="while-break"><a href="#while-break" class="headerlink" title="while + break"></a>while + break</h4><pre><code>n = 0
-while n &lt; 5:
-    if n == 3:
-        break
-    print(n)
-    n += 1
-print(&quot;last n：&quot;, n)
-</code></pre><h1 id="for-迴圈"><a href="#for-迴圈" class="headerlink" title="for 迴圈"></a>for 迴圈</h1><h4 id="基本運用-1"><a href="#基本運用-1" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code>for x in [3, 5, 1]:
-    print(x)
-
-for x in &quot;Hello&quot;:
-    print(x)
-
-for x in range(5):  # 0 ~ 4
-    print(x)
-
-for x in range(5, 10): # 5 ~ 9
-    print(x)
-
-sum = 0
-for x in range(1, 11):
-    sum = sum + x
-print(sum)
-</code></pre><h4 id="for-continue"><a href="#for-continue" class="headerlink" title="for + continue"></a>for + continue</h4><pre><code>n = 0
-for x in [0, 1, 2, 3]:
-    if x % 2 == 0:
-        continue
-    print(x)
-    n += 1
-print(&quot;last n：&quot;, n)
-</code></pre><h4 id="for-else"><a href="#for-else" class="headerlink" title="for + else"></a>for + else</h4><pre><code>sum = 0
-for n in range(1, 11):
-    sum += n
-else:
-    print(sum)
-</code></pre><h4 id="綜合範列：找出整數平方根"><a href="#綜合範列：找出整數平方根" class="headerlink" title="綜合範列：找出整數平方根"></a>綜合範列：找出整數平方根</h4><pre><code># 輸入 9，得到 3
-# 輸入 11， 得到 沒有 平方根
-
-n = int(input(&quot;輸入一個正整數：&quot;))
-for i in range(n): # i 從 0 ~ n - 1
-    if i * i == n:
-        print(&quot;整數平方根&quot;, i)
-        break # 用 break 強制結束迴圈時，不會執行 else 區塊
-else:
-    print(&quot;沒有整數平方根&quot;)
-</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=yBXlwOmLqZ4" target="_blank" rel="noopener">Python 流程控制：迴圈進階控制，break、continue、else 命令 By 彭彭</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/05/PythonCondition/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/05/PythonCondition/" itemprop="url">Python 判斷式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-05T11:29:22+08:00">
-                2019-07-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="判斷式"><a href="#判斷式" class="headerlink" title="判斷式"></a>判斷式</h1><p>目前只有 if，沒有 switch</p>
-<h4 id="基本判斷"><a href="#基本判斷" class="headerlink" title="基本判斷"></a>基本判斷</h4><pre><code>if True:
-    print(&quot;true&quot;)
-else:
-    print(&quot;false&quot;)
-</code></pre><h4 id="抓取輸入值判斷"><a href="#抓取輸入值判斷" class="headerlink" title="抓取輸入值判斷"></a>抓取輸入值判斷</h4><pre><code>x = input(&quot;輸入數字：&quot;)
-x = int(x)
-
-if x &gt; 200:
-    print(&quot;大於 200&quot;)
-elif x &gt; 100:
-    print(&quot;大於 100， 小於等於 200&quot;)
-else:
-    print(&quot;小於等於 100&quot;)
-</code></pre><h4 id="四則運算"><a href="#四則運算" class="headerlink" title="四則運算"></a>四則運算</h4><pre><code>n1 = int(input(&quot;輸入數字一：&quot;))
-n2 = int(input(&quot;輸入數字二：&quot;))
-op = input(&quot;輸入運算：+, -, *, /&quot;)
-
-if op == &quot;+&quot;:
-    print(n1 + n2)
-elif op == &quot;-&quot;:
-    print(n1 - n2)
-elif op == &quot;*&quot;:
-    print(n1 * n2)
-elif op == &quot;/&quot;:
-    print(n1 / n2)
-else:
-    print(&quot;沒有這運算符號&quot;)
-</code></pre><h4 id="三元運算子"><a href="#三元運算子" class="headerlink" title="三元運算子"></a>三元運算子</h4><pre><code># 條件為真, 反回真 否則 反回假
-# condition_is_true if condition else condition_is_false
-
-is_fat = True
-state = &quot;fat&quot; if is_fat else &quot;not fat&quot;
-print(state)
-
-#(反回假, 反回真)[真或假]
-#(if_test_is_false, if_test_is_true)[test]
-
-fat = False
-fitness = (&quot;skinny&quot;, &quot;fat&quot;)[fat]
-print(&quot;Ali is&quot;, fitness)
-</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=A93BsHB-lWo" target="_blank" rel="noopener">Python 流程控制：if 判斷式 By 彭彭</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2198,7 +2362,7 @@ print(&quot;Ali is&quot;, fitness)
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">114</span>
+                  <span class="site-state-item-count">116</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
@@ -2220,7 +2384,7 @@ print(&quot;Ali is&quot;, fitness)
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">標籤</span>
                 </a>
               </div>
