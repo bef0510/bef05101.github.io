@@ -252,6 +252,510 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/11/MSSqlTSql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/11/MSSqlTSql/" itemprop="url">MS SQL T-Sql</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-11T14:34:01+08:00">
+                2019-07-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MS-SQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MS SQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="T-Sql"><a href="#T-Sql" class="headerlink" title="T-Sql"></a>T-Sql</h1><h4 id="SELECT-固定值"><a href="#SELECT-固定值" class="headerlink" title="SELECT 固定值"></a>SELECT 固定值</h4><pre><code>SELECT * FROM ( VALUES ( &apos;AA&apos; , &apos;EE&apos; ) , ( &apos;BB&apos; , &apos;FF&apos; ) ) AS B (欄位名A,欄位名B)
+</code></pre><h4 id="PIVOT-非數字轉置"><a href="#PIVOT-非數字轉置" class="headerlink" title="PIVOT 非數字轉置"></a>PIVOT 非數字轉置</h4><pre><code>SELECT Class AS [班級],
+    [1] AS [第一名],
+    [2] AS [第二名],
+    [3] AS [第三名]
+FROM (
+    SELECT Class,
+    SdtName,
+    ROW_NUMBER() OVER (PARTITION BY class ORDER BY Score DESC) AS ROWNO
+    FROM @Temp
+) AS P
+PIVOT (
+    MAX(SdtName) FOR ROWNO IN ([1],[2],[3])
+) AS PV
+</code></pre><h4 id="指定排序"><a href="#指定排序" class="headerlink" title="指定排序"></a>指定排序</h4><pre><code>SELECT * FROM TABLE ORDER BY CHARINDEX(&apos;,&apos; + CONVERT(varchar,ACCT_NO) + &apos;,&apos; , &apos;,3540,3542,3100,&apos;) -- 以 &apos;3540,3542,3100排序
+</code></pre><h4 id="檢查資料是否存在，如果存在就更新，不存在就新增"><a href="#檢查資料是否存在，如果存在就更新，不存在就新增" class="headerlink" title="檢查資料是否存在，如果存在就更新，不存在就新增"></a>檢查資料是否存在，如果存在就更新，不存在就新增</h4><pre><code>MERGE INTO 新增/修改TABLE AS A
+USING (
+    比對的資料語法
+) B
+ON  A.FUND_ID = B.FUND_ID
+AND A.DATA_DATE = B.DATA_DATE
+WHEN MATCHED THEN
+    UPDATE SET A.NAV = B.NAV
+WHEN NOT MATCHED THEN
+    INSERT (FUND_ID,NAV_DATE,NAV)
+    VALUES (B.FUND_ID,B.NAV_DATE,B.NAV);
+</code></pre><h4 id="兩筆資料合併為一筆顯示"><a href="#兩筆資料合併為一筆顯示" class="headerlink" title="兩筆資料合併為一筆顯示"></a>兩筆資料合併為一筆顯示</h4><pre><code>SELECT MainAccountID,
+    (SELECT Memo+&apos; , &apos; FROM #temp AS S2 WHERE S1.MainAccountID = S2.MainAccountID FOR XML PATH(&apos;&apos;)) AS Memo,
+Item
+FROM #temp  AS S1
+GROUP BY MainAccountID,Item
+</code></pre><h4 id="二進位-amp-2-2"><a href="#二進位-amp-2-2" class="headerlink" title="二進位 (&amp;2=2)"></a>二進位 (&amp;2=2)</h4><pre><code>select * from t_User where iFlag &amp;2 = 2
+</code></pre><h4 id="新增多筆資料，取得多筆的Identity"><a href="#新增多筆資料，取得多筆的Identity" class="headerlink" title="新增多筆資料，取得多筆的Identity"></a>新增多筆資料，取得多筆的Identity</h4><pre><code>INSERT INTO #TEMP2 (GroupItem,COUNTS)
+OUTPUT Inserted.Number,Inserted.GroupItem INTO #TEMP3
+SELECT GroupItem ,COUNT(DISTINCT ID_Member) COUNTs
+FROM #Temp
+GROUP BY GroupItem
+</code></pre><h4 id="查詢EXCEL資料"><a href="#查詢EXCEL資料" class="headerlink" title="查詢EXCEL資料"></a>查詢EXCEL資料</h4><pre><code>SELECT * FROM OpenDataSource(&apos;Microsoft.ACE.OLEDB.12.0&apos;,
+    &apos;Data Source=C:\Users\evatsai\Desktop\Letou_Member.xlsx;Extended Properties=&quot;Excel 12.0;HDR=Yes;IMEX=1&quot;&apos;)...[工作表1$]
+</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="http://jengting.blogspot.tw/2011/10/sql_21.html" target="_blank" rel="noopener">PIVOT 非數字轉置</a><br><a href="https://my.oschina.net/cjkall/blog/195907" target="_blank" rel="noopener">二進位 (&amp;2=2)</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/11/MSSqlPartitionTable/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/11/MSSqlPartitionTable/" itemprop="url">MS SQL Partition Table</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-11T14:15:12+08:00">
+                2019-07-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MS-SQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MS SQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Partition-Table"><a href="#Partition-Table" class="headerlink" title="Partition Table"></a>Partition Table</h1><h4 id="步驟及說明"><a href="#步驟及說明" class="headerlink" title="步驟及說明"></a>步驟及說明</h4><ol>
+<li><p>建立分割函數 <strong>(Partition Functions)</strong><br> 作用 : 用來定義每個 <strong>partition</strong> 的臨界值</p>
+</li>
+<li><p>建立分割配置 <strong>(Partition Schemes)</strong><br> 作用 : 用來說明上一步驟定義的 <strong>partition</strong> 應該如何對應到檔案群組</p>
+</li>
+<li><p>設定索引<br> 原因 : 分割表中，除了分割欄位以外，其餘不可設為叢集索引<br> 作法 : 若原本的 <strong>Table</strong> 已有叢集索引(或 <strong>PK</strong> 值)，要先刪除叢集索引，再建立成非叢集索引(一樣是 <strong>Primary Key</strong> )</p>
+</li>
+<li><p>分割資料</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">--建立Partition Scheme叢集索引</span><br><span class="line">    CREATE CLUSTERED INDEX [Ps_AACCT120_BAL_DATE] ON [AACCT120]</span><br><span class="line">    (</span><br><span class="line">        [BAL_DATE] ASC  (用來分割的欄位)</span><br><span class="line">    ) WITH (SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF) ON [分割配置] ([分割欄位])</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="新增分割區"><a href="#新增分割區" class="headerlink" title="新增分割區"></a>新增分割區</h4><ol>
+<li><p>手動新增</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER PARTITION SCHEME P_Scheme NEXT USED [檔案群組];   </span><br><span class="line">ALTER PARTITION FUNCTION P_Func() SPLIT RANGE (<span class="string">'臨界點'</span>);   --新分割區</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>動態新增</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Create Trigger</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="查詢-Partition-Table-相關資訊"><a href="#查詢-Partition-Table-相關資訊" class="headerlink" title="查詢 Partition Table 相關資訊"></a>查詢 Partition Table 相關資訊</h4><ol>
+<li><p>方法一</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">SELECT t.name AS TableName, </span><br><span class="line">        i.name AS IndexName,        </span><br><span class="line">        p.partition_number,             -- 分割編號</span><br><span class="line">        p.rows,                         -- 區間筆數</span><br><span class="line">        --r.boundary_id,            </span><br><span class="line">        r.value AS BoundaryValue        -- 分割臨界值</span><br><span class="line">        --,p.partition_id,</span><br><span class="line">        --i.data_space_id, </span><br><span class="line">        --f.function_id, </span><br><span class="line">        --f.type_desc,       </span><br><span class="line">FROM sys.tables AS t</span><br><span class="line">JOIN sys.indexes AS i</span><br><span class="line">    ON t.object_id = i.object_id</span><br><span class="line">JOIN sys.partitions AS p</span><br><span class="line">    ON i.object_id = p.object_id AND i.index_id = p.index_id </span><br><span class="line">JOIN  sys.partition_schemes AS s </span><br><span class="line">    ON i.data_space_id = s.data_space_id</span><br><span class="line">JOIN sys.partition_functions AS f </span><br><span class="line">    ON s.function_id = f.function_id</span><br><span class="line">LEFT JOIN sys.partition_range_values AS r </span><br><span class="line">    ON f.function_id = r.function_id and r.boundary_id = p.partition_number</span><br><span class="line">WHERE t.name = <span class="string">'AACCT120'</span> AND i.type &lt;= 1</span><br><span class="line">ORDER BY p.partition_number;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>方法二</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">select <span class="variable">$PARTITION</span>.Pf_AACCT120(BAL_DATE)  as 分區編號,</span><br><span class="line">        count(1) as 記錄數 </span><br><span class="line">from  dbo.AACCT120</span><br><span class="line">group by <span class="variable">$PARTITION</span>.Pf_AACCT120(BAL_DATE)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="SWITCH-轉移分割區"><a href="#SWITCH-轉移分割區" class="headerlink" title="SWITCH 轉移分割區"></a>SWITCH 轉移分割區</h4><p>作用：可將資料從原本的 <strong>Table</strong> 轉移到另一個 <strong>Table</strong>。因為這種作業只是變換系統目錄的指標，所以不管資料有多少筆，都是一瞬間就完成的事<br>限制：<br>&nbsp;&nbsp;&nbsp;&nbsp;• 必須在一樣的檔案群組裡<br>&nbsp;&nbsp;&nbsp;&nbsp;• 兩個TABLE 結構要一樣<br>&nbsp;&nbsp;&nbsp;&nbsp;• 索引或條件約束也需建立<br>&nbsp;&nbsp;&nbsp;&nbsp;• 非叢集索引必須加上包含分割欄位<br>語法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE [被轉移的TABLE] SWITCH TO [轉移的目的TABLE] PARTITION 5</span><br></pre></td></tr></table></figure></p>
+<h4 id="MERGE-合併-刪除-分割區"><a href="#MERGE-合併-刪除-分割區" class="headerlink" title="MERGE  合併 (刪除) 分割區"></a>MERGE  合併 (刪除) 分割區</h4><p>作用：在分割函數中將多餘的臨界點刪除<br>語法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER PARTITION FUNCTION [分割函數()]  MERGE RANGE (<span class="string">'臨界點'</span>)</span><br></pre></td></tr></table></figure></p>
+<h4 id="分割資料表-轉為普通資料表"><a href="#分割資料表-轉為普通資料表" class="headerlink" title="分割資料表 轉為普通資料表"></a>分割資料表 轉為普通資料表</h4><p>作法：<br>&nbsp;&nbsp;&nbsp;&nbsp;• 刪除所有臨界點，將分割區合併為一區<br>&nbsp;&nbsp;&nbsp;&nbsp;• 刪除Partition Index (叢集索引)<br>&nbsp;&nbsp;&nbsp;&nbsp;• 將原本TABLE的非叢集索引改為叢集索引(先刪除再新建)</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="http://vito-note.blogspot.tw/2013/05/blog-post_30.html" target="_blank" rel="noopener">效能調校(5)-使用資料表分割</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/11/MSSqlDBStructrue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/11/MSSqlDBStructrue/" itemprop="url">MS SQL DB 結構</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-11T14:05:35+08:00">
+                2019-07-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MS-SQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MS SQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="DB-結構"><a href="#DB-結構" class="headerlink" title="DB 結構"></a>DB 結構</h1><ol>
+<li><p>檔案<br><img src="/2019/07/11/MSSqlDBStructrue/1.png" alt="Architecture"><br>• 每個資料檔皆可設定檔案存放的位置，用以存放在不同的磁碟內，可改善效能，且減少Lock</p>
+</li>
+<li><p>檔案群組<br><img src="/2019/07/11/MSSqlDBStructrue/2.png" alt="Architecture"><br>• 建立TABLE –&gt;指定檔案群組 1</p>
+<ul>
+<li>SQL Server會依照各檔案大小，依比例將資料表的資料平均寫入各資料檔中</li>
+<li>此TABLE的資料會分散在不同磁碟(假設次要資料檔分別位於不同磁碟)，提高效能</li>
+</ul>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/09/PythonPandas/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1775,541 +2279,6 @@ print(data)
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/08/PythonPackage/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/08/PythonPackage/" itemprop="url">Python 封包</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-08T11:13:33+08:00">
-                2019-07-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="package-封包"><a href="#package-封包" class="headerlink" title="package 封包"></a>package 封包</h1><ol>
-<li><p>檔案配置<br><img src="/2019/07/08/PythonPackage/1.png" alt="Architecture"></p>
-</li>
-<li><p>建立一個資料夾 <strong>geometry</strong> 及三個檔案 <strong>__init__.py</strong> 、<strong>line.py</strong> 、<strong>point.py</strong> 及一個主程式 <strong>main.py</strong><br><img src="/2019/07/08/PythonPackage/2.png" alt="Architecture"></p>
-</li>
-<li><p><strong>__init__.py</strong> 這個檔案一定要，讓 <strong>python</strong> 知道這個資料夾是一個封包，裡面不一定要有程式</p>
-</li>
-</ol>
-<h4 id="line-py-寫入下方-code"><a href="#line-py-寫入下方-code" class="headerlink" title="line.py 寫入下方 code"></a>line.py 寫入下方 code</h4><pre><code># 計算兩個點的距離
-def line(x1, y1, x2, y2):
-    return (((x2 - x1) ** 2) + ((y2 - y1) ** 2)) ** 0.5
-
-# 計算線段的斜率
-def slope(x1, y1, x2, y2):
-    return (y2 - y1) / (x2 - x1)
-</code></pre><h4 id="point-py-寫入下方-code"><a href="#point-py-寫入下方-code" class="headerlink" title="point.py 寫入下方 code"></a>point.py 寫入下方 code</h4><pre><code># 平面座標與原點距離
-def distance(x, y):
-    return (x ** 2 + y ** 2) ** 0.5
-</code></pre><h4 id="主程式引用"><a href="#主程式引用" class="headerlink" title="主程式引用"></a>主程式引用</h4><pre><code>import geometry.point as point
-result = point.distance(3, 4)
-print(&quot;距離&quot;, result)
-
-import geometry.line as line
-result = line.slope(1, 1, 3, 3)
-print(&quot;斜率&quot;, result)
-</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=GGp-7VHgsKk" target="_blank" rel="noopener">ython Package 封包的設計與使用 By 彭彭</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/08/PythonModule/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/08/PythonModule/" itemprop="url">Python 模組</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-08T09:53:03+08:00">
-                2019-07-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="module-函式"><a href="#module-函式" class="headerlink" title="module 函式"></a>module 函式</h1><h4 id="基本運用"><a href="#基本運用" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code># 內建 sys 模組取得資訊
-import sys
-print(sys.platform)
-print(sys.maxsize)
-
-# 使用別名
-import sys as system
-print(system.platform)
-print(system.maxsize)
-</code></pre><h2 id="自訂義模組，載入使用"><a href="#自訂義模組，載入使用" class="headerlink" title="自訂義模組，載入使用"></a>自訂義模組，載入使用</h2><p>新增 <strong>geometry.py</strong> 檔案<br><img src="/2019/07/08/PythonModule/1.png" alt="Architecture"></p>
-<h4 id="在-geometry-模組中定義幾何運算功能"><a href="#在-geometry-模組中定義幾何運算功能" class="headerlink" title="在 geometry 模組中定義幾何運算功能"></a>在 geometry 模組中定義幾何運算功能</h4><pre><code># 計算兩個點的距離
-def distance(x1, y1, x2, y2):
-    return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
-
-# 計算線段的斜率
-def slope(x1, y1, x2, y2):
-    return (y2 - y1) / (x2 - x1)
-</code></pre><h4 id="在主程式端-載入使用"><a href="#在主程式端-載入使用" class="headerlink" title="在主程式端 載入使用"></a>在主程式端 載入使用</h4><pre><code>import geometry as geo
-
-result = geo.distance(1, 1, 5, 5)
-print(result)
-
-result = geo.slope(1, 2, 5, 6)
-print(result)
-</code></pre><h2 id="調整搜尋模組的路徑"><a href="#調整搜尋模組的路徑" class="headerlink" title="調整搜尋模組的路徑"></a>調整搜尋模組的路徑</h2><ol>
-<li><p>新增 <strong>modules</strong> 資料夾<br><img src="/2019/07/08/PythonModule/2.png" alt="Architecture"></p>
-</li>
-<li><p>將 <strong>geometry.py</strong> 檔案移至 <strong>modules</strong> 資料夾底下<br><img src="/2019/07/08/PythonModule/3.png" alt="Architecture"></p>
-</li>
-</ol>
-<h4 id="在主程式端-新增路徑"><a href="#在主程式端-新增路徑" class="headerlink" title="在主程式端 新增路徑"></a>在主程式端 新增路徑</h4><pre><code>import sys
-sys.path.append(&quot;modules&quot;) # 在模組的搜尋路徑列表中 新增路徑
-print(sys.path) # 印出模組的搜尋路徑列表
-
-import geometry
-print(geometry.distance(1, 1, 5, 5))
-</code></pre><p>印出的路徑可看到 <strong>modules</strong> 在最後<br><img src="/2019/07/08/PythonModule/4.png" alt="Architecture"></p>
-<h4 id="程式正常，但-import-時有紅色波浪覺得討厭解法"><a href="#程式正常，但-import-時有紅色波浪覺得討厭解法" class="headerlink" title="程式正常，但 import 時有紅色波浪覺得討厭解法"></a>程式正常，但 import 時有紅色波浪覺得討厭解法</h4><ol>
-<li><p>紅色波浪<br><img src="/2019/07/08/PythonModule/5.png" alt="Architecture"></p>
-</li>
-<li><p>按組合鍵 <strong>Ctrl+Shift+P</strong> → 輸入 <strong>Preferences:Configure language specific settings</strong><br><img src="/2019/07/08/PythonModule/6.png" alt="Architecture"></p>
-</li>
-<li><p>輸入 <strong>TypeScript</strong><br><img src="/2019/07/08/PythonModule/7.png" alt="Architecture"></p>
-</li>
-<li><p><strong>settings.json</strong> 輸入 <strong>“python.linting.pylintArgs”: [“–disable-msg=C0103”]</strong> → 存檔<br><img src="/2019/07/08/PythonModule/8.png" alt="Architecture"></p>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=Et0DjY2cGiE" target="_blank" rel="noopener">Python Module 模組的載入與使用 By 彭彭</a><br><a href="https://code.visualstudio.com/docs/getstarted/settings" target="_blank" rel="noopener">User and Workspace Settings</a><br><a href="https://blog.csdn.net/yzh201612/article/details/68491707" target="_blank" rel="noopener">Visual Studio Code中修改Pylint设置，及python版本切换</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/08/PythonFunction/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/08/PythonFunction/" itemprop="url">Python 函式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-08T09:21:15+08:00">
-                2019-07-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="function-函式"><a href="#function-函式" class="headerlink" title="function 函式"></a>function 函式</h1><h4 id="基本運用"><a href="#基本運用" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code># 定義函式
-def multiply():
-    print(3 * 4)
-
-# 呼叫函式
-multiply()
-</code></pre><h4 id="基本運用-帶參數"><a href="#基本運用-帶參數" class="headerlink" title="基本運用 (帶參數)"></a>基本運用 (帶參數)</h4><pre><code>def multiply(n1, n2):
-    print(n1 * n2)
-
-multiply(3, 4)
-</code></pre><h4 id="基本運用-回傳值"><a href="#基本運用-回傳值" class="headerlink" title="基本運用 (回傳值)"></a>基本運用 (回傳值)</h4><pre><code>def calculate(max):
-    sum = 0
-    for n in range(1, max + 1):
-        sum += n
-    return sum
-
-value = calculate(20)
-print(value)
-</code></pre><h4 id="參數的預設資料"><a href="#參數的預設資料" class="headerlink" title="參數的預設資料"></a>參數的預設資料</h4><pre><code>def power(base, exp = 0):
-    print(base ** exp)
-
-power(3, 2)
-power(4)
-</code></pre><h4 id="使用參數名稱對應"><a href="#使用參數名稱對應" class="headerlink" title="使用參數名稱對應"></a>使用參數名稱對應</h4><pre><code>def divide(n1, n2):
-    print(n1 / n2)
-
-divide(2, 4)
-divide(n2=2, n1=4)
-</code></pre><h4 id="無限參數資料"><a href="#無限參數資料" class="headerlink" title="無限參數資料"></a>無限參數資料</h4><pre><code>def avg(*ns):
-    sum = 0
-    for n in ns:
-        sum += n
-    print(sum / len(ns))
-
-avg(3, 4)
-avg(3, 5, 10)
-avg(1, 4, -1, -8)
-</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=7qKFvUVpQXg" target="_blank" rel="noopener">Python 函式基礎：定義並呼叫函式 By 彭彭</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2362,7 +2331,7 @@ avg(1, 4, -1, -8)
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">116</span>
+                  <span class="site-state-item-count">119</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
