@@ -252,6 +252,730 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/05/PythonSetAndDictionary/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/05/PythonSetAndDictionary/" itemprop="url">Python Set 及 Dictionary</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-05T10:54:29+08:00">
+                2019-07-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Set-集合的運算"><a href="#Set-集合的運算" class="headerlink" title="Set 集合的運算"></a>Set 集合的運算</h1><h4 id="判斷是否在列表內-in"><a href="#判斷是否在列表內-in" class="headerlink" title="判斷是否在列表內 (in)"></a>判斷是否在列表內 (in)</h4><pre><code>s1 = {3, 4, 5}
+print(3 in s1)
+
+s1 = {3, 4, 5}
+print(10 in s1)
+</code></pre><h4 id="判斷是否在列表內-not-in"><a href="#判斷是否在列表內-not-in" class="headerlink" title="判斷是否在列表內 (not in)"></a>判斷是否在列表內 (not in)</h4><pre><code>s1 = {3, 4, 5}
+print(10 not in s1)
+</code></pre><h4 id="交集"><a href="#交集" class="headerlink" title="交集"></a>交集</h4><pre><code>s1 = {3, 4, 5}
+s2 = {4, 5, 6, 7}
+s3 = s1 &amp; s2
+print(s3)
+</code></pre><h4 id="聯集"><a href="#聯集" class="headerlink" title="聯集"></a>聯集</h4><pre><code>s1 = {3, 4, 5}
+s2 = {4, 5, 6, 7}
+s3 = s1 | s2
+print(s3)
+</code></pre><h4 id="差集"><a href="#差集" class="headerlink" title="差集"></a>差集</h4><pre><code>s1 = {3, 4, 5}
+s2 = {4, 5, 6, 7}
+s3 = s1 - s2
+print(s3)
+</code></pre><h4 id="反交集"><a href="#反交集" class="headerlink" title="反交集"></a>反交集</h4><pre><code>s1 = {3, 4, 5}
+s2 = {4, 5, 6, 7}
+s3 = s1 ^ s2
+print(s3)
+</code></pre><h4 id="使用-set-函式轉換成集合資料"><a href="#使用-set-函式轉換成集合資料" class="headerlink" title="使用 set 函式轉換成集合資料"></a>使用 set 函式轉換成集合資料</h4><pre><code>s = set(&quot;Hello&quot;)
+print(s)
+</code></pre><h4 id="使用-set-函式-加判斷"><a href="#使用-set-函式-加判斷" class="headerlink" title="使用 set 函式 加判斷"></a>使用 set 函式 加判斷</h4><pre><code>s = set(&quot;Hello&quot;)
+print(&quot;H&quot; in s)
+
+s = set(&quot;Hello&quot;)
+print(&quot;A&quot; in s)
+
+s = set(&quot;Hello&quot;)
+print(&quot;A&quot; not in s)
+</code></pre><h1 id="字典的運算"><a href="#字典的運算" class="headerlink" title="字典的運算"></a>字典的運算</h1><h4 id="基本運用"><a href="#基本運用" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code>dic = {&quot;name&quot;:&quot;姓名&quot;, &quot;age&quot;:&quot;年齡&quot;}
+print(dic)
+</code></pre><h4 id="修改資料"><a href="#修改資料" class="headerlink" title="修改資料"></a>修改資料</h4><pre><code>dic = {&quot;name&quot;:&quot;姓名&quot;, &quot;age&quot;:&quot;年齡&quot;}
+dic[&quot;name&quot;] = &quot;暱稱&quot;
+print(dic[&quot;name&quot;])
+</code></pre><h4 id="判斷-key-是否存在"><a href="#判斷-key-是否存在" class="headerlink" title="判斷 key 是否存在"></a>判斷 key 是否存在</h4><pre><code>dic = {&quot;name&quot;:&quot;姓名&quot;, &quot;age&quot;:&quot;年齡&quot;}
+print(&quot;name&quot; in dic)
+
+dic = {&quot;name&quot;:&quot;姓名&quot;, &quot;age&quot;:&quot;年齡&quot;}
+print(&quot;nickName&quot; in dic)
+
+dic = {&quot;name&quot;:&quot;姓名&quot;, &quot;age&quot;:&quot;年齡&quot;}
+print(&quot;nickName&quot; not in dic)
+</code></pre><h4 id="刪除字典中的鍵值對"><a href="#刪除字典中的鍵值對" class="headerlink" title="刪除字典中的鍵值對"></a>刪除字典中的鍵值對</h4><pre><code>dic = {&quot;name&quot;:&quot;姓名&quot;, &quot;age&quot;:&quot;年齡&quot;}
+print(dic)
+del dic[&quot;name&quot;]
+print(dic)
+</code></pre><h4 id="以列表的資料當基礎產生字典"><a href="#以列表的資料當基礎產生字典" class="headerlink" title="以列表的資料當基礎產生字典"></a>以列表的資料當基礎產生字典</h4><pre><code># dic = {x:x*2 for x in 列表}
+dic = {x:x*2 for x in [3, 4, 5]}
+print(dic)
+</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=L3-KuGYhw78" target="_blank" rel="noopener">Python 集合、字典的基本運算 - Set、Dictionary By 彭彭</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/05/PythonListAndTuple/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/05/PythonListAndTuple/" itemprop="url">Python List 及 Tuple</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-05T10:27:07+08:00">
+                2019-07-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="List-有序可變動列表"><a href="#List-有序可變動列表" class="headerlink" title="List 有序可變動列表"></a>List 有序可變動列表</h1><h4 id="基本運用"><a href="#基本運用" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code>grades = [12, 60, 15, 70, 90]
+print(grades)
+</code></pre><h4 id="用索引取元素"><a href="#用索引取元素" class="headerlink" title="用索引取元素"></a>用索引取元素</h4><pre><code>grades = [12, 60, 15, 70, 90]
+print(grades[3])
+</code></pre><h4 id="變更列表元素值"><a href="#變更列表元素值" class="headerlink" title="變更列表元素值"></a>變更列表元素值</h4><pre><code>grades = [12, 60, 15, 70, 90]
+grades[0] = 55  # 把 55 放到列表中的第一個位置
+print(grades)
+</code></pre><h4 id="用索引加起迄-包含起，不包含迄"><a href="#用索引加起迄-包含起，不包含迄" class="headerlink" title="用索引加起迄 (包含起，不包含迄)"></a>用索引加起迄 (包含起，不包含迄)</h4><pre><code>grades = [12, 60, 15, 70, 90]
+print(grades[1:4])
+</code></pre><h4 id="刪除列表中的資料"><a href="#刪除列表中的資料" class="headerlink" title="刪除列表中的資料"></a>刪除列表中的資料</h4><pre><code>grades = [12, 60, 15, 70, 90]
+grades[1:4] = []    # 連續刪除列表中 1 ~ 4 (不包含)
+print(grades)
+</code></pre><h4 id="列表加上資料"><a href="#列表加上資料" class="headerlink" title="列表加上資料"></a>列表加上資料</h4><pre><code>grades = [12, 60, 15, 70, 90]
+grades = grades + [12, 33]
+print(grades)
+</code></pre><h4 id="取列表長度"><a href="#取列表長度" class="headerlink" title="取列表長度"></a>取列表長度</h4><pre><code>grades = [12, 60, 15, 70, 90]
+length = len(grades) # 取長度
+print(length)
+</code></pre><h4 id="列表中再放列表-二維陣列"><a href="#列表中再放列表-二維陣列" class="headerlink" title="列表中再放列表 (二維陣列)"></a>列表中再放列表 (二維陣列)</h4><pre><code>listData = [[3, 4, 5], [6, 7, 8]]
+print(listData[0])
+print(listData[0][0])
+</code></pre><h4 id="變更列表元素值-二維陣列"><a href="#變更列表元素值-二維陣列" class="headerlink" title="變更列表元素值 (二維陣列)"></a>變更列表元素值 (二維陣列)</h4><pre><code>listData = [[3, 4, 5], [6, 7, 8]]
+print(listData)
+listData[0][0:2] = [5, 5, 5]
+print(listData)
+</code></pre><h1 id="Tuple-有序不可變動列表-使用方法，基本上跟-List一樣，差別是不可更改值"><a href="#Tuple-有序不可變動列表-使用方法，基本上跟-List一樣，差別是不可更改值" class="headerlink" title="Tuple 有序不可變動列表 (使用方法，基本上跟 List一樣，差別是不可更改值)"></a>Tuple 有序不可變動列表 (使用方法，基本上跟 List一樣，差別是不可更改值)</h1><h4 id="用索引加起迄-包含起，不包含迄-1"><a href="#用索引加起迄-包含起，不包含迄-1" class="headerlink" title="用索引加起迄 (包含起，不包含迄)"></a>用索引加起迄 (包含起，不包含迄)</h4><pre><code>tupleData = (3, 4, 5)
+print(tupleData[0:2])
+</code></pre><h4 id="錯誤式範"><a href="#錯誤式範" class="headerlink" title="錯誤式範"></a>錯誤式範</h4><pre><code>tupleData = (3, 4, 5)
+tupleData[0] = 5    # 錯誤：Tuple 資料不可變動
+print(tupleData[0:2])
+</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=JLU5oc4_VtA" target="_blank" rel="noopener">Python 有序列表的基本運算 - List、Tuple By 彭彭</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/05/PythonNumberAndString/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/05/PythonNumberAndString/" itemprop="url">Python Number 及 String</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-05T09:59:05+08:00">
+                2019-07-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Number-數字運算"><a href="#Number-數字運算" class="headerlink" title="Number 數字運算"></a>Number 數字運算</h1><h4 id="加法"><a href="#加法" class="headerlink" title="加法"></a>加法</h4><pre><code>x = 3 + 6
+print(x)
+</code></pre><h4 id="減法"><a href="#減法" class="headerlink" title="減法"></a>減法</h4><pre><code>x = 3 - 6
+print(x)
+</code></pre><h4 id="乘法"><a href="#乘法" class="headerlink" title="乘法"></a>乘法</h4><pre><code>x = 3 * 6
+print(x)
+</code></pre><h4 id="除法-小數"><a href="#除法-小數" class="headerlink" title="除法 (小數)"></a>除法 (小數)</h4><pre><code>x = 6 / 7
+print(x)
+</code></pre><h4 id="除法-整數"><a href="#除法-整數" class="headerlink" title="除法 (整數)"></a>除法 (整數)</h4><pre><code>x = 6 // 7
+print(x)
+</code></pre><h4 id="次方"><a href="#次方" class="headerlink" title="次方"></a>次方</h4><pre><code>x = 2 ** 3
+</code></pre><h4 id="開根號"><a href="#開根號" class="headerlink" title="開根號"></a>開根號</h4><pre><code>x = 2 ** 0.5
+print(x)
+</code></pre><h4 id="取餘數"><a href="#取餘數" class="headerlink" title="取餘數"></a>取餘數</h4><pre><code>x = 7 % 3
+print(x)
+</code></pre><h4 id="簡寫"><a href="#簡寫" class="headerlink" title="簡寫"></a>簡寫</h4><pre><code>x += 1 # x = x + 1
+print(x)
+
+x -= 1 # x = x - 1
+print(x)
+
+x *= 2 # x = x * 2
+print(x)
+
+x /= 2 # x = x / 2
+print(x)
+</code></pre><h1 id="String-字串運算"><a href="#String-字串運算" class="headerlink" title="String 字串運算"></a>String 字串運算</h1><h4 id="基本運用"><a href="#基本運用" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code>s = &quot;Hello&quot;
+print(s)
+</code></pre><h4 id="跳脫"><a href="#跳脫" class="headerlink" title="跳脫"></a>跳脫</h4><pre><code>s = &quot;Hell\&quot;o&quot; # 跳脫
+print(s)
+</code></pre><h4 id="字串相加-有加號"><a href="#字串相加-有加號" class="headerlink" title="字串相加 (有加號)"></a>字串相加 (有加號)</h4><pre><code>s = &quot;Hello&quot; + &quot;World&quot;
+print(s)
+</code></pre><h4 id="字串相加-省略加號"><a href="#字串相加-省略加號" class="headerlink" title="字串相加 (省略加號)"></a>字串相加 (省略加號)</h4><pre><code>s = &quot;Hello&quot; &quot;World&quot;
+print(s)
+</code></pre><h4 id="換行，使用-n"><a href="#換行，使用-n" class="headerlink" title="換行，使用 \n"></a>換行，使用 \n</h4><pre><code>s = &quot;Hello\nWorld&quot;
+print(s)
+</code></pre><h4 id="換行"><a href="#換行" class="headerlink" title="換行"></a>換行</h4><pre><code>s = &quot;&quot;&quot;Hello
+
+World&quot;&quot;&quot;
+print(s)
+</code></pre><h4 id="連續加-N-次"><a href="#連續加-N-次" class="headerlink" title="連續加 N 次"></a>連續加 N 次</h4><pre><code>s = &quot;Hello&quot; * 3
+print(s)
+</code></pre><h4 id="連續加-N-次後，加上其他值"><a href="#連續加-N-次後，加上其他值" class="headerlink" title="連續加 N 次後，加上其他值"></a>連續加 N 次後，加上其他值</h4><pre><code>s = &quot;Hello&quot; * 3 + &quot;World&quot;
+print(s)
+</code></pre><h4 id="用索引取字元"><a href="#用索引取字元" class="headerlink" title="用索引取字元"></a>用索引取字元</h4><pre><code>print(s[1])
+s = &quot;Hello&quot;
+</code></pre><h4 id="用索引加起迄-包含起，不包含迄"><a href="#用索引加起迄-包含起，不包含迄" class="headerlink" title="用索引加起迄 (包含起，不包含迄)"></a>用索引加起迄 (包含起，不包含迄)</h4><pre><code>print(s[1:4])
+s = &quot;Hello&quot;
+</code></pre><h4 id="用索引加起迄-省略迄"><a href="#用索引加起迄-省略迄" class="headerlink" title="用索引加起迄 (省略迄)"></a>用索引加起迄 (省略迄)</h4><pre><code>print(s[1:])
+s = &quot;Hello&quot;
+</code></pre><h4 id="用索引加起迄-省略起"><a href="#用索引加起迄-省略起" class="headerlink" title="用索引加起迄 (省略起)"></a>用索引加起迄 (省略起)</h4><pre><code>print(s[:4])
+s = &quot;Hello&quot;
+</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=bLRa4TZ99aY" target="_blank" rel="noopener">Python 數字、字串的基本運算 By 彭彭</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/05/PythonDataType/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/05/PythonDataType/" itemprop="url">Python 資料型態</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-05T09:33:05+08:00">
+                2019-07-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Python-資料型態"><a href="#Python-資料型態" class="headerlink" title="Python 資料型態"></a>Python 資料型態</h1><h2 id="基本語法"><a href="#基本語法" class="headerlink" title="基本語法"></a>基本語法</h2><h4 id="變數，直接給值"><a href="#變數，直接給值" class="headerlink" title="變數，直接給值"></a>變數，直接給值</h4><pre><code>age = 25
+name = &quot;Ross&quot;
+temperature = 36.2
+</code></pre><h4 id="單行注解"><a href="#單行注解" class="headerlink" title="單行注解"></a>單行注解</h4><pre><code># age = 25
+# name = &quot;Ross&quot;
+# temperature = 36.2
+</code></pre><h4 id="多行注解"><a href="#多行注解" class="headerlink" title="多行注解"></a>多行注解</h4><pre><code>&apos;&apos;&apos;age = 25
+name = &quot;Ross&quot;
+temperature = 36.2&apos;&apos;&apos;
+</code></pre><h2 id="資料型態"><a href="#資料型態" class="headerlink" title="資料型態"></a>資料型態</h2><h4 id="Numbers-整數、長整數、浮點數-小數"><a href="#Numbers-整數、長整數、浮點數-小數" class="headerlink" title="Numbers 整數、長整數、浮點數(小數)"></a>Numbers 整數、長整數、浮點數(小數)</h4><pre><code>3456
+3.45
+</code></pre><h4 id="String-任意的文字"><a href="#String-任意的文字" class="headerlink" title="String 任意的文字"></a>String 任意的文字</h4><pre><code>&quot;Hello World&quot;
+</code></pre><h4 id="Boolean-布林值"><a href="#Boolean-布林值" class="headerlink" title="Boolean 布林值"></a>Boolean 布林值</h4><pre><code>True
+False
+</code></pre><h4 id="List-可變列表，有順序、可變動的資料集合"><a href="#List-可變列表，有順序、可變動的資料集合" class="headerlink" title="List 可變列表，有順序、可變動的資料集合"></a>List 可變列表，有順序、可變動的資料集合</h4><pre><code>[3, 4, 5]
+[&quot;Hello&quot;, &quot;World&quot;]
+</code></pre><h4 id="Tuple-固定列表，有順序、不可變動的資料集合"><a href="#Tuple-固定列表，有順序、不可變動的資料集合" class="headerlink" title="Tuple 固定列表，有順序、不可變動的資料集合"></a>Tuple 固定列表，有順序、不可變動的資料集合</h4><pre><code>(3, 4, 5)
+(&quot;Hello&quot;, &quot;World&quot;)
+</code></pre><h4 id="Set-集合，無順序的資料集合"><a href="#Set-集合，無順序的資料集合" class="headerlink" title="Set 集合，無順序的資料集合"></a>Set 集合，無順序的資料集合</h4><pre><code>{3, 4, 5}
+{&quot;Hello&quot;, &quot;World&quot;}
+</code></pre><h4 id="Dictionary-字典-key-value-的集合"><a href="#Dictionary-字典-key-value-的集合" class="headerlink" title="Dictionary 字典, key-value 的集合"></a>Dictionary 字典, key-value 的集合</h4><pre><code>{&quot;name&quot;:&quot;姓名&quot;, &quot;age&quot;:&quot;年齡&quot;}
+</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=FMruNSjHOzQ" target="_blank" rel="noopener">Python 變數與資料型態 By 彭彭</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/04/PythonInstall/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1216,863 +1940,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/21/AspNetGeneric/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/21/AspNetGeneric/" itemprop="url">C# 泛型</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-06-21T11:26:41+08:00">
-                2019-06-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ASP-Net/" itemprop="url" rel="index">
-                    <span itemprop="name">ASP.Net</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h1><h4 id="泛型類別"><a href="#泛型類別" class="headerlink" title="泛型類別"></a>泛型類別</h4><pre><code>public class Generic&lt;T&gt;
-{
-    public T Name;
-    public T NickName;
-}
-
-class Program
-{
-    static void Main(string[] args)
-    {
-        Generic&lt;string&gt; generic = new Generic&lt;string&gt;();
-        generic.Name = &quot;Patrick&quot;;
-        generic.NickName = &quot;Pat&quot;;
-
-        Console.WriteLine($&quot;Name：{generic.Name}&quot;);
-        Console.WriteLine($&quot;NickName：{generic.NickName}&quot;);
-
-        Console.ReadKey();
-    }
-}
-</code></pre><h4 id="泛型方法-使用型別參數宣告的方法"><a href="#泛型方法-使用型別參數宣告的方法" class="headerlink" title="泛型方法 使用型別參數宣告的方法"></a>泛型方法 使用型別參數宣告的方法</h4><pre><code>public class Generic
-{
-    public void Dump&lt;T&gt;(T s)
-    {
-        Console.WriteLine(s.ToString());
-    }
-}
-
-class Program
-{
-    static void Main(string[] args)
-    {
-        Generic generic = new Generic();
-
-        generic.Dump(&quot;Patrick&quot;);
-
-        Console.ReadKey();
-    }
-}
-</code></pre><h4 id="泛型方法-條件約束"><a href="#泛型方法-條件約束" class="headerlink" title="泛型方法 + 條件約束"></a>泛型方法 + 條件約束</h4><pre><code>public class Generic
-{
-    public T Max&lt;T&gt;(T param1, T param2) where T : IComparable&lt;T&gt;
-    {
-        T result = param2;
-
-        if (param1.CompareTo(param2) &gt; 0)
-        {
-            result = param1;
-        }
-
-        return result;
-    }
-}
-
-class Program
-{
-    static void Main(string[] args)
-    {
-        Generic generic = new Generic();
-
-        int resultInt = generic.Max&lt;int&gt;(10, 12);
-
-        // 推論型別 省略 &lt;float&gt;
-        float resultFloat = generic.Max(3.6F, 3.5F);
-
-        // 推論型別 使用 var
-        var resultObject = generic.Max(&quot;Gen&quot;, &quot;Eric&quot;);
-
-        Console.WriteLine(resultInt);
-        Console.WriteLine(resultFloat);
-        Console.WriteLine(resultObject);
-
-        Console.ReadKey();
-    }
-}
-</code></pre><h4 id="泛型方法-條件約束-擴充方法"><a href="#泛型方法-條件約束-擴充方法" class="headerlink" title="泛型方法 + 條件約束 + 擴充方法"></a>泛型方法 + 條件約束 + 擴充方法</h4><pre><code>public class Student
-{
-    public string Name { get; set; }
-    public int Age { get; set; }
-    public DateTime Time { get; set; }
-}
-
-public static class StringExtension
-{
-    public static void Dump&lt;T&gt;(this T s) =&gt; Console.WriteLine(s.ToString());
-
-    public static void Dump&lt;T&gt;(this T s, string formate)
-    {
-        if (s.GetType() == typeof(DateTime))
-        {
-            DateTimeOffset.Parse(s.ToString()).DateTime.ToString(formate).Dump();
-        }
-    }
-
-    public static void ObjectDump&lt;T&gt;(this T obj) where T : class, new()
-    {
-        Type type = obj.GetType();
-        PropertyInfo[] props = type.GetProperties();
-        foreach(var prop in props)
-        {
-            if(prop.GetIndexParameters().Length == 0)
-            {
-                $&quot;({prop.PropertyType.Name}) {prop.Name}：{prop.GetValue(obj)}&quot;.Dump();
-            }
-            else
-            {
-                $&quot;({prop.PropertyType.Name}) {prop.Name}：&lt;Indexed&gt;&quot;.Dump();
-            }
-        }
-    }
-}
-
-class Program
-{
-    static void Main(string[] args)
-    {
-        string name = &quot;Patrick&quot;;
-        int age = 26;
-        DateTime time = DateTime.Now;
-        Student student = new Student() { Name = name, Age = age, Time = time };
-
-        name.Dump();
-        age.Dump();
-        time.Dump(&quot;yyyy-MM-dd HH:mm:ss&quot;);
-        student.ObjectDump();
-
-        Console.ReadKey();
-    }
-}
-</code></pre><h4 id="泛型委派"><a href="#泛型委派" class="headerlink" title="泛型委派"></a>泛型委派</h4><pre><code>class Program
-{
-    public delegate T Payment&lt;T, T1, T2&gt;(T1 momey1, T2 momey2);
-
-    static string Bill(int momey1, int momey2)
-    {
-        string result = &quot;超商繳款&quot;;
-
-        int total = momey1 + momey2;
-
-        if (total &gt; 30000)
-        {
-            result = &quot;銀行繳款&quot;;
-        }
-        return result;
-    }
-
-    static bool Bill(float momey1, float momey2)
-    {
-        return (momey1 + momey2) &gt; 30000;
-    }
-
-    static void Main(string[] args)
-    {
-        Payment&lt;string, int, int&gt; paymentType = new Payment&lt;string, int, int&gt;(Bill);
-        string resultString = paymentType(10000, 16000);
-
-        Payment&lt;bool, float, float&gt; isByBank = new Payment&lt;bool, float, float&gt;(Bill);
-        bool resultBool = isByBank(16000.0F, 20000.0F);
-
-        Console.WriteLine(resultString);
-        Console.WriteLine(resultBool);
-
-        Console.ReadKey();
-    }
-}
-</code></pre><h4 id="泛型委派-泛型類別"><a href="#泛型委派-泛型類別" class="headerlink" title="泛型委派 + 泛型類別"></a>泛型委派 + 泛型類別</h4><pre><code>class Stack&lt;T&gt;
-{
-    T[] items;
-    int index;
-
-    public delegate void StackDelegate(T[] items, int index = -1);
-}
-
-class Program
-{
-    public static void DoWork(float[] items, int index)
-    {
-        if (index &gt;= 0)
-        {
-            if(index &gt;= items.Length)
-            {
-                index = items.Length - 1;
-            }
-            Console.WriteLine(items[index]);
-        }
-        else
-        {
-            foreach (float item in items)
-            {
-                Console.WriteLine(item);
-            }
-        }
-    }
-
-    static void Main(string[] args)
-    {
-        float[] items = new float[] { 4.5F, 4.8F };
-        Stack&lt;float&gt; s = new Stack&lt;float&gt;();
-        Stack&lt;float&gt;.StackDelegate d = DoWork;
-        d(items);
-
-        Console.ReadKey();
-    }
-}
-</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://docs.microsoft.com/zh-tw/dotnet/csharp/programming-guide/generics/" target="_blank" rel="noopener">泛型 (C# 程式設計手冊)</a><br><a href="https://docs.microsoft.com/zh-tw/dotnet/csharp/programming-guide/generics/constraints-on-type-parameters" target="_blank" rel="noopener">型別參數的條件約束 (C# 程式設計手冊)</a><br><a href="https://docs.microsoft.com/zh-tw/dotnet/api/system.reflection.propertyinfo.getvalue?view=netframework-4.8" target="_blank" rel="noopener">PropertyInfo.GetValue Method</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/20/AspNetNugetPackageWithNugetPackager/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/20/AspNetNugetPackageWithNugetPackager/" itemprop="url">ASP.NET NuGet 打包，使用 NuGet Packager</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-06-20T15:35:06+08:00">
-                2019-06-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ASP-Net/" itemprop="url" rel="index">
-                    <span itemprop="name">ASP.Net</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="使用-NuGet-Packager-打包"><a href="#使用-NuGet-Packager-打包" class="headerlink" title="使用 NuGet Packager 打包"></a>使用 NuGet Packager 打包</h1><p>先建置 <a href="/2019/06/20/AspNetCreateNugetServer/">NuGet Server</a></p>
-<ol>
-<li><p><strong>Visual Studio</strong> → 工具 → 擴充功能和更新<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/1.png" alt="Architecture"></p>
-</li>
-<li><p>下載 <strong>NuGet Packager</strong><br>下載後要重啟 <strong>Visual Studio</strong><br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/2.png" alt="Architecture"></p>
-</li>
-<li><p>選擇 <strong>NuGet</strong> 範本<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/3.png" alt="Architecture"></p>
-</li>
-<li><p><strong>NuGet.config</strong> 修改 <code>packageSources</code> 值<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/4.png" alt="Architecture"></p>
-</li>
-<li><p>同方案底下，新增一個類別庫<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/5.png" alt="Architecture"><br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/5-1.png" alt="Architecture"></p>
-</li>
-<li><p>增加 <strong>Class1</strong> 屬性<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/6.png" alt="Architecture"></p>
-</li>
-<li><p>建置 <strong>TestLibrary2</strong> 專案，產生 <strong>dll</strong> 檔<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/7.png" alt="Architecture"></p>
-</li>
-<li><p>修改 <strong>NuGet.Packager</strong> 專案 → <strong>Package.nuspec</strong> 資訊<br>將 <strong>TestLibrary2</strong> 引用進來<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/8.png" alt="Architecture"></p>
-</li>
-<li><p>選擇 <strong>Release</strong>，重建 <strong>NuGet.Packager</strong> 專案<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/9.png" alt="Architecture"></p>
-</li>
-<li><p>輸入 <strong>A</strong> 及 <strong>API Key</strong><br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/10.png" alt="Architecture"></p>
-</li>
-<li><p>發佈成功<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/11.png" alt="Architecture"></p>
-</li>
-<li><p><strong>NuGet Server</strong> 專案 → <strong>Packages</strong> 產生 <strong>.nupkg</strong> 檔案<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/12.png" alt="Architecture"></p>
-</li>
-<li><p>到其他專案選擇 封裝來源，可以看剛發佈的 <strong>package</strong><br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/13.png" alt="Architecture"></p>
-</li>
-<li><p>可正常引用從 <strong>NuGet</strong> 下載的物件<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackager/14.png" alt="Architecture"></p>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://blog.darkthread.net/blog/nuget-packager/" target="_blank" rel="noopener">從Visual Studio發布NuGet Package的好幫手－NuGet Packager</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/20/AspNetNugetPackageWithNugetPackageExplorer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/20/AspNetNugetPackageWithNugetPackageExplorer/" itemprop="url">ASP.NET NuGet 打包，使用 NuGet Package Explorer</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-06-20T14:50:42+08:00">
-                2019-06-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ASP-Net/" itemprop="url" rel="index">
-                    <span itemprop="name">ASP.Net</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="使用-NuGet-Package-Explorer-打包"><a href="#使用-NuGet-Package-Explorer-打包" class="headerlink" title="使用 NuGet Package Explorer 打包"></a>使用 NuGet Package Explorer 打包</h1><p>先建置 <a href="/2019/06/20/AspNetCreateNugetServer/">NuGet Server</a></p>
-<ol>
-<li><p>下載 <a href="https://www.microsoft.com/zh-tw/p/nuget-package-explorer/9wzdncrdmdm3?activetab=pivot:overviewtab" target="_blank" rel="noopener">NuGet Package Explorer</a><br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackageExplorer/1.png" alt="Architecture"></p>
-</li>
-<li><p>開啟 <strong>NuGet Package Explorer</strong> → <strong>Create a new package</strong><br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackageExplorer/2.png" alt="Architecture"></p>
-</li>
-<li><p>編輯資訊<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackageExplorer/3.png" alt="Architecture"><br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackageExplorer/3-1.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Package contents</strong> 右鍵 → <strong>Add Lib Folder</strong><br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackageExplorer/4.png" alt="Architecture"></p>
-</li>
-<li><p>新增 類別庫 專案<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackageExplorer/5.png" alt="Architecture"></p>
-</li>
-<li><p>增加 <strong>Class1</strong> 屬性<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackageExplorer/6.png" alt="Architecture"></p>
-</li>
-<li><p>將建好的 <strong>dll</strong> 拉進 <strong>NuGet Package Explorer</strong> → <strong>Package contents</strong> → <strong>lib</strong><br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackageExplorer/7.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Publish</strong><br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackageExplorer/8.png" alt="Architecture"></p>
-</li>
-<li><p>輸入 <strong>Url</strong> 及 <strong>key</strong><br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackageExplorer/9.png" alt="Architecture"></p>
-</li>
-<li><p>發佈成功<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackageExplorer/10.png" alt="Architecture"></p>
-</li>
-<li><p><strong>NuGet Server</strong> 專案 → <strong>Packages</strong> 產生 <strong>.nupkg</strong> 檔案<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackageExplorer/11.png" alt="Architecture"></p>
-</li>
-<li><p>到其他專案選擇 封裝來源，可以看剛發佈的 <strong>package</strong><br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackageExplorer/12.png" alt="Architecture"></p>
-</li>
-<li><p>可正常引用從 <strong>NuGet</strong> 下載的物件<br><img src="/2019/06/20/AspNetNugetPackageWithNugetPackageExplorer/13.png" alt="Architecture"></p>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="http://rion.io/2014/07/20/using-the-nuget-package-explorer-to-create-explore-and-publish-packages/" target="_blank" rel="noopener">Using the NuGet Package Explorer to Create, Explore and Publish Packages</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/20/AspNetCreateNugetServer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/20/AspNetCreateNugetServer/" itemprop="url">ASP.NET 建置 NuGet Server</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-06-20T14:01:56+08:00">
-                2019-06-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ASP-Net/" itemprop="url" rel="index">
-                    <span itemprop="name">ASP.Net</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="建置-NuGet-Server"><a href="#建置-NuGet-Server" class="headerlink" title="建置 NuGet Server"></a>建置 NuGet Server</h1><ol>
-<li><p>建立一個 <strong>Web</strong> 專案<br><img src="/2019/06/20/AspNetCreateNugetServer/1.png" alt="Architecture"></p>
-</li>
-<li><p>選擇 <strong>Empty</strong><br><img src="/2019/06/20/AspNetCreateNugetServer/2.png" alt="Architecture"></p>
-</li>
-<li><p>安裝 <strong>NuGet.Server</strong><br><img src="/2019/06/20/AspNetCreateNugetServer/3.png" alt="Architecture"></p>
-</li>
-<li><p>成功後 <code>Web.config</code> 會自動載入所需 <strong>XML</strong><br><img src="/2019/06/20/AspNetCreateNugetServer/4.png" alt="Architecture"></p>
-</li>
-<li><p>輸入 <strong>apiKey value</strong>，建議使用 <strong>GUID</strong><br><img src="/2019/06/20/AspNetCreateNugetServer/5.png" alt="Architecture"></p>
-</li>
-<li><p>建置 <strong>IIS</strong>，開啟網頁<br><img src="/2019/06/20/AspNetCreateNugetServer/6.png" alt="Architecture"></p>
-</li>
-<li><p>點選 <strong>here</strong>，可正常顯示頁面<br><img src="/2019/06/20/AspNetCreateNugetServer/7.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Visual Studio</strong> → 工具 → <strong>NuGet</strong> 封裝管理員 → 套件管理員設定<br><img src="/2019/06/20/AspNetCreateNugetServer/8.png" alt="Architecture"></p>
-</li>
-<li><p>套件來源 → 新增 → 輸入資訊 → 更新<br><img src="/2019/06/20/AspNetCreateNugetServer/9.png" alt="Architecture"></p>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://haacked.com/archive/2011/03/31/hosting-simple-nuget-package-feed.aspx/" target="_blank" rel="noopener">Hosting a Simple Read-Only NuGet Package Feed on the Web</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2120,7 +1992,7 @@ class Program
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">119</span>
+                  <span class="site-state-item-count">123</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
@@ -2142,7 +2014,7 @@ class Program
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">標籤</span>
                 </a>
               </div>
