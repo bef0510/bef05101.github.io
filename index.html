@@ -252,6 +252,165 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/29/DotNetCoreWithSwagger/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/29/DotNetCoreWithSwagger/" itemprop="url">.Net Core 3 + Swagger</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-11-29T09:35:58+08:00">
+                2019-11-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Net-Core/" itemprop="url" rel="index">
+                    <span itemprop="name">.Net Core</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Net-Core-3-Swagger"><a href="#Net-Core-3-Swagger" class="headerlink" title=".Net Core 3 + Swagger"></a>.Net Core 3 + Swagger</h2><ol>
+<li><strong>Nuget Install Swashbuckle.AspNetCore</strong><br><img src="/2019/11/29/DotNetCoreWithSwagger/1.png" alt="Architecture"></li>
+</ol>
+<h4 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h4><ol>
+<li><strong>Modify Startup.cs</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">public void ConfigureServices(IServiceCollection services)</span><br><span class="line">&#123;</span><br><span class="line">    services.AddControllers();</span><br><span class="line"></span><br><span class="line">    // Register the Swagger generator, defining 1 or more Swagger documents.</span><br><span class="line">    services.AddSwaggerGen(c =&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        c.SwaggerDoc(name: <span class="string">"v1"</span>, new OpenApiInfo &#123; Title = <span class="string">"test api"</span>, Version = <span class="string">"v1"</span> &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//.AddSecurityDefinition(string name, OpenApiSecurityScheme securityScheme)</span><br><span class="line">// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.</span><br><span class="line">public void Configure(IApplicationBuilder app, IWebHostEnvironment env)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (env.IsDevelopment())</span><br><span class="line">    &#123;</span><br><span class="line">        app.UseDeveloperExceptionPage();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // Enable middleware to serve generated Swagger as a JSON endpoint.</span><br><span class="line">    app.UseSwagger();</span><br><span class="line"></span><br><span class="line">    // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),</span><br><span class="line">    // specifying the Swagger JSON endpoint.</span><br><span class="line">    app.UseSwaggerUI(c =&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        c.SwaggerEndpoint(url: <span class="string">"/swagger/v1/swagger.json"</span>, name: <span class="string">"v1"</span>);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    app.UseHttpsRedirection();</span><br><span class="line"></span><br><span class="line">    app.UseStaticFiles();       // 必須在 app.UseRouting() 之前被呼叫</span><br><span class="line"></span><br><span class="line">    app.UseRouting();</span><br><span class="line"></span><br><span class="line">    app.UseCors();              // 必須在所有會用到的 CORS 的中介層之前被呼叫</span><br><span class="line"></span><br><span class="line">    app.UseEndpoints(endpoints =&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        endpoints.MapControllers();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="/2019/11/29/DotNetCoreWithSwagger/2.png" alt="Architecture"></p>
+<h4 id="Add-Header"><a href="#Add-Header" class="headerlink" title="Add Header"></a>Add Header</h4><ol>
+<li><p><strong>Modify Startup.cs</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">public void ConfigureServices(IServiceCollection services)</span><br><span class="line">&#123;</span><br><span class="line">    services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)</span><br><span class="line">            .AddJwtBearer(options =&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                var azureadoptions = new AzureADOptions();</span><br><span class="line">                Configuration.Bind(<span class="string">"AzureAD"</span>, azureadoptions);</span><br><span class="line">                options.Authority = $<span class="string">"&#123;azureadoptions.Instance&#125;&#123;azureadoptions.TenantId&#125;/v2.0"</span>;</span><br><span class="line">                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters</span><br><span class="line">                &#123;</span><br><span class="line">                    ValidAudience = $<span class="string">"&#123;azureadoptions.ClientId&#125;"</span>,</span><br><span class="line">                    ValidIssuer = $<span class="string">"&#123;azureadoptions.Instance&#125;&#123;azureadoptions.TenantId&#125;/v2.0"</span></span><br><span class="line">                &#125;;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">    services.AddControllers();</span><br><span class="line"></span><br><span class="line">    // Register the Swagger generator, defining 1 or more Swagger documents.</span><br><span class="line">    services.AddSwaggerGen(c =&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        c.SwaggerDoc(name: <span class="string">"v1"</span>, new OpenApiInfo &#123; Title = <span class="string">"test api"</span>, Version = <span class="string">"v1"</span> &#125;);</span><br><span class="line">        </span><br><span class="line">        c.AddSecurityDefinition(<span class="string">"Bearer"</span>, new OpenApiSecurityScheme</span><br><span class="line">        &#123;</span><br><span class="line">            Description = <span class="string">"JWT Authorization header using the Bearer scheme."</span>,</span><br><span class="line">            Name = <span class="string">"Authorization"</span>,</span><br><span class="line">            In = ParameterLocation.Header,</span><br><span class="line">            Type = SecuritySchemeType.ApiKey,</span><br><span class="line">            Scheme = <span class="string">"Bearer"</span></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        c.AddSecurityRequirement(new OpenApiSecurityRequirement()</span><br><span class="line">        &#123;</span><br><span class="line">            &#123;</span><br><span class="line">                new OpenApiSecurityScheme</span><br><span class="line">                &#123;</span><br><span class="line">                    Reference = new OpenApiReference</span><br><span class="line">                    &#123;</span><br><span class="line">                        Type = ReferenceType.SecurityScheme,</span><br><span class="line">                        Id = <span class="string">"Bearer"</span></span><br><span class="line">                    &#125;,</span><br><span class="line">                    Scheme = <span class="string">"oauth2"</span>,</span><br><span class="line">                    Name = <span class="string">"Bearer"</span>,</span><br><span class="line">                    In = ParameterLocation.Header,</span><br><span class="line">                &#125;,</span><br><span class="line">                new List&lt;string&gt;()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Modify Controller.cs</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using Microsoft.AspNetCore.Authorization;</span><br><span class="line">using Microsoft.AspNetCore.Mvc;</span><br><span class="line">using Microsoft.Extensions.Logging;</span><br><span class="line"></span><br><span class="line">namespace testWebapi.Controllers</span><br><span class="line">&#123;</span><br><span class="line">    [ApiController]</span><br><span class="line">    [Route(<span class="string">"[controller]"</span>)]</span><br><span class="line">    public class WeatherForecastController : ControllerBase</span><br><span class="line">    &#123;</span><br><span class="line">        private static <span class="built_in">readonly</span> string[] Summaries = new[]</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">"Freezing"</span>, <span class="string">"Bracing"</span>, <span class="string">"Chilly"</span>, <span class="string">"Cool"</span>, <span class="string">"Mild"</span>, <span class="string">"Warm"</span>, <span class="string">"Balmy"</span>, <span class="string">"Hot"</span>, <span class="string">"Sweltering"</span>, <span class="string">"Scorching"</span></span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        private <span class="built_in">readonly</span> ILogger&lt;WeatherForecastController&gt; _logger;</span><br><span class="line"></span><br><span class="line">        public WeatherForecastController(ILogger&lt;WeatherForecastController&gt; logger)</span><br><span class="line">        &#123;</span><br><span class="line">            _logger = logger;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 查詢</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=<span class="string">"orderCode"</span>&gt;單號&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=<span class="string">"orderName"</span>&gt;名稱&lt;/param&gt;</span><br><span class="line">        /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">        [HttpGet(<span class="string">"&#123;orderCode&#125;/&#123;orderName&#125;"</span>)]</span><br><span class="line">        public IEnumerable&lt;WeatherForecast&gt; Get(string orderCode, string orderName)</span><br><span class="line">        &#123;</span><br><span class="line">            var rng = new Random();</span><br><span class="line">            <span class="built_in">return</span> Enumerable.Range(1, 5).Select(index =&gt; new WeatherForecast</span><br><span class="line">            &#123;</span><br><span class="line">                Date = DateTime.Now.AddDays(index),</span><br><span class="line">                TemperatureC = rng.Next(-20, 55),</span><br><span class="line">                Summary = Summaries[rng.Next(Summaries.Length)]</span><br><span class="line">            &#125;)</span><br><span class="line">            .ToArray();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        [HttpPost]</span><br><span class="line">        public OrderModel Post([FromBody]OrderModel model)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">return</span> model;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public class OrderModel</span><br><span class="line">    &#123;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 訂單編號</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        public string OrderCode &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 訂單金額</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        public decimal OrderAmount &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="/2019/11/29/DotNetCoreWithSwagger/3.png" alt="Architecture"></p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://docs.microsoft.com/zh-tw/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.0&amp;tabs=visual-studio" target="_blank" rel="noopener">Swashbuckle 與 ASP.NET Core 使用者入門</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/DotNetCoreAzureADAuth/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1683,174 +1842,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/09/RInVisualStudioCode/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/09/RInVisualStudioCode/" itemprop="url">R In Visual Studio 2017</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-09-09T08:55:01+08:00">
-                2019-09-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/R/" itemprop="url" rel="index">
-                    <span itemprop="name">R</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="R-In-Visual-Studio-2017"><a href="#R-In-Visual-Studio-2017" class="headerlink" title="R In Visual Studio 2017"></a>R In Visual Studio 2017</h1><ol>
-<li><p><a href="https://docs.microsoft.com/zh-tw/visualstudio/releasenotes/vs2017-relnotes" target="_blank" rel="noopener">安裝 Visual Studio 2017</a><br><img src="/2019/09/09/RInVisualStudioCode/1.png" alt="Architecture"><br><img src="/2019/09/09/RInVisualStudioCode/1-1.png" alt="Architecture"></p>
-</li>
-<li><p><a href="https://mran.revolutionanalytics.com/download" target="_blank" rel="noopener">下載 Microsoft R Open</a><br><img src="/2019/09/09/RInVisualStudioCode/2.png" alt="Architecture"></p>
-</li>
-<li><p>安裝 <strong>Microsoft R Open</strong><br><img src="/2019/09/09/RInVisualStudioCode/3.png" alt="Architecture"></p>
-</li>
-<li><p>開啟 <strong>Visual Studio 2017</strong><br><img src="/2019/09/09/RInVisualStudioCode/4.png" alt="Architecture"></p>
-</li>
-<li><p>選取 <strong>R</strong><br><img src="/2019/09/09/RInVisualStudioCode/5.png" alt="Architecture"></p>
-</li>
-<li><p><strong>script.R</strong> 輸入</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">say_hello &lt;- <span class="keyword">function</span>(name, df) &#123;</span><br><span class="line">    <span class="built_in">print</span>(paste(<span class="string">"Hello, "</span>, name, <span class="string">"!"</span>, sep = <span class="string">""</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>編譯<br>全部選取 → <code>Ctrl + Enter</code> 或<br>全部選取 → 右鍵<br><img src="/2019/09/09/RInVisualStudioCode/7.png" alt="Architecture"></p>
-</li>
-<li><p>編譯成功<br><img src="/2019/09/09/RInVisualStudioCode/8.png" alt="Architecture"></p>
-</li>
-<li><p>呼叫函式<br>輸入後按 <code>Enter</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">say_hello(<span class="string">"World"</span>)</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p><img src="/2019/09/09/RInVisualStudioCode/9.png" alt="Architecture"></p>
-<ol start="10">
-<li><strong>Debug</strong><br><strong>F5</strong> 或 執行 <strong>Source startup file</strong><br><img src="/2019/09/09/RInVisualStudioCode/10.png" alt="Architecture"><br><img src="/2019/09/09/RInVisualStudioCode/11.png" alt="Architecture"></li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=Swi8lwqoG0U" target="_blank" rel="noopener">Build 2017 A lap around R Tools 1 0 for Visual Studio 2017</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1903,7 +1894,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">123</span>
+                  <span class="site-state-item-count">124</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
@@ -1925,7 +1916,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">55</span>
                   <span class="site-state-item-name">標籤</span>
                 </a>
               </div>
