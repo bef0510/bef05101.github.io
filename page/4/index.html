@@ -252,6 +252,165 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/18/AngularBuildExpressServer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/18/AngularBuildExpressServer/" itemprop="url">Angular Build Express Node Server</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-18T16:08:48+08:00">
+                2019-07-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Angular/" itemprop="url" rel="index">
+                    <span itemprop="name">Angular</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Build-Express-Server"><a href="#Build-Express-Server" class="headerlink" title="Build Express Server"></a>Build Express Server</h1><ol>
+<li><p><strong>Create Folder</strong></p>
+</li>
+<li><p><strong>Init</strong><br><code>npm init –yes</code><br><img src="/2019/07/18/AngularBuildExpressServer/1.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Install</strong><br><code>npm install --save express body-parser cors</code><br><img src="/2019/07/18/AngularBuildExpressServer/2.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Create server.js</strong><br><img src="/2019/07/18/AngularBuildExpressServer/3.png" alt="Architecture"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">const express = require(<span class="string">"express"</span>);</span><br><span class="line">const bodyParser = require(<span class="string">"body-parser"</span>);</span><br><span class="line">const cors = require(<span class="string">"cors"</span>);</span><br><span class="line"></span><br><span class="line">const PORT = 3000;</span><br><span class="line"></span><br><span class="line">const app = express();</span><br><span class="line"></span><br><span class="line">app.use(bodyParser.json());</span><br><span class="line"></span><br><span class="line">app.use(cors());</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">"/"</span>, <span class="keyword">function</span>(req, res) &#123;</span><br><span class="line">    res.send(<span class="string">"Hello from server"</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.post(<span class="string">"/enroll"</span>, <span class="keyword">function</span>(req, res) &#123;</span><br><span class="line">    console.log(req.body);</span><br><span class="line">    res.status(200).send(&#123;<span class="string">"message"</span>: <span class="string">"Data received"</span>&#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.listen(PORT, <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    console.log(<span class="string">"Server running on localhost:"</span> + PORT);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Run Server</strong><br><code>node server</code><br><img src="/2019/07/18/AngularBuildExpressServer/4.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Input url at browser</strong><br><img src="/2019/07/18/AngularBuildExpressServer/5.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Using postman</strong><br><strong>postman</strong><br><img src="/2019/07/18/AngularBuildExpressServer/6.png" alt="Architecture"><br><strong>Express server terminal</strong><br><img src="/2019/07/18/AngularBuildExpressServer/7.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=jwA-9XXybdM&amp;list=PLC3y8-rFHvwhBRAgFinJR8KHIrCdTkZcZ&amp;index=45" target="_blank" rel="noopener">Angular Forms Tutorial - 13 - Express Server to Receive Form Data</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/17/AngularService/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1854,261 +2013,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/15/PythonBokeh/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/15/PythonBokeh/" itemprop="url">Python 高階繪圖套件 Bokeh</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-15T11:50:53+08:00">
-                2019-07-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="高階繪圖套件-Bokeh"><a href="#高階繪圖套件-Bokeh" class="headerlink" title="高階繪圖套件 Bokeh"></a>高階繪圖套件 Bokeh</h1><ol>
-<li>安裝模組 <strong>pip install bokeh</strong></li>
-<li>使用 <strong>JavaScript</strong> 縮放圖形的效果</li>
-</ol>
-<h2 id="分散標記"><a href="#分散標記" class="headerlink" title="分散標記"></a>分散標記</h2><h4 id="圓形"><a href="#圓形" class="headerlink" title="圓形"></a>圓形</h4><pre><code>from bokeh.plotting import figure, output_file, show
-
-output_file(&quot;line.html&quot;)
-p = figure(plot_width=400, plot_height=400)
-p.circle([1, 2, 3, 4, 5], [6, 7, 2, 4, 5], size=20, color=&quot;navy&quot;, alpha=0.5)
-
-show(p)
-</code></pre><p><img src="/2019/07/15/PythonBokeh/1.png" alt="Architecture"></p>
-<h4 id="正方形"><a href="#正方形" class="headerlink" title="正方形"></a>正方形</h4><pre><code>from bokeh.plotting import figure, output_file, show
-
-output_file(&quot;square.html&quot;)
-p = figure(plot_width=400, plot_height=400)
-p.square([1, 2, 3, 4, 5], [6, 7, 2, 4, 5], size=20, color=&quot;olive&quot;, alpha=0.5)
-
-show(p)
-</code></pre><p><img src="/2019/07/15/PythonBokeh/2.png" alt="Architecture"></p>
-<h4 id="折線圖"><a href="#折線圖" class="headerlink" title="折線圖"></a>折線圖</h4><pre><code>from bokeh.plotting import figure, output_file, show
-
-output_file(&quot;line.html&quot;)
-p = figure(plot_width=400, plot_height=400)
-p.line([1, 2, 3, 4, 5], [6, 7, 2, 4, 5], line_width=2)
-
-show(p)
-</code></pre><p><img src="/2019/07/15/PythonBokeh/3.png" alt="Architecture"></p>
-<h4 id="Multiple-Lines"><a href="#Multiple-Lines" class="headerlink" title="Multiple Lines"></a>Multiple Lines</h4><pre><code>from bokeh.plotting import figure, output_file, show
-
-output_file(&quot;patch.html&quot;)
-p = figure(plot_width=400, plot_height=400)
-p.multi_line([[1, 3, 2], [3, 4, 6, 6]], [[2, 1, 4], [4, 7, 8, 5]],
-         color=[&quot;firebrick&quot;, &quot;navy&quot;], alpha=[0.8, 0.3], line_width=4)
-
-show(p)
-</code></pre><p><img src="/2019/07/15/PythonBokeh/4.png" alt="Architecture"></p>
-<h4 id="Missing-Points"><a href="#Missing-Points" class="headerlink" title="Missing Points"></a>Missing Points</h4><pre><code>from bokeh.plotting import figure, output_file, show
-
-output_file(&quot;line.html&quot;)
-p = figure(plot_width=400, plot_height=400)
-nan = float(&apos;nan&apos;)
-p.line([1, 2, 3, nan, 4, 5], [6, 7, 2, 4, 4, 5], line_width=2)
-
-show(p)
-</code></pre><p><img src="/2019/07/15/PythonBokeh/5.png" alt="Architecture"></p>
-<h4 id="Bars-and-Rectangles"><a href="#Bars-and-Rectangles" class="headerlink" title="Bars and Rectangles"></a>Bars and Rectangles</h4><pre><code>from bokeh.plotting import figure, show, output_file
-
-output_file(&apos;vbar.html&apos;)
-p = figure(plot_width=400, plot_height=400)
-p.vbar(x=[1, 2, 3], width=0.5, bottom=0,
-    top=[1.2, 2.5, 3.7], color=&quot;firebrick&quot;)
-
-show(p)
-</code></pre><p><img src="/2019/07/15/PythonBokeh/6.png" alt="Architecture"></p>
-<h4 id="Stacked-Bars"><a href="#Stacked-Bars" class="headerlink" title="Stacked Bars"></a>Stacked Bars</h4><pre><code>from bokeh.models import ColumnDataSource
-from bokeh.plotting import figure, output_file, show
-
-output_file(&quot;hbar_stack.html&quot;)
-source = ColumnDataSource(data=dict(
-    y=[1, 2, 3, 4, 5],
-    x1=[1, 2, 4, 3, 4],
-    x2=[1, 4, 2, 2, 3],
-))
-
-p = figure(plot_width=400, plot_height=400)
-p.hbar_stack([&apos;x1&apos;, &apos;x2&apos;], y=&apos;y&apos;, height=0.8, color=(&quot;grey&quot;, &quot;lightgrey&quot;), source=source)
-
-show(p)
-</code></pre><p><img src="/2019/07/15/PythonBokeh/7.png" alt="Architecture"></p>
-<h4 id="Multiple-MultiPolygons"><a href="#Multiple-MultiPolygons" class="headerlink" title="Multiple MultiPolygons"></a>Multiple MultiPolygons</h4><pre><code>from bokeh.plotting import figure, show, output_file
-
-output_file(&apos;multipolygons.html&apos;)
-p = figure(plot_width=400, plot_height=400)
-p.multi_polygons(
-    xs=[
-        [[ [1, 1, 2, 2], [1.2, 1.6, 1.6], [1.8, 1.8, 1.6] ], [ [3, 3, 4] ]],
-        [[ [1, 2, 2, 1], [1.3, 1.3, 1.7, 1.7] ]]],
-    ys=[
-        [[ [4, 3, 3, 4], [3.2, 3.2, 3.6], [3.4, 3.8, 3.8] ], [ [1, 3, 1] ]],
-        [[ [1, 1, 2, 2], [1.3, 1.7, 1.7, 1.3] ]]],
-    color=[&apos;blue&apos;, &apos;red&apos;])
-
-show(p)
-</code></pre><p><img src="/2019/07/15/PythonBokeh/8.png" alt="Architecture"></p>
-<h4 id="Wedges-and-Arcs"><a href="#Wedges-and-Arcs" class="headerlink" title="Wedges and Arcs"></a>Wedges and Arcs</h4><pre><code>from bokeh.plotting import figure, show
-
-p = figure(plot_width=400, plot_height=400)
-p.annulus(x=[1, 2, 3], y=[1, 2, 3], inner_radius=0.1, outer_radius=0.25,
-        color=&quot;orange&quot;, alpha=0.6)
-
-show(p)
-</code></pre><p><img src="/2019/07/15/PythonBokeh/9.png" alt="Architecture"></p>
-<h4 id="Twin-Axes"><a href="#Twin-Axes" class="headerlink" title="Twin Axes"></a>Twin Axes</h4><pre><code>from numpy import pi, arange, sin, linspace
-from bokeh.plotting import output_file, figure, show
-from bokeh.models import LinearAxis, Range1d
-
-x = arange(-2*pi, 2*pi, 0.1)
-y = sin(x)
-y2 = linspace(0, 100, len(y))
-
-output_file(&quot;twin_axis.html&quot;)
-
-p = figure(x_range=(-6.5, 6.5), y_range=(-1.1, 1.1))
-
-p.circle(x, y, color=&quot;red&quot;)
-
-p.extra_y_ranges = {&quot;foo&quot;: Range1d(start=0, end=100)}
-p.circle(x, y2, color=&quot;blue&quot;, y_range_name=&quot;foo&quot;)
-p.add_layout(LinearAxis(y_range_name=&quot;foo&quot;), &apos;left&apos;)
-
-show(p)
-</code></pre><p><img src="/2019/07/15/PythonBokeh/10.png" alt="Architecture"></p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://bokeh.pydata.org/en/latest/docs/user_guide/plotting.html#userguide-plotting" target="_blank" rel="noopener">Plotting with Basic Glyphs</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2161,7 +2065,7 @@ show(p)
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">124</span>
+                  <span class="site-state-item-count">125</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
@@ -2183,7 +2087,7 @@ show(p)
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">標籤</span>
                 </a>
               </div>

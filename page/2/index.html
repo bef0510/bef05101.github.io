@@ -252,6 +252,179 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/22/AngularAuthO365Adal/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/10/22/AngularAuthO365Adal/" itemprop="url">Angular Auth O365 V1.0 using adal</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-10-22T11:19:16+08:00">
+                2019-10-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Angular/" itemprop="url" rel="index">
+                    <span itemprop="name">Angular</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Auth-O365-V1-0-using-adal"><a href="#Auth-O365-V1-0-using-adal" class="headerlink" title="Auth O365 V1.0 using adal"></a>Auth O365 V1.0 using adal</h1><ol>
+<li><p><strong>Install</strong><br><code>npm i microsoft-adal-angular6 --save</code><br><img src="/2019/10/22/AngularAuthO365Adal/1.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Modify file environment.ts</strong><br><strong>src\environments\environment.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> const environment = &#123;</span><br><span class="line">  production: <span class="literal">false</span>,</span><br><span class="line">  tenant: <span class="string">'8135e33d-36db-4906-af5e-6a7df298ed96'</span>,</span><br><span class="line">  clientId: <span class="string">'310c879d-fa10-4d7e-be1b-3efe6a38a04c'</span>,</span><br><span class="line">  extraQueryParameter: <span class="string">'nux=1'</span>, // This is optional</span><br><span class="line">  endpoints: &#123;</span><br><span class="line">    <span class="string">"http://localhost:4200/"</span>: <span class="string">'310c879d-fa10-4d7e-be1b-3efe6a38a04c'</span> // Note, this is an object, you could add several things here</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Add user.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> class User &#123;</span><br><span class="line">    id: number;</span><br><span class="line">    username: string;</span><br><span class="line">    password: string;</span><br><span class="line">    firstName: string;</span><br><span class="line">    lastName: string;</span><br><span class="line">    authdata?: string;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>app.component.html</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;button (click)=<span class="string">"onSignIn()"</span>&gt;Sign In&lt;/button&gt;</span><br><span class="line">&lt;button (click)=<span class="string">"onSignOut()"</span>&gt;Sign Out&lt;/button&gt;</span><br><span class="line">&lt;button (click)=<span class="string">"onGetInfo()"</span>&gt;Get Info&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>app.component.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import &#123; MsAdalAngular6Service &#125; from <span class="string">'microsoft-adal-angular6'</span>;</span><br><span class="line">import &#123; HttpClient &#125; from <span class="string">'@angular/common/http'</span>;</span><br><span class="line">import &#123; map&#125; from <span class="string">'rxjs/operators'</span>;</span><br><span class="line">import &#123; BehaviorSubject, Observable &#125; from <span class="string">'rxjs'</span>;</span><br><span class="line">import &#123; User &#125; from <span class="string">'./user'</span>;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-root'</span>,</span><br><span class="line">  templateUrl: <span class="string">'./app.component.html'</span>,</span><br><span class="line">  styleUrls: [<span class="string">'./app.component.css'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line">  title = <span class="string">'adal8'</span>;</span><br><span class="line">  private currentUserSubject: BehaviorSubject&lt;User&gt;;</span><br><span class="line">  public currentUser: Observable&lt;User&gt;;</span><br><span class="line">  </span><br><span class="line">  constructor(private adalSvc: MsAdalAngular6Service, private http: HttpClient)&#123;</span><br><span class="line"></span><br><span class="line">      this.currentUserSubject = new BehaviorSubject&lt;User&gt;(JSON.parse(localStorage.getItem(<span class="string">'currentUser'</span>)));</span><br><span class="line"></span><br><span class="line">      this.currentUser = this.currentUserSubject.asObservable();</span><br><span class="line"></span><br><span class="line">      this.adalSvc.acquireToken(<span class="string">'https://graph.microsoft.com'</span>).subscribe(</span><br><span class="line">        next =&gt; &#123;</span><br><span class="line">          this.currentUser = next;</span><br><span class="line">          localStorage.setItem(<span class="string">'currentUser'</span>, JSON.stringify(next));</span><br><span class="line"></span><br><span class="line">        &#125;,</span><br><span class="line">        error =&gt; &#123;</span><br><span class="line">          this.onSignIn();</span><br><span class="line">        &#125;</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="title">onSignIn</span></span>() &#123;</span><br><span class="line">    this.adalSvc.login();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">onSignOut</span></span>() &#123;</span><br><span class="line">    this.adalSvc.logout();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">onGetInfo</span></span>() &#123;</span><br><span class="line">    <span class="built_in">let</span> aa = this.adalSvc.userInfo;</span><br><span class="line"></span><br><span class="line">    const api = `https://172.17.98.63:8096/ForAuth/testAuth/11`;</span><br><span class="line">    this.http.get&lt;ApiResult[]&gt;(api).pipe(</span><br><span class="line">      map((result: any) =&gt; &#123;</span><br><span class="line">        console.log(123, result)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (result.statusCode === <span class="string">'200'</span>) &#123;</span><br><span class="line">          <span class="built_in">return</span> JSON.parse(result.datas);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    ).subscribe((result) =&gt; &#123;</span><br><span class="line">      console.log(789, result)</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> interface ApiResult &#123;</span><br><span class="line">  statusCode: string;</span><br><span class="line">  statusMessage: string;</span><br><span class="line">  datas: any;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>app.module.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">import &#123; BrowserModule &#125; from <span class="string">'@angular/platform-browser'</span>;</span><br><span class="line">import &#123; NgModule &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import &#123; HttpClientModule &#125; from <span class="string">'@angular/common/http'</span>;</span><br><span class="line">import &#123; HTTP_INTERCEPTORS &#125; from <span class="string">'@angular/common/http'</span>;</span><br><span class="line">import &#123; MsAdalAngular6Module &#125; from <span class="string">'microsoft-adal-angular6'</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import &#123; AppRoutingModule &#125; from <span class="string">'./app-routing.module'</span>;</span><br><span class="line">import &#123; AppComponent &#125; from <span class="string">'./app.component'</span>;</span><br><span class="line">import &#123; environment &#125; from <span class="string">'../environments/environment'</span>;</span><br><span class="line">//import &#123; InsertAuthTokenInterceptor &#125; from <span class="string">'./insert-auth-token-interceptor'</span>;</span><br><span class="line"></span><br><span class="line">@NgModule(&#123;</span><br><span class="line">  declarations: [</span><br><span class="line">    AppComponent</span><br><span class="line">  ],</span><br><span class="line">  imports: [</span><br><span class="line">    BrowserModule,</span><br><span class="line">    AppRoutingModule,</span><br><span class="line">    HttpClientModule,</span><br><span class="line">    MsAdalAngular6Module.forRoot(&#123;</span><br><span class="line">      tenant: environment.tenant,</span><br><span class="line">      clientId: environment.clientId,</span><br><span class="line">      redirectUri: window.location.origin,</span><br><span class="line">      endpoints: environment.endpoints,</span><br><span class="line">      navigateToLoginRequestUrl: <span class="literal">false</span>,</span><br><span class="line">      extraQueryParameter: environment.extraQueryParameter,</span><br><span class="line">      cacheLocation: <span class="string">'localStorage'</span></span><br><span class="line">    &#125;),</span><br><span class="line">  ],</span><br><span class="line">  providers: [],</span><br><span class="line">  bootstrap: [AppComponent]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppModule &#123; &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Run server</strong><br><img src="/2019/10/22/AngularAuthO365Adal/2.gif" alt="Architecture"></p>
+</li>
+</ol>
+<h2 id="With-header-token"><a href="#With-header-token" class="headerlink" title="With header token"></a>With header token</h2><ol>
+<li><p><strong>Add insert-auth-token-interceptor.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Injectable &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import &#123; HttpInterceptor, HttpHandler, HttpRequest &#125; from <span class="string">'@angular/common/http'</span>;</span><br><span class="line">import &#123; mergeMap &#125; from <span class="string">'rxjs/operators'</span>;</span><br><span class="line">import &#123; MsAdalAngular6Service &#125; from <span class="string">'microsoft-adal-angular6'</span>;</span><br><span class="line"> </span><br><span class="line">@Injectable(&#123;</span><br><span class="line">    providedIn: <span class="string">'root'</span></span><br><span class="line">  &#125;)</span><br><span class="line"><span class="built_in">export</span> class InsertAuthTokenInterceptor implements HttpInterceptor &#123;</span><br><span class="line"> </span><br><span class="line">    constructor(private adal: MsAdalAngular6Service) &#123; &#125;</span><br><span class="line"> </span><br><span class="line">    public intercept(req: HttpRequest&lt;any&gt;, next: HttpHandler) &#123;</span><br><span class="line"></span><br><span class="line">        // get api url from adal config</span><br><span class="line">        const resource = this.adal.GetResourceForEndpoint(req.url);</span><br><span class="line">        <span class="keyword">if</span> (!resource || !this.adal.isAuthenticated) &#123;</span><br><span class="line">            <span class="built_in">return</span> next.handle(req);</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        // merge the bearer token into the existing headers</span><br><span class="line">        <span class="built_in">return</span> this.adal.acquireToken(resource).pipe(</span><br><span class="line">            mergeMap((token: string) =&gt; &#123;</span><br><span class="line">                console.log(<span class="string">'token'</span>, token)</span><br><span class="line">                const authorizedRequest = req.clone(&#123;</span><br><span class="line">                    headers: req.headers.set(<span class="string">'api'</span>, `Bearer <span class="variable">$&#123;token&#125;</span>`),</span><br><span class="line">                &#125;);</span><br><span class="line">                <span class="built_in">return</span> next.handle(authorizedRequest);</span><br><span class="line">        &#125;));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>app.module.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import &#123; InsertAuthTokenInterceptor &#125; from <span class="string">'./insert-auth-token-interceptor'</span>;</span><br><span class="line"></span><br><span class="line">@NgModule(&#123;</span><br><span class="line">  ...</span><br><span class="line">  providers: [  &#123;</span><br><span class="line">      provide: HTTP_INTERCEPTORS,</span><br><span class="line">      useClass: InsertAuthTokenInterceptor,</span><br><span class="line">      multi: <span class="literal">true</span>,</span><br><span class="line">    &#125;],</span><br><span class="line">  ...</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppModule &#123; &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>GetInfo</strong><br><img src="/2019/10/22/AngularAuthO365Adal/3.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.npmjs.com/package/microsoft-adal-angular6" target="_blank" rel="noopener">microsoft-adal-angular6</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/09/RInVisualStudioCode/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1855,230 +2028,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/21/InstallDFSSetting/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/21/InstallDFSSetting/" itemprop="url">Windows Server 2016 DFS 設定 Ⅱ</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-08-21T11:02:35+08:00">
-                2019-08-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MIS/" itemprop="url" rel="index">
-                    <span itemprop="name">MIS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="DFS-設定-Ⅱ"><a href="#DFS-設定-Ⅱ" class="headerlink" title="DFS 設定 Ⅱ"></a>DFS 設定 Ⅱ</h1><h4 id="Server-A-amp-Server-B"><a href="#Server-A-amp-Server-B" class="headerlink" title="Server A &amp; Server B"></a>Server A &amp; Server B</h4><ol>
-<li><p><strong>Folder</strong> 右鍵 → <strong>Properties</strong><br><img src="/2019/08/21/InstallDFSSetting/1.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Sharing</strong> → <strong>Advanced Sharing…</strong><br><img src="/2019/08/21/InstallDFSSetting/2.png" alt="Architecture"></p>
-</li>
-<li><p><strong>checked Share this folder</strong> → <strong>Permissions</strong><br><img src="/2019/08/21/InstallDFSSetting/3.png" alt="Architecture"></p>
-</li>
-<li><p>勾選 <strong>Full Control</strong><br><img src="/2019/08/21/InstallDFSSetting/4.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Security</strong> → <strong>Edit</strong><br><img src="/2019/08/21/InstallDFSSetting/5.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Add…</strong><br><img src="/2019/08/21/InstallDFSSetting/6.png" alt="Architecture"></p>
-</li>
-<li><p>輸入 <strong>Domain Users</strong> → <strong>EdiCheck Names</strong><br><img src="/2019/08/21/InstallDFSSetting/7.png" alt="Architecture"></p>
-</li>
-<li><p>輸入 <strong>Domain</strong> 帳密<br><img src="/2019/08/21/InstallDFSSetting/8.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Domain Users</strong> → 勾選 <strong>Full Control</strong><br><img src="/2019/08/21/InstallDFSSetting/9.png" alt="Architecture"></p>
-</li>
-<li><p>檔案總管輸入 <strong>\\serverName\shareFolder</strong><br><img src="/2019/08/21/InstallDFSSetting/10.png" alt="Architecture"></p>
-</li>
-</ol>
-<h4 id="DFS-Server"><a href="#DFS-Server" class="headerlink" title="DFS Server"></a>DFS Server</h4><ol>
-<li><p><strong>Namespaces</strong> 右鍵 → <strong>New Namespace…</strong><br><img src="/2019/08/21/InstallDFSSetting/11.png" alt="Architecture"></p>
-</li>
-<li><p>輸入 <strong>Server A Name</strong> → <strong>Next</strong><br><img src="/2019/08/21/InstallDFSSetting/12.png" alt="Architecture"></p>
-</li>
-<li><p>輸入 <strong>Name</strong> → <strong>Edit Settings…</strong><br><img src="/2019/08/21/InstallDFSSetting/13.png" alt="Architecture"></p>
-</li>
-<li><p>選取 <strong>Use custom permissions</strong> → <strong>Customize…</strong><br><img src="/2019/08/21/InstallDFSSetting/14.png" alt="Architecture"></p>
-</li>
-<li><p>勾選 <strong>Full Control</strong><br><img src="/2019/08/21/InstallDFSSetting/15.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/08/21/InstallDFSSetting/16.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/08/21/InstallDFSSetting/17.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Create</strong><br><img src="/2019/08/21/InstallDFSSetting/18.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Close</strong><br><img src="/2019/08/21/InstallDFSSetting/19.png" alt="Architecture"></p>
-</li>
-<li><p>檔案總管輸入 <strong>\\serverName\shareName</strong><br><img src="/2019/08/21/InstallDFSSetting/20.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Name</strong> 右鍵 → <strong>New Folder…</strong><br><img src="/2019/08/21/InstallDFSSetting/21.png" alt="Architecture"></p>
-</li>
-<li><p>輸入 <strong>Name</strong> → <strong>Add…</strong><br><img src="/2019/08/21/InstallDFSSetting/22.png" alt="Architecture"></p>
-</li>
-<li><p>輸入 <strong>Server A</strong> → <strong>Browse…</strong><br><img src="/2019/08/21/InstallDFSSetting/23.png" alt="Architecture"></p>
-</li>
-<li><p>點選 <strong>Shared folders</strong> → <strong>OK</strong><br><img src="/2019/08/21/InstallDFSSetting/24.png" alt="Architecture"></p>
-</li>
-<li><p><strong>OK</strong><br><img src="/2019/08/21/InstallDFSSetting/25.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Add…</strong><br><img src="/2019/08/21/InstallDFSSetting/26.png" alt="Architecture"></p>
-</li>
-<li><p>輸入 <strong>Server B</strong> → <strong>Browse…</strong><br><img src="/2019/08/21/InstallDFSSetting/27.png" alt="Architecture"></p>
-</li>
-<li><p>點選 <strong>Shared folders</strong> → <strong>OK</strong><br><img src="/2019/08/21/InstallDFSSetting/28.png" alt="Architecture"></p>
-</li>
-<li><p><strong>OK</strong><br><img src="/2019/08/21/InstallDFSSetting/29.png" alt="Architecture"></p>
-</li>
-<li><p><strong>OK</strong><br><img src="/2019/08/21/InstallDFSSetting/30.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Yes</strong><br><img src="/2019/08/21/InstallDFSSetting/31.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/08/21/InstallDFSSetting/32.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/08/21/InstallDFSSetting/33.png" alt="Architecture"></p>
-</li>
-<li><p>選取 <strong>Server A</strong> → <strong>Next</strong><br><img src="/2019/08/21/InstallDFSSetting/34.png" alt="Architecture"></p>
-</li>
-<li><p>選取 <strong>Full mesh</strong> → <strong>Next</strong><br><img src="/2019/08/21/InstallDFSSetting/35.png" alt="Architecture"></p>
-</li>
-<li><p>選取 <strong>Replicate continuously using the specified bandwidth</strong> → <strong>Next</strong><br><img src="/2019/08/21/InstallDFSSetting/36.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Create</strong><br><img src="/2019/08/21/InstallDFSSetting/37.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Close</strong><br><img src="/2019/08/21/InstallDFSSetting/38.png" alt="Architecture"></p>
-</li>
-<li><p><strong>OK</strong><br><img src="/2019/08/21/InstallDFSSetting/39.png" alt="Architecture"></p>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=CNL-hAC7CYA" target="_blank" rel="noopener">How to configure Distributed File System in Windows Server 2016</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2131,7 +2080,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">124</span>
+                  <span class="site-state-item-count">125</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
@@ -2153,7 +2102,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">標籤</span>
                 </a>
               </div>

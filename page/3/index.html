@@ -252,6 +252,230 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/21/InstallDFSSetting/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/21/InstallDFSSetting/" itemprop="url">Windows Server 2016 DFS 設定 Ⅱ</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-08-21T11:02:35+08:00">
+                2019-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MIS/" itemprop="url" rel="index">
+                    <span itemprop="name">MIS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="DFS-設定-Ⅱ"><a href="#DFS-設定-Ⅱ" class="headerlink" title="DFS 設定 Ⅱ"></a>DFS 設定 Ⅱ</h1><h4 id="Server-A-amp-Server-B"><a href="#Server-A-amp-Server-B" class="headerlink" title="Server A &amp; Server B"></a>Server A &amp; Server B</h4><ol>
+<li><p><strong>Folder</strong> 右鍵 → <strong>Properties</strong><br><img src="/2019/08/21/InstallDFSSetting/1.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Sharing</strong> → <strong>Advanced Sharing…</strong><br><img src="/2019/08/21/InstallDFSSetting/2.png" alt="Architecture"></p>
+</li>
+<li><p><strong>checked Share this folder</strong> → <strong>Permissions</strong><br><img src="/2019/08/21/InstallDFSSetting/3.png" alt="Architecture"></p>
+</li>
+<li><p>勾選 <strong>Full Control</strong><br><img src="/2019/08/21/InstallDFSSetting/4.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Security</strong> → <strong>Edit</strong><br><img src="/2019/08/21/InstallDFSSetting/5.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Add…</strong><br><img src="/2019/08/21/InstallDFSSetting/6.png" alt="Architecture"></p>
+</li>
+<li><p>輸入 <strong>Domain Users</strong> → <strong>EdiCheck Names</strong><br><img src="/2019/08/21/InstallDFSSetting/7.png" alt="Architecture"></p>
+</li>
+<li><p>輸入 <strong>Domain</strong> 帳密<br><img src="/2019/08/21/InstallDFSSetting/8.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Domain Users</strong> → 勾選 <strong>Full Control</strong><br><img src="/2019/08/21/InstallDFSSetting/9.png" alt="Architecture"></p>
+</li>
+<li><p>檔案總管輸入 <strong>\\serverName\shareFolder</strong><br><img src="/2019/08/21/InstallDFSSetting/10.png" alt="Architecture"></p>
+</li>
+</ol>
+<h4 id="DFS-Server"><a href="#DFS-Server" class="headerlink" title="DFS Server"></a>DFS Server</h4><ol>
+<li><p><strong>Namespaces</strong> 右鍵 → <strong>New Namespace…</strong><br><img src="/2019/08/21/InstallDFSSetting/11.png" alt="Architecture"></p>
+</li>
+<li><p>輸入 <strong>Server A Name</strong> → <strong>Next</strong><br><img src="/2019/08/21/InstallDFSSetting/12.png" alt="Architecture"></p>
+</li>
+<li><p>輸入 <strong>Name</strong> → <strong>Edit Settings…</strong><br><img src="/2019/08/21/InstallDFSSetting/13.png" alt="Architecture"></p>
+</li>
+<li><p>選取 <strong>Use custom permissions</strong> → <strong>Customize…</strong><br><img src="/2019/08/21/InstallDFSSetting/14.png" alt="Architecture"></p>
+</li>
+<li><p>勾選 <strong>Full Control</strong><br><img src="/2019/08/21/InstallDFSSetting/15.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Next</strong><br><img src="/2019/08/21/InstallDFSSetting/16.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Next</strong><br><img src="/2019/08/21/InstallDFSSetting/17.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Create</strong><br><img src="/2019/08/21/InstallDFSSetting/18.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Close</strong><br><img src="/2019/08/21/InstallDFSSetting/19.png" alt="Architecture"></p>
+</li>
+<li><p>檔案總管輸入 <strong>\\serverName\shareName</strong><br><img src="/2019/08/21/InstallDFSSetting/20.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Name</strong> 右鍵 → <strong>New Folder…</strong><br><img src="/2019/08/21/InstallDFSSetting/21.png" alt="Architecture"></p>
+</li>
+<li><p>輸入 <strong>Name</strong> → <strong>Add…</strong><br><img src="/2019/08/21/InstallDFSSetting/22.png" alt="Architecture"></p>
+</li>
+<li><p>輸入 <strong>Server A</strong> → <strong>Browse…</strong><br><img src="/2019/08/21/InstallDFSSetting/23.png" alt="Architecture"></p>
+</li>
+<li><p>點選 <strong>Shared folders</strong> → <strong>OK</strong><br><img src="/2019/08/21/InstallDFSSetting/24.png" alt="Architecture"></p>
+</li>
+<li><p><strong>OK</strong><br><img src="/2019/08/21/InstallDFSSetting/25.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Add…</strong><br><img src="/2019/08/21/InstallDFSSetting/26.png" alt="Architecture"></p>
+</li>
+<li><p>輸入 <strong>Server B</strong> → <strong>Browse…</strong><br><img src="/2019/08/21/InstallDFSSetting/27.png" alt="Architecture"></p>
+</li>
+<li><p>點選 <strong>Shared folders</strong> → <strong>OK</strong><br><img src="/2019/08/21/InstallDFSSetting/28.png" alt="Architecture"></p>
+</li>
+<li><p><strong>OK</strong><br><img src="/2019/08/21/InstallDFSSetting/29.png" alt="Architecture"></p>
+</li>
+<li><p><strong>OK</strong><br><img src="/2019/08/21/InstallDFSSetting/30.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Yes</strong><br><img src="/2019/08/21/InstallDFSSetting/31.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Next</strong><br><img src="/2019/08/21/InstallDFSSetting/32.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Next</strong><br><img src="/2019/08/21/InstallDFSSetting/33.png" alt="Architecture"></p>
+</li>
+<li><p>選取 <strong>Server A</strong> → <strong>Next</strong><br><img src="/2019/08/21/InstallDFSSetting/34.png" alt="Architecture"></p>
+</li>
+<li><p>選取 <strong>Full mesh</strong> → <strong>Next</strong><br><img src="/2019/08/21/InstallDFSSetting/35.png" alt="Architecture"></p>
+</li>
+<li><p>選取 <strong>Replicate continuously using the specified bandwidth</strong> → <strong>Next</strong><br><img src="/2019/08/21/InstallDFSSetting/36.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Create</strong><br><img src="/2019/08/21/InstallDFSSetting/37.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Close</strong><br><img src="/2019/08/21/InstallDFSSetting/38.png" alt="Architecture"></p>
+</li>
+<li><p><strong>OK</strong><br><img src="/2019/08/21/InstallDFSSetting/39.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=CNL-hAC7CYA" target="_blank" rel="noopener">How to configure Distributed File System in Windows Server 2016</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/19/AngularAndNetCoreJWT/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1923,165 +2147,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/18/AngularBuildExpressServer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/18/AngularBuildExpressServer/" itemprop="url">Angular Build Express Node Server</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-18T16:08:48+08:00">
-                2019-07-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Angular/" itemprop="url" rel="index">
-                    <span itemprop="name">Angular</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Build-Express-Server"><a href="#Build-Express-Server" class="headerlink" title="Build Express Server"></a>Build Express Server</h1><ol>
-<li><p><strong>Create Folder</strong></p>
-</li>
-<li><p><strong>Init</strong><br><code>npm init –yes</code><br><img src="/2019/07/18/AngularBuildExpressServer/1.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Install</strong><br><code>npm install --save express body-parser cors</code><br><img src="/2019/07/18/AngularBuildExpressServer/2.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Create server.js</strong><br><img src="/2019/07/18/AngularBuildExpressServer/3.png" alt="Architecture"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">const express = require(<span class="string">"express"</span>);</span><br><span class="line">const bodyParser = require(<span class="string">"body-parser"</span>);</span><br><span class="line">const cors = require(<span class="string">"cors"</span>);</span><br><span class="line"></span><br><span class="line">const PORT = 3000;</span><br><span class="line"></span><br><span class="line">const app = express();</span><br><span class="line"></span><br><span class="line">app.use(bodyParser.json());</span><br><span class="line"></span><br><span class="line">app.use(cors());</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">"/"</span>, <span class="keyword">function</span>(req, res) &#123;</span><br><span class="line">    res.send(<span class="string">"Hello from server"</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.post(<span class="string">"/enroll"</span>, <span class="keyword">function</span>(req, res) &#123;</span><br><span class="line">    console.log(req.body);</span><br><span class="line">    res.status(200).send(&#123;<span class="string">"message"</span>: <span class="string">"Data received"</span>&#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.listen(PORT, <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    console.log(<span class="string">"Server running on localhost:"</span> + PORT);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Run Server</strong><br><code>node server</code><br><img src="/2019/07/18/AngularBuildExpressServer/4.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Input url at browser</strong><br><img src="/2019/07/18/AngularBuildExpressServer/5.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Using postman</strong><br><strong>postman</strong><br><img src="/2019/07/18/AngularBuildExpressServer/6.png" alt="Architecture"><br><strong>Express server terminal</strong><br><img src="/2019/07/18/AngularBuildExpressServer/7.png" alt="Architecture"></p>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=jwA-9XXybdM&amp;list=PLC3y8-rFHvwhBRAgFinJR8KHIrCdTkZcZ&amp;index=45" target="_blank" rel="noopener">Angular Forms Tutorial - 13 - Express Server to Receive Form Data</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2134,7 +2199,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">124</span>
+                  <span class="site-state-item-count">125</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
@@ -2156,7 +2221,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">標籤</span>
                 </a>
               </div>
