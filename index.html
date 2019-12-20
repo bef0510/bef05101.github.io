@@ -252,6 +252,177 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/20/DotNetCoreGenericCallSql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/12/20/DotNetCoreGenericCallSql/" itemprop="url">.Net Core 3 Dapper + 泛型 取 Sql 資料</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-12-20T14:52:33+08:00">
+                2019-12-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Net-Core/" itemprop="url" rel="index">
+                    <span itemprop="name">.Net Core</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Net-Core-3-Dapper-泛型-取-Sql-資料"><a href="#Net-Core-3-Dapper-泛型-取-Sql-資料" class="headerlink" title=".Net Core 3 Dapper + 泛型 取 Sql 資料"></a>.Net Core 3 Dapper + 泛型 取 Sql 資料</h2><h4 id="下載套件"><a href="#下載套件" class="headerlink" title="下載套件"></a>下載套件</h4><ol>
+<li>組合鍵 <strong>Ctrl+Shift+P</strong></li>
+<li>下載 <strong>System.Data.SqlClient</strong></li>
+<li>下載 <strong>Dapper</strong></li>
+<li>下載 <strong>Microsoft.Extensions.Configuration.Json</strong></li>
+</ol>
+<h4 id="新專案"><a href="#新專案" class="headerlink" title="新專案"></a>新專案</h4><ol>
+<li><p><strong>Create appsettings.json</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"ConnectionStrings"</span>: &#123;</span><br><span class="line">        <span class="string">"DefaultConnection"</span>: <span class="string">"Data Source=172.17.102.113;Initial Catalog=NewPortal;User ID=test555;Password=test555"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"Message"</span>: <span class="string">"It's appsettings.json"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Create SqlParamterModel.cs under folder Models</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">namespace textConsole.Models</span><br><span class="line">&#123;</span><br><span class="line">    public class SqlParamterModel</span><br><span class="line">    &#123;</span><br><span class="line">        public string Name &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public object Value &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        public SqlParamterModel(string name, object value)</span><br><span class="line">		&#123;</span><br><span class="line">			this.Name = name;</span><br><span class="line">			this.Value = value;</span><br><span class="line">		&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Create EmployeeModel.cs under folder Models</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">namespace textConsole.Models</span><br><span class="line">&#123;</span><br><span class="line">    public class EmployeeModel</span><br><span class="line">    &#123;</span><br><span class="line">        public string DHID &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DHGUID &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussName &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussRemark &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussAdmin &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussOrder &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussParentDHID &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussType &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussURL &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussIconPath &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussSite &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussAttachSizeLimit &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string AddDate &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string AddEmpNo &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string ModDate &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string ModEmpNo &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string ActiveStatus &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussDisplayType &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Create AppSettingHelper.cs under folder Extensions</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">using System.IO;</span><br><span class="line">using Microsoft.Extensions.Configuration;</span><br><span class="line"></span><br><span class="line">namespace textConsole.Extensions</span><br><span class="line">&#123;</span><br><span class="line">    public static class AppSettingHelper</span><br><span class="line">    &#123;</span><br><span class="line">        public static string DefaultConnection =&gt; ReadFromAppSettings().GetConnectionString(<span class="string">"DefaultConnection"</span>);</span><br><span class="line"></span><br><span class="line">        public static IConfigurationRoot ReadFromAppSettings()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">return</span> new ConfigurationBuilder()</span><br><span class="line">                .SetBasePath(Directory.GetCurrentDirectory())</span><br><span class="line">                .AddJsonFile(<span class="string">"appsettings.json"</span>, optional:<span class="literal">true</span>,reloadOnChange: <span class="literal">true</span>)</span><br><span class="line">                .Build();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Create SqlHelper.cs under folder Extensions</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Data.SqlClient;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">using Dapper;</span><br><span class="line">using textConsole.Models;</span><br><span class="line"></span><br><span class="line">namespace textConsole.Extensions</span><br><span class="line">&#123;</span><br><span class="line">    public static class SqlHelper</span><br><span class="line">    &#123;</span><br><span class="line">        public static async Task&lt;IEnumerable&lt;T&gt;&gt; Execute&lt;T&gt;(string connString, string queryString)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">return</span> await SqlHelper.Execute&lt;T&gt;(connString, queryString, new SqlParamterModel[] &#123; &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public static async Task&lt;IEnumerable&lt;T&gt;&gt; Execute&lt;T&gt;(string connString, string queryString, SqlParamterModel[] parameters)</span><br><span class="line">        &#123;</span><br><span class="line">            using (var conn = new SqlConnection(connString))</span><br><span class="line">            &#123;</span><br><span class="line">                DynamicParameters dynamicParameters = new DynamicParameters();</span><br><span class="line"></span><br><span class="line">                foreach (var item <span class="keyword">in</span> parameters)</span><br><span class="line">                &#123;</span><br><span class="line">                    dynamicParameters.Add(item.Name, item.Value);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                try</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="built_in">return</span> await conn.QueryAsync&lt;T&gt;(queryString, dynamicParameters);</span><br><span class="line">                &#125;</span><br><span class="line">                catch(SqlException ex)</span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(ex.StackTrace);</span><br><span class="line">                    <span class="built_in">return</span> null;</span><br><span class="line">                &#125;</span><br><span class="line">                finally</span><br><span class="line">                &#123;</span><br><span class="line">                    conn.Close();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Create EmployeeRepository.cs under folder Repositories</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">using textConsole.Extensions;</span><br><span class="line">using textConsole.Models;</span><br><span class="line"></span><br><span class="line">namespace textConsole.Repositories</span><br><span class="line">&#123;</span><br><span class="line">    public class EmployeeRepository</span><br><span class="line">    &#123;</span><br><span class="line">        public async Task&lt;IEnumerable&lt;EmployeeModel&gt;&gt; GetEmployee()</span><br><span class="line">        &#123;</span><br><span class="line">            string connString = AppSettingHelper.DefaultConnection;</span><br><span class="line">            string queryString = <span class="string">"SELECT top 10 * FROM BBS_Discuss"</span>;</span><br><span class="line">   </span><br><span class="line">            <span class="built_in">return</span> await SqlHelper.Execute&lt;EmployeeModel&gt;(connString, queryString);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public async Task&lt;IEnumerable&lt;EmployeeModel&gt;&gt; GetEmployeeByDiscuss(string <span class="built_in">type</span>, int parent)</span><br><span class="line">        &#123;</span><br><span class="line">            string connString = AppSettingHelper.DefaultConnection;</span><br><span class="line">            string queryString = <span class="string">"SELECT top 10 * FROM BBS_Discuss WHERE DiscussType = @DiscussType AND DiscussParentDHID = @DiscussParentDHID"</span>;</span><br><span class="line">   </span><br><span class="line">            <span class="built_in">return</span> await SqlHelper.Execute&lt;EmployeeModel&gt;(connString, queryString,</span><br><span class="line">                new SqlParamterModel[]&#123;</span><br><span class="line">                    new SqlParamterModel(<span class="string">"DiscussType"</span>, <span class="built_in">type</span>),</span><br><span class="line">                    new SqlParamterModel(<span class="string">"DiscussParentDHID"</span>, parent)</span><br><span class="line">                &#125;</span><br><span class="line">            );</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Modify Program.cs</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text.Json;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">using textConsole.Repositories;</span><br><span class="line"></span><br><span class="line">namespace textConsole</span><br><span class="line">&#123;</span><br><span class="line">    class Program</span><br><span class="line">    &#123;</span><br><span class="line">        static async Task Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            var allEmp = await new EmployeeRepository().GetEmployee();</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(JsonSerializer.Serialize(allEmp));</span><br><span class="line"></span><br><span class="line">            var aEmp = await new EmployeeRepository().GetEmployeeByDiscuss(<span class="string">"D"</span>, 28);</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(JsonSerializer.Serialize(aEmp));</span><br><span class="line">            Console.WriteLine(aEmp.ToList().Count);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://dotnetcoretutorials.com/2019/08/03/dapper-in-net-core-part-1-the-what-why-who/" target="_blank" rel="noopener">Dapper In .NET Core – Part 1 – The What/Why/Who</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/29/DotNetCoreConsoleCallWebApi/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1652,173 +1823,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/22/AngularAuthO365Msal/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/10/22/AngularAuthO365Msal/" itemprop="url">Angular Auth O365 V2.0 using msal</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-10-22T12:10:55+08:00">
-                2019-10-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Angular/" itemprop="url" rel="index">
-                    <span itemprop="name">Angular</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Auth-O365-V2-0-using-msal"><a href="#Auth-O365-V2-0-using-msal" class="headerlink" title="Auth O365 V2.0 using msal"></a>Auth O365 V2.0 using msal</h1><ol>
-<li><p><strong>Install</strong><br><code>npm i msal --save</code><br><img src="/2019/10/22/AngularAuthO365Msal/1.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Modify file environment.ts</strong><br><strong>src\environments\environment.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> const environment = &#123;</span><br><span class="line">  production: <span class="literal">false</span>,</span><br><span class="line">  clientID: <span class="string">'310c879d-fa10-4d7e-be1b-3efe6a38a04c'</span>,</span><br><span class="line">  redirectUri: <span class="string">'http://172.17.98.158:5500/'</span>,</span><br><span class="line">  authority: <span class="string">'https://login.microsoftonline.com/8135e33d-36db-4906-af5e-6a7df298ed96'</span>,</span><br><span class="line">  interactionMode: <span class="string">'popUp'</span>,</span><br><span class="line">  graphEndpoint: <span class="string">'https://graph.microsoft.com/v1.0/me'</span>,</span><br><span class="line">  graphScopes: [<span class="string">'api://310c879d-fa10-4d7e-be1b-3efe6a38a04c/access_as_user'</span>]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Add auth.service.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Injectable, ɵConsole &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import * as Msal from <span class="string">'msal'</span>;</span><br><span class="line">import &#123; environment &#125; from <span class="string">'../../environments/environment'</span>;</span><br><span class="line">import &#123; from, Observable, of &#125; from <span class="string">'rxjs'</span>;</span><br><span class="line">import &#123; catchError, mergeMap, map &#125; from <span class="string">'rxjs/operators'</span>;</span><br><span class="line">import &#123; CacheLocation &#125; from <span class="string">'msal'</span>;</span><br><span class="line">import &#123; HttpClient &#125; from <span class="string">'@angular/common/http'</span>;</span><br><span class="line">@Injectable(&#123;</span><br><span class="line">  providedIn: <span class="string">'root'</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AuthService &#123;</span><br><span class="line"></span><br><span class="line">  private clientApplication: Msal.UserAgentApplication;</span><br><span class="line">  scope = &#123; scopes: environment.graphScopes &#125;;</span><br><span class="line"></span><br><span class="line">  constructor(private http: HttpClient) &#123;</span><br><span class="line">    this.clientApplication = this.createApplication();</span><br><span class="line">    this.clientApplication.handleRedirectCallback((error, response) =&gt; &#123;</span><br><span class="line">      <span class="keyword">if</span> (error) &#123;</span><br><span class="line">        console.log(error);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (response.tokenType === <span class="string">"access_token"</span>) &#123;</span><br><span class="line">          console.log(<span class="string">'response.tokenType'</span>, response.tokenType)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          console.log(<span class="string">"token type is:"</span> + response.tokenType);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  onLoginPopup(): Observable&lt;string | Msal.AuthResponse&gt; &#123;</span><br><span class="line">    const loginPop = from(this.clientApplication.loginPopup(this.scope));</span><br><span class="line"></span><br><span class="line">    <span class="built_in">return</span> loginPop.pipe(</span><br><span class="line">      mergeMap(token =&gt; &#123;</span><br><span class="line">        console.log(<span class="string">'token'</span>, token)</span><br><span class="line">        <span class="built_in">return</span> this.onRefresh();</span><br><span class="line">      &#125;)</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">onLoginRedirect</span></span>() &#123;</span><br><span class="line">    this.clientApplication.loginRedirect(this.scope);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  onGetAccount(): Msal.Account &#123;</span><br><span class="line">    <span class="built_in">return</span> this.clientApplication.getAccount();</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  onRefresh(): Observable&lt;string | Msal.AuthResponse&gt; &#123;</span><br><span class="line">    <span class="built_in">return</span> this.acquireTokenSilent().pipe(</span><br><span class="line">      catchError(err =&gt; this.acquireTokenPopup())</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">onLogout</span></span>() &#123;</span><br><span class="line">    this.clientApplication.logout();</span><br><span class="line">    localStorage.clear();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  onIsExpire(): boolean &#123;</span><br><span class="line">    const expiration = Math.round(new Date(localStorage.expiresOn).getTime() / 1000);</span><br><span class="line">    const now = Math.round(new Date().getTime() / 1000);</span><br><span class="line">    const leftTime = expiration - now;</span><br><span class="line">    <span class="built_in">return</span> leftTime &lt; 0;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  onSaveToken(accessToken: any): Observable&lt;boolean&gt; &#123;</span><br><span class="line">    localStorage.accessToken = accessToken.accessToken;</span><br><span class="line">    localStorage.expiration = accessToken.idToken.expiration;</span><br><span class="line">    localStorage.expiresOn = accessToken.expiresOn;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">return</span> of(<span class="literal">true</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">getInfo</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">let</span> url = <span class="string">'https://172.17.98.63:8096/ForAuth/testUserisAuth'</span>;</span><br><span class="line">    <span class="built_in">let</span> url1 = <span class="string">'https://graph.microsoft.com/v1.0/me'</span>;</span><br><span class="line"> </span><br><span class="line">    this.http.get(url)</span><br><span class="line">      .subscribe(data =&gt; console.log(data));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  private createApplication(): Msal.UserAgentApplication &#123;</span><br><span class="line">    const msalConfig = &#123;</span><br><span class="line">      auth: &#123;</span><br><span class="line">        clientId: environment.clientID,</span><br><span class="line">        redirectUri: environment.redirectUri,</span><br><span class="line">        authority: environment.authority</span><br><span class="line">      &#125;,</span><br><span class="line">      cache: &#123;</span><br><span class="line">        storeAuthStateInCookie: <span class="literal">true</span>,</span><br><span class="line">        cacheLocation: (<span class="string">'localStorage'</span> as CacheLocation),</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">return</span> new Msal.UserAgentApplication(msalConfig);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  private acquireTokenSilent(): Observable&lt;Msal.AuthResponse&gt; &#123;</span><br><span class="line">    <span class="built_in">return</span> from(</span><br><span class="line">      this.clientApplication.acquireTokenSilent(this.scope)</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  private acquireTokenPopup(): Observable&lt;string | Msal.AuthResponse&gt; &#123;</span><br><span class="line">    <span class="built_in">return</span> from(</span><br><span class="line">      this.clientApplication.acquireTokenPopup(this.scope)</span><br><span class="line">    ).pipe(</span><br><span class="line">      catchError(error =&gt; &#123;</span><br><span class="line">        window.alert(<span class="string">'Error acquiring the popup:\n'</span> + error);</span><br><span class="line">        <span class="built_in">return</span> <span class="string">''</span>;</span><br><span class="line">      &#125;)</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>app.component.html</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;button (click)=<span class="string">"onSignIn()"</span>&gt;Sign In&lt;/button&gt;</span><br><span class="line">&lt;button (click)=<span class="string">"onSignOut()"</span>&gt;Sign Out&lt;/button&gt;</span><br><span class="line">&lt;button (click)=<span class="string">"onGetInfo()"</span>&gt;Get Info&lt;/button&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>app.component.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import &#123; AuthService &#125; from <span class="string">'./auth.service'</span>;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-root'</span>,</span><br><span class="line">  templateUrl: <span class="string">'./app.component.html'</span>,</span><br><span class="line">  styleUrls: [<span class="string">'./app.component.css'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line">  title = <span class="string">'msal8'</span>;</span><br><span class="line"></span><br><span class="line">  constructor(private authService: AuthService)&#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">onSignIn</span></span>() &#123;</span><br><span class="line">    <span class="keyword">if</span> (localStorage.loginType === CONST_INFO.popupType) &#123;</span><br><span class="line">      this.authService.onLoginPopup()</span><br><span class="line">        .subscribe((accessToken: any) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">          this.authService.onSaveToken(accessToken);</span><br><span class="line"></span><br><span class="line">          this.isLogin = <span class="literal">true</span>;</span><br><span class="line">        &#125;, (error: any) =&gt; &#123;</span><br><span class="line">          window.alert(<span class="string">'Error during login:\n'</span> + error);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (localStorage.loginType === CONST_INFO.redirectType) &#123;</span><br><span class="line">      this.authService.onLoginRedirect();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">onSignOut</span></span>() &#123;</span><br><span class="line">    this.authService.onLogout();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">onGetInfo</span></span>() &#123;</span><br><span class="line">   this.authService.getInfo();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>app.module.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import &#123; BrowserModule &#125; from <span class="string">'@angular/platform-browser'</span>;</span><br><span class="line">import &#123; NgModule &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import &#123; HttpClientModule &#125; from <span class="string">'@angular/common/http'</span>;</span><br><span class="line">import &#123; AppRoutingModule &#125; from <span class="string">'./app-routing.module'</span>;</span><br><span class="line">import &#123; AppComponent &#125; from <span class="string">'./app.component'</span>;</span><br><span class="line"></span><br><span class="line">@NgModule(&#123;</span><br><span class="line">  declarations: [</span><br><span class="line">    AppComponent</span><br><span class="line">  ],</span><br><span class="line">  imports: [</span><br><span class="line">    BrowserModule,</span><br><span class="line">    AppRoutingModule,</span><br><span class="line">    HttpClientModule</span><br><span class="line">  ],</span><br><span class="line">  providers: [],</span><br><span class="line">  bootstrap: [AppComponent]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppModule &#123; &#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Run server</strong><br><img src="/2019/10/22/AngularAuthO365Msal/2.gif" alt="Architecture"></p>
-</li>
-</ol>
-<h2 id="Using-Interceptor"><a href="#Using-Interceptor" class="headerlink" title="Using Interceptor"></a>Using Interceptor</h2><ol>
-<li><strong>Add auth-interceptor.ts</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Injectable &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import &#123; HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpEventType &#125; from <span class="string">'@angular/common/http'</span>;</span><br><span class="line">import &#123; Observable &#125; from <span class="string">'rxjs'</span>;</span><br><span class="line"></span><br><span class="line">@Injectable(&#123;</span><br><span class="line">    providedIn: <span class="string">'root'</span></span><br><span class="line">  &#125;)</span><br><span class="line"><span class="built_in">export</span> class AuthInterceptor implements HttpInterceptor &#123;</span><br><span class="line"></span><br><span class="line">  intercept(req: HttpRequest&lt;any&gt;, next: HttpHandler): Observable&lt;HttpEvent&lt;HttpEventType.Response&gt;&gt; &#123;</span><br><span class="line">    const authReq = req.clone(&#123;</span><br><span class="line">      setHeaders: &#123; Authorization: `Bearer <span class="variable">$&#123;localStorage.rawIdToken&#125;</span>` &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="built_in">return</span> next.handle(authReq);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.npmjs.com/package/msal" target="_blank" rel="noopener">msal</a><br><a href="https://docs.microsoft.com/bs-latn-ba/azure/active-directory/develop/msal-client-application-configuration" target="_blank" rel="noopener">Application configuration options</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1871,7 +1875,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-count">126</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
@@ -1893,7 +1897,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">標籤</span>
                 </a>
               </div>

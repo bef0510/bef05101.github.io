@@ -252,6 +252,154 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/29/AspNetSessionStateUsingSqlServer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/29/AspNetSessionStateUsingSqlServer/" itemprop="url">Session 使用 SQLServer</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-04-29T12:05:44+08:00">
+                2019-04-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ASP-Net/" itemprop="url" rel="index">
+                    <span itemprop="name">ASP.Net</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="建置-Database"><a href="#建置-Database" class="headerlink" title="建置 Database"></a>建置 Database</h1><h3 id="使用-aspnet-regsql-ext-工具建立"><a href="#使用-aspnet-regsql-ext-工具建立" class="headerlink" title="使用 aspnet_regsql.ext 工具建立"></a>使用 aspnet_regsql.ext 工具建立</h3><p>複製路徑 <code>C:\Windows\Microsoft.NET\Framework64\v4.0.30319</code><br>命令提示字元輸入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> C:\Windows\Microsoft.NET\Framework64\v4.0.30319</span><br><span class="line">$ aspnet_regsql.exe -S &lt;serverIP&gt; -U &lt;userName&gt; -P &lt;strongPassword&gt; -ssadd -sstype p</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/04/29/AspNetSessionStateUsingSqlServer/1.png" alt="SQLConnectionOptions"><br><img src="/2019/04/29/AspNetSessionStateUsingSqlServer/2.png" alt="SessionStateOptions"></p>
+<p>可看到資料庫已建置完成<br><img src="/2019/04/29/AspNetSessionStateUsingSqlServer/3.png" alt="CreateTable"></p>
+<h1 id="修改-Web-Config"><a href="#修改-Web-Config" class="headerlink" title="修改 Web.Config"></a>修改 Web.Config</h1><p><strong>Web.Config</strong> 裡的 <code>system.web</code> 區塊 <code>seesionState</code> 修改</p>
+<pre><code>&lt;sessionState mode=&quot;SQLServer&quot; allowCustomSqlDatabase=&quot;true&quot; sqlConnectionString=&quot;data source=&lt;serverIP&gt;;initial catalog=ASPState;user id=&lt;userName&gt;;password=&lt;strongPassword&gt;&quot;  sqlCommandTimeout=&quot;60&quot; cookieless=&quot;false&quot; cookieName=&quot;ASP.NET_SessionId&quot; timeout=&quot;60&quot;/&gt;
+</code></pre><p><img src="/2019/04/29/AspNetSessionStateUsingSqlServer/4.png" alt="SelectTable"></p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://docs.microsoft.com/en-us/previous-versions/ms229862(v=vs.100)" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/previous-versions/ms229862(v=vs.100)</a><br><a href="https://www.youtube.com/watch?v=o-8vjQu6SmI" target="_blank" rel="noopener">SQLServer asp.net session state mode management Part 66</a><br><a href="https://blog.miniasp.com/post/2011/09/13/Configure-SQL-Server-Session-State-Modes-for-ASPNET" target="_blank" rel="noopener">如何設定與啟用 ASP.NET 的 SQLServer 工作階段狀態模式</a><br><a href="http://kyleap.blogspot.com/2013/12/aspnetiissession.html" target="_blank" rel="noopener">相同的IIS，讓多個網站共用Session資訊</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/26/NetworkLoadBalancing/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1172,7 +1320,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-count">126</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
@@ -1194,7 +1342,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">標籤</span>
                 </a>
               </div>

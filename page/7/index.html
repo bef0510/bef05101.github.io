@@ -252,6 +252,199 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/05/PythonLoop/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/05/PythonLoop/" itemprop="url">Python while 及 for 迴圈</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-05T12:09:43+08:00">
+                2019-07-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="while-迴圈"><a href="#while-迴圈" class="headerlink" title="while 迴圈"></a>while 迴圈</h1><h4 id="基本運用"><a href="#基本運用" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code>n = 1
+sum = 0
+while n &lt;= 10:
+    sum = sum + n
+    n += 1
+print(sum)
+</code></pre><h4 id="while-break"><a href="#while-break" class="headerlink" title="while + break"></a>while + break</h4><pre><code>n = 0
+while n &lt; 5:
+    if n == 3:
+        break
+    print(n)
+    n += 1
+print(&quot;last n：&quot;, n)
+</code></pre><h1 id="for-迴圈"><a href="#for-迴圈" class="headerlink" title="for 迴圈"></a>for 迴圈</h1><h4 id="基本運用-1"><a href="#基本運用-1" class="headerlink" title="基本運用"></a>基本運用</h4><pre><code>for x in [3, 5, 1]:
+    print(x)
+
+for x in &quot;Hello&quot;:
+    print(x)
+
+for x in range(5):  # 0 ~ 4
+    print(x)
+
+for x in range(5, 10): # 5 ~ 9
+    print(x)
+
+sum = 0
+for x in range(1, 11):
+    sum = sum + x
+print(sum)
+</code></pre><h4 id="for-continue"><a href="#for-continue" class="headerlink" title="for + continue"></a>for + continue</h4><pre><code>n = 0
+for x in [0, 1, 2, 3]:
+    if x % 2 == 0:
+        continue
+    print(x)
+    n += 1
+print(&quot;last n：&quot;, n)
+</code></pre><h4 id="for-else"><a href="#for-else" class="headerlink" title="for + else"></a>for + else</h4><pre><code>sum = 0
+for n in range(1, 11):
+    sum += n
+else:
+    print(sum)
+</code></pre><h4 id="綜合範列：找出整數平方根"><a href="#綜合範列：找出整數平方根" class="headerlink" title="綜合範列：找出整數平方根"></a>綜合範列：找出整數平方根</h4><pre><code># 輸入 9，得到 3
+# 輸入 11， 得到 沒有 平方根
+
+n = int(input(&quot;輸入一個正整數：&quot;))
+for i in range(n): # i 從 0 ~ n - 1
+    if i * i == n:
+        print(&quot;整數平方根&quot;, i)
+        break # 用 break 強制結束迴圈時，不會執行 else 區塊
+else:
+    print(&quot;沒有整數平方根&quot;)
+</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=yBXlwOmLqZ4" target="_blank" rel="noopener">Python 流程控制：迴圈進階控制，break、continue、else 命令 By 彭彭</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/05/PythonCondition/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1827,172 +2020,6 @@ False
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/04/InstallTelnet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/04/InstallTelnet/" itemprop="url">Windows Server 2016 啟用 Telnet</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-07-04T12:21:16+08:00">
-                2019-07-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MIS/" itemprop="url" rel="index">
-                    <span itemprop="name">MIS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="啟用-Telnet"><a href="#啟用-Telnet" class="headerlink" title="啟用 Telnet"></a>啟用 Telnet</h1><h3 id="Telnet-Client-安裝"><a href="#Telnet-Client-安裝" class="headerlink" title="Telnet Client 安裝"></a>Telnet Client 安裝</h3><ol>
-<li><p><strong>Server Manager</strong> → <strong>Add roles and features</strong><br><img src="/2019/07/04/InstallTelnet/1.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/07/04/InstallTelnet/2.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/07/04/InstallTelnet/3.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/07/04/InstallTelnet/4.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/07/04/InstallTelnet/5.png" alt="Architecture"></p>
-</li>
-<li><p>勾選 <strong>Telnet Client</strong><br><img src="/2019/07/04/InstallTelnet/6.png" alt="Architecture"></p>
-</li>
-<li><p>勾選 <strong>Restart the destination server automatically if required</strong><br><img src="/2019/07/04/InstallTelnet/7.png" alt="Architecture"></p>
-</li>
-<li><p>完成<br><img src="/2019/07/04/InstallTelnet/8.png" alt="Architecture"></p>
-</li>
-</ol>
-<h3 id="Telnet-執行"><a href="#Telnet-執行" class="headerlink" title="Telnet 執行"></a>Telnet 執行</h3><ol>
-<li><p>開啟 <strong>Command Prompt</strong> 或 <strong>PowerShell</strong><br>輸入 <code>telnet</code><br><img src="/2019/07/04/InstallTelnet/9.png" alt="Architecture"></p>
-</li>
-<li><p>連線成功<br><img src="/2019/07/04/InstallTelnet/10.png" alt="Architecture"></p>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="http://sharedderrick.blogspot.com/2017/09/install-telnet-client-telnet.html" target="_blank" rel="noopener">Install Telnet Client: 安裝 Telnet用戶端程式</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2045,7 +2072,7 @@ False
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-count">126</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
@@ -2067,7 +2094,7 @@ False
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">標籤</span>
                 </a>
               </div>

@@ -252,6 +252,225 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/27/DesignPatternWithComposite/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/27/DesignPatternWithComposite/" itemprop="url">結構型模式 - 組合模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-05-27T09:36:00+08:00">
+                2019-05-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Design-Pattern/" itemprop="url" rel="index">
+                    <span itemprop="name">Design Pattern</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="組合模式"><a href="#組合模式" class="headerlink" title="組合模式"></a>組合模式</h1><p>樹狀結構的物件，每個物件有相同的介面<br><img src="/2019/05/27/DesignPatternWithComposite/1.png" alt="Architecture"></p>
+<h4 id="建立一個-抽象類別-Organization"><a href="#建立一個-抽象類別-Organization" class="headerlink" title="建立一個 抽象類別 Organization"></a>建立一個 抽象類別 <code>Organization</code></h4><pre><code>public abstract class Organization
+{
+    protected string name;
+    protected string desc;
+    protected List&lt;Organization&gt; organizations = new List&lt;Organization&gt;();
+
+    public Organization(string name, string desc)
+    {
+        this.name = name;
+        this.desc = desc;
+    }
+
+    public virtual void AddDepartment(Organization organization) =&gt; this.organizations.Add(organization);
+
+    public virtual void RemoveDepartment(Organization organization) =&gt; this.organizations.Remove(organization);
+
+    public virtual List&lt;Organization&gt; GetAllDepartment(Organization organization) =&gt; this.organizations;
+
+    public abstract string GetString();
+}
+</code></pre><h4 id="建立一個-類別-Company-繼承-Organization"><a href="#建立一個-類別-Company-繼承-Organization" class="headerlink" title="建立一個 類別 Company 繼承 Organization"></a>建立一個 類別 <code>Company</code> 繼承 <code>Organization</code></h4><pre><code>public class Company : Organization
+{
+    public Company(string name, string desc) : base(name, desc)
+    {
+    }
+
+    public override string GetString()
+    {
+        StringBuilder sb = new StringBuilder($&quot;\n【公司】：{this.name} 說明： {this.desc} \n&quot;);
+
+        foreach (var organization in this.organizations)
+        {
+            sb.Append(organization.GetString()).Append(&quot;\n&quot;);
+        }
+
+        return sb.ToString();
+    }
+}
+</code></pre><h4 id="建立一個-類別-Dept-繼承-Organization"><a href="#建立一個-類別-Dept-繼承-Organization" class="headerlink" title="建立一個 類別 Dept 繼承 Organization"></a>建立一個 類別 <code>Dept</code> 繼承 <code>Organization</code></h4><pre><code>public class Dept : Organization
+{
+    public Dept(string name, string desc) : base(name, desc)
+    {
+    }
+
+    public override string GetString() =&gt; $&quot; - 部門：{this.name} 說明： {this.desc}&quot;;
+}
+</code></pre><h4 id="引用方式"><a href="#引用方式" class="headerlink" title="引用方式"></a>引用方式</h4><pre><code>class Program
+{
+    static void Main(string[] args)
+    {
+        Organization company = new Company(&quot;HQ&quot;, &quot;總公司&quot;);
+
+        Organization hrDept = new Dept(&quot;HR&quot;, &quot;人力資源部&quot;);
+        Organization accountDept = new Dept(&quot;Account&quot;, &quot;會計部&quot;);
+        Organization financeDept = new Dept(&quot;Finance&quot;, &quot;財務部&quot;);
+
+        company.AddDepartment(hrDept);
+        company.AddDepartment(accountDept);
+        company.AddDepartment(financeDept);
+
+        Console.WriteLine(company.GetString());
+
+        Console.ReadKey();
+    }
+}
+</code></pre><h4 id="適用場景"><a href="#適用場景" class="headerlink" title="適用場景"></a>適用場景</h4><ol>
+<li>需分層管理多物件時</li>
+</ol>
+<h4 id="優點"><a href="#優點" class="headerlink" title="優點"></a>優點</h4><ol>
+<li>容易新增組件</li>
+<li>介面與功能分離，更具移植性</li>
+</ol>
+<h4 id="缺點"><a href="#缺點" class="headerlink" title="缺點"></a>缺點</h4><ol>
+<li>不能依靠編譯期的類型約束來實現，必須在運行期間動態檢測</li>
+<li>元件更名不易</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://wiki.mbalib.com/wiki/%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F" target="_blank" rel="noopener">MBA智库百科-組合模式</a><br><a href="https://www.itread01.com/content/1546887006.html" target="_blank" rel="noopener">設計模式（C#）——組合模式</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/24/InstallADAndDNS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1943,236 +2162,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/14/DesignPatternWithBuilder/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/14/DesignPatternWithBuilder/" itemprop="url">創建型模式 - 建造者模式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-05-14T17:18:49+08:00">
-                2019-05-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Design-Pattern/" itemprop="url" rel="index">
-                    <span itemprop="name">Design Pattern</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="建造者模式"><a href="#建造者模式" class="headerlink" title="建造者模式"></a>建造者模式</h1><p>是一種對象構建模式。它可以將複雜對象的建造過程抽象出來（抽象類別），使這個抽象過程的不同實現方法可以構造出不同表現（屬性）的對象<br><img src="/2019/05/14/DesignPatternWithBuilder/1.jpg" alt="Architecture"></p>
-<h4 id="建立一個-產品角色-Product"><a href="#建立一個-產品角色-Product" class="headerlink" title="建立一個 產品角色 Product"></a>建立一個 產品角色 <code>Product</code></h4><pre><code>public class Pizza
-{
-    private List&lt;string&gt; parts = new List&lt;string&gt;();
-
-    public void Add(string part) =&gt; this.parts.Add(part);
-
-    public void Show()
-    {
-        this.parts.ForEach(x =&gt; Console.WriteLine($&quot;材料 {x} 備好了！&quot;));
-
-        Console.WriteLine(&quot;可以烤了！&quot;);
-    }
-}
-</code></pre><h4 id="建立一個-抽象建造者-Builder"><a href="#建立一個-抽象建造者-Builder" class="headerlink" title="建立一個 抽象建造者 Builder"></a>建立一個 抽象建造者 <code>Builder</code></h4><pre><code>public abstract class PizzaBuilder
-{
-    public abstract void BuildDough();
-    public abstract void BuildSauce();
-    public abstract void BuildTopping();
-    public abstract Pizza GetPizza();
-}
-</code></pre><h4 id="建立一個-具體建造者-ConcreteBuilder-繼承-Builder"><a href="#建立一個-具體建造者-ConcreteBuilder-繼承-Builder" class="headerlink" title="建立一個 具體建造者 ConcreteBuilder 繼承 Builder"></a>建立一個 具體建造者 <code>ConcreteBuilder</code> 繼承 <code>Builder</code></h4><pre><code>public class HawaiianPizzaBuilder : PizzaBuilder
-{
-    Pizza pizza = new Pizza();
-    public override void BuildDough() =&gt; this.pizza.Add(&quot;Dough cross&quot;);
-
-    public override void BuildSauce() =&gt; this.pizza.Add(&quot;Sauce mild&quot;);
-
-    public override void BuildTopping() =&gt; this.pizza.Add(&quot;Topping ham + pineapple&quot;);
-
-    public override Pizza GetPizza() =&gt; this.pizza;
-}
-
-public class SpicyPizzaBuilder : PizzaBuilder
-{
-    Pizza pizza = new Pizza();
-    public override void BuildDough() =&gt; this.pizza.Add(&quot;Dough pan baked&quot;);
-
-    public override void BuildSauce() =&gt; this.pizza.Add(&quot;Sauce hot&quot;);
-
-    public override void BuildTopping() =&gt; this.pizza.Add(&quot;Topping pepperoni + salami&quot;);
-
-    public override Pizza GetPizza() =&gt; this.pizza;
-}
-</code></pre><h4 id="建立一個-指揮者-Director"><a href="#建立一個-指揮者-Director" class="headerlink" title="建立一個 指揮者 Director"></a>建立一個 指揮者 <code>Director</code></h4><pre><code>public class Waiter
-{
-    public void ConstructPizza(PizzaBuilder pizzaBuilder)
-    {
-        pizzaBuilder.BuildDough();
-        pizzaBuilder.BuildSauce();
-        pizzaBuilder.BuildTopping();
-    }
-}
-</code></pre><h4 id="引用方式"><a href="#引用方式" class="headerlink" title="引用方式"></a>引用方式</h4><pre><code>class Program
-{
-    static void Main(string[] args)
-    {
-        Waiter waiter = new Waiter();
-        PizzaBuilder hawaiian_pizzabuilder = new HawaiianPizzaBuilder();
-        PizzaBuilder spicy_pizzabuilder = new SpicyPizzaBuilder();
-
-        waiter.ConstructPizza(hawaiian_pizzabuilder);
-        waiter.ConstructPizza(spicy_pizzabuilder);
-
-        Pizza pizza = hawaiian_pizzabuilder.GetPizza();
-        pizza.Show();
-
-        Console.WriteLine(&quot;======================&quot;);
-
-        Pizza pizza2 = spicy_pizzabuilder.GetPizza();
-        pizza2.Show();
-
-        Console.ReadKey();
-    }
-}
-</code></pre><h4 id="適用場景"><a href="#適用場景" class="headerlink" title="適用場景"></a>適用場景</h4><ol>
-<li>當創建複雜對象的算法應該獨立於該對象的組成部分以及它們的裝配方式時</li>
-<li>當構造過程必須允許被構造的對象有不同的表示時</li>
-</ol>
-<h4 id="優點"><a href="#優點" class="headerlink" title="優點"></a>優點</h4><ol>
-<li>將產品本身與產品創建過程進行解耦，可以使用相同的創建過程來得到不同的產品。也就說細節依賴抽象</li>
-<li>將複雜產品的創建步驟分解在不同的方法中，使得創建過程更加清晰</li>
-<li>增加新的具體建造者無需修改原有類庫的代碼，易於拓展，符合”開閉原則”</li>
-</ol>
-<h4 id="缺點"><a href="#缺點" class="headerlink" title="缺點"></a>缺點</h4><ol>
-<li>建造者模式所創建的產品一般具有較多的共同點，其組成部分相似;如果產品之間的差異性很大，則不適合使用建造者模式，因此其使用範圍受到一定的限制</li>
-<li>如果產品的內部變化複雜，可能會導致需要定義很多具體建造者類來實現這種變化，導致系統變得很龐大</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://zh.wikipedia.org/wiki/%E7%94%9F%E6%88%90%E5%99%A8%E6%A8%A1%E5%BC%8F" target="_blank" rel="noopener">維基百科-生成器模式</a><br><a href="https://www.bookstack.cn/read/Design-Pattern/lesson14-README.md" target="_blank" rel="noopener">建造者模式(Builder Pattern)</a><br><a href="https://blog.csdn.net/carson_ho/article/details/54910597" target="_blank" rel="noopener">建造者模式（Builder Pattern）- 最易懂的设计模式解析</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2225,7 +2214,7 @@ public class SpicyPizzaBuilder : PizzaBuilder
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-count">126</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
@@ -2247,7 +2236,7 @@ public class SpicyPizzaBuilder : PizzaBuilder
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">標籤</span>
                 </a>
               </div>
