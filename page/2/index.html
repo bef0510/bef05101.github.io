@@ -252,6 +252,167 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/07/AngularBuildExpressNodeServer2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/07/AngularBuildExpressNodeServer2/" itemprop="url">AngularBuildExpressNodeServer2</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-11-07T09:15:17+08:00">
+                2019-11-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Angular/" itemprop="url" rel="index">
+                    <span itemprop="name">Angular</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Build-Express-Server"><a href="#Build-Express-Server" class="headerlink" title="Build Express Server"></a>Build Express Server</h1><ol>
+<li><p><strong>Create Folder</strong><br><img src="/2019/11/07/AngularBuildExpressNodeServer2/1.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Install connect</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install connect</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Install express</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install express@3.0.0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Add File app.js</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">var express = require(<span class="string">"express"</span>),</span><br><span class="line">app = express.createServer(express.logger());</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">"/"</span>, <span class="keyword">function</span>(req, res) &#123;</span><br><span class="line">    res.sendfile(__dirname + <span class="string">'/index.html'</span>, <span class="keyword">function</span>(err) &#123;</span><br><span class="line">        <span class="keyword">if</span> (err) res.send(404);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.get(/(.*)\.(jpg|gif|png|ico|css|js|txt)/i, <span class="keyword">function</span>(req, res) &#123;</span><br><span class="line">    res.sendfile(__dirname + <span class="string">"/"</span> + req.params[0] + <span class="string">"."</span> + req.params[1], <span class="keyword">function</span>(err) &#123;</span><br><span class="line">        <span class="keyword">if</span> (err) res.send(404);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">port = process.env.PORT || 3000;</span><br><span class="line">app.listen(port, <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    console.log(<span class="string">"Listening on "</span> + port);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Add File index.html</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1&gt;Hello NodeJS&lt;/h1&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Run Server</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node app.js</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://blog.hinablue.me/nodejs-first-look/" target="_blank" rel="noopener">[NodeJS] 第一次 node 就上手</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/22/AngularAuthO365Msal/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1854,172 +2015,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/22/AngularAndNetCoreSignalRInterface/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/22/AngularAndNetCoreSignalRInterface/" itemprop="url">Angular + .Net Core SignalR Interface</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-08-22T17:37:20+08:00">
-                2019-08-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Net-Core/" itemprop="url" rel="index">
-                    <span itemprop="name">.Net Core</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Angular-Net-Core-SignalR-Interface"><a href="#Angular-Net-Core-SignalR-Interface" class="headerlink" title="Angular + .Net Core SignalR Interface"></a>Angular + .Net Core SignalR Interface</h1><h4 id="Net-Core"><a href="#Net-Core" class="headerlink" title=".Net Core"></a>.Net Core</h4><ol>
-<li><p>增加 <strong>Hubs</strong><br><img src="/2019/08/22/AngularAndNetCoreSignalRInterface/1.png" alt="Architecture"></p>
-</li>
-<li><p><strong>IMessageClient.cs</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">using System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line">namespace HubServerBasic.Hubs</span><br><span class="line">&#123;</span><br><span class="line">    public interface IMessageClient</span><br><span class="line">    &#123;</span><br><span class="line">        Task ReceiveMessage(string message1, string message2);</span><br><span class="line">        Task ReceiveMessage(string message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>MessageHub.cs</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">using Microsoft.AspNetCore.SignalR;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line">namespace HubServerBasic.Hubs</span><br><span class="line">&#123;</span><br><span class="line">    public class MessageHub : Hub&lt;IMessageClient&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        public string GetConnectionId()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">return</span> Context.ConnectionId;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Task SendMessageToAll(string message1, string message2)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">return</span> Clients.All.ReceiveMessage(message1, message2);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Task SendMessageToCaller(string message)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">return</span> Clients.Caller.ReceiveMessage(message);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Task SendMessageToSpecificClient(string user, string message)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">return</span> Clients.Client(user).ReceiveMessage(message);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Startup.cs</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">using HubServerBasic.Hubs;</span><br><span class="line">using Microsoft.AspNetCore.Builder;</span><br><span class="line">using Microsoft.AspNetCore.Hosting;</span><br><span class="line">using Microsoft.AspNetCore.Mvc;</span><br><span class="line">using Microsoft.AspNetCore.SpaServices.AngularCli;</span><br><span class="line">using Microsoft.Extensions.Configuration;</span><br><span class="line">using Microsoft.Extensions.DependencyInjection;</span><br><span class="line"></span><br><span class="line">namespace HubServerBasic</span><br><span class="line">&#123;</span><br><span class="line">    public class Startup</span><br><span class="line">    &#123;</span><br><span class="line">        public Startup(IConfiguration configuration)</span><br><span class="line">        &#123;</span><br><span class="line">            Configuration = configuration;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public IConfiguration Configuration &#123; get; &#125;</span><br><span class="line"></span><br><span class="line">        // This method gets called by the runtime. Use this method to add services to the container.</span><br><span class="line">        public void ConfigureServices(IServiceCollection services)</span><br><span class="line">        &#123;</span><br><span class="line">            services.AddSignalR();</span><br><span class="line">            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.</span><br><span class="line">        public void Configure(IApplicationBuilder app, IHostingEnvironment env)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (env.IsDevelopment())</span><br><span class="line">            &#123;</span><br><span class="line">                app.UseDeveloperExceptionPage();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                // The default HSTS value is 30 days. You may want to change this <span class="keyword">for</span> production scenarios, see https://aka.ms/aspnetcore-hsts.</span><br><span class="line">                app.UseHsts();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            app.UseSignalR(routes =&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                routes.MapHub&lt;MessageHub&gt;(<span class="string">"/hubs/message"</span>);</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            app.UseMvc();</span><br><span class="line"></span><br><span class="line">            app.UseSpa(spa =&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                spa.Options.SourcePath = <span class="string">"ClientApp"</span>;</span><br><span class="line">                <span class="keyword">if</span> (env.IsDevelopment())</span><br><span class="line">                &#123;</span><br><span class="line">                    spa.UseAngularCliServer(npmScript: <span class="string">"start"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            app.UseHttpsRedirection();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="Angular"><a href="#Angular" class="headerlink" title="Angular"></a>Angular</h4><ol>
-<li><p>修改 <strong>app.component.html</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;input <span class="built_in">type</span>=<span class="string">"text"</span> [(ngModel)]=<span class="string">"message"</span>&gt;</span><br><span class="line">&lt;br /&gt;</span><br><span class="line">&lt;input <span class="built_in">type</span>=<span class="string">"text"</span> [(ngModel)]=<span class="string">"connID"</span>&gt;</span><br><span class="line">&lt;button (click)=<span class="string">"sendAll()"</span>&gt;Send All&lt;/button&gt;</span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span><br><span class="line">&lt;button (click)=<span class="string">"sendCaller()"</span>&gt;Send Caller&lt;/button&gt;</span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span><br><span class="line">&lt;button (click)=<span class="string">"sendSpecificClient()"</span>&gt;Send Specific Client&lt;/button&gt;</span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span><br><span class="line">&lt;button (click)=<span class="string">"getConnID()"</span>&gt;Get Connection ID&lt;/button&gt;</span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span><br><span class="line">&lt;p *ngFor=<span class="string">"let m of messages"</span>&gt;&#123;&#123;m&#125;&#125;&lt;/p&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>修改 <strong>app.component.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component, OnInit &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import &#123; HubConnection, HubConnectionBuilder &#125; from <span class="string">'@aspnet/signalr'</span>;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-root'</span>,</span><br><span class="line">  templateUrl: <span class="string">'./app.component.html'</span>,</span><br><span class="line">  styleUrls: [<span class="string">'./app.component.css'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppComponent implements OnInit &#123;</span><br><span class="line"></span><br><span class="line">  public hubConnection: HubConnection;</span><br><span class="line">  public messages: string[] = [];</span><br><span class="line">  public message: string;</span><br><span class="line">  public connID: string;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">constructor</span></span>() &#123; &#125;</span><br><span class="line"></span><br><span class="line">  ngOnInit(): void &#123;</span><br><span class="line"></span><br><span class="line">    this.hubConnection = new HubConnectionBuilder()</span><br><span class="line">      .withUrl(<span class="string">"https://localhost:44371/hubs/message"</span>)</span><br><span class="line">      .build();</span><br><span class="line">     </span><br><span class="line">    this.hubConnection.on(<span class="string">"ReceiveMessage"</span>, (user, message) =&gt; &#123;</span><br><span class="line">      this.messages.push(user);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    this.hubConnection.start();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">sendAll</span></span>() &#123;</span><br><span class="line">    this.hubConnection.invoke(<span class="string">"SendMessageToAll"</span>, this.message, this.message);</span><br><span class="line">    this.message = <span class="string">""</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">sendCaller</span></span>() &#123;</span><br><span class="line">    this.hubConnection.invoke(<span class="string">"SendMessageToCaller"</span>, this.message);</span><br><span class="line">    this.message = <span class="string">""</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">sendSpecificClient</span></span>() &#123;</span><br><span class="line">    this.hubConnection.invoke(<span class="string">"SendMessageToSpecificClient"</span>, this.connID, this.message);</span><br><span class="line">    this.message = <span class="string">""</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">getConnID</span></span>() &#123;</span><br><span class="line">    this.hubConnection.invoke(<span class="string">'getConnectionId'</span>)</span><br><span class="line">    .<span class="keyword">then</span>(<span class="keyword">function</span> (connectionId) &#123;</span><br><span class="line">        console.log(<span class="string">"connectionId"</span>, connectionId)</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>修改 <strong>app.module.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import &#123; BrowserModule &#125; from <span class="string">'@angular/platform-browser'</span>;</span><br><span class="line">import &#123; NgModule &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line">import &#123; AppRoutingModule &#125; from <span class="string">'./app-routing.module'</span>;</span><br><span class="line">import &#123; AppComponent &#125; from <span class="string">'./app.component'</span>;</span><br><span class="line">import &#123; FormsModule &#125; from <span class="string">'@angular/forms'</span>;</span><br><span class="line"></span><br><span class="line">@NgModule(&#123;</span><br><span class="line">  declarations: [</span><br><span class="line">    AppComponent</span><br><span class="line">  ],</span><br><span class="line">  imports: [</span><br><span class="line">    BrowserModule,</span><br><span class="line">    AppRoutingModule,</span><br><span class="line">    FormsModule</span><br><span class="line">  ],</span><br><span class="line">  providers: [],</span><br><span class="line">  bootstrap: [AppComponent]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppModule &#123; &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://docs.microsoft.com/zh-tw/aspnet/core/signalr/hubs?view=aspnetcore-2.2" target="_blank" rel="noopener">使用 ASP.NET Core SignalR 中樞</a><br><a href="https://rukshan.dev/2019/05/how-to-notify-your-angular-7-app-using-signalr" target="_blank" rel="noopener">How to notify your Angular 7 app using SignalR</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2072,7 +2067,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">126</span>
+                  <span class="site-state-item-count">127</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>

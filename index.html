@@ -252,6 +252,171 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/24/DotNetCoreBuildExpressServer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/12/24/DotNetCoreBuildExpressServer/" itemprop="url">.Net Core 3 + ngrok 對外 domain</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-12-24T17:32:36+08:00">
+                2019-12-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Net-Core/" itemprop="url" rel="index">
+                    <span itemprop="name">.Net Core</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Net-Core-3-ngrok-對外-domain"><a href="#Net-Core-3-ngrok-對外-domain" class="headerlink" title=".Net Core 3 + ngrok 對外 domain"></a>.Net Core 3 + ngrok 對外 domain</h1><ol>
+<li><p>下載 <a href="https://dashboard.ngrok.com/get-started" target="_blank" rel="noopener">ngrok</a><br><img src="/2019/12/24/DotNetCoreBuildExpressServer/1.png" alt="Architecture"></p>
+</li>
+<li><p>設定 <strong>auth token</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ngrok authtoken 1VPY...........................</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="/2019/12/24/DotNetCoreBuildExpressServer/2.png" alt="Architecture"></p>
+<ol start="3">
+<li><p>啟動程式<br><img src="/2019/12/24/DotNetCoreBuildExpressServer/3.png" alt="Architecture"></p>
+</li>
+<li><p>設定 <strong>IP</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ngrok http 5000 -host-header=<span class="string">"localhost:5000"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="/2019/12/24/DotNetCoreBuildExpressServer/4.png" alt="Architecture"><br><img src="/2019/12/24/DotNetCoreBuildExpressServer/5.png" alt="Architecture"></p>
+<h1 id="多重站台"><a href="#多重站台" class="headerlink" title="多重站台"></a>多重站台</h1><ol>
+<li><p>修改 <strong>folder .ngrok2</strong> 底下的 <strong>ngrok.yml</strong><br><img src="/2019/12/24/DotNetCoreBuildExpressServer/6.png" alt="Architecture"></p>
+</li>
+<li><p>修改 <strong>ngrok.yml</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">authtoken: 1VPYX0MJGGwnVXHE8htea80qr8c_6CVoNuuoiw4iKEo4pJ8fw</span><br><span class="line">tunnels:</span><br><span class="line">  <span class="built_in">test</span>-web1:</span><br><span class="line">    addr: 9090</span><br><span class="line">    proto: http</span><br><span class="line">    host_header: localhost</span><br><span class="line">    bind_tls: <span class="literal">true</span></span><br><span class="line">  <span class="built_in">test</span>-web2:</span><br><span class="line">    addr: 64443</span><br><span class="line">    proto: http</span><br><span class="line">    host_header: localhost</span><br><span class="line">    bind_tls: <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://harry-lin.blogspot.com/2019/01/tools-ngrok-localhost.html" target="_blank" rel="noopener">[Tools] 透過 ngrok 讓外網能連到localhost服務</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/20/DotNetCoreGenericCallSql/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1662,167 +1827,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/07/AngularBuildExpressNodeServer2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/11/07/AngularBuildExpressNodeServer2/" itemprop="url">AngularBuildExpressNodeServer2</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-11-07T09:15:17+08:00">
-                2019-11-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Angular/" itemprop="url" rel="index">
-                    <span itemprop="name">Angular</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Build-Express-Server"><a href="#Build-Express-Server" class="headerlink" title="Build Express Server"></a>Build Express Server</h1><ol>
-<li><p><strong>Create Folder</strong><br><img src="/2019/11/07/AngularBuildExpressNodeServer2/1.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Install connect</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install connect</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Install express</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install express@3.0.0</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Add File app.js</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">var express = require(<span class="string">"express"</span>),</span><br><span class="line">app = express.createServer(express.logger());</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">"/"</span>, <span class="keyword">function</span>(req, res) &#123;</span><br><span class="line">    res.sendfile(__dirname + <span class="string">'/index.html'</span>, <span class="keyword">function</span>(err) &#123;</span><br><span class="line">        <span class="keyword">if</span> (err) res.send(404);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.get(/(.*)\.(jpg|gif|png|ico|css|js|txt)/i, <span class="keyword">function</span>(req, res) &#123;</span><br><span class="line">    res.sendfile(__dirname + <span class="string">"/"</span> + req.params[0] + <span class="string">"."</span> + req.params[1], <span class="keyword">function</span>(err) &#123;</span><br><span class="line">        <span class="keyword">if</span> (err) res.send(404);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">port = process.env.PORT || 3000;</span><br><span class="line">app.listen(port, <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    console.log(<span class="string">"Listening on "</span> + port);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Add File index.html</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1&gt;Hello NodeJS&lt;/h1&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Run Server</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node app.js</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://blog.hinablue.me/nodejs-first-look/" target="_blank" rel="noopener">[NodeJS] 第一次 node 就上手</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1875,7 +1879,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">126</span>
+                  <span class="site-state-item-count">127</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
