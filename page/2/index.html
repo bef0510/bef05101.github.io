@@ -252,6 +252,793 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/DotNetCoreCustomHealthCheck/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/26/DotNetCoreCustomHealthCheck/" itemprop="url">.Net Core 3 健康檢查服務</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-11-26T14:18:02+08:00">
+                2019-11-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Net-Core/" itemprop="url" rel="index">
+                    <span itemprop="name">.Net Core</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Net-Core-3-健康檢查服務"><a href="#Net-Core-3-健康檢查服務" class="headerlink" title=".Net Core 3 健康檢查服務"></a>.Net Core 3 健康檢查服務</h2><ol>
+<li><p><strong>Add a new class</strong><br><img src="/2019/11/26/DotNetCoreCustomHealthCheck/1.png" alt="Architecture"></p>
+</li>
+<li><p><strong>naming ApiHealthCheck.cs</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">using System.Threading;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">using Microsoft.Extensions.Diagnostics.HealthChecks;</span><br><span class="line"></span><br><span class="line">namespace testWebapi.Extensions</span><br><span class="line">&#123;</span><br><span class="line">    public class ApiHealthCheck : IHealthCheck</span><br><span class="line">    &#123;</span><br><span class="line">        public Task&lt;HealthCheckResult&gt; CheckHealthAsync(</span><br><span class="line">            HealthCheckContext context,</span><br><span class="line">            CancellationToken cancellationToken = new CancellationToken())</span><br><span class="line">        &#123;</span><br><span class="line">            // Todo: Implement your own healthcheck logic here</span><br><span class="line">            var isHealthy = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">if</span> (isHealthy)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">return</span> Task.FromResult(HealthCheckResult.Healthy(<span class="string">"I am one healthy microservice API"</span>));</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="built_in">return</span> Task.FromResult(HealthCheckResult.Unhealthy(<span class="string">"I am the sad, unhealthy microservice API"</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Startup.cs</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">using System.Linq;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">using Microsoft.AspNetCore.Builder;</span><br><span class="line">using Microsoft.AspNetCore.Diagnostics.HealthChecks;</span><br><span class="line">using Microsoft.AspNetCore.Hosting;</span><br><span class="line">using Microsoft.AspNetCore.Http;</span><br><span class="line">using Microsoft.Extensions.Configuration;</span><br><span class="line">using Microsoft.Extensions.DependencyInjection;</span><br><span class="line">using Microsoft.Extensions.Diagnostics.HealthChecks;</span><br><span class="line">using Microsoft.Extensions.Hosting;</span><br><span class="line">using Newtonsoft.Json;</span><br><span class="line">using Newtonsoft.Json.Linq;</span><br><span class="line">using testWebapi.Extensions;</span><br><span class="line"></span><br><span class="line">namespace testWebapi</span><br><span class="line">&#123;</span><br><span class="line">    public class Startup</span><br><span class="line">    &#123;</span><br><span class="line">        public Startup(IConfiguration configuration)</span><br><span class="line">        &#123;</span><br><span class="line">            Configuration = configuration;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public IConfiguration Configuration &#123; get; &#125;</span><br><span class="line"></span><br><span class="line">        // This method gets called by the runtime. Use this method to add services to the container.</span><br><span class="line">        public void ConfigureServices(IServiceCollection services)</span><br><span class="line">        &#123;</span><br><span class="line">            services.AddHealthChecks().AddCheck&lt;ApiHealthCheck&gt;(<span class="string">"api"</span>); // 健康檢查服務 (Health Checks)</span><br><span class="line"></span><br><span class="line">            services.AddControllers();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.</span><br><span class="line">        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (env.IsDevelopment())</span><br><span class="line">            &#123;</span><br><span class="line">                app.UseDeveloperExceptionPage();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            app.UseHttpsRedirection();</span><br><span class="line"></span><br><span class="line">            app.UseStaticFiles();       // 必須在 app.UseRouting() 之前被呼叫</span><br><span class="line"></span><br><span class="line">            app.UseRouting();</span><br><span class="line"></span><br><span class="line">            app.UseCors();              // 必須在所有會用到的 CORS 的中介層之前被呼叫</span><br><span class="line"></span><br><span class="line">            app.UseAuthentication();</span><br><span class="line"></span><br><span class="line">            app.UseAuthorization();</span><br><span class="line"></span><br><span class="line">            app.UseEndpoints(endpoints =&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                endpoints.MapHealthChecks(<span class="string">"/health"</span>, new HealthCheckOptions()</span><br><span class="line">                &#123;</span><br><span class="line">                    //that<span class="string">'s to the method you created </span></span><br><span class="line"><span class="string">                    ResponseWriter = WriteHealthCheckResponse</span></span><br><span class="line"><span class="string">                &#125;);</span></span><br><span class="line"><span class="string">                endpoints.MapControllers();</span></span><br><span class="line"><span class="string">            &#125;);</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        private static Task WriteHealthCheckResponse(HttpContext httpContext,</span></span><br><span class="line"><span class="string"> HealthReport result)</span></span><br><span class="line"><span class="string">        &#123;</span></span><br><span class="line"><span class="string">            httpContext.Response.ContentType = "application/json";</span></span><br><span class="line"><span class="string">            var json = new JObject(</span></span><br><span class="line"><span class="string">            new JProperty("status", result.Status.ToString()),</span></span><br><span class="line"><span class="string">            new JProperty("results", new JObject(result.Entries.Select(pair =&gt;</span></span><br><span class="line"><span class="string">            new JProperty(pair.Key, new JObject(</span></span><br><span class="line"><span class="string">            new JProperty("status", pair.Value.Status.ToString()),</span></span><br><span class="line"><span class="string">            new JProperty("description", pair.Value.Description),</span></span><br><span class="line"><span class="string">            new JProperty("data", new JObject(pair.Value.Data.Select(</span></span><br><span class="line"><span class="string">            p =&gt; new JProperty(p.Key, p.Value))))))))));</span></span><br><span class="line"><span class="string">            return httpContext.Response.WriteAsync(</span></span><br><span class="line"><span class="string">            json.ToString(Formatting.Indented));</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong><a href="https://localhost:5001/health" target="_blank" rel="noopener">https://localhost:5001/health</a></strong><br><img src="/2019/11/26/DotNetCoreCustomHealthCheck/2.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://medium.com/it-dead-inside/implementing-health-checks-in-asp-net-core-a8331d16a180" target="_blank" rel="noopener">Implementing Health Checks in ASP.NET Core</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/DotNetCoreAndVSCodeBasic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/26/DotNetCoreAndVSCodeBasic/" itemprop="url">.Net Core 3 + VSCode 基本 Extension</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-11-26T14:06:56+08:00">
+                2019-11-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Net-Core/" itemprop="url" rel="index">
+                    <span itemprop="name">.Net Core</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Net-Core-3-VSCode-基本-Extension"><a href="#Net-Core-3-VSCode-基本-Extension" class="headerlink" title=".Net Core 3 + VSCode 基本 Extension"></a>.Net Core 3 + VSCode 基本 Extension</h2><ol>
+<li><p>下載 <strong>C# Extensions</strong><br><img src="/2019/11/26/DotNetCoreAndVSCodeBasic/1.png" alt="Architecture"></p>
+</li>
+<li><p>下載 <strong>NuGet Package Manager</strong><br><img src="/2019/11/26/DotNetCoreAndVSCodeBasic/2.png" alt="Architecture"></p>
+</li>
+</ol>
+<h2 id="NuGet-下載套件"><a href="#NuGet-下載套件" class="headerlink" title="NuGet 下載套件"></a>NuGet 下載套件</h2><ol>
+<li><p><strong>View</strong> → <strong>Command Palette…</strong></p>
+</li>
+<li><p>組合鍵 <strong>Ctrl+Shift+P</strong><br><img src="/2019/11/26/DotNetCoreAndVSCodeBasic/3.png" alt="Architecture"></p>
+</li>
+<li><p>點選 <strong>NuGet Package Manager: Add Package</strong><br><img src="/2019/11/26/DotNetCoreAndVSCodeBasic/4.png" alt="Architecture"></p>
+</li>
+<li><p>輸入 <strong>Newtonsoft.json</strong><br><img src="/2019/11/26/DotNetCoreAndVSCodeBasic/5.png" alt="Architecture"></p>
+</li>
+<li><p>點選 <strong>Newtonsoft.json</strong><br><img src="/2019/11/26/DotNetCoreAndVSCodeBasic/6.png" alt="Architecture"></p>
+</li>
+<li><p>點選 版本<br><img src="/2019/11/26/DotNetCoreAndVSCodeBasic/7.png" alt="Architecture"></p>
+</li>
+<li><p>點擊 <strong>Restore</strong><br><img src="/2019/11/26/DotNetCoreAndVSCodeBasic/8.png" alt="Architecture"></p>
+</li>
+<li><p>下載 <strong>Microsoft.EntityFrameworkCore</strong></p>
+</li>
+<li><p>下載 <strong>Microsoft.EntityFrameworkCore.InMemory</strong></p>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=lGGMb9a7yuY" target="_blank" rel="noopener">Install Nuget Package, Add new Package</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/DotNetCore3AndVSCode/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/26/DotNetCore3AndVSCode/" itemprop="url">.Net Core 3 + VSCode</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-11-26T11:46:20+08:00">
+                2019-11-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Net-Core/" itemprop="url" rel="index">
+                    <span itemprop="name">.Net Core</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Net-Core-3"><a href="#Net-Core-3" class="headerlink" title=".Net Core 3"></a>.Net Core 3</h2><ol>
+<li><p>開啟 <strong>VS Code</strong></p>
+</li>
+<li><p>下載 <strong>C#</strong><br><img src="/2019/11/26/DotNetCore3AndVSCode/1.png" alt="Architecture"></p>
+</li>
+<li><p>關閉 <strong>VS Code</strong></p>
+</li>
+<li><p>新增專案</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet new webapi</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>VS Code</strong> 開啟專案</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">code .</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>執行專案</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet run</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://docs.microsoft.com/zh-tw/dotnet/core/tools/dotnet-new?tabs=netcore22" target="_blank" rel="noopener">dotnet new</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/07/AngularForbiddenCopy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/07/AngularForbiddenCopy/" itemprop="url">AngularForbiddenCopy</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-11-07T10:06:01+08:00">
+                2019-11-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Angular/" itemprop="url" rel="index">
+                    <span itemprop="name">Angular</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Angular-Forbidden-Copy-禁止複製"><a href="#Angular-Forbidden-Copy-禁止複製" class="headerlink" title="Angular Forbidden Copy (禁止複製)"></a>Angular Forbidden Copy (禁止複製)</h1><ol>
+<li><p><strong>Add File block-copy-paste.directive.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Directive, HostListener &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line">@Directive(&#123;</span><br><span class="line">  selector: <span class="string">'[appBlockCopyPaste]'</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class BlockCopyPasteDirective &#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span></span>() &#123; &#125;</span><br><span class="line"></span><br><span class="line">  @HostListener(<span class="string">'paste'</span>, [<span class="string">'$event'</span>]) blockPaste(e: KeyboardEvent) &#123;</span><br><span class="line">    e.preventDefault();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @HostListener(<span class="string">'copy'</span>, [<span class="string">'$event'</span>]) blockCopy(e: KeyboardEvent) &#123;</span><br><span class="line">    e.preventDefault();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @HostListener(<span class="string">'cut'</span>, [<span class="string">'$event'</span>]) blockCut(e: KeyboardEvent) &#123;</span><br><span class="line">    e.preventDefault();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Using in .html</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div appBlockCopyPaste&gt;</span><br><span class="line">    <span class="built_in">test</span></span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>app.module.ts</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">import &#123; BlockCopyPasteDirective &#125; from <span class="string">'./services/block-copy-paste.directive'</span>;</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">@NgModule(&#123;</span><br><span class="line">  declarations: [</span><br><span class="line">    ...</span><br><span class="line">    BlockCopyPasteDirective,</span><br><span class="line">    ...</span><br><span class="line">  ],</span><br><span class="line">  imports: [</span><br><span class="line">    ...</span><br><span class="line">  ],</span><br><span class="line">  entryComponents: [</span><br><span class="line">    ...</span><br><span class="line">  ],</span><br><span class="line">  providers: [</span><br><span class="line">    ...</span><br><span class="line">  ],</span><br><span class="line">  bootstrap: [AppComponent]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppModule &#123; &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="http://www.voidcn.com/article/p-uvgccuek-bys.html" target="_blank" rel="noopener">使用Angular2禁用文本框的剪切,复制和粘贴功能的指令</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/07/AngularBuildExpressLiveServer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/07/AngularBuildExpressLiveServer/" itemprop="url">AngularBuildExpressLiveServer</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-11-07T09:52:32+08:00">
+                2019-11-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Angular/" itemprop="url" rel="index">
+                    <span itemprop="name">Angular</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Build-Express-Server"><a href="#Build-Express-Server" class="headerlink" title="Build Express Server"></a>Build Express Server</h1><ol>
+<li><p><strong>Create Folder</strong><br><img src="/2019/11/07/AngularBuildExpressLiveServer/1.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Install Live Server</strong><br><img src="/2019/11/07/AngularBuildExpressLiveServer/2.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Add File index.html</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1&gt;Hello NodeJS&lt;/h1&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Run Server</strong><br><img src="/2019/11/07/AngularBuildExpressLiveServer/3.png" alt="Architecture"></p>
+</li>
+</ol>
+<p><a href="https://blog.csdn.net/u010078133/article/details/78600496" target="_blank" rel="noopener">vscode-Live Server的使用心得</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/07/AngularBuildExpressNodeServer2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1082,944 +1869,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/04/AngularPluggableAtchitecture/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/04/AngularPluggableAtchitecture/" itemprop="url">Angular Pluggable Architecture</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-09-04T14:59:50+08:00">
-                2019-09-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Angular/" itemprop="url" rel="index">
-                    <span itemprop="name">Angular</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Angular-Pluggable-Architecture"><a href="#Angular-Pluggable-Architecture" class="headerlink" title="Angular Pluggable Architecture"></a>Angular Pluggable Architecture</h1><ol>
-<li><strong>Create a new project</strong><br><code>ng new mainApp</code></li>
-</ol>
-<h3 id="Part-plugin-a"><a href="#Part-plugin-a" class="headerlink" title="Part plugin-a"></a>Part plugin-a</h3><ol>
-<li><p><strong>Add folder beside with mainApp</strong><br><code>plugins → plugin-a</code><br><img src="/2019/09/04/AngularPluggableAtchitecture/1.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Add package.json</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"name"</span>: <span class="string">"plugin-a"</span>,</span><br><span class="line">    <span class="string">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">    <span class="string">"license"</span>: <span class="string">"MIT"</span>,</span><br><span class="line">    <span class="string">"scripts"</span>: &#123;</span><br><span class="line">        <span class="string">"build"</span>: <span class="string">"rollup -c"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"dependencies"</span>: &#123;</span><br><span class="line">        <span class="string">"@angular/common"</span>: <span class="string">"5.2.0"</span>,</span><br><span class="line">        <span class="string">"@angular/core"</span>: <span class="string">"5.2.0"</span>,</span><br><span class="line">        <span class="string">"rollup"</span>: <span class="string">"0.55.1"</span>,</span><br><span class="line">        <span class="string">"rxjs"</span>: <span class="string">"5.5.6"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">        <span class="string">"rollup-plugin-angular"</span>: <span class="string">"^0.5.3"</span>,</span><br><span class="line">        <span class="string">"rollup-plugin-commonjs"</span>: <span class="string">"8.3.0"</span>,</span><br><span class="line">        <span class="string">"rollup-plugin-node-resolve"</span>: <span class="string">"3.0.2"</span>,</span><br><span class="line">        <span class="string">"rollup-plugin-typescript"</span>: <span class="string">"0.8.1"</span>,</span><br><span class="line">        <span class="string">"rollup-plugin-typescript2"</span>: <span class="string">"0.10.0"</span>,</span><br><span class="line">        <span class="string">"typescript"</span>: <span class="string">"2.5.3"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Add tsconfig.json</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"compileOnSave"</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="string">"compilerOptions"</span>: &#123;</span><br><span class="line">        <span class="string">"baseUrl"</span>: <span class="string">"./"</span>,</span><br><span class="line">        <span class="string">"outDir"</span>: <span class="string">"./dist/out-tsc"</span>,</span><br><span class="line">        <span class="string">"sourceMap"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="string">"declaration"</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="string">"module"</span>: <span class="string">"es2015"</span>,</span><br><span class="line">        <span class="string">"moduleResolution"</span>: <span class="string">"node"</span>,</span><br><span class="line">        <span class="string">"emitDecoratorMetadata"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="string">"experimentalDecorators"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="string">"target"</span>: <span class="string">"es5"</span>,</span><br><span class="line">        <span class="string">"typeRoots"</span>: [</span><br><span class="line">            <span class="string">"node_modules/@types"</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="string">"lib"</span>: [</span><br><span class="line">            <span class="string">"es2017"</span>,</span><br><span class="line">            <span class="string">"dom"</span></span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>install</strong><br><code>npm install</code></p>
-</li>
-<li><p><strong>Add folder scr/app</strong><br><img src="/2019/09/04/AngularPluggableAtchitecture/2.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Add plugin-a.component.ts upder folder app</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'plugin-a-component'</span>,</span><br><span class="line">  template: `&lt;h3&gt;Hi, I am the Plugin A component.&lt;/h3&gt;</span><br><span class="line">  &lt;h4&gt;Hi, I am the Plugin A component.&lt;/h4&gt;`</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class PluginAComponent &#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span></span>() &#123; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Add plugin-a.module.ts upder folder app</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import &#123; NgModule &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import &#123; CommonModule &#125; from <span class="string">'@angular/common'</span>;</span><br><span class="line">import &#123; PluginAComponent &#125; from <span class="string">'./plugin-a.component'</span>;</span><br><span class="line"></span><br><span class="line">@NgModule(&#123;</span><br><span class="line">  imports: [</span><br><span class="line">    CommonModule</span><br><span class="line">  ],</span><br><span class="line">  declarations: [PluginAComponent],</span><br><span class="line">  entryComponents: [PluginAComponent],</span><br><span class="line">  providers: [&#123;</span><br><span class="line">     provide: <span class="string">'plugins'</span>,</span><br><span class="line">     useValue: [&#123;</span><br><span class="line">       name: <span class="string">'plugin-a-component'</span>,</span><br><span class="line">       component: PluginAComponent</span><br><span class="line">     &#125;],</span><br><span class="line">     multi: <span class="literal">true</span></span><br><span class="line">   &#125;]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class PluginAModule &#123; &#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Add main.ts upder folder src</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> &#123; PluginAModule &#125; from <span class="string">'./app/plugin-a.module'</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Add rollup.config.js under folder plugin-a</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">import angular from <span class="string">'rollup-plugin-angular'</span>;</span><br><span class="line">import resolve from <span class="string">'rollup-plugin-node-resolve'</span>;</span><br><span class="line">import typescript from <span class="string">'rollup-plugin-typescript2'</span>;</span><br><span class="line">import commonjs from <span class="string">'rollup-plugin-commonjs'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> default [&#123;</span><br><span class="line">   input: <span class="string">'src/main.ts'</span>,</span><br><span class="line">   output: &#123;</span><br><span class="line">     file: <span class="string">'../../mainApp/src/assets/plugins/plugin-a.bundle.js'</span>,   </span><br><span class="line">     format: <span class="string">'umd'</span>,</span><br><span class="line">     name: <span class="string">'plugin-a'</span>,</span><br><span class="line">&#125;,</span><br><span class="line">   plugins: [</span><br><span class="line">     angular(),</span><br><span class="line">     resolve(&#123;</span><br><span class="line">        jsnext: <span class="literal">true</span>,</span><br><span class="line">        main: <span class="literal">true</span>,</span><br><span class="line">        // pass custom options to the resolve plugin</span><br><span class="line">        customResolveOptions: &#123;</span><br><span class="line">           moduleDirectory: <span class="string">'node_modules'</span></span><br><span class="line">        &#125;</span><br><span class="line">     &#125;),</span><br><span class="line">     typescript(&#123;</span><br><span class="line">       typescript: require(<span class="string">'typescript'</span>)</span><br><span class="line">     &#125;),</span><br><span class="line">     commonjs()</span><br><span class="line">   ],</span><br><span class="line">   external: [</span><br><span class="line">     <span class="string">'@angular/core'</span>,</span><br><span class="line">     <span class="string">'@angular/common'</span></span><br><span class="line">   ]</span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Download rollup</strong><br><code>npm install rollup -g</code></p>
-</li>
-<li><p><strong>Build plugin-a</strong><br><code>npm run build</code><br><img src="/2019/09/04/AngularPluggableAtchitecture/3.png" alt="Architecture"></p>
-</li>
-</ol>
-<h3 id="Part-mainApp"><a href="#Part-mainApp" class="headerlink" title="Part mainApp"></a>Part mainApp</h3><ol>
-<li><p><strong>Make sure bundle.js already exists under assets</strong><br><img src="/2019/09/04/AngularPluggableAtchitecture/4.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Download systemjs</strong><br><code>npm install systemjs@0.21.3</code></p>
-</li>
-<li><p><strong>angular.json</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">***</span><br><span class="line"><span class="string">"scripts"</span>: [</span><br><span class="line">    <span class="string">"./node_modules/systemjs/dist/system.js"</span></span><br><span class="line">]</span><br><span class="line">***</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>main.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import &#123; enableProdMode &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import &#123; platformBrowserDynamic &#125; from <span class="string">'@angular/platform-browser-dynamic'</span>;</span><br><span class="line"></span><br><span class="line">import &#123; AppModule &#125; from <span class="string">'./app/app.module'</span>;</span><br><span class="line">import &#123; environment &#125; from <span class="string">'./environments/environment'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">declare</span> const SystemJS;</span><br><span class="line">import * as angularCore from <span class="string">'@angular/core'</span>;</span><br><span class="line">import * as angularCommon from <span class="string">'@angular/common'</span>;</span><br><span class="line">SystemJS.set(<span class="string">'@angular/core'</span>, SystemJS.newModule(angularCore));</span><br><span class="line">SystemJS.set(<span class="string">'@angular/common'</span>, SystemJS.newModule(angularCommon));</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (environment.production) &#123;</span><br><span class="line">  enableProdMode();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">platformBrowserDynamic().bootstrapModule(AppModule)</span><br><span class="line">  .catch(err =&gt; console.error(err));</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>app.module.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">import &#123; BrowserModule &#125; from <span class="string">'@angular/platform-browser'</span>;</span><br><span class="line">import &#123; COMPILER_OPTIONS, CompilerFactory, Compiler, NgModule &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import &#123; JitCompilerFactory &#125; from <span class="string">'@angular/platform-browser-dynamic'</span>;</span><br><span class="line"></span><br><span class="line">import &#123; AppRoutingModule &#125; from <span class="string">'./app-routing.module'</span>;</span><br><span class="line">import &#123; AppComponent &#125; from <span class="string">'./app.component'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> <span class="keyword">function</span> createCompiler(fn: CompilerFactory): Compiler &#123;     </span><br><span class="line">  <span class="built_in">return</span> fn.createCompiler();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@NgModule(&#123;</span><br><span class="line">  declarations: [</span><br><span class="line">    AppComponent</span><br><span class="line">  ],</span><br><span class="line">  imports: [</span><br><span class="line">    BrowserModule,</span><br><span class="line">    AppRoutingModule</span><br><span class="line">  ],</span><br><span class="line">  providers: [&#123;</span><br><span class="line">    provide: COMPILER_OPTIONS,</span><br><span class="line">    useValue: &#123;&#125;,</span><br><span class="line">    multi: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    provide: CompilerFactory,</span><br><span class="line">    useClass: JitCompilerFactory,</span><br><span class="line">    deps: [COMPILER_OPTIONS]</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    provide: Compiler,</span><br><span class="line">    useFactory: createCompiler,</span><br><span class="line">    deps: [CompilerFactory]</span><br><span class="line">  &#125;],</span><br><span class="line">  bootstrap: [AppComponent]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppModule &#123; &#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>app.component.html</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="comment">#content&gt;&lt;/div&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>app.component.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">  AfterViewInit, Component, Compiler, Injector, ViewChild,</span><br><span class="line">  ViewContainerRef</span><br><span class="line">&#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">declare</span> const SystemJS: any;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-root'</span>,</span><br><span class="line">  templateUrl: <span class="string">'./app.component.html'</span>,</span><br><span class="line">  styleUrls: [<span class="string">'./app.component.css'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppComponent implements AfterViewInit &#123;</span><br><span class="line"></span><br><span class="line">  @ViewChild(<span class="string">'content'</span>, &#123; <span class="built_in">read</span>: ViewContainerRef, static: <span class="literal">false</span> &#125;) content: ViewContainerRef;</span><br><span class="line"></span><br><span class="line">  constructor(private _compiler: Compiler, private _injector: Injector) &#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">ngAfterViewInit</span></span>() &#123;</span><br><span class="line">    this.loadPlugins();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  private async <span class="function"><span class="title">loadPlugins</span></span>() &#123;</span><br><span class="line">    // import external module bundle</span><br><span class="line">    const module = await SystemJS.import(<span class="string">"assets/plugins/plugin-a.bundle.js"</span>);</span><br><span class="line"></span><br><span class="line">    // compile module</span><br><span class="line">    const moduleFactory = await this._compiler</span><br><span class="line">      .compileModuleAsync&lt;any&gt;(module[<span class="string">"PluginAModule"</span>]);</span><br><span class="line"></span><br><span class="line">    // resolve component factory</span><br><span class="line">    const moduleRef = moduleFactory.create(this._injector);</span><br><span class="line"></span><br><span class="line">    //get the custom made provider name <span class="string">'plugins'</span> </span><br><span class="line">    const componentProvider = moduleRef.injector.get(<span class="string">'plugins'</span>);</span><br><span class="line"></span><br><span class="line">    //from plugins array load the component on position 0 </span><br><span class="line">    const componentFactory = moduleRef.componentFactoryResolver</span><br><span class="line">      .resolveComponentFactory&lt;any&gt;(</span><br><span class="line">        componentProvider[0][0].component</span><br><span class="line">      );</span><br><span class="line"></span><br><span class="line">    // compile component </span><br><span class="line">    var pluginComponent = this.content.createComponent(componentFactory);</span><br><span class="line"></span><br><span class="line">    //sending @Input() values </span><br><span class="line">    //pluginComponent.instance.anyInput = <span class="string">"inputValue"</span>; </span><br><span class="line"></span><br><span class="line">    //accessing the component template view</span><br><span class="line">    //(pluginComponent.hostView as EmbeddedViewRef&lt;any&gt;).rootNodes[0] as HTMLElement;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Build mainApp</strong><br><code>ng s</code></p>
-</li>
-</ol>
-<h2 id="Change-immediate"><a href="#Change-immediate" class="headerlink" title="Change immediate"></a>Change immediate</h2><h3 id="Part-plugin-a-1"><a href="#Part-plugin-a-1" class="headerlink" title="Part plugin-a"></a>Part plugin-a</h3><ol>
-<li><p><strong>plugin-a.component.ts</strong><br><img src="/2019/09/04/AngularPluggableAtchitecture/5.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Build plugin-a</strong><br><code>npm run build</code></p>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=TEQdl3Pigiw" target="_blank" rel="noopener">Pluggable Angular Apps - Paul Spears - Angular Lunch April 2019</a><br><a href="https://itnext.io/how-to-build-a-plugin-extensible-application-architecture-in-angular5-736890278f3f" target="_blank" rel="noopener">How to build a plugin/extensible application architecture in Angular 5+</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/04/AngularElementsInclude/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/04/AngularElementsInclude/" itemprop="url">Angular Custom Elements Include</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-09-04T09:24:17+08:00">
-                2019-09-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Angular/" itemprop="url" rel="index">
-                    <span itemprop="name">Angular</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Angular-Custom-Elements-Include"><a href="#Angular-Custom-Elements-Include" class="headerlink" title="Angular Custom Elements Include"></a>Angular Custom Elements Include</h1><h2 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h2><ol>
-<li><p><strong>Copy js and css file</strong><br><img src="/2019/09/04/AngularElementsInclude/1.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Create new folder and add index.html</strong><br><img src="/2019/09/04/AngularElementsInclude/2.png" alt="Architecture"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!doctype html&gt;</span><br><span class="line">&lt;html lang=<span class="string">"en"</span>&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;title&gt;Angular Elements Demo&lt;/title&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        &lt;app-activeuser user=<span class="string">"Joey Tribbiani"</span>&gt;&lt;/app-activeuser&gt;</span><br><span class="line">        &lt;script src=<span class="string">"elements.js"</span>&gt;&lt;/script&gt;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Open from browser</strong><br><img src="/2019/09/04/AngularElementsInclude/3.png" alt="Architecture"></p>
-</li>
-</ol>
-<h2 id="Include-with-Angular"><a href="#Include-with-Angular" class="headerlink" title="Include with Angular"></a>Include with Angular</h2><ol>
-<li><p><strong>Create js file under assets</strong><br><img src="/2019/09/04/AngularElementsInclude/4.png" alt="Architecture"></p>
-</li>
-<li><p><strong>index.html</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;!doctype html&gt;</span><br><span class="line">&lt;html lang=<span class="string">"en"</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset=<span class="string">"utf-8"</span>&gt;</span><br><span class="line">  &lt;title&gt;IncludeCustomElements&lt;/title&gt;</span><br><span class="line">  &lt;base href=<span class="string">"/"</span>&gt;</span><br><span class="line"></span><br><span class="line">  &lt;meta name=<span class="string">"viewport"</span> content=<span class="string">"width=device-width, initial-scale=1"</span>&gt;</span><br><span class="line">  &lt;link rel=<span class="string">"icon"</span> <span class="built_in">type</span>=<span class="string">"image/x-icon"</span> href=<span class="string">"favicon.ico"</span>&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;app-root&gt;&lt;/app-root&gt;</span><br><span class="line">  &lt;app-activeuser user=<span class="string">"Joey Tribbiani"</span>&gt;&lt;/app-activeuser&gt;</span><br><span class="line">  &lt;script src=<span class="string">"./assets/js/elements.js"</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Open from browser</strong><br><img src="/2019/09/04/AngularElementsInclude/5.png" alt="Architecture"></p>
-</li>
-</ol>
-<h2 id="Include-with-Angular-lazy"><a href="#Include-with-Angular-lazy" class="headerlink" title="Include with Angular lazy"></a>Include with Angular lazy</h2><ol>
-<li><p><strong>Create js file under assets</strong><br><img src="/2019/09/04/AngularElementsInclude/4.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Download extensions elements</strong><br><code>npm i @angular-extensions/elements</code></p>
-</li>
-<li><p><strong>Create component</strong><br><code>ng g c feature --spec false</code></p>
-</li>
-<li><p><strong>feature.component.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-feature'</span>,</span><br><span class="line">  template: `</span><br><span class="line">  &lt;app-activeuser user=<span class="string">"Joey Tribbiani"</span> *axLazyElement=<span class="string">"elementUrl"</span>&gt;&lt;/app-activeuser&gt;</span><br><span class="line">  `</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class FeatureComponent &#123;</span><br><span class="line">  elementUrl = <span class="string">'http://localhost:4200/assets/js/elements.js'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>app.component.html</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;app-feature&gt;&lt;/app-feature&gt;</span><br><span class="line">&lt;router-outlet&gt;&lt;/router-outlet&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>app.module.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import &#123; BrowserModule &#125; from <span class="string">'@angular/platform-browser'</span>;</span><br><span class="line">import &#123; NgModule, CUSTOM_ELEMENTS_SCHEMA  &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import &#123; LazyElementsModule &#125; from <span class="string">'@angular-extensions/elements'</span>;</span><br><span class="line"></span><br><span class="line">import &#123; AppRoutingModule &#125; from <span class="string">'./app-routing.module'</span>;</span><br><span class="line">import &#123; AppComponent &#125; from <span class="string">'./app.component'</span>;</span><br><span class="line">import &#123; FeatureComponent &#125; from <span class="string">'./feature/feature.component'</span>;</span><br><span class="line"></span><br><span class="line">@NgModule(&#123;</span><br><span class="line">  schemas: [CUSTOM_ELEMENTS_SCHEMA],</span><br><span class="line">  declarations: [</span><br><span class="line">    AppComponent,</span><br><span class="line">    FeatureComponent</span><br><span class="line">  ],</span><br><span class="line">  imports: [</span><br><span class="line">    BrowserModule,</span><br><span class="line">    AppRoutingModule,</span><br><span class="line">    LazyElementsModule</span><br><span class="line">  ],</span><br><span class="line">  providers: [],</span><br><span class="line">  bootstrap: [AppComponent]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppModule &#123; &#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Open from browser</strong><br><img src="/2019/09/04/AngularElementsInclude/6.png" alt="Architecture"></p>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://angular-extensions.github.io/elements/#/docs/getting-started" target="_blank" rel="noopener">@angular-extensions/elements</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/04/AngularElementsCreate/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/04/AngularElementsCreate/" itemprop="url">Angular Custom Elements Add</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-09-04T08:40:12+08:00">
-                2019-09-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Angular/" itemprop="url" rel="index">
-                    <span itemprop="name">Angular</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Angular-Custom-Elements-Add"><a href="#Angular-Custom-Elements-Add" class="headerlink" title="Angular Custom Elements Add"></a>Angular Custom Elements Add</h1><ol>
-<li><p><strong>Create a new project</strong><br><code>ng new createCustomElements</code></p>
-</li>
-<li><p><strong>Create component</strong><br><code>ng g c activeUsers --spec false</code></p>
-</li>
-<li><p><strong>active-users.component.html</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1&gt;&#123;&#123;title&#125;&#125;&lt;/h1&gt;</span><br><span class="line"> &lt;h2&gt;You are welcome, &#123;&#123;user&#125;&#125;!&lt;/h2&gt;</span><br><span class="line"> &lt;h4&gt;Active Users - &lt;/h4&gt;</span><br><span class="line"> &lt;div&gt;</span><br><span class="line">    &lt;table *ngFor=<span class="string">"let user of activeUsers; let i = index;"</span> width=<span class="string">"40%"</span>&gt;</span><br><span class="line">      &lt;tr&gt;&lt;td width=<span class="string">"5%"</span>&gt;<span class="comment">#&#123;&#123;i +1&#125;&#125;&lt;/td&gt;&lt;td width="30%"&gt;&#123;&#123;user.name&#125;&#125;&lt;/td&gt;&lt;/tr&gt;</span></span><br><span class="line">    &lt;/table&gt;</span><br><span class="line"> &lt;/div&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>active-users.component.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component, OnInit, Input &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-active-users'</span>,</span><br><span class="line">  templateUrl: <span class="string">'./active-users.component.html'</span>,</span><br><span class="line">  styleUrls: [<span class="string">'./active-users.component.css'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class ActiveUsersComponent implements OnInit &#123;</span><br><span class="line"></span><br><span class="line">  public activeUsers :any;</span><br><span class="line">  public title :any;</span><br><span class="line">  @Input() user: string;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">constructor</span></span>() &#123;</span><br><span class="line">    this.title =<span class="string">'Angular - Create Custom Elements'</span>;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">ngOnInit</span></span>() &#123;</span><br><span class="line">    this.activeUsers = [</span><br><span class="line">      &#123;<span class="string">"name"</span> :<span class="string">"Anil Singh"</span>&#125;,</span><br><span class="line">      &#123;<span class="string">"name"</span> :<span class="string">"Alok Singh"</span>&#125;,</span><br><span class="line">      &#123;<span class="string">"name"</span> :<span class="string">"Dilip Singh"</span>&#125;,</span><br><span class="line">      &#123;<span class="string">"name"</span> :<span class="string">"Sunil Singh"</span>&#125;,</span><br><span class="line">      &#123;<span class="string">"name"</span> :<span class="string">"Aradhya Singh"</span>&#125;,</span><br><span class="line">      &#123;<span class="string">"name"</span> :<span class="string">"Reena Singh"</span>&#125;</span><br><span class="line">];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Download angular elements</strong><br><code>ng add @angular/elements</code></p>
-</li>
-<li><p><strong>Delete app.component files</strong><br><img src="/2019/09/04/AngularElementsCreate/1.png" alt="Architecture"><br><img src="/2019/09/04/AngularElementsCreate/2.png" alt="Architecture"></p>
-</li>
-<li><p><strong>app.module.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">import &#123; BrowserModule &#125; from <span class="string">'@angular/platform-browser'</span>;</span><br><span class="line">import &#123; NgModule, Injector &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import &#123; createCustomElement &#125; from <span class="string">'@angular/elements'</span>;</span><br><span class="line"></span><br><span class="line">import &#123; ActiveUsersComponent &#125; from <span class="string">'./active-users/active-users.component'</span>;</span><br><span class="line"></span><br><span class="line">@NgModule(&#123;</span><br><span class="line">  declarations: [</span><br><span class="line">    ActiveUsersComponent</span><br><span class="line">  ],</span><br><span class="line">  imports: [</span><br><span class="line">    BrowserModule</span><br><span class="line">  ],</span><br><span class="line">  providers: [],</span><br><span class="line">  entryComponents: [</span><br><span class="line">    ActiveUsersComponent</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppModule &#123;</span><br><span class="line">  constructor(private injector: Injector) &#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">ngDoBootstrap</span></span>() &#123;</span><br><span class="line">    const el = createCustomElement(ActiveUsersComponent, &#123; injector: this.injector &#125;);</span><br><span class="line">    customElements.define(<span class="string">'app-activeuser'</span>, el);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>index.html</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;!doctype html&gt;</span><br><span class="line">&lt;html lang=<span class="string">"en"</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset=<span class="string">"utf-8"</span>&gt;</span><br><span class="line">  &lt;title&gt;CreateCustomElements&lt;/title&gt;</span><br><span class="line">  &lt;base href=<span class="string">"/"</span>&gt;</span><br><span class="line"></span><br><span class="line">  &lt;meta name=<span class="string">"viewport"</span> content=<span class="string">"width=device-width, initial-scale=1"</span>&gt;</span><br><span class="line">  &lt;link rel=<span class="string">"icon"</span> <span class="built_in">type</span>=<span class="string">"image/x-icon"</span> href=<span class="string">"favicon.ico"</span>&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;app-activeuser user=<span class="string">"Joey Tribbiani"</span>&gt;&lt;/app-activeuser&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Add file build-elements.js</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">const fs = require(<span class="string">'fs-extra'</span>);</span><br><span class="line">const concat = require(<span class="string">'concat'</span>);</span><br><span class="line">(async <span class="keyword">function</span> <span class="function"><span class="title">build</span></span>() &#123;</span><br><span class="line">  const files = [</span><br><span class="line">    <span class="string">'./dist/createCustomElements/runtime-es2015.js'</span>,</span><br><span class="line">    <span class="string">'./dist/createCustomElements/polyfills-es2015.js'</span>,</span><br><span class="line">    <span class="string">'./dist/createCustomElements/scripts.js'</span>,</span><br><span class="line">    <span class="string">'./dist/createCustomElements/main-es2015.js'</span>,</span><br><span class="line">  ]</span><br><span class="line">  await fs.ensureDir(<span class="string">'elements'</span>)</span><br><span class="line">  await concat(files, <span class="string">'elements/elements.js'</span>);</span><br><span class="line">  await fs.copyFile(<span class="string">'./dist/createCustomElements/styles.css'</span>, <span class="string">'elements/styles.css'</span>)</span><br><span class="line">  await fs.copy(<span class="string">'./dist/createCustomElements/assets/'</span>, <span class="string">'elements/assets/'</span> )</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>package.json</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">***</span><br><span class="line"><span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"ng"</span>: <span class="string">"ng"</span>,</span><br><span class="line">    <span class="string">"start"</span>: <span class="string">"ng serve"</span>,</span><br><span class="line">    <span class="string">"build"</span>: <span class="string">"ng build"</span>,</span><br><span class="line">    <span class="string">"test"</span>: <span class="string">"ng test"</span>,</span><br><span class="line">    <span class="string">"lint"</span>: <span class="string">"ng lint"</span>,</span><br><span class="line">    <span class="string">"e2e"</span>: <span class="string">"ng e2e"</span>,</span><br><span class="line">    <span class="string">"build:elements"</span>: <span class="string">"ng build --prod --output-hashing none &amp;&amp; node build-elements.js"</span></span><br><span class="line">  &#125;,</span><br><span class="line">***</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Download fs-extra and concat</strong><br><code>npm install fs-extra concat --save-dev</code></p>
-</li>
-<li><p><strong>build element</strong><br><code>npm run build:elements</code></p>
-</li>
-<li><p><strong>Generate file</strong><br><img src="/2019/09/04/AngularElementsCreate/3.png" alt="Architecture"></p>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.techiediaries.com/angular-elements-web-components/" target="_blank" rel="noopener">Angular 7|8 Elements Tutorial by Example: Building Web Components</a><br><a href="https://www.code-sample.com/2018/07/create-custom-element-angular-6.html" target="_blank" rel="noopener">Create Custom Element Angular 6 - Step by Step with Example</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/23/DotNetCoreWebApi/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/23/DotNetCoreWebApi/" itemprop="url">.Net Core 2 WebApi + Postman</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-08-23T15:05:51+08:00">
-                2019-08-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Net-Core/" itemprop="url" rel="index">
-                    <span itemprop="name">.Net Core</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h2><h4 id="Net-Core-part"><a href="#Net-Core-part" class="headerlink" title=".Net Core part"></a>.Net Core part</h4><ol>
-<li><p>開啟 Web Api 專案<br><img src="/2019/08/23/DotNetCoreWebApi/1.png" alt="Architecture"></p>
-</li>
-<li><p>修改 <strong>Startup.cs</strong><br><img src="/2019/08/23/DotNetCoreWebApi/2.png" alt="Architecture"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">using Microsoft.AspNetCore.Builder;</span><br><span class="line">using Microsoft.AspNetCore.Hosting;</span><br><span class="line">using Microsoft.AspNetCore.Mvc;</span><br><span class="line">using Microsoft.Extensions.Configuration;</span><br><span class="line">using Microsoft.Extensions.DependencyInjection;</span><br><span class="line"></span><br><span class="line">namespace WebApi</span><br><span class="line">&#123;</span><br><span class="line">    public class Startup</span><br><span class="line">    &#123;</span><br><span class="line">        public Startup(IConfiguration configuration)</span><br><span class="line">        &#123;</span><br><span class="line">            Configuration = configuration;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public IConfiguration Configuration &#123; get; &#125;</span><br><span class="line"></span><br><span class="line">        // This method gets called by the runtime. Use this method to add services to the container.</span><br><span class="line">        public void ConfigureServices(IServiceCollection services)</span><br><span class="line">        &#123;</span><br><span class="line">            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.</span><br><span class="line">        public void Configure(IApplicationBuilder app, IHostingEnvironment env)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (env.IsDevelopment())</span><br><span class="line">            &#123;</span><br><span class="line">                app.UseDeveloperExceptionPage();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                // The default HSTS value is 30 days. You may want to change this <span class="keyword">for</span> production scenarios, see https://aka.ms/aspnetcore-hsts.</span><br><span class="line">                app.UseHsts();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            app.UseMvc(routes =&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                routes.MapRoute(<span class="string">"default"</span>, <span class="string">"&#123;controller=Home&#125;/&#123;action=Index&#125;/&#123;id?&#125;"</span>);</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            app.UseHttpsRedirection();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>新增 <strong>HomeController.cs</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">using Microsoft.AspNetCore.Mvc;</span><br><span class="line"></span><br><span class="line">namespace WebApi.Controllers</span><br><span class="line">&#123;</span><br><span class="line">    [Route(<span class="string">"api/[controller]"</span>)]</span><br><span class="line">    [ApiController]</span><br><span class="line">    public class HomeController : ControllerBase</span><br><span class="line">    &#123;</span><br><span class="line">        public IActionResult Get()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">return</span> Ok(<span class="string">"Get Success"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        [HttpPost]</span><br><span class="line">        public IActionResult Post()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">return</span> Ok(<span class="string">"Post Success"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        [HttpPut]</span><br><span class="line">        public IActionResult Put()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">return</span> Ok(<span class="string">"Put Success"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        [HttpDelete]</span><br><span class="line">        public IActionResult Delete()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">return</span> Ok(<span class="string">"Delete Success"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="Postman-part"><a href="#Postman-part" class="headerlink" title="Postman part"></a>Postman part</h4><ol>
-<li><p><strong>Close SSL certificate verification</strong><br><img src="/2019/08/23/DotNetCoreWebApi/3.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Get</strong><br><img src="/2019/08/23/DotNetCoreWebApi/4.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Post</strong><br><img src="/2019/08/23/DotNetCoreWebApi/5.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Put</strong><br><img src="/2019/08/23/DotNetCoreWebApi/6.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Delete</strong><br><img src="/2019/08/23/DotNetCoreWebApi/7.png" alt="Architecture"></p>
-</li>
-</ol>
-<h2 id="Route-Attribute"><a href="#Route-Attribute" class="headerlink" title="Route Attribute"></a>Route Attribute</h2><h4 id="Net-Core-part-1"><a href="#Net-Core-part-1" class="headerlink" title=".Net Core part"></a>.Net Core part</h4><ol>
-<li><p>新增 <strong>Message.cs</strong><br><img src="/2019/08/23/DotNetCoreWebApi/8.png" alt="Architecture"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">namespace WebApi.Models</span><br><span class="line">&#123;</span><br><span class="line">    public class Message</span><br><span class="line">    &#123;</span><br><span class="line">        public string Message1 &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string Message2 &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>新增 <strong>RouteAttributeController.cs</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">using Microsoft.AspNetCore.Mvc;</span><br><span class="line">using WebApi.Models;</span><br><span class="line"></span><br><span class="line">namespace WebApi.Controllers</span><br><span class="line">&#123;</span><br><span class="line">    [Route(<span class="string">"api/[controller]"</span>)]</span><br><span class="line">    [ApiController]</span><br><span class="line">    public class RouteAttributeController : ControllerBase</span><br><span class="line">    &#123;</span><br><span class="line">        [Route(<span class="string">"Index"</span>)]</span><br><span class="line">        public IActionResult MyIndex()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">return</span> Ok(<span class="string">"Index Success"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        [Route(<span class="string">"Index/&#123;id:int&#125;/&#123;firstName"</span>)]</span><br><span class="line">        public IActionResult MyIndex(int id)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">return</span> Ok($<span class="string">"Index &#123;id&#125; Success"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        [Route(<span class="string">"About"</span>)]</span><br><span class="line">        [HttpPost]</span><br><span class="line">        public IActionResult MyAbout()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">return</span> Ok(<span class="string">"About Success"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        [Route(<span class="string">"About/&#123;id:int&#125;"</span>)]</span><br><span class="line">        [HttpPost]</span><br><span class="line">        public IActionResult MyAbout(int id)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">return</span> Ok($<span class="string">"About &#123;id&#125; Success"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        [Route(<span class="string">"ContactSingle"</span>)]</span><br><span class="line">        [HttpPost]</span><br><span class="line">        public IActionResult MyContact([FromBody]string message)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">return</span> Ok($<span class="string">"Contact &#123;message&#125; Success"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        [Route(<span class="string">"ContactClass"</span>)]</span><br><span class="line">        [HttpPost]</span><br><span class="line">        public IActionResult MyContact([FromBody]Message msg)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">return</span> Ok($<span class="string">"Contact &#123;msg.Message1&#125; &#123;msg.Message2&#125; Success"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="Postman-part-1"><a href="#Postman-part-1" class="headerlink" title="Postman part"></a>Postman part</h4><ol>
-<li><p><strong>Get Route(“Index”)</strong><br><img src="/2019/08/23/DotNetCoreWebApi/9.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Get [Route(“Index/{id:int}”)]</strong><br><img src="/2019/08/23/DotNetCoreWebApi/10.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Post [Route(“About”)]</strong><br><img src="/2019/08/23/DotNetCoreWebApi/11.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Post [Route(“About/{id:int}”)]</strong><br><img src="/2019/08/23/DotNetCoreWebApi/12.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Post [Route(“ContactSingle”)] FromBody</strong><br><img src="/2019/08/23/DotNetCoreWebApi/13.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Post [Route(“ContactClass”)] FromBody</strong><br><img src="/2019/08/23/DotNetCoreWebApi/14.png" alt="Architecture"></p>
-</li>
-</ol>
-<h2 id="Http-Verb"><a href="#Http-Verb" class="headerlink" title="Http Verb"></a>Http Verb</h2><h4 id="Net-Core-part-2"><a href="#Net-Core-part-2" class="headerlink" title=".Net Core part"></a>.Net Core part</h4><ol>
-<li>新增 <strong>HttpVerbController.cs</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using Microsoft.AspNetCore.Mvc;</span><br><span class="line">using WebApi.Models;</span><br><span class="line"></span><br><span class="line">namespace WebApi.Controllers</span><br><span class="line">&#123;</span><br><span class="line">    [Route(<span class="string">"api/[controller]"</span>)]</span><br><span class="line">    [ApiController]</span><br><span class="line">    public class HttpVerbController : ControllerBase</span><br><span class="line">    &#123;</span><br><span class="line">        private List&lt;Message&gt; messages = new List&lt;Message&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            new Message &#123; Message1 = <span class="string">"Message11"</span>, Message2 = <span class="string">"Message12"</span> &#125;,</span><br><span class="line">            new Message &#123; Message1 = <span class="string">"Message21"</span>, Message2 = <span class="string">"Message22"</span> &#125;,</span><br><span class="line">            new Message &#123; Message1 = <span class="string">"Message31"</span>, Message2 = <span class="string">"Message32"</span> &#125;,</span><br><span class="line">            new Message &#123; Message1 = <span class="string">"Message41"</span>, Message2 = <span class="string">"Message42"</span> &#125;,</span><br><span class="line">            new Message &#123; Message1 = <span class="string">"Message51"</span>, Message2 = <span class="string">"Message52"</span> &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        [HttpGet(<span class="string">"getMessage"</span>)]</span><br><span class="line">        public IActionResult GetListMessages()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">return</span> Ok(this.messages);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        [HttpGet(<span class="string">"getMessage/&#123;id&#125;"</span>)]</span><br><span class="line">        public IActionResult GetListMessages(int id)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">return</span> Ok(this.messages.Where(o =&gt; o.Message2.Contains(id.ToString())).ToList());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        [HttpPost(<span class="string">"postMessage"</span>)]</span><br><span class="line">        public IActionResult PostListMessages()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">return</span> Ok(this.messages);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        [HttpPost(<span class="string">"postMessage/&#123;id&#125;"</span>)]</span><br><span class="line">        public IActionResult PostListMessages(int id)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">return</span> Ok(this.messages.Where(o =&gt; o.Message2.Contains(id.ToString())).ToList());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        [HttpPost(<span class="string">"postMessageSingleBody"</span>)]</span><br><span class="line">        public IActionResult PostListMessages([FromBody]string message)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">return</span> Ok(this.messages.Where(o =&gt; o.Message2 == message).ToList());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        [HttpPost(<span class="string">"postMessageClassBody"</span>)]</span><br><span class="line">        public IActionResult PostListMessages([FromBody]Message msg)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">return</span> Ok(this.messages.Where(o =&gt; o.Message2 == msg.Message2).ToList());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="Postman-part-2"><a href="#Postman-part-2" class="headerlink" title="Postman part"></a>Postman part</h4><ol>
-<li><p><strong>Get [HttpGet(“getMessage”)]</strong><br><img src="/2019/08/23/DotNetCoreWebApi/15.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Get [HttpGet(“getMessage/{id}”)]</strong><br><img src="/2019/08/23/DotNetCoreWebApi/16.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Post [HttpPost(“postMessage”)]</strong><br><img src="/2019/08/23/DotNetCoreWebApi/17.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Post [HttpPost(“postMessage/{id}”)]</strong><br><img src="/2019/08/23/DotNetCoreWebApi/18.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Post [HttpPost(“postMessageSingleBody”)] FromBody</strong><br><img src="/2019/08/23/DotNetCoreWebApi/19.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Post [HttpPost(“postMessageClassBody”)] FromBody</strong><br><img src="/2019/08/23/DotNetCoreWebApi/20.png" alt="Architecture"></p>
-</li>
-</ol>
-<h2 id="Http-Response-Type"><a href="#Http-Response-Type" class="headerlink" title="Http Response Type"></a>Http Response Type</h2><h4 id="Net-Core-part-3"><a href="#Net-Core-part-3" class="headerlink" title=".Net Core part"></a>.Net Core part</h4><ol>
-<li>新增 <strong>ResponseTypeController.cs</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">using Microsoft.AspNetCore.Mvc;</span><br><span class="line"></span><br><span class="line">namespace WebApi.Controllers</span><br><span class="line">&#123;</span><br><span class="line">    [Route(<span class="string">"api/[controller]"</span>)]</span><br><span class="line">    [ApiController]</span><br><span class="line">    public class ResponseTypeController : ControllerBase</span><br><span class="line">    &#123;</span><br><span class="line">        [HttpGet(<span class="string">"getResponse/&#123;id&#125;"</span>)]</span><br><span class="line">        public IActionResult GetResponse(int id)</span><br><span class="line">        &#123;</span><br><span class="line">            switch (id)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">case</span> 1:</span><br><span class="line">                    <span class="built_in">return</span> Ok(<span class="string">"Success"</span>);</span><br><span class="line">                <span class="keyword">case</span> 2:</span><br><span class="line">                    <span class="built_in">return</span> BadRequest(<span class="string">"BadRequest"</span>);</span><br><span class="line">                default:</span><br><span class="line">                    <span class="built_in">return</span> NotFound(<span class="string">"NotFound"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="Postman-part-3"><a href="#Postman-part-3" class="headerlink" title="Postman part"></a>Postman part</h4><ol>
-<li><p><strong>Status 200 Ok</strong><br><img src="/2019/08/23/DotNetCoreWebApi/21.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Status 400 Bad Request</strong><br><img src="/2019/08/23/DotNetCoreWebApi/22.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Status 404 Not Found</strong><br><img src="/2019/08/23/DotNetCoreWebApi/23.png" alt="Architecture"></p>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://docs.microsoft.com/zh-tw/aspnet/core/mvc/controllers/routing?view=aspnetcore-2.2" target="_blank" rel="noopener">ASP.NET Core 中的路由至控制器動作</a><br><a href="https://docs.microsoft.com/zh-tw/aspnet/core/web-api/?view=aspnetcore-2.2" target="_blank" rel="noopener">使用 ASP.NET Core 建立 Web API</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/23/AngularAndNetCoreSignalRWebApi/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/23/AngularAndNetCoreSignalRWebApi/" itemprop="url">Angular + .Net Core SignalR WebApi</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-08-23T09:57:45+08:00">
-                2019-08-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Net-Core/" itemprop="url" rel="index">
-                    <span itemprop="name">.Net Core</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Angular-Net-Core-SignalR-WebApi"><a href="#Angular-Net-Core-SignalR-WebApi" class="headerlink" title="Angular + .Net Core SignalR WebApi"></a>Angular + .Net Core SignalR WebApi</h1><pre><code>需先建置 SignalR Interface
-</code></pre><p><a href="/2019/08/22/AngularAndNetCoreSignalRInterface/">Angular + .Net Core SignalR Interface</a></p>
-<h4 id="Net-Core"><a href="#Net-Core" class="headerlink" title=".Net Core"></a>.Net Core</h4><ol>
-<li><p>增加 <strong>Message.cs</strong><br><img src="/2019/08/23/AngularAndNetCoreSignalRWebApi/1.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Message.cs</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">namespace HubServerBasic.Models</span><br><span class="line">&#123;</span><br><span class="line">    public class Message</span><br><span class="line">    &#123;</span><br><span class="line">        public string Message1 &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string Message2 &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>增加 <strong>MessageController.cs</strong><br><img src="/2019/08/23/AngularAndNetCoreSignalRWebApi/2.png" alt="Architecture"></p>
-</li>
-<li><p><strong>MessageController.cs</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using HubServerBasic.Hubs;</span><br><span class="line">using HubServerBasic.Models;</span><br><span class="line">using Microsoft.AspNetCore.Mvc;</span><br><span class="line">using Microsoft.AspNetCore.SignalR;</span><br><span class="line"></span><br><span class="line">namespace HubServerBasic.Controllers</span><br><span class="line">&#123;</span><br><span class="line">    [Route(<span class="string">"api/[controller]"</span>)]</span><br><span class="line">    [ApiController]</span><br><span class="line">    public class MessageController : ControllerBase</span><br><span class="line">    &#123;</span><br><span class="line">        private IHubContext&lt;MessageHub, IMessageClient&gt; _hubContext;</span><br><span class="line"></span><br><span class="line">        public MessageController(IHubContext&lt;MessageHub, IMessageClient&gt; hubContext)</span><br><span class="line">        &#123;</span><br><span class="line">            _hubContext = hubContext;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        [HttpPost(<span class="string">"sendAll"</span>)]</span><br><span class="line">        public string SendAll([FromBody]Message msg)</span><br><span class="line">        &#123;</span><br><span class="line">            string retMessage;</span><br><span class="line"></span><br><span class="line">            try</span><br><span class="line">            &#123;</span><br><span class="line">                _hubContext.Clients.All.ReceiveMessage(msg.Message1, msg.Message2);</span><br><span class="line">                retMessage = <span class="string">"Success"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            catch (Exception e)</span><br><span class="line">            &#123;</span><br><span class="line">                retMessage = e.ToString();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="built_in">return</span> retMessage;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        [HttpPost(<span class="string">"sendSpecificClient"</span>)]</span><br><span class="line">        public string SendSpecificClient([FromBody]Message msg)</span><br><span class="line">        &#123;</span><br><span class="line">            string retMessage;</span><br><span class="line"></span><br><span class="line">            try</span><br><span class="line">            &#123;</span><br><span class="line">                _hubContext.Clients.Client(msg.Message2).ReceiveMessage(msg.Message1);</span><br><span class="line">                retMessage = <span class="string">"Success"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            catch (Exception e)</span><br><span class="line">            &#123;</span><br><span class="line">                retMessage = e.ToString();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="built_in">return</span> retMessage;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>執行<br><img src="/2019/08/23/AngularAndNetCoreSignalRWebApi/3.gif" alt="Architecture"></p>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://docs.microsoft.com/zh-tw/aspnet/core/signalr/hubs?view=aspnetcore-2.2" target="_blank" rel="noopener">使用 ASP.NET Core SignalR 中樞</a><br><a href="https://rukshan.dev/2019/05/how-to-notify-your-angular-7-app-using-signalr" target="_blank" rel="noopener">How to notify your Angular 7 app using SignalR</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2067,7 +1921,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">127</span>
+                  <span class="site-state-item-count">132</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
@@ -2078,7 +1932,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">分類</span>
                 </a>
               </div>
@@ -2089,7 +1943,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">標籤</span>
                 </a>
               </div>
@@ -2126,7 +1980,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

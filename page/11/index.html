@@ -252,6 +252,1088 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/05/DesignPatternWithDecorator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/05/DesignPatternWithDecorator/" itemprop="url">結構型模式 - 裝飾模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-06-05T09:33:24+08:00">
+                2019-06-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Design-Pattern/" itemprop="url" rel="index">
+                    <span itemprop="name">Design Pattern</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="裝飾模式"><a href="#裝飾模式" class="headerlink" title="裝飾模式"></a>裝飾模式</h1><p>動態的對某個對象進行擴展，裝飾器是除了繼承之外的另外一種為對象擴展功能的方法<br><img src="/2019/06/05/DesignPatternWithDecorator/1.png" alt="Architecture"></p>
+<h4 id="建立一個-抽象類別-SetMenu"><a href="#建立一個-抽象類別-SetMenu" class="headerlink" title="建立一個 抽象類別 SetMenu"></a>建立一個 抽象類別 <code>SetMenu</code></h4><pre><code>public abstract class SetMenu
+{
+    public virtual string Description { get; protected set; } = &quot;Unknown&quot;;
+
+    public abstract double Cost();
+}
+</code></pre><h4 id="建立一個-抽象類別-CondimentDecorator-繼承-SetMenu"><a href="#建立一個-抽象類別-CondimentDecorator-繼承-SetMenu" class="headerlink" title="建立一個 抽象類別 CondimentDecorator 繼承 SetMenu"></a>建立一個 抽象類別 <code>CondimentDecorator</code> 繼承 <code>SetMenu</code></h4><pre><code>public abstract class CondimentDecorator : SetMenu
+{
+    public abstract override string Description { get; }
+}
+</code></pre><h4 id="建立一個-類別-Hanberger-繼承-SetMenu"><a href="#建立一個-類別-Hanberger-繼承-SetMenu" class="headerlink" title="建立一個 類別 Hanberger 繼承 SetMenu"></a>建立一個 類別 <code>Hanberger</code> 繼承 <code>SetMenu</code></h4><pre><code>public class Hanberger : SetMenu
+{
+    public Hanberger()
+    {
+        base.Description = &quot;Hanberger&quot;;
+    }
+
+    public override double Cost()
+    {
+        return 50;
+    }
+}
+</code></pre><h4 id="建立一個-類別-Bago-繼承-SetMenu"><a href="#建立一個-類別-Bago-繼承-SetMenu" class="headerlink" title="建立一個 類別 Bago 繼承 SetMenu"></a>建立一個 類別 <code>Bago</code> 繼承 <code>SetMenu</code></h4><pre><code>public class Bago : SetMenu
+{
+    public Bago()
+    {
+        base.Description = &quot;Bago&quot;;
+    }
+
+    public override double Cost()
+    {
+        return 40;
+    }
+}
+</code></pre><h4 id="建立一個-類別-FrenchFries-繼承-CondimentDecorator"><a href="#建立一個-類別-FrenchFries-繼承-CondimentDecorator" class="headerlink" title="建立一個 類別 FrenchFries 繼承 CondimentDecorator"></a>建立一個 類別 <code>FrenchFries</code> 繼承 <code>CondimentDecorator</code></h4><pre><code>public class FrenchFries : CondimentDecorator
+{
+    private readonly SetMenu setMenu;
+
+    public FrenchFries(SetMenu setMenu)
+    {
+        this.setMenu = setMenu;
+    }
+
+    public override string Description =&gt; this.setMenu.Description;
+
+    public override double Cost()
+    {
+        return 30 + this.setMenu.Cost();
+    }
+}
+</code></pre><h4 id="建立一個-類別-HashBrowns-繼承-CondimentDecorator"><a href="#建立一個-類別-HashBrowns-繼承-CondimentDecorator" class="headerlink" title="建立一個 類別 HashBrowns 繼承 CondimentDecorator"></a>建立一個 類別 <code>HashBrowns</code> 繼承 <code>CondimentDecorator</code></h4><pre><code>public class HashBrowns : CondimentDecorator
+{
+    private readonly SetMenu setMenu;
+
+    public HashBrowns(SetMenu setMenu)
+    {
+        this.setMenu = setMenu;
+    }
+
+    public override string Description =&gt; this.setMenu.Description;
+
+    public override double Cost()
+    {
+        return 35 + this.setMenu.Cost();
+    }
+}
+</code></pre><h4 id="引用方式"><a href="#引用方式" class="headerlink" title="引用方式"></a>引用方式</h4><pre><code>class Program
+{
+    static void Main(string[] args)
+    {
+        SetMenu set1 = new Hanberger();
+        Console.WriteLine($&quot;{set1.Description} $ {set1.Cost()}&quot;);
+
+        SetMenu set2 = new Bago();
+        set2 = new FrenchFries(set2);
+        set2 = new HashBrowns(set2);
+        Console.WriteLine($&quot;{set2.Description} $ {set2.Cost()}&quot;);
+
+        Console.ReadKey();
+    }
+}
+</code></pre><h4 id="適用場景"><a href="#適用場景" class="headerlink" title="適用場景"></a>適用場景</h4><ol>
+<li>增加由一些基本功能的排列組合而產生的非常大量的功能</li>
+<li>擴展一個類的功能或給一個類增加附加責任</li>
+</ol>
+<h4 id="優點"><a href="#優點" class="headerlink" title="優點"></a>優點</h4><ol>
+<li>有很好的可擴展性</li>
+<li>使用不同的具體裝飾的排列組合，可以做出很多不同行為的組合</li>
+</ol>
+<h4 id="缺點"><a href="#缺點" class="headerlink" title="缺點"></a>缺點</h4><ol>
+<li>會出現許多類別，如過度使用程式會變得很複雜</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://zh.wikipedia.org/wiki/%E4%BF%AE%E9%A5%B0%E6%A8%A1%E5%BC%8F" target="_blank" rel="noopener">維基百科-修飾模式</a><br><a href="https://dotblogs.com.tw/pin0513/archive/2010/01/04/12779.aspx" target="_blank" rel="noopener">裝飾者模式筆記</a><br><a href="https://www.cnblogs.com/cgzl/p/8697949.html" target="_blank" rel="noopener">使用C# (.NET Core) 实现装饰模式 (Decorator Pattern) 并介绍 .NET/Core的Stream</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/30/InstallHTTPRedirection/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/30/InstallHTTPRedirection/" itemprop="url">Windows Server 2016 HTTP 重新導向</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-05-30T15:42:20+08:00">
+                2019-05-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MIS/" itemprop="url" rel="index">
+                    <span itemprop="name">MIS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="啟用-HTTP-Redirection"><a href="#啟用-HTTP-Redirection" class="headerlink" title="啟用 HTTP Redirection"></a>啟用 HTTP Redirection</h1><h3 id="HTTP-Redirection-安裝"><a href="#HTTP-Redirection-安裝" class="headerlink" title="HTTP Redirection 安裝"></a>HTTP Redirection 安裝</h3><ol>
+<li><p><strong>Server Manager</strong> → <strong>Add roles and features</strong><br><img src="/2019/05/30/InstallHTTPRedirection/1.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Next</strong><br><img src="/2019/05/30/InstallHTTPRedirection/2.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Next</strong><br><img src="/2019/05/30/InstallHTTPRedirection/3.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Next</strong><br><img src="/2019/05/30/InstallHTTPRedirection/4.png" alt="Architecture"></p>
+</li>
+<li><p>勾選 <strong>HTTP Redirection</strong><br><img src="/2019/05/30/InstallHTTPRedirection/5.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Next</strong><br><img src="/2019/05/30/InstallHTTPRedirection/6.png" alt="Architecture"></p>
+</li>
+<li><p>勾選 <strong>Restart the destination server automatically if required</strong><br><img src="/2019/05/30/InstallHTTPRedirection/7.png" alt="Architecture"></p>
+</li>
+<li><p>完成<br><img src="/2019/05/30/InstallHTTPRedirection/8.png" alt="Architecture"></p>
+</li>
+</ol>
+<h3 id="IIS-設定"><a href="#IIS-設定" class="headerlink" title="IIS 設定"></a>IIS 設定</h3><ol>
+<li><p><strong>Server Manager</strong> → <strong>Tools</strong> → 點擊 <strong>Internet Information Services (IIS) Manager</strong><br><img src="/2019/05/30/InstallHTTPRedirection/9.png" alt="Architecture"></p>
+</li>
+<li><p>選取 <strong>Sites</strong> → <strong>IIS</strong> → <strong>HTTP Redirect</strong><br><img src="/2019/05/30/InstallHTTPRedirection/10.png" alt="Architecture"></p>
+</li>
+<li><p>勾選 <strong>Redirect requests to this destination</strong><br>輸入網址<br>勾選 <strong>Redirect all requests to exact destination (instead of relative to destination)</strong><br>選取 <strong>Status code</strong><br><img src="/2019/05/30/InstallHTTPRedirection/11.png" alt="Architecture"></p>
+</li>
+</ol>
+<h3 id="Web-config-設定"><a href="#Web-config-設定" class="headerlink" title="Web.config 設定"></a>Web.config 設定</h3><p><img src="/2019/05/30/InstallHTTPRedirection/12.png" alt="Architecture"></p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="http://codeplanet.me/archives/2014/10/http-redirection-on-iis/" target="_blank" rel="noopener">IIS 7.5, 8 - 設定 HTTP 重新導向</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/30/OpenFirewallSpecificPort/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/30/OpenFirewallSpecificPort/" itemprop="url">Windows Server 2016 FireWall Port 開啟</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-05-30T11:03:46+08:00">
+                2019-05-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MIS/" itemprop="url" rel="index">
+                    <span itemprop="name">MIS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="FireWall-Port-開啟"><a href="#FireWall-Port-開啟" class="headerlink" title="FireWall Port 開啟"></a>FireWall Port 開啟</h1><ol>
+<li><p>開啟 <strong>Control Panel</strong> → <strong>Small icons</strong> → <strong>Windows Firewall</strong><br><img src="/2019/05/30/OpenFirewallSpecificPort/1.png" alt="Architecture"></p>
+</li>
+<li><p>點選 <strong>Advanced settings</strong><br><img src="/2019/05/30/OpenFirewallSpecificPort/2.png" alt="Architecture"></p>
+</li>
+<li><p>點選 <strong>Inbound Rules</strong> → <strong>New Rule…</strong><br><img src="/2019/05/30/OpenFirewallSpecificPort/3.png" alt="Architecture"></p>
+</li>
+<li><p>選取 <strong>Port</strong><br><img src="/2019/05/30/OpenFirewallSpecificPort/4.png" alt="Architecture"></p>
+</li>
+<li><p>輸入 <code>Port No</code><br><img src="/2019/05/30/OpenFirewallSpecificPort/5.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Next</strong><br><img src="/2019/05/30/OpenFirewallSpecificPort/6.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Next</strong><br><img src="/2019/05/30/OpenFirewallSpecificPort/7.png" alt="Architecture"></p>
+</li>
+<li><p>輸入 <code>Name</code><br><img src="/2019/05/30/OpenFirewallSpecificPort/8.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://wiki.mcneel.com/zh-tw/zoo/window7firewall" target="_blank" rel="noopener">從Windows防火牆開啟TCP Port 80</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/28/AspNetMultiThread/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/28/AspNetMultiThread/" itemprop="url">C# 多執行緒 演變</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-05-28T14:50:21+08:00">
+                2019-05-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ASP-Net/" itemprop="url" rel="index">
+                    <span itemprop="name">ASP.Net</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="C-多執行緒"><a href="#C-多執行緒" class="headerlink" title="C# 多執行緒"></a>C# 多執行緒</h1><h4 id="C-1-0-具名"><a href="#C-1-0-具名" class="headerlink" title="C# 1.0 具名"></a>C# 1.0 具名</h4><pre><code>public class MultiThread10
+{
+    private int itemCount = 0;
+    private object locker = new object();
+    public void Run()
+    {
+        Thread t = new Thread(Work);
+        t.Start(300);
+
+        Thread t1 = new Thread(Work);
+        t1.Start(100);
+    }
+
+    private void Work(object delay)
+    {
+        lock (locker)
+        {
+            this.itemCount++;
+
+            Thread.Sleep((int)delay);
+
+            Console.WriteLine($&quot;C# 1.0 Items in cart：{itemCount}&quot;);
+        }
+    }
+}
+</code></pre><h4 id="C-2-0-匿名"><a href="#C-2-0-匿名" class="headerlink" title="C# 2.0 匿名"></a>C# 2.0 匿名</h4><pre><code>public class MultiThread20
+{
+    private int itemCount = 0;
+    private object locker = new object();
+
+    public void Run()
+    {
+        Thread t = new Thread(delegate (object delay)
+        {
+            lock (locker)
+            {
+                this.itemCount++;
+
+                Thread.Sleep((int)delay);
+
+                Console.WriteLine($&quot;C# 2.0 Items in cart：{itemCount}&quot;);
+            }
+        });
+
+        t.Start(300);
+
+        Thread t1 = new Thread(delegate (object delay)
+        {
+            lock (locker)
+            {
+                this.itemCount++;
+
+                Thread.Sleep((int)delay);
+
+                Console.WriteLine($&quot;C# 2.0 Items in cart：{itemCount}&quot;);
+            }
+        });
+
+        t1.Start(100);
+    }
+}
+</code></pre><h4 id="C-3-0-Lambda"><a href="#C-3-0-Lambda" class="headerlink" title="C# 3.0 Lambda"></a>C# 3.0 Lambda</h4><pre><code>public class MultiThread30
+{
+    private int itemCount = 0;
+    private object locker = new object();
+
+    public void Run()
+    {
+        Thread t = new Thread((object delay) =&gt;
+        {
+            lock (locker)
+            {
+                this.itemCount++;
+
+                Thread.Sleep((int)delay);
+
+                Console.WriteLine($&quot;C# 3.0 Items in cart：{itemCount}&quot;);
+            }
+        });
+
+        t.Start(300);
+
+        Thread t1 = new Thread((object delay) =&gt;
+        {
+            lock (locker)
+            {
+                this.itemCount++;
+
+                Thread.Sleep((int)delay);
+
+                Console.WriteLine($&quot;C# 3.0 Items in cart：{itemCount}&quot;);
+            }
+        });
+
+        t1.Start(100);
+    }
+}
+</code></pre><h4 id="C-4-0-Task"><a href="#C-4-0-Task" class="headerlink" title="C# 4.0 Task"></a>C# 4.0 Task</h4><pre><code>public class MultiThread40
+{
+    private int itemCount = 0;
+    private object locker = new object();
+
+    public void Run()
+    {
+        Task t = new Task(() =&gt;
+        {
+            lock (locker)
+            {
+                this.itemCount++;
+
+                Thread.Sleep(300);
+
+                Console.WriteLine($&quot;C# 4.0 Items in cart：{itemCount}&quot;);
+            }
+        });
+
+        t.Start();
+
+        Task t1 = new Task(() =&gt;
+        {
+            lock (locker)
+            {
+                this.itemCount++;
+
+                Thread.Sleep(100);
+
+                Console.WriteLine($&quot;C# 4.0 Items in cart：{itemCount}&quot;);
+            }
+        });
+
+        t1.Start();
+    }
+}
+</code></pre><h4 id="C-4-0-Async-Await"><a href="#C-4-0-Async-Await" class="headerlink" title="C# 4.0 Async/Await"></a>C# 4.0 Async/Await</h4><pre><code>public class MultiThreadAync
+{
+    private int itemCount = 0;
+    private object locker = new object();
+
+    public void Run()
+    {
+        T1();
+        T2();
+    }
+
+    public async void T1()
+    {
+        await Task.Delay(3000);
+
+        lock (locker)
+        {
+            this.itemCount++;
+
+            Console.WriteLine($&quot;C# Aync Items in cart：{itemCount}&quot;);
+        }
+    }
+
+    public async void T2()
+    {
+        await Task.Delay(1000);
+
+        lock (locker)
+        {
+            this.itemCount++;
+
+            Console.WriteLine($&quot;C# Aync Items in cart：{itemCount}&quot;);
+        }
+    }
+}
+</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.huanlintalk.com/2013/05/csharp-notes-multithreading-2.html" target="_blank" rel="noopener">C# 學習筆記：多執行緒 (2) - 分道揚鑣</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/28/AspNetPropertyGetterSetter/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/28/AspNetPropertyGetterSetter/" itemprop="url">C# 屬性 GET/SET 演變</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-05-28T12:10:41+08:00">
+                2019-05-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ASP-Net/" itemprop="url" rel="index">
+                    <span itemprop="name">ASP.Net</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="C-屬性-GET-SET"><a href="#C-屬性-GET-SET" class="headerlink" title="C# 屬性 GET/SET"></a>C# 屬性 GET/SET</h1><h4 id="C-1-0"><a href="#C-1-0" class="headerlink" title="C# 1.0"></a>C# 1.0</h4><pre><code>public class Employee
+{
+    private string name;
+
+    public string Name
+    {
+        get { return this.name; }
+        set { this.name = value; }
+    }
+
+    private int age;
+
+    public int Age
+    {
+        get { return this.age; }
+        set { this.age = value; }
+    }
+}
+</code></pre><h4 id="C-2-0-可限定存取範圍"><a href="#C-2-0-可限定存取範圍" class="headerlink" title="C# 2.0 可限定存取範圍"></a>C# 2.0 可限定存取範圍</h4><pre><code>public class Employee
+{
+    private string name;
+
+    public Employee(string name, int age)
+    {
+        this.name = name;
+        this.age = age;
+    }
+
+    public string Name
+    {
+        get { return this.name; }
+        private set { this.name = value; }
+    }
+
+    private int age;
+
+    public int Age
+    {
+        get { return this.age; }
+        private set { this.age = value; }
+    }
+}
+</code></pre><h4 id="C-3-0-自動屬性"><a href="#C-3-0-自動屬性" class="headerlink" title="C# 3.0 自動屬性"></a>C# 3.0 自動屬性</h4><pre><code>public class Employee
+{
+    public Employee(int age)
+    {
+        this.Age = age;
+    }
+
+    public string Name { get; set; }
+
+    public int Age { get; private set; }
+}
+</code></pre><h4 id="C-6-0-唯讀自動屬性"><a href="#C-6-0-唯讀自動屬性" class="headerlink" title="C# 6.0 唯讀自動屬性"></a>C# 6.0 唯讀自動屬性</h4><pre><code>public class Employee
+{
+    public Employee(int age)
+    {
+        this.Age = age;
+    }
+
+    public string Name { get; set; } = &quot;Michael&quot;;
+
+    public int Age { get; } = 30;
+
+    public string Birth =&gt; &quot;1989/12/31&quot;;
+}
+</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.huanlintalk.com/2018/02/c-readonly-auto-property-from-beginning.html" target="_blank" rel="noopener">C# 的唯讀自動屬性是怎樣煉成的</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/28/AspNetDelegateEvolution/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1308,840 +2390,11 @@ public class Employee
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/17/InstallIIS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/17/InstallIIS/" itemprop="url">Windows Server 2016 啟用 IIS</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-05-17T11:09:12+08:00">
-                2019-05-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MIS/" itemprop="url" rel="index">
-                    <span itemprop="name">MIS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="啟用-IIS"><a href="#啟用-IIS" class="headerlink" title="啟用 IIS"></a>啟用 IIS</h1><ol>
-<li><p>開啟 <strong>Server Manager</strong> → 點選 <strong>Add roles and features</strong><br><img src="/2019/05/17/InstallIIS/1.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/05/17/InstallIIS/2.png" alt="Architecture"></p>
-</li>
-<li><p>選擇 <strong>Role-base or feature-based installation</strong><br><img src="/2019/05/17/InstallIIS/3.png" alt="Architecture"></p>
-</li>
-<li><p>點選 <strong>Server Pool</strong><br><img src="/2019/05/17/InstallIIS/4.png" alt="Architecture"></p>
-</li>
-<li><p>點選 <strong>Add Features</strong><br><img src="/2019/05/17/InstallIIS/5.png" alt="Architecture"></p>
-</li>
-<li><p>勾選 <strong>Web Server (IIS)</strong><br><img src="/2019/05/17/InstallIIS/6.png" alt="Architecture"></p>
-</li>
-<li><p>勾選 <strong>.NET Framework 3.5</strong><br>勾選 <strong>ASP.NET 4.6</strong><br><img src="/2019/05/17/InstallIIS/7.png" alt="Architecture"></p>
-</li>
-<li><p>下一步<br><img src="/2019/05/17/InstallIIS/8.png" alt="Architecture"></p>
-</li>
-<li><p>勾選 <strong>.NET Extensibility 3.5</strong><br>勾選 <strong>.NET Extensibility 4.6</strong><br>勾選 <strong>Application Initialization</strong><br>勾選 <strong>ASP</strong><br>勾選 <strong>ASP.NET 3.5</strong><br>勾選 <strong>ASP.NET 4.6</strong><br><img src="/2019/05/17/InstallIIS/9.png" alt="Architecture"></p>
-</li>
-<li><p>勾選 <strong>Restart the destination server automatically if required</strong><br>點選 <strong>Specify an alternate source path</strong><br><img src="/2019/05/17/InstallIIS/10.png" alt="Architecture"></p>
-</li>
-<li><p>輸入 <strong>SxS</strong> 路徑<br><img src="/2019/05/17/InstallIIS/11.png" alt="Architecture"></p>
-</li>
-<li><p>點擊 <strong>Install</strong><br><img src="/2019/05/17/InstallIIS/12.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Installing</strong><br><img src="/2019/05/17/InstallIIS/13.png" alt="Architecture"></p>
-</li>
-<li><p>完成<br><img src="/2019/05/17/InstallIIS/14.png" alt="Architecture"></p>
-</li>
-<li><p>新增 Web Site<br><img src="/2019/05/17/InstallIIS/15.png" alt="Architecture"></p>
-</li>
-<li><p>輸入 資訊<br><img src="/2019/05/17/InstallIIS/16.png" alt="Architecture"></p>
-</li>
-<li><p>完成<br><img src="/2019/05/17/InstallIIS/17.png" alt="Architecture"></p>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.rootusers.com/how-to-install-iis-in-windows-server-2016/" target="_blank" rel="noopener">How To Install IIS In Windows Server 2016</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/17/StartRemoteAssistance/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/17/StartRemoteAssistance/" itemprop="url">Windows Server 2016 開啟遠端桌面</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-05-17T10:59:22+08:00">
-                2019-05-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MIS/" itemprop="url" rel="index">
-                    <span itemprop="name">MIS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="開啟遠端桌面"><a href="#開啟遠端桌面" class="headerlink" title="開啟遠端桌面"></a>開啟遠端桌面</h1><ol>
-<li><p>開啟 <code>Server Manager</code><br><img src="/2019/05/17/StartRemoteAssistance/1.png" alt="Architecture"></p>
-</li>
-<li><p>點選 <code>Local Server</code> → 點選 <code>Remote Desktop</code><br><img src="/2019/05/17/StartRemoteAssistance/2.png" alt="Architecture"></p>
-</li>
-<li><p>選擇 <code>Remote</code> Tab → 選擇 <code>Allo remote connections to this computer</code><br><img src="/2019/05/17/StartRemoteAssistance/3.png" alt="Architecture"></p>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://blog.yowko.com/windows-server-2016-enable-remote-desktop/" target="_blank" rel="noopener">如何開啟 Windows Server 2016 遠端桌面</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/17/HyperVRestoreVHDX/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/17/HyperVRestoreVHDX/" itemprop="url">Hyper-V 還原 .vhdx</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-05-17T10:38:30+08:00">
-                2019-05-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MIS/" itemprop="url" rel="index">
-                    <span itemprop="name">MIS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="還原-vhdx"><a href="#還原-vhdx" class="headerlink" title="還原 .vhdx"></a>還原 .vhdx</h1><ol>
-<li><p>將副檔名 <code>.vhdx</code> 複製到易識別的目錄下<br><img src="/2019/05/17/HyperVRestoreVHDX/1.png" alt="Architecture"></p>
-</li>
-<li><p><code>Actions</code> 裡右鍵點選 <code>Virtual Machine</code><br><img src="/2019/05/17/HyperVRestoreVHDX/2.png" alt="Architecture"></p>
-</li>
-<li><p>下一步<br><img src="/2019/05/17/HyperVRestoreVHDX/3.png" alt="Architecture"></p>
-</li>
-<li><p>輸入 <code>Name</code> 及選取目錄 <code>Location</code><br><img src="/2019/05/17/HyperVRestoreVHDX/4.png" alt="Architecture"></p>
-</li>
-<li><p>選擇 <code>Generation1</code><br><img src="/2019/05/17/HyperVRestoreVHDX/5.png" alt="Architecture"></p>
-</li>
-<li><p>選擇 <code>Connection</code><br><img src="/2019/05/17/HyperVRestoreVHDX/6.png" alt="Architecture"></p>
-</li>
-<li><p>選擇 <code>Use an existing virtual hard disk</code> 選擇 <code>.vhdx</code> 路徑<br><img src="/2019/05/17/HyperVRestoreVHDX/7.png" alt="Architecture"></p>
-</li>
-<li><p>完成<br><img src="/2019/05/17/HyperVRestoreVHDX/8.png" alt="Architecture"></p>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://blog.pmail.idv.tw/?p=6321" target="_blank" rel="noopener">Day-11 Hyper-V 3.0實戰之-還原虛擬主機</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/17/ModifyComputerName/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/17/ModifyComputerName/" itemprop="url">Windows Server 2016 修改電腦名稱</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-05-17T10:25:14+08:00">
-                2019-05-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MIS/" itemprop="url" rel="index">
-                    <span itemprop="name">MIS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="修改電腦名稱"><a href="#修改電腦名稱" class="headerlink" title="修改電腦名稱"></a>修改電腦名稱</h1><ol>
-<li><p>點選 <code>開始</code> → <code>設定</code><br><img src="/2019/05/17/ModifyComputerName/1.png" alt="Architecture"></p>
-</li>
-<li><p>點選 <code>系統</code><br><img src="/2019/05/17/ModifyComputerName/2.png" alt="Architecture"></p>
-</li>
-<li><p>點選 <code>關於</code><br><img src="/2019/05/17/ModifyComputerName/3.png" alt="Architecture"></p>
-</li>
-<li><p>點選 <code>重新命名電腦</code><br><img src="/2019/05/17/ModifyComputerName/4.png" alt="Architecture"></p>
-</li>
-<li><p>輸入電腦名稱<br><img src="/2019/05/17/ModifyComputerName/5.png" alt="Architecture"></p>
-</li>
-<li><p>重新啟動<br><img src="/2019/05/17/ModifyComputerName/6.png" alt="Architecture"></p>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.itread01.com/articles/1491176308.html" target="_blank" rel="noopener">如何更改Win10電腦名稱</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/15/DesignPatternWithAdapter/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/15/DesignPatternWithAdapter/" itemprop="url">結構型模式 - 適配器模式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-05-15T17:47:53+08:00">
-                2019-05-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Design-Pattern/" itemprop="url" rel="index">
-                    <span itemprop="name">Design Pattern</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="適配器模式"><a href="#適配器模式" class="headerlink" title="適配器模式"></a>適配器模式</h1><p>將一個類別的介面轉接成用戶所期待的。一個適配使得因介面不相容而不能在一起工作的類別能在一起工作，做法是將類別自己的介面包裹在一個已存在的類別中<br><img src="/2019/05/15/DesignPatternWithAdapter/1.jpg" alt="Architecture"></p>
-<h4 id="建立一個-抽象類別-Target"><a href="#建立一個-抽象類別-Target" class="headerlink" title="建立一個 抽象類別 Target"></a>建立一個 抽象類別 <code>Target</code></h4><pre><code>public abstract class Target
-{
-    public abstract void Request();
-}
-</code></pre><h4 id="建立一個-類別-Adaptee"><a href="#建立一個-類別-Adaptee" class="headerlink" title="建立一個 類別 Adaptee"></a>建立一個 類別 <code>Adaptee</code></h4><pre><code>public class Adaptee
-{
-    public void SepecificRequest() =&gt; Console.WriteLine(&quot;執行要適配器的特殊請求方法&quot;);
-}
-</code></pre><h4 id="建立一個-類別-Adapter-繼承-Target"><a href="#建立一個-類別-Adapter-繼承-Target" class="headerlink" title="建立一個 類別 Adapter 繼承 Target"></a>建立一個 類別 <code>Adapter</code> 繼承 <code>Target</code></h4><pre><code>public class Adapter : Target
-{
-    private Adaptee adaptee;
-
-    public override void Request()
-    {
-        if(this.adaptee == null)
-        {
-            this.adaptee = new Adaptee();
-        }
-        this.adaptee.SepecificRequest();
-    }
-}
-</code></pre><h4 id="引用方式"><a href="#引用方式" class="headerlink" title="引用方式"></a>引用方式</h4><pre><code>class Program
-{
-    static void Main(string[] args)
-    {
-        Target target = new Adapter();
-        target.Request();
-
-        Console.ReadKey();
-    }
-}
-</code></pre><h4 id="適用場景"><a href="#適用場景" class="headerlink" title="適用場景"></a>適用場景</h4><ol>
-<li>系統需要复用現有類，而該類的接口不符合系統的需求</li>
-<li>想要建立一個可重複使用的類，用於與一些彼此之間沒有太大關聯的一些類，包括一些可能在將來引進的類一起工作</li>
-</ol>
-<h4 id="優點"><a href="#優點" class="headerlink" title="優點"></a>優點</h4><ol>
-<li>可以在不修改原有代碼的基礎上來復用現有類，很好地符合“開閉原則”（這點是兩種實現方式都具有的）</li>
-<li>採用”對象組合”的方式，更符合松耦合</li>
-</ol>
-<h4 id="缺點"><a href="#缺點" class="headerlink" title="缺點"></a>缺點</h4><ol>
-<li>使得重定義適配者的行為較困難，這就需要生成適配者的子類並且使得適配器引用這個子類而不是引用適配者本身</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://zh.wikipedia.org/wiki/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F" target="_blank" rel="noopener">維基百科-配接器模式</a><br><a href="https://www.cnblogs.com/zhili/p/AdapterPattern.html" target="_blank" rel="noopener">C#设计模式(7)——适配器模式（Adapter Pattern）</a><br><a href="https://blog.csdn.net/EmmaGood/article/details/7835961" target="_blank" rel="noopener">C# 适配器模式和适配器模式实例（两个应用实例）</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2189,7 +2442,7 @@ public class Employee
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">127</span>
+                  <span class="site-state-item-count">132</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
@@ -2200,7 +2453,7 @@ public class Employee
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">分類</span>
                 </a>
               </div>
@@ -2211,7 +2464,7 @@ public class Employee
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">標籤</span>
                 </a>
               </div>
@@ -2248,7 +2501,7 @@ public class Employee
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

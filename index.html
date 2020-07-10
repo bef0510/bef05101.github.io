@@ -252,6 +252,1053 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/10/CreateAzureProjectWithGitOrTFVC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/07/10/CreateAzureProjectWithGitOrTFVC/" itemprop="url">CreateAzureProjectWithGitOrTFVC</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2020-07-10T14:11:36+08:00">
+                2020-07-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Azure/" itemprop="url" rel="index">
+                    <span itemprop="name">Azure</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Create-Azure-Project-With-Git-Or-TFVC"><a href="#Create-Azure-Project-With-Git-Or-TFVC" class="headerlink" title="Create Azure Project With Git Or TFVC"></a>Create Azure Project With Git Or TFVC</h1><ol>
+<li><p><strong>How TFVC Works</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/46.png" alt="Architecture"></p>
+</li>
+<li><p><strong>How Git Works</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/47.png" alt="Architecture"></p>
+</li>
+</ol>
+<h2 id="Using-command-mode"><a href="#Using-command-mode" class="headerlink" title="Using command mode"></a>Using command mode</h2><ol>
+<li><p><strong>Click New project</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/1.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Input information</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/2.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Repos</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/3.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Copy URL</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/4.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Open command mode</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/5.png" alt="Architecture"><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/6.png" alt="Architecture"><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/7.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Paste URL</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://darren-sample-org@dev.azure.com/darren-sample-org/Project%20with%20git/_git/Project%20with%20git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Login</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/8.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Done</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/9.png" alt="Architecture"></p>
+</li>
+</ol>
+<h2 id="Using-Visual-Studio"><a href="#Using-Visual-Studio" class="headerlink" title="Using Visual Studio"></a>Using Visual Studio</h2><ol>
+<li><p><strong>Open Visual Studio</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/10.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Clone</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/11.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Input information</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/12.png" alt="Architecture"></p>
+</li>
+</ol>
+<h2 id="Using-TortoiseGit"><a href="#Using-TortoiseGit" class="headerlink" title="Using TortoiseGit"></a>Using TortoiseGit</h2><ol>
+<li><p><strong>Right click</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/13.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Input information</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/14.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Done</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/15.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Git-Commit-Push-amp-Pull"><a href="#Git-Commit-Push-amp-Pull" class="headerlink" title="Git Commit Push &amp; Pull"></a>Git Commit Push &amp; Pull</h1><h2 id="Use-Command"><a href="#Use-Command" class="headerlink" title="Use Command"></a>Use Command</h2><ol>
+<li><p><strong>Open Command mode</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/16.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Create project</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet new mvc</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/17.png" alt="Architecture"></p>
+<ol start="3">
+<li><strong>git add</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add --all</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/18.png" alt="Architecture"></p>
+<ol start="4">
+<li><strong>git commit</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">"Created new dot net core project"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/19.png" alt="Architecture"></p>
+<ol start="5">
+<li><p><strong>git commit Done</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/20.png" alt="Architecture"></p>
+</li>
+<li><p><strong>git push</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/21.png" alt="Architecture"></p>
+<ol start="7">
+<li><p><strong>Click Files</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/22.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Open Command mode</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/23.png" alt="Architecture"></p>
+</li>
+<li><p><strong>git pull</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/24.png" alt="Architecture"></p>
+<h2 id="Use-TortoiseGit"><a href="#Use-TortoiseGit" class="headerlink" title="Use TortoiseGit"></a>Use TortoiseGit</h2><ol start="8">
+<li><p><strong>Open Visual Studio Code</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/25.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Add File</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/26.png" alt="Architecture"></p>
+</li>
+<li><p><strong>TortoiseGit Add</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/27.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Check File</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/28.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Check File Done</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/29.png" alt="Architecture"></p>
+</li>
+<li><p><strong>TortoiseGit Git Copmmit</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/30.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Input information</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/31.png" alt="Architecture"></p>
+</li>
+<li><p><strong>TortoiseGit Git Copmmit Done</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/32.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Check Azure Repos Files</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/33.png" alt="Architecture"></p>
+</li>
+<li><p><strong>TortoiseGit Git Pull</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/34.png" alt="Architecture"><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/35.png" alt="Architecture"><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/36.png" alt="Architecture"></p>
+</li>
+<li><p><strong>TortoiseGit Git Pull Done</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/38.png" alt="Architecture"></p>
+</li>
+</ol>
+<h2 id="Use-Visual-Studio"><a href="#Use-Visual-Studio" class="headerlink" title="Use Visual Studio"></a>Use Visual Studio</h2><ol>
+<li><p><strong>Open Visual Studio</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/39.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Select Folder</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/40.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Modify File</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/41.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Check File and input information</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/42.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Sync</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/43.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Sync Done</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/44.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Check Azure Repos Files</strong><br><img src="/2020/07/10/CreateAzureProjectWithGitOrTFVC/45.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://youtu.be/r6tgTdfdSnU?list=PLaFzfwmPR7_Ifxq-udm66fhReFeGOe2x_" target="_blank" rel="noopener">Create project with Git or TFVC | Azure devops tutorial for beginners</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/10/CreateAzureBoard/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/07/10/CreateAzureBoard/" itemprop="url">Create Azure Board</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2020-07-10T10:40:56+08:00">
+                2020-07-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Azure/" itemprop="url" rel="index">
+                    <span itemprop="name">Azure</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Create-Azure-Board"><a href="#Create-Azure-Board" class="headerlink" title="Create Azure Board"></a>Create Azure Board</h1><ol>
+<li><p><strong>Click Boards</strong><br><img src="/2020/07/10/CreateAzureBoard/1.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Boards and Done</strong><br><img src="/2020/07/10/CreateAzureBoard/2.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Chose Type</strong><br><img src="/2020/07/10/CreateAzureBoard/3.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click New item and input information</strong><br><img src="/2020/07/10/CreateAzureBoard/4.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Arror</strong><br><img src="/2020/07/10/CreateAzureBoard/5.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Chose Member</strong><br><img src="/2020/07/10/CreateAzureBoard/6.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Add Issue</strong><br><img src="/2020/07/10/CreateAzureBoard/7.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Input information</strong><br><img src="/2020/07/10/CreateAzureBoard/8.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Change Type</strong><br><img src="/2020/07/10/CreateAzureBoard/9.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Add Task</strong><br><img src="/2020/07/10/CreateAzureBoard/10.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Input information</strong><br><img src="/2020/07/10/CreateAzureBoard/11.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Move to Doing Tab</strong><br><img src="/2020/07/10/CreateAzureBoard/12.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Add-attachment"><a href="#Add-attachment" class="headerlink" title="Add attachment"></a>Add attachment</h1><ol>
+<li><p><strong>Click title</strong><br><img src="/2020/07/10/CreateAzureBoard/13.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click attachment Tab</strong><br><img src="/2020/07/10/CreateAzureBoard/14.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Add attachment</strong><br><img src="/2020/07/10/CreateAzureBoard/15.png" alt="Architecture"><br><img src="/2020/07/10/CreateAzureBoard/16.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click history Tab</strong><br><img src="/2020/07/10/CreateAzureBoard/17.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Backlogs"><a href="#Backlogs" class="headerlink" title="Backlogs"></a>Backlogs</h1><ol>
+<li><p><strong>Click Backlogs</strong><br><img src="/2020/07/10/CreateAzureBoard/18.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click New Work Item</strong><br><img src="/2020/07/10/CreateAzureBoard/19.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Add Issue</strong><br><img src="/2020/07/10/CreateAzureBoard/20.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Input information</strong><br><img src="/2020/07/10/CreateAzureBoard/21.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Create Task</strong><br><img src="/2020/07/10/CreateAzureBoard/22.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Input information</strong><br><img src="/2020/07/10/CreateAzureBoard/23.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Sprint"><a href="#Sprint" class="headerlink" title="Sprint"></a>Sprint</h1><ol>
+<li><p><strong>Click Title</strong><br><img src="/2020/07/10/CreateAzureBoard/24.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Set dates</strong><br><img src="/2020/07/10/CreateAzureBoard/25.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Input information</strong><br><img src="/2020/07/10/CreateAzureBoard/26.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click New Sprint</strong><br><img src="/2020/07/10/CreateAzureBoard/27.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Input information</strong><br><img src="/2020/07/10/CreateAzureBoard/28.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Move An Issue To Second sprint</strong><br><img src="/2020/07/10/CreateAzureBoard/29.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Done</strong><br><img src="/2020/07/10/CreateAzureBoard/30.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://youtu.be/3Yx9YQpZXkc?list=PLaFzfwmPR7_Ifxq-udm66fhReFeGOe2x_" target="_blank" rel="noopener">Create backlog and sprint in Agile process | Azure devops tutorial for beginners</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/09/CreateAzureDevOps/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/07/09/CreateAzureDevOps/" itemprop="url">Create Azure DevOps</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2020-07-09T15:59:27+08:00">
+                2020-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Azure/" itemprop="url" rel="index">
+                    <span itemprop="name">Azure</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Create-Azure-DevOps"><a href="#Create-Azure-DevOps" class="headerlink" title="Create Azure DevOps"></a>Create Azure DevOps</h1><ol>
+<li><p><a href="https://dev.azure.com/" target="_blank" rel="noopener">Azure DevOps</a><br><img src="/2020/07/09/CreateAzureDevOps/1.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Select Country/region</strong><br><img src="/2020/07/09/CreateAzureDevOps/2.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Create An Organization</strong><br><img src="/2020/07/09/CreateAzureDevOps/3.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Continue</strong><br><img src="/2020/07/09/CreateAzureDevOps/4.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Input Information</strong><br><img src="/2020/07/09/CreateAzureDevOps/5.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Waiting for few second</strong><br><img src="/2020/07/09/CreateAzureDevOps/6.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Create Organization Done</strong><br><img src="/2020/07/09/CreateAzureDevOps/7.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Organization settings</strong><br><img src="/2020/07/09/CreateAzureDevOps/8.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Change Time zone</strong><br><img src="/2020/07/09/CreateAzureDevOps/9.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Create-New-Private-Project"><a href="#Create-New-Private-Project" class="headerlink" title="Create New Private Project"></a>Create New Private Project</h1><ol>
+<li><p><strong>Cleck New project</strong><br><img src="/2020/07/09/CreateAzureDevOps/10.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Input information</strong><br><img src="/2020/07/09/CreateAzureDevOps/11.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Create New project Done</strong><br><img src="/2020/07/09/CreateAzureDevOps/12.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Create-New-Public-Project"><a href="#Create-New-Public-Project" class="headerlink" title="Create New Public Project"></a>Create New Public Project</h1><ol>
+<li><p><strong>Cleck New project</strong><br><img src="/2020/07/09/CreateAzureDevOps/10.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Input information</strong><br><img src="/2020/07/09/CreateAzureDevOps/13.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Create New project Done</strong><br><img src="/2020/07/09/CreateAzureDevOps/14.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Invite-Member"><a href="#Invite-Member" class="headerlink" title="Invite Member"></a>Invite Member</h1><ol>
+<li><p><strong>Click Invite</strong><br><img src="/2020/07/09/CreateAzureDevOps/15.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Input information</strong><br><img src="/2020/07/09/CreateAzureDevOps/16.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Project settings</strong><br><img src="/2020/07/09/CreateAzureDevOps/17.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Teams and project</strong><br><img src="/2020/07/09/CreateAzureDevOps/18.png" alt="Architecture"><br><img src="/2020/07/09/CreateAzureDevOps/19.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://youtu.be/Kw91yxwpKLs?list=PLaFzfwmPR7_Ifxq-udm66fhReFeGOe2x_" target="_blank" rel="noopener">Create Azure DevOps Project | Project in Azure Devops | Azure DevOps tutorial for beginners</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/09/CreateAzureVirtualMachine/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/07/09/CreateAzureVirtualMachine/" itemprop="url">Create Azure Virtual Machine</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2020-07-09T09:41:13+08:00">
+                2020-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Azure/" itemprop="url" rel="index">
+                    <span itemprop="name">Azure</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Create-Azure-Virtual-Machine"><a href="#Create-Azure-Virtual-Machine" class="headerlink" title="Create Azure Virtual Machine"></a>Create Azure Virtual Machine</h1><ol>
+<li><p><strong>Login</strong> <a href="https://portal.azure.com/" target="_blank" rel="noopener">Azure</a></p>
+</li>
+<li><p><strong>Click Virtual machines</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/1.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Add</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/2.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Input Basics Information</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/3.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Select Size</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/4.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Input Disks Information</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/5.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Make Sure Networking Information</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/6.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Make Sure Management Information</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/7.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Change Advanced Information</strong><br><strong>Click Select an extension to install</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/8.png" alt="Architecture"><br><img src="/2020/07/09/CreateAzureVirtualMachine/9.png" alt="Architecture"><br><img src="/2020/07/09/CreateAzureVirtualMachine/10.png" alt="Architecture"><br><img src="/2020/07/09/CreateAzureVirtualMachine/11.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Input Tags Information</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/12.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Create Virtual Machine</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/13.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Creating</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/14.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Create Done</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/15.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Search Virtual Machines</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/16.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Remote-Virtual-Machines"><a href="#Remote-Virtual-Machines" class="headerlink" title="Remote Virtual Machines"></a>Remote Virtual Machines</h1><ol>
+<li><p><strong>Select Virtual Machines</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/17.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Copy Public IP Address</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/18.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Hint Windows key And Type mstsc</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/19.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Paste IP Address</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/20.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Input Account And Password</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/21.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Instal-IIS"><a href="#Instal-IIS" class="headerlink" title="Instal IIS"></a>Instal IIS</h1><ol>
+<li><p><strong>Click Add roles and features</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/22.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Next</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/23.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Next</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/24.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Next</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/25.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Select Web Server (IIS)</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/26.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Add Features</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/27.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Next</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/28.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Select Features</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/29.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Next</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/30.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Next</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/31.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Select Restart And Click Install</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/32.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Close</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/33.png" alt="Architecture"></p>
+</li>
+<li><p><strong>After Restart Input <a href="http://localhost/" target="_blank" rel="noopener">http://localhost/</a> via Browser</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/34.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Networking And Click Add inbound port rule</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/35.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Modify Add inbound security rule</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/36.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Waiting For Few Second</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/37.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Input <a href="http://23.993.98.59" target="_blank" rel="noopener">http://23.993.98.59</a> on local Browser</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/38.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Create index.html in Remote Server</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/39.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Input <a href="http://localhost/" target="_blank" rel="noopener">http://localhost/</a> in Remote Browser</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/40.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Input <a href="http://23.993.98.59" target="_blank" rel="noopener">http://23.993.98.59</a> in local Browser</strong><br><img src="/2020/07/09/CreateAzureVirtualMachine/41.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=QOv_-xBXkpo" target="_blank" rel="noopener">Azure Virtual Machine Tutorial | Creating A Virtual Machine In Azure | Azure Training | Simplilearn</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/17/SolrInstall/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/01/17/SolrInstall/" itemprop="url">Solr Basic Install With Win 10</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2020-01-17T15:50:49+08:00">
+                2020-01-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Text-Search/" itemprop="url" rel="index">
+                    <span itemprop="name">Text Search</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Solr-Basic-Install"><a href="#Solr-Basic-Install" class="headerlink" title="Solr Basic Install"></a>Solr Basic Install</h1><ol>
+<li><p><a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">Install Java SDK</a></p>
+</li>
+<li><p><a href="https://bonze.tw/windows%E5%AE%89%E8%A3%9Djava%E5%8F%8A%E8%A8%AD%E5%AE%9A%E7%92%B0%E5%A2%83/" target="_blank" rel="noopener">Java 安裝教學</a></p>
+</li>
+<li><p><a href="https://www.apache.org/dyn/closer.lua/lucene/solr/8.4.1/solr-8.4.1.zip" target="_blank" rel="noopener">Download Solr</a><br><img src="/2020/01/17/SolrInstall/1.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Start solr</strong><br><img src="/2020/01/17/SolrInstall/2.png" alt="Architecture"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ solr.cmd start</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="/2020/01/17/SolrInstall/3.png" alt="Architecture"></p>
+<ol start="5">
+<li><p><strong>Open browser</strong><br><img src="/2020/01/17/SolrInstall/4.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Create New Collection</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ solr create -c collection1</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="/2020/01/17/SolrInstall/5.png" alt="Architecture"><br><img src="/2020/01/17/SolrInstall/6.png" alt="Architecture"></p>
+<ol start="7">
+<li><strong>Stop solr</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ solr stop -all</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="http://mrblueman.pixnet.net/blog/post/98907396-%5Bapache-solr%E5%85%A8%E6%96%87%E6%AA%A2%E7%B4%A2%5D-%E5%AE%89%E8%A3%9D%E5%92%8C%E9%81%8B%E8%A1%8C" target="_blank" rel="noopener">【Apache Solr全文檢索】安裝和運行</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/24/DotNetCoreBuildExpressServer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1040,798 +2087,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/DotNetCoreCustomHealthCheck/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/11/26/DotNetCoreCustomHealthCheck/" itemprop="url">.Net Core 3 健康檢查服務</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-11-26T14:18:02+08:00">
-                2019-11-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Net-Core/" itemprop="url" rel="index">
-                    <span itemprop="name">.Net Core</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Net-Core-3-健康檢查服務"><a href="#Net-Core-3-健康檢查服務" class="headerlink" title=".Net Core 3 健康檢查服務"></a>.Net Core 3 健康檢查服務</h2><ol>
-<li><p><strong>Add a new class</strong><br><img src="/2019/11/26/DotNetCoreCustomHealthCheck/1.png" alt="Architecture"></p>
-</li>
-<li><p><strong>naming ApiHealthCheck.cs</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">using System.Threading;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">using Microsoft.Extensions.Diagnostics.HealthChecks;</span><br><span class="line"></span><br><span class="line">namespace testWebapi.Extensions</span><br><span class="line">&#123;</span><br><span class="line">    public class ApiHealthCheck : IHealthCheck</span><br><span class="line">    &#123;</span><br><span class="line">        public Task&lt;HealthCheckResult&gt; CheckHealthAsync(</span><br><span class="line">            HealthCheckContext context,</span><br><span class="line">            CancellationToken cancellationToken = new CancellationToken())</span><br><span class="line">        &#123;</span><br><span class="line">            // Todo: Implement your own healthcheck logic here</span><br><span class="line">            var isHealthy = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">if</span> (isHealthy)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">return</span> Task.FromResult(HealthCheckResult.Healthy(<span class="string">"I am one healthy microservice API"</span>));</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="built_in">return</span> Task.FromResult(HealthCheckResult.Unhealthy(<span class="string">"I am the sad, unhealthy microservice API"</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Startup.cs</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">using System.Linq;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">using Microsoft.AspNetCore.Builder;</span><br><span class="line">using Microsoft.AspNetCore.Diagnostics.HealthChecks;</span><br><span class="line">using Microsoft.AspNetCore.Hosting;</span><br><span class="line">using Microsoft.AspNetCore.Http;</span><br><span class="line">using Microsoft.Extensions.Configuration;</span><br><span class="line">using Microsoft.Extensions.DependencyInjection;</span><br><span class="line">using Microsoft.Extensions.Diagnostics.HealthChecks;</span><br><span class="line">using Microsoft.Extensions.Hosting;</span><br><span class="line">using Newtonsoft.Json;</span><br><span class="line">using Newtonsoft.Json.Linq;</span><br><span class="line">using testWebapi.Extensions;</span><br><span class="line"></span><br><span class="line">namespace testWebapi</span><br><span class="line">&#123;</span><br><span class="line">    public class Startup</span><br><span class="line">    &#123;</span><br><span class="line">        public Startup(IConfiguration configuration)</span><br><span class="line">        &#123;</span><br><span class="line">            Configuration = configuration;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public IConfiguration Configuration &#123; get; &#125;</span><br><span class="line"></span><br><span class="line">        // This method gets called by the runtime. Use this method to add services to the container.</span><br><span class="line">        public void ConfigureServices(IServiceCollection services)</span><br><span class="line">        &#123;</span><br><span class="line">            services.AddHealthChecks().AddCheck&lt;ApiHealthCheck&gt;(<span class="string">"api"</span>); // 健康檢查服務 (Health Checks)</span><br><span class="line"></span><br><span class="line">            services.AddControllers();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.</span><br><span class="line">        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (env.IsDevelopment())</span><br><span class="line">            &#123;</span><br><span class="line">                app.UseDeveloperExceptionPage();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            app.UseHttpsRedirection();</span><br><span class="line"></span><br><span class="line">            app.UseStaticFiles();       // 必須在 app.UseRouting() 之前被呼叫</span><br><span class="line"></span><br><span class="line">            app.UseRouting();</span><br><span class="line"></span><br><span class="line">            app.UseCors();              // 必須在所有會用到的 CORS 的中介層之前被呼叫</span><br><span class="line"></span><br><span class="line">            app.UseAuthentication();</span><br><span class="line"></span><br><span class="line">            app.UseAuthorization();</span><br><span class="line"></span><br><span class="line">            app.UseEndpoints(endpoints =&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                endpoints.MapHealthChecks(<span class="string">"/health"</span>, new HealthCheckOptions()</span><br><span class="line">                &#123;</span><br><span class="line">                    //that<span class="string">'s to the method you created </span></span><br><span class="line"><span class="string">                    ResponseWriter = WriteHealthCheckResponse</span></span><br><span class="line"><span class="string">                &#125;);</span></span><br><span class="line"><span class="string">                endpoints.MapControllers();</span></span><br><span class="line"><span class="string">            &#125;);</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        private static Task WriteHealthCheckResponse(HttpContext httpContext,</span></span><br><span class="line"><span class="string"> HealthReport result)</span></span><br><span class="line"><span class="string">        &#123;</span></span><br><span class="line"><span class="string">            httpContext.Response.ContentType = "application/json";</span></span><br><span class="line"><span class="string">            var json = new JObject(</span></span><br><span class="line"><span class="string">            new JProperty("status", result.Status.ToString()),</span></span><br><span class="line"><span class="string">            new JProperty("results", new JObject(result.Entries.Select(pair =&gt;</span></span><br><span class="line"><span class="string">            new JProperty(pair.Key, new JObject(</span></span><br><span class="line"><span class="string">            new JProperty("status", pair.Value.Status.ToString()),</span></span><br><span class="line"><span class="string">            new JProperty("description", pair.Value.Description),</span></span><br><span class="line"><span class="string">            new JProperty("data", new JObject(pair.Value.Data.Select(</span></span><br><span class="line"><span class="string">            p =&gt; new JProperty(p.Key, p.Value))))))))));</span></span><br><span class="line"><span class="string">            return httpContext.Response.WriteAsync(</span></span><br><span class="line"><span class="string">            json.ToString(Formatting.Indented));</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong><a href="https://localhost:5001/health" target="_blank" rel="noopener">https://localhost:5001/health</a></strong><br><img src="/2019/11/26/DotNetCoreCustomHealthCheck/2.png" alt="Architecture"></p>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://medium.com/it-dead-inside/implementing-health-checks-in-asp-net-core-a8331d16a180" target="_blank" rel="noopener">Implementing Health Checks in ASP.NET Core</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/DotNetCoreAndVSCodeBasic/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/11/26/DotNetCoreAndVSCodeBasic/" itemprop="url">.Net Core 3 + VSCode 基本 Extension</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-11-26T14:06:56+08:00">
-                2019-11-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Net-Core/" itemprop="url" rel="index">
-                    <span itemprop="name">.Net Core</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Net-Core-3-VSCode-基本-Extension"><a href="#Net-Core-3-VSCode-基本-Extension" class="headerlink" title=".Net Core 3 + VSCode 基本 Extension"></a>.Net Core 3 + VSCode 基本 Extension</h2><ol>
-<li><p>下載 <strong>C# Extensions</strong><br><img src="/2019/11/26/DotNetCoreAndVSCodeBasic/1.png" alt="Architecture"></p>
-</li>
-<li><p>下載 <strong>NuGet Package Manager</strong><br><img src="/2019/11/26/DotNetCoreAndVSCodeBasic/2.png" alt="Architecture"></p>
-</li>
-</ol>
-<h2 id="NuGet-下載套件"><a href="#NuGet-下載套件" class="headerlink" title="NuGet 下載套件"></a>NuGet 下載套件</h2><ol>
-<li><p><strong>View</strong> → <strong>Command Palette…</strong></p>
-</li>
-<li><p>組合鍵 <strong>Ctrl+Shift+P</strong><br><img src="/2019/11/26/DotNetCoreAndVSCodeBasic/3.png" alt="Architecture"></p>
-</li>
-<li><p>點選 <strong>NuGet Package Manager: Add Package</strong><br><img src="/2019/11/26/DotNetCoreAndVSCodeBasic/4.png" alt="Architecture"></p>
-</li>
-<li><p>輸入 <strong>Newtonsoft.json</strong><br><img src="/2019/11/26/DotNetCoreAndVSCodeBasic/5.png" alt="Architecture"></p>
-</li>
-<li><p>點選 <strong>Newtonsoft.json</strong><br><img src="/2019/11/26/DotNetCoreAndVSCodeBasic/6.png" alt="Architecture"></p>
-</li>
-<li><p>點選 版本<br><img src="/2019/11/26/DotNetCoreAndVSCodeBasic/7.png" alt="Architecture"></p>
-</li>
-<li><p>點擊 <strong>Restore</strong><br><img src="/2019/11/26/DotNetCoreAndVSCodeBasic/8.png" alt="Architecture"></p>
-</li>
-<li><p>下載 <strong>Microsoft.EntityFrameworkCore</strong></p>
-</li>
-<li><p>下載 <strong>Microsoft.EntityFrameworkCore.InMemory</strong></p>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=lGGMb9a7yuY" target="_blank" rel="noopener">Install Nuget Package, Add new Package</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/DotNetCore3AndVSCode/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/11/26/DotNetCore3AndVSCode/" itemprop="url">.Net Core 3 + VSCode</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-11-26T11:46:20+08:00">
-                2019-11-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Net-Core/" itemprop="url" rel="index">
-                    <span itemprop="name">.Net Core</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Net-Core-3"><a href="#Net-Core-3" class="headerlink" title=".Net Core 3"></a>.Net Core 3</h2><ol>
-<li><p>開啟 <strong>VS Code</strong></p>
-</li>
-<li><p>下載 <strong>C#</strong><br><img src="/2019/11/26/DotNetCore3AndVSCode/1.png" alt="Architecture"></p>
-</li>
-<li><p>關閉 <strong>VS Code</strong></p>
-</li>
-<li><p>新增專案</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet new webapi</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>VS Code</strong> 開啟專案</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">code .</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>執行專案</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet run</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://docs.microsoft.com/zh-tw/dotnet/core/tools/dotnet-new?tabs=netcore22" target="_blank" rel="noopener">dotnet new</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/07/AngularForbiddenCopy/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/11/07/AngularForbiddenCopy/" itemprop="url">AngularForbiddenCopy</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-11-07T10:06:01+08:00">
-                2019-11-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Angular/" itemprop="url" rel="index">
-                    <span itemprop="name">Angular</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Angular-Forbidden-Copy-禁止複製"><a href="#Angular-Forbidden-Copy-禁止複製" class="headerlink" title="Angular Forbidden Copy (禁止複製)"></a>Angular Forbidden Copy (禁止複製)</h1><ol>
-<li><p><strong>Add File block-copy-paste.directive.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Directive, HostListener &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line">@Directive(&#123;</span><br><span class="line">  selector: <span class="string">'[appBlockCopyPaste]'</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class BlockCopyPasteDirective &#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span></span>() &#123; &#125;</span><br><span class="line"></span><br><span class="line">  @HostListener(<span class="string">'paste'</span>, [<span class="string">'$event'</span>]) blockPaste(e: KeyboardEvent) &#123;</span><br><span class="line">    e.preventDefault();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @HostListener(<span class="string">'copy'</span>, [<span class="string">'$event'</span>]) blockCopy(e: KeyboardEvent) &#123;</span><br><span class="line">    e.preventDefault();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @HostListener(<span class="string">'cut'</span>, [<span class="string">'$event'</span>]) blockCut(e: KeyboardEvent) &#123;</span><br><span class="line">    e.preventDefault();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Using in .html</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div appBlockCopyPaste&gt;</span><br><span class="line">    <span class="built_in">test</span></span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>app.module.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">import &#123; BlockCopyPasteDirective &#125; from <span class="string">'./services/block-copy-paste.directive'</span>;</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">@NgModule(&#123;</span><br><span class="line">  declarations: [</span><br><span class="line">    ...</span><br><span class="line">    BlockCopyPasteDirective,</span><br><span class="line">    ...</span><br><span class="line">  ],</span><br><span class="line">  imports: [</span><br><span class="line">    ...</span><br><span class="line">  ],</span><br><span class="line">  entryComponents: [</span><br><span class="line">    ...</span><br><span class="line">  ],</span><br><span class="line">  providers: [</span><br><span class="line">    ...</span><br><span class="line">  ],</span><br><span class="line">  bootstrap: [AppComponent]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppModule &#123; &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="http://www.voidcn.com/article/p-uvgccuek-bys.html" target="_blank" rel="noopener">使用Angular2禁用文本框的剪切,复制和粘贴功能的指令</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/07/AngularBuildExpressLiveServer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/11/07/AngularBuildExpressLiveServer/" itemprop="url">AngularBuildExpressLiveServer</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-11-07T09:52:32+08:00">
-                2019-11-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Angular/" itemprop="url" rel="index">
-                    <span itemprop="name">Angular</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Build-Express-Server"><a href="#Build-Express-Server" class="headerlink" title="Build Express Server"></a>Build Express Server</h1><ol>
-<li><p><strong>Create Folder</strong><br><img src="/2019/11/07/AngularBuildExpressLiveServer/1.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Install Live Server</strong><br><img src="/2019/11/07/AngularBuildExpressLiveServer/2.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Add File index.html</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1&gt;Hello NodeJS&lt;/h1&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Run Server</strong><br><img src="/2019/11/07/AngularBuildExpressLiveServer/3.png" alt="Architecture"></p>
-</li>
-</ol>
-<p><a href="https://blog.csdn.net/u010078133/article/details/78600496" target="_blank" rel="noopener">vscode-Live Server的使用心得</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1879,7 +2139,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">127</span>
+                  <span class="site-state-item-count">132</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
@@ -1890,7 +2150,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">分類</span>
                 </a>
               </div>
@@ -1901,7 +2161,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">標籤</span>
                 </a>
               </div>
@@ -1938,7 +2198,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
