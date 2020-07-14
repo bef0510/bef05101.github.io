@@ -252,6 +252,642 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/20/DotNetCoreGenericCallSql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/12/20/DotNetCoreGenericCallSql/" itemprop="url">.Net Core 3 Dapper + 泛型 取 Sql 資料</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-12-20T14:52:33+08:00">
+                2019-12-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Net-Core/" itemprop="url" rel="index">
+                    <span itemprop="name">.Net Core</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Net-Core-3-Dapper-泛型-取-Sql-資料"><a href="#Net-Core-3-Dapper-泛型-取-Sql-資料" class="headerlink" title=".Net Core 3 Dapper + 泛型 取 Sql 資料"></a>.Net Core 3 Dapper + 泛型 取 Sql 資料</h2><h4 id="下載套件"><a href="#下載套件" class="headerlink" title="下載套件"></a>下載套件</h4><ol>
+<li>組合鍵 <strong>Ctrl+Shift+P</strong></li>
+<li>下載 <strong>System.Data.SqlClient</strong></li>
+<li>下載 <strong>Dapper</strong></li>
+<li>下載 <strong>Microsoft.Extensions.Configuration.Json</strong></li>
+</ol>
+<h4 id="新專案"><a href="#新專案" class="headerlink" title="新專案"></a>新專案</h4><ol>
+<li><p><strong>Create appsettings.json</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"ConnectionStrings"</span>: &#123;</span><br><span class="line">        <span class="string">"DefaultConnection"</span>: <span class="string">"Data Source=172.17.102.113;Initial Catalog=NewPortal;User ID=test555;Password=test555"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"Message"</span>: <span class="string">"It's appsettings.json"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Create SqlParamterModel.cs under folder Models</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">namespace textConsole.Models</span><br><span class="line">&#123;</span><br><span class="line">    public class SqlParamterModel</span><br><span class="line">    &#123;</span><br><span class="line">        public string Name &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public object Value &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        public SqlParamterModel(string name, object value)</span><br><span class="line">		&#123;</span><br><span class="line">			this.Name = name;</span><br><span class="line">			this.Value = value;</span><br><span class="line">		&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Create EmployeeModel.cs under folder Models</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">namespace textConsole.Models</span><br><span class="line">&#123;</span><br><span class="line">    public class EmployeeModel</span><br><span class="line">    &#123;</span><br><span class="line">        public string DHID &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DHGUID &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussName &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussRemark &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussAdmin &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussOrder &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussParentDHID &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussType &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussURL &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussIconPath &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussSite &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussAttachSizeLimit &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string AddDate &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string AddEmpNo &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string ModDate &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string ModEmpNo &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string ActiveStatus &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussDisplayType &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Create AppSettingHelper.cs under folder Extensions</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">using System.IO;</span><br><span class="line">using Microsoft.Extensions.Configuration;</span><br><span class="line"></span><br><span class="line">namespace textConsole.Extensions</span><br><span class="line">&#123;</span><br><span class="line">    public static class AppSettingHelper</span><br><span class="line">    &#123;</span><br><span class="line">        public static string DefaultConnection =&gt; ReadFromAppSettings().GetConnectionString(<span class="string">"DefaultConnection"</span>);</span><br><span class="line"></span><br><span class="line">        public static IConfigurationRoot ReadFromAppSettings()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">return</span> new ConfigurationBuilder()</span><br><span class="line">                .SetBasePath(Directory.GetCurrentDirectory())</span><br><span class="line">                .AddJsonFile(<span class="string">"appsettings.json"</span>, optional:<span class="literal">true</span>,reloadOnChange: <span class="literal">true</span>)</span><br><span class="line">                .Build();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Create SqlHelper.cs under folder Extensions</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Data.SqlClient;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">using Dapper;</span><br><span class="line">using textConsole.Models;</span><br><span class="line"></span><br><span class="line">namespace textConsole.Extensions</span><br><span class="line">&#123;</span><br><span class="line">    public static class SqlHelper</span><br><span class="line">    &#123;</span><br><span class="line">        public static async Task&lt;IEnumerable&lt;T&gt;&gt; Execute&lt;T&gt;(string connString, string queryString)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">return</span> await SqlHelper.Execute&lt;T&gt;(connString, queryString, new SqlParamterModel[] &#123; &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public static async Task&lt;IEnumerable&lt;T&gt;&gt; Execute&lt;T&gt;(string connString, string queryString, SqlParamterModel[] parameters)</span><br><span class="line">        &#123;</span><br><span class="line">            using (var conn = new SqlConnection(connString))</span><br><span class="line">            &#123;</span><br><span class="line">                DynamicParameters dynamicParameters = new DynamicParameters();</span><br><span class="line"></span><br><span class="line">                foreach (var item <span class="keyword">in</span> parameters)</span><br><span class="line">                &#123;</span><br><span class="line">                    dynamicParameters.Add(item.Name, item.Value);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                try</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="built_in">return</span> await conn.QueryAsync&lt;T&gt;(queryString, dynamicParameters);</span><br><span class="line">                &#125;</span><br><span class="line">                catch(SqlException ex)</span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(ex.StackTrace);</span><br><span class="line">                    <span class="built_in">return</span> null;</span><br><span class="line">                &#125;</span><br><span class="line">                finally</span><br><span class="line">                &#123;</span><br><span class="line">                    conn.Close();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Create EmployeeRepository.cs under folder Repositories</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">using textConsole.Extensions;</span><br><span class="line">using textConsole.Models;</span><br><span class="line"></span><br><span class="line">namespace textConsole.Repositories</span><br><span class="line">&#123;</span><br><span class="line">    public class EmployeeRepository</span><br><span class="line">    &#123;</span><br><span class="line">        public async Task&lt;IEnumerable&lt;EmployeeModel&gt;&gt; GetEmployee()</span><br><span class="line">        &#123;</span><br><span class="line">            string connString = AppSettingHelper.DefaultConnection;</span><br><span class="line">            string queryString = <span class="string">"SELECT top 10 * FROM BBS_Discuss"</span>;</span><br><span class="line">   </span><br><span class="line">            <span class="built_in">return</span> await SqlHelper.Execute&lt;EmployeeModel&gt;(connString, queryString);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public async Task&lt;IEnumerable&lt;EmployeeModel&gt;&gt; GetEmployeeByDiscuss(string <span class="built_in">type</span>, int parent)</span><br><span class="line">        &#123;</span><br><span class="line">            string connString = AppSettingHelper.DefaultConnection;</span><br><span class="line">            string queryString = <span class="string">"SELECT top 10 * FROM BBS_Discuss WHERE DiscussType = @DiscussType AND DiscussParentDHID = @DiscussParentDHID"</span>;</span><br><span class="line">   </span><br><span class="line">            <span class="built_in">return</span> await SqlHelper.Execute&lt;EmployeeModel&gt;(connString, queryString,</span><br><span class="line">                new SqlParamterModel[]&#123;</span><br><span class="line">                    new SqlParamterModel(<span class="string">"DiscussType"</span>, <span class="built_in">type</span>),</span><br><span class="line">                    new SqlParamterModel(<span class="string">"DiscussParentDHID"</span>, parent)</span><br><span class="line">                &#125;</span><br><span class="line">            );</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Modify Program.cs</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text.Json;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">using textConsole.Repositories;</span><br><span class="line"></span><br><span class="line">namespace textConsole</span><br><span class="line">&#123;</span><br><span class="line">    class Program</span><br><span class="line">    &#123;</span><br><span class="line">        static async Task Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            var allEmp = await new EmployeeRepository().GetEmployee();</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(JsonSerializer.Serialize(allEmp));</span><br><span class="line"></span><br><span class="line">            var aEmp = await new EmployeeRepository().GetEmployeeByDiscuss(<span class="string">"D"</span>, 28);</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(JsonSerializer.Serialize(aEmp));</span><br><span class="line">            Console.WriteLine(aEmp.ToList().Count);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://dotnetcoretutorials.com/2019/08/03/dapper-in-net-core-part-1-the-what-why-who/" target="_blank" rel="noopener">Dapper In .NET Core – Part 1 – The What/Why/Who</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/29/DotNetCoreConsoleCallWebApi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/29/DotNetCoreConsoleCallWebApi/" itemprop="url">.Net Core 3 Console Call WebApi</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-11-29T17:40:58+08:00">
+                2019-11-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Net-Core/" itemprop="url" rel="index">
+                    <span itemprop="name">.Net Core</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Net-Core-3-Console-Call-WebApi"><a href="#Net-Core-3-Console-Call-WebApi" class="headerlink" title=".Net Core 3 Console Call WebApi"></a>.Net Core 3 Console Call WebApi</h2><ol>
+<li><p><strong>Create Console</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet new console</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Program.cs</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Net.Http;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line">namespace textConsole</span><br><span class="line">&#123;</span><br><span class="line">    class Program</span><br><span class="line">    &#123;</span><br><span class="line">        static async Task Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            await GetWebApi();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        static async Task GetWebApi()</span><br><span class="line">        &#123;</span><br><span class="line">            var client = new HttpClient(</span><br><span class="line">                // 防止 The SSL connection could not be established, see inner exception.</span><br><span class="line">                new HttpClientHandler</span><br><span class="line">                &#123;</span><br><span class="line">                    ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator</span><br><span class="line">                &#125;</span><br><span class="line">            );</span><br><span class="line"></span><br><span class="line">            try</span><br><span class="line">            &#123;</span><br><span class="line">                const string url = <span class="string">"https://localhost:5001/WeatherForecast/1/1"</span>;</span><br><span class="line"></span><br><span class="line">                // 加上 Header</span><br><span class="line">                client.DefaultRequestHeaders.Add(<span class="string">"Authorization"</span>, <span class="string">"Bearer 1eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IkJCOENlRlZxeWFHckdOdWVoSklpTDRkZmp6dyJ9.eyJhdWQiOiIzMTBjODc5ZC1mYTEwLTRkN2UtYmUxYi0zZWZlNmEzOGEwNGMiLCJpc3MiOiJodHRwczovL2xvZ2luLm1pY3Jvc29mdG9ubGluZS5jb20vODEzNWUzM2QtMzZkYi00OTA2LWFmNWUtNmE3ZGYyOThlZDk2L3YyLjAiLCJpYXQiOjE1NzUwMTg0MzcsIm5iZiI6MTU3NTAxODQzNywiZXhwIjoxNTc1MDIyMzM3LCJhaW8iOiJBVFFBeS84TkFBQUFFM0xnbDZYemFXSUp0bSt4UjkxTWYvUDlwaTFpbVJjZXZFdWpYdkUwSVZkWW95UUs3T2wxTUsxakwrUlJDY3h1IiwiYXpwIjoiMzEwYzg3OWQtZmExMC00ZDdlLWJlMWItM2VmZTZhMzhhMDRjIiwiYXpwYWNyIjoiMCIsIm9pZCI6ImE4MTI3ZjYxLTJhMjMtNDg3ZC05NjcyLWMxM2Y1MmUwZTFiZiIsInByZWZlcnJlZF91c2VybmFtZSI6IkRhcnJlbi5XYW5nQGRsaW5rY29ycC5jb20iLCJzY3AiOiJhY2Nlc3NfYXNfdXNlciIsInN1YiI6IjlXYXpXSldZb08wanY4NVVieDBuSGhUX2xMRzlDZVRXU200b2thMEFHY0kiLCJ0aWQiOiI4MTM1ZTMzZC0zNmRiLTQ5MDYtYWY1ZS02YTdkZjI5OGVkOTYiLCJ1dGkiOiJRWG5KTTlPZjJFR0FoOUJ6cWc0VkFRIiwidmVyIjoiMi4wIiwibWFpbG5pY2tuYW1lIjoiMDg3MjgifQ.J-2Ur5FAe8U4LzjFys56AZZE8VG4Ms43PAasaq-Vs3orwa6mUwzwWvLcEhuYiBQhNupi3BZGpd9OPDubjdFqrZEo6vlNW7VzUPpL2TUQ777SsdsKtcDdII2MUGV8Qhxukt9xMBnljR-WhInt-fqJdAW4ttNUZrF4oX5hCis-ERvhIMPekQV14hJjSvM9bl83HuIi5V4XhSSoUKpxPoGSGzn17l3T7PeqY4lJTEiKTQhBJExPlZvqGL3nEL1QD54JUAl5sigKrlH1h21KJaX7h6eX-ix1K26w0DrLWWq3QR92zjER1b2oGBIpd7hWiWlhaViAv4pFgtDlwXOP52hkcA"</span>);</span><br><span class="line">                </span><br><span class="line">                HttpResponseMessage response = await client.GetAsync(url);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (response.IsSuccessStatusCode)</span><br><span class="line">                &#123;</span><br><span class="line">                    response.EnsureSuccessStatusCode();</span><br><span class="line">                    string responseBody = await response.Content.ReadAsStringAsync();</span><br><span class="line"></span><br><span class="line">                    Console.WriteLine(responseBody);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    string responseBody = await response.Content.ReadAsStringAsync();</span><br><span class="line"></span><br><span class="line">                    Console.WriteLine(responseBody);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            catch (HttpRequestException ex)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(ex.Message);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="http://zetcode.com/csharp/httpclient/" target="_blank" rel="noopener">C# HttpClient tutorial</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/29/DotNetCoreWithSwagger/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/29/DotNetCoreWithSwagger/" itemprop="url">.Net Core 3 + Swagger</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-11-29T09:35:58+08:00">
+                2019-11-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Net-Core/" itemprop="url" rel="index">
+                    <span itemprop="name">.Net Core</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Net-Core-3-Swagger"><a href="#Net-Core-3-Swagger" class="headerlink" title=".Net Core 3 + Swagger"></a>.Net Core 3 + Swagger</h2><ol>
+<li><strong>Nuget Install Swashbuckle.AspNetCore</strong><br><img src="/2019/11/29/DotNetCoreWithSwagger/1.png" alt="Architecture"></li>
+</ol>
+<h4 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h4><ol>
+<li><strong>Modify Startup.cs</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">public void ConfigureServices(IServiceCollection services)</span><br><span class="line">&#123;</span><br><span class="line">    services.AddControllers();</span><br><span class="line"></span><br><span class="line">    // Register the Swagger generator, defining 1 or more Swagger documents.</span><br><span class="line">    services.AddSwaggerGen(c =&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        c.SwaggerDoc(name: <span class="string">"v1"</span>, new OpenApiInfo &#123; Title = <span class="string">"test api"</span>, Version = <span class="string">"v1"</span> &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//.AddSecurityDefinition(string name, OpenApiSecurityScheme securityScheme)</span><br><span class="line">// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.</span><br><span class="line">public void Configure(IApplicationBuilder app, IWebHostEnvironment env)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (env.IsDevelopment())</span><br><span class="line">    &#123;</span><br><span class="line">        app.UseDeveloperExceptionPage();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // Enable middleware to serve generated Swagger as a JSON endpoint.</span><br><span class="line">    app.UseSwagger();</span><br><span class="line"></span><br><span class="line">    // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),</span><br><span class="line">    // specifying the Swagger JSON endpoint.</span><br><span class="line">    app.UseSwaggerUI(c =&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        c.SwaggerEndpoint(url: <span class="string">"/swagger/v1/swagger.json"</span>, name: <span class="string">"v1"</span>);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    app.UseHttpsRedirection();</span><br><span class="line"></span><br><span class="line">    app.UseStaticFiles();       // 必須在 app.UseRouting() 之前被呼叫</span><br><span class="line"></span><br><span class="line">    app.UseRouting();</span><br><span class="line"></span><br><span class="line">    app.UseCors();              // 必須在所有會用到的 CORS 的中介層之前被呼叫</span><br><span class="line"></span><br><span class="line">    app.UseEndpoints(endpoints =&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        endpoints.MapControllers();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="/2019/11/29/DotNetCoreWithSwagger/2.png" alt="Architecture"></p>
+<h4 id="Add-Header"><a href="#Add-Header" class="headerlink" title="Add Header"></a>Add Header</h4><ol>
+<li><p><strong>Modify Startup.cs</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">public void ConfigureServices(IServiceCollection services)</span><br><span class="line">&#123;</span><br><span class="line">    services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)</span><br><span class="line">            .AddJwtBearer(options =&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                var azureadoptions = new AzureADOptions();</span><br><span class="line">                Configuration.Bind(<span class="string">"AzureAD"</span>, azureadoptions);</span><br><span class="line">                options.Authority = $<span class="string">"&#123;azureadoptions.Instance&#125;&#123;azureadoptions.TenantId&#125;/v2.0"</span>;</span><br><span class="line">                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters</span><br><span class="line">                &#123;</span><br><span class="line">                    ValidAudience = $<span class="string">"&#123;azureadoptions.ClientId&#125;"</span>,</span><br><span class="line">                    ValidIssuer = $<span class="string">"&#123;azureadoptions.Instance&#125;&#123;azureadoptions.TenantId&#125;/v2.0"</span></span><br><span class="line">                &#125;;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">    services.AddControllers();</span><br><span class="line"></span><br><span class="line">    // Register the Swagger generator, defining 1 or more Swagger documents.</span><br><span class="line">    services.AddSwaggerGen(c =&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        c.SwaggerDoc(name: <span class="string">"v1"</span>, new OpenApiInfo &#123; Title = <span class="string">"test api"</span>, Version = <span class="string">"v1"</span> &#125;);</span><br><span class="line">        </span><br><span class="line">        c.AddSecurityDefinition(<span class="string">"Bearer"</span>, new OpenApiSecurityScheme</span><br><span class="line">        &#123;</span><br><span class="line">            Description = <span class="string">"JWT Authorization header using the Bearer scheme."</span>,</span><br><span class="line">            Name = <span class="string">"Authorization"</span>,</span><br><span class="line">            In = ParameterLocation.Header,</span><br><span class="line">            Type = SecuritySchemeType.ApiKey,</span><br><span class="line">            Scheme = <span class="string">"Bearer"</span></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        c.AddSecurityRequirement(new OpenApiSecurityRequirement()</span><br><span class="line">        &#123;</span><br><span class="line">            &#123;</span><br><span class="line">                new OpenApiSecurityScheme</span><br><span class="line">                &#123;</span><br><span class="line">                    Reference = new OpenApiReference</span><br><span class="line">                    &#123;</span><br><span class="line">                        Type = ReferenceType.SecurityScheme,</span><br><span class="line">                        Id = <span class="string">"Bearer"</span></span><br><span class="line">                    &#125;,</span><br><span class="line">                    Scheme = <span class="string">"oauth2"</span>,</span><br><span class="line">                    Name = <span class="string">"Bearer"</span>,</span><br><span class="line">                    In = ParameterLocation.Header,</span><br><span class="line">                &#125;,</span><br><span class="line">                new List&lt;string&gt;()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Modify Controller.cs</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using Microsoft.AspNetCore.Authorization;</span><br><span class="line">using Microsoft.AspNetCore.Mvc;</span><br><span class="line">using Microsoft.Extensions.Logging;</span><br><span class="line"></span><br><span class="line">namespace testWebapi.Controllers</span><br><span class="line">&#123;</span><br><span class="line">    [ApiController]</span><br><span class="line">    [Route(<span class="string">"[controller]"</span>)]</span><br><span class="line">    public class WeatherForecastController : ControllerBase</span><br><span class="line">    &#123;</span><br><span class="line">        private static <span class="built_in">readonly</span> string[] Summaries = new[]</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">"Freezing"</span>, <span class="string">"Bracing"</span>, <span class="string">"Chilly"</span>, <span class="string">"Cool"</span>, <span class="string">"Mild"</span>, <span class="string">"Warm"</span>, <span class="string">"Balmy"</span>, <span class="string">"Hot"</span>, <span class="string">"Sweltering"</span>, <span class="string">"Scorching"</span></span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        private <span class="built_in">readonly</span> ILogger&lt;WeatherForecastController&gt; _logger;</span><br><span class="line"></span><br><span class="line">        public WeatherForecastController(ILogger&lt;WeatherForecastController&gt; logger)</span><br><span class="line">        &#123;</span><br><span class="line">            _logger = logger;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 查詢</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=<span class="string">"orderCode"</span>&gt;單號&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=<span class="string">"orderName"</span>&gt;名稱&lt;/param&gt;</span><br><span class="line">        /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">        [HttpGet(<span class="string">"&#123;orderCode&#125;/&#123;orderName&#125;"</span>)]</span><br><span class="line">        public IEnumerable&lt;WeatherForecast&gt; Get(string orderCode, string orderName)</span><br><span class="line">        &#123;</span><br><span class="line">            var rng = new Random();</span><br><span class="line">            <span class="built_in">return</span> Enumerable.Range(1, 5).Select(index =&gt; new WeatherForecast</span><br><span class="line">            &#123;</span><br><span class="line">                Date = DateTime.Now.AddDays(index),</span><br><span class="line">                TemperatureC = rng.Next(-20, 55),</span><br><span class="line">                Summary = Summaries[rng.Next(Summaries.Length)]</span><br><span class="line">            &#125;)</span><br><span class="line">            .ToArray();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        [HttpPost]</span><br><span class="line">        public OrderModel Post([FromBody]OrderModel model)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">return</span> model;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public class OrderModel</span><br><span class="line">    &#123;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 訂單編號</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        public string OrderCode &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 訂單金額</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        public decimal OrderAmount &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="/2019/11/29/DotNetCoreWithSwagger/3.png" alt="Architecture"></p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://docs.microsoft.com/zh-tw/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.0&amp;tabs=visual-studio" target="_blank" rel="noopener">Swashbuckle 與 ASP.NET Core 使用者入門</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/DotNetCoreAzureADAuth/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/26/DotNetCoreAzureADAuth/" itemprop="url">.Net Core 3 AzureAD with JWT Auth</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-11-26T16:48:38+08:00">
+                2019-11-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Net-Core/" itemprop="url" rel="index">
+                    <span itemprop="name">.Net Core</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Net-Core-3-AzureAD-with-JWT-Auth"><a href="#Net-Core-3-AzureAD-with-JWT-Auth" class="headerlink" title=".Net Core 3 AzureAD with JWT Auth"></a>.Net Core 3 AzureAD with JWT Auth</h2><ol>
+<li><p><strong>appsettings.json</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"AzureAd"</span>: &#123;</span><br><span class="line">    <span class="string">"Instance"</span>: <span class="string">"https://login.microsoftonline.com/"</span>,</span><br><span class="line">    <span class="string">"TenantId"</span>: <span class="string">"8135e33d-36db-4906-af5e-6a7df298ed96"</span>,</span><br><span class="line">    <span class="string">"ClientId"</span>: <span class="string">"310c879d-fa10-4d7e-be1b-3efe6a38a04c"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  ...</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Startup.cs</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">using Microsoft.AspNetCore.Builder;</span><br><span class="line">using Microsoft.AspNetCore.Hosting;</span><br><span class="line">using Microsoft.Extensions.Configuration;</span><br><span class="line">using Microsoft.Extensions.DependencyInjection;</span><br><span class="line">using Microsoft.Extensions.Hosting;</span><br><span class="line">using Microsoft.AspNetCore.Authentication.AzureAD.UI;</span><br><span class="line">using Microsoft.AspNetCore.Authentication.JwtBearer;</span><br><span class="line"></span><br><span class="line">namespace testWebapi</span><br><span class="line">&#123;</span><br><span class="line">    public class Startup</span><br><span class="line">    &#123;</span><br><span class="line">        public Startup(IConfiguration configuration)</span><br><span class="line">        &#123;</span><br><span class="line">            Configuration = configuration;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public IConfiguration Configuration &#123; get; &#125;</span><br><span class="line"></span><br><span class="line">        // This method gets called by the runtime. Use this method to add services to the container.</span><br><span class="line">        public void ConfigureServices(IServiceCollection services)</span><br><span class="line">        &#123;</span><br><span class="line">            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)</span><br><span class="line">                    .AddJwtBearer(options =&gt;</span><br><span class="line">                    &#123;</span><br><span class="line">                        var azureadoptions = new AzureADOptions();</span><br><span class="line">                        Configuration.Bind(<span class="string">"AzureAD"</span>, azureadoptions);</span><br><span class="line">                        options.Authority = $<span class="string">"&#123;azureadoptions.Instance&#125;&#123;azureadoptions.TenantId&#125;/v2.0"</span>;</span><br><span class="line">                        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters</span><br><span class="line">                        &#123;</span><br><span class="line">                            ValidAudience = $<span class="string">"&#123;azureadoptions.ClientId&#125;"</span>,</span><br><span class="line">                            ValidIssuer = $<span class="string">"&#123;azureadoptions.Instance&#125;&#123;azureadoptions.TenantId&#125;/v2.0"</span></span><br><span class="line">                        &#125;;</span><br><span class="line">                    &#125;);</span><br><span class="line"></span><br><span class="line">            services.AddControllers();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.</span><br><span class="line">        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (env.IsDevelopment())</span><br><span class="line">            &#123;</span><br><span class="line">                app.UseDeveloperExceptionPage();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            app.UseHttpsRedirection();</span><br><span class="line"></span><br><span class="line">            app.UseStaticFiles();       // 必須在 app.UseRouting() 之前被呼叫</span><br><span class="line"></span><br><span class="line">            app.UseRouting();</span><br><span class="line"></span><br><span class="line">            app.UseCors();              // 必須在所有會用到的 CORS 的中介層之前被呼叫</span><br><span class="line"></span><br><span class="line">            app.UseAuthentication();</span><br><span class="line"></span><br><span class="line">            app.UseAuthorization();</span><br><span class="line"></span><br><span class="line">            app.UseEndpoints(endpoints =&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                endpoints.MapControllers();</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>WeatherForecastController.cs</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using Microsoft.AspNetCore.Authorization;</span><br><span class="line">using Microsoft.AspNetCore.Mvc;</span><br><span class="line">using Microsoft.Extensions.Logging;</span><br><span class="line"></span><br><span class="line">namespace testWebapi.Controllers</span><br><span class="line">&#123;</span><br><span class="line">    [Authorize]</span><br><span class="line">    [ApiController]</span><br><span class="line">    [Route(<span class="string">"[controller]"</span>)]</span><br><span class="line">    public class WeatherForecastController : ControllerBase</span><br><span class="line">    &#123;</span><br><span class="line">        private static <span class="built_in">readonly</span> string[] Summaries = new[]</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">"Freezing"</span>, <span class="string">"Bracing"</span>, <span class="string">"Chilly"</span>, <span class="string">"Cool"</span>, <span class="string">"Mild"</span>, <span class="string">"Warm"</span>, <span class="string">"Balmy"</span>, <span class="string">"Hot"</span>, <span class="string">"Sweltering"</span>, <span class="string">"Scorching"</span></span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        private <span class="built_in">readonly</span> ILogger&lt;WeatherForecastController&gt; _logger;</span><br><span class="line"></span><br><span class="line">        public WeatherForecastController(ILogger&lt;WeatherForecastController&gt; logger)</span><br><span class="line">        &#123;</span><br><span class="line">            _logger = logger;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        [HttpGet]</span><br><span class="line">        public IEnumerable&lt;WeatherForecast&gt; Get()</span><br><span class="line">        &#123;</span><br><span class="line">            var rng = new Random();</span><br><span class="line">            <span class="built_in">return</span> Enumerable.Range(1, 5).Select(index =&gt; new WeatherForecast</span><br><span class="line">            &#123;</span><br><span class="line">                Date = DateTime.Now.AddDays(index),</span><br><span class="line">                TemperatureC = rng.Next(-20, 55),</span><br><span class="line">                Summary = Summaries[rng.Next(Summaries.Length)]</span><br><span class="line">            &#125;)</span><br><span class="line">            .ToArray();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Postman</strong><br><code>Fail no token</code><br><img src="/2019/11/26/DotNetCoreAzureADAuth/1.png" alt="Architecture"></p>
+</li>
+</ol>
+<p><code>Success with token</code><br><img src="/2019/11/26/DotNetCoreAzureADAuth/2.png" alt="Architecture"></p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://wildermuth.com/2018/04/10/Using-JwtBearer-Authentication-in-an-API-only-ASP-NET-Core-Project" target="_blank" rel="noopener">Using JwtBearer Authentication in an API-only ASP.NET Core Project</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/DotNetCoreCustomHealthCheck/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1187,688 +1823,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/22/AngularAuthO365Msal/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/10/22/AngularAuthO365Msal/" itemprop="url">Angular Auth O365 V2.0 using msal</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-10-22T12:10:55+08:00">
-                2019-10-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Angular/" itemprop="url" rel="index">
-                    <span itemprop="name">Angular</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Auth-O365-V2-0-using-msal"><a href="#Auth-O365-V2-0-using-msal" class="headerlink" title="Auth O365 V2.0 using msal"></a>Auth O365 V2.0 using msal</h1><ol>
-<li><p><strong>Install</strong><br><code>npm i msal --save</code><br><img src="/2019/10/22/AngularAuthO365Msal/1.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Modify file environment.ts</strong><br><strong>src\environments\environment.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> const environment = &#123;</span><br><span class="line">  production: <span class="literal">false</span>,</span><br><span class="line">  clientID: <span class="string">'310c879d-fa10-4d7e-be1b-3efe6a38a04c'</span>,</span><br><span class="line">  redirectUri: <span class="string">'http://172.17.98.158:5500/'</span>,</span><br><span class="line">  authority: <span class="string">'https://login.microsoftonline.com/8135e33d-36db-4906-af5e-6a7df298ed96'</span>,</span><br><span class="line">  interactionMode: <span class="string">'popUp'</span>,</span><br><span class="line">  graphEndpoint: <span class="string">'https://graph.microsoft.com/v1.0/me'</span>,</span><br><span class="line">  graphScopes: [<span class="string">'api://310c879d-fa10-4d7e-be1b-3efe6a38a04c/access_as_user'</span>]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Add auth.service.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Injectable, ɵConsole &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import * as Msal from <span class="string">'msal'</span>;</span><br><span class="line">import &#123; environment &#125; from <span class="string">'../../environments/environment'</span>;</span><br><span class="line">import &#123; from, Observable, of &#125; from <span class="string">'rxjs'</span>;</span><br><span class="line">import &#123; catchError, mergeMap, map &#125; from <span class="string">'rxjs/operators'</span>;</span><br><span class="line">import &#123; CacheLocation &#125; from <span class="string">'msal'</span>;</span><br><span class="line">import &#123; HttpClient &#125; from <span class="string">'@angular/common/http'</span>;</span><br><span class="line">@Injectable(&#123;</span><br><span class="line">  providedIn: <span class="string">'root'</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AuthService &#123;</span><br><span class="line"></span><br><span class="line">  private clientApplication: Msal.UserAgentApplication;</span><br><span class="line">  scope = &#123; scopes: environment.graphScopes &#125;;</span><br><span class="line"></span><br><span class="line">  constructor(private http: HttpClient) &#123;</span><br><span class="line">    this.clientApplication = this.createApplication();</span><br><span class="line">    this.clientApplication.handleRedirectCallback((error, response) =&gt; &#123;</span><br><span class="line">      <span class="keyword">if</span> (error) &#123;</span><br><span class="line">        console.log(error);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (response.tokenType === <span class="string">"access_token"</span>) &#123;</span><br><span class="line">          console.log(<span class="string">'response.tokenType'</span>, response.tokenType)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          console.log(<span class="string">"token type is:"</span> + response.tokenType);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  onLoginPopup(): Observable&lt;string | Msal.AuthResponse&gt; &#123;</span><br><span class="line">    const loginPop = from(this.clientApplication.loginPopup(this.scope));</span><br><span class="line"></span><br><span class="line">    <span class="built_in">return</span> loginPop.pipe(</span><br><span class="line">      mergeMap(token =&gt; &#123;</span><br><span class="line">        console.log(<span class="string">'token'</span>, token)</span><br><span class="line">        <span class="built_in">return</span> this.onRefresh();</span><br><span class="line">      &#125;)</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">onLoginRedirect</span></span>() &#123;</span><br><span class="line">    this.clientApplication.loginRedirect(this.scope);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  onGetAccount(): Msal.Account &#123;</span><br><span class="line">    <span class="built_in">return</span> this.clientApplication.getAccount();</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  onRefresh(): Observable&lt;string | Msal.AuthResponse&gt; &#123;</span><br><span class="line">    <span class="built_in">return</span> this.acquireTokenSilent().pipe(</span><br><span class="line">      catchError(err =&gt; this.acquireTokenPopup())</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">onLogout</span></span>() &#123;</span><br><span class="line">    this.clientApplication.logout();</span><br><span class="line">    localStorage.clear();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  onIsExpire(): boolean &#123;</span><br><span class="line">    const expiration = Math.round(new Date(localStorage.expiresOn).getTime() / 1000);</span><br><span class="line">    const now = Math.round(new Date().getTime() / 1000);</span><br><span class="line">    const leftTime = expiration - now;</span><br><span class="line">    <span class="built_in">return</span> leftTime &lt; 0;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  onSaveToken(accessToken: any): Observable&lt;boolean&gt; &#123;</span><br><span class="line">    localStorage.accessToken = accessToken.accessToken;</span><br><span class="line">    localStorage.expiration = accessToken.idToken.expiration;</span><br><span class="line">    localStorage.expiresOn = accessToken.expiresOn;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">return</span> of(<span class="literal">true</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">getInfo</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">let</span> url = <span class="string">'https://172.17.98.63:8096/ForAuth/testUserisAuth'</span>;</span><br><span class="line">    <span class="built_in">let</span> url1 = <span class="string">'https://graph.microsoft.com/v1.0/me'</span>;</span><br><span class="line"> </span><br><span class="line">    this.http.get(url)</span><br><span class="line">      .subscribe(data =&gt; console.log(data));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  private createApplication(): Msal.UserAgentApplication &#123;</span><br><span class="line">    const msalConfig = &#123;</span><br><span class="line">      auth: &#123;</span><br><span class="line">        clientId: environment.clientID,</span><br><span class="line">        redirectUri: environment.redirectUri,</span><br><span class="line">        authority: environment.authority</span><br><span class="line">      &#125;,</span><br><span class="line">      cache: &#123;</span><br><span class="line">        storeAuthStateInCookie: <span class="literal">true</span>,</span><br><span class="line">        cacheLocation: (<span class="string">'localStorage'</span> as CacheLocation),</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">return</span> new Msal.UserAgentApplication(msalConfig);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  private acquireTokenSilent(): Observable&lt;Msal.AuthResponse&gt; &#123;</span><br><span class="line">    <span class="built_in">return</span> from(</span><br><span class="line">      this.clientApplication.acquireTokenSilent(this.scope)</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  private acquireTokenPopup(): Observable&lt;string | Msal.AuthResponse&gt; &#123;</span><br><span class="line">    <span class="built_in">return</span> from(</span><br><span class="line">      this.clientApplication.acquireTokenPopup(this.scope)</span><br><span class="line">    ).pipe(</span><br><span class="line">      catchError(error =&gt; &#123;</span><br><span class="line">        window.alert(<span class="string">'Error acquiring the popup:\n'</span> + error);</span><br><span class="line">        <span class="built_in">return</span> <span class="string">''</span>;</span><br><span class="line">      &#125;)</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>app.component.html</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;button (click)=<span class="string">"onSignIn()"</span>&gt;Sign In&lt;/button&gt;</span><br><span class="line">&lt;button (click)=<span class="string">"onSignOut()"</span>&gt;Sign Out&lt;/button&gt;</span><br><span class="line">&lt;button (click)=<span class="string">"onGetInfo()"</span>&gt;Get Info&lt;/button&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>app.component.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import &#123; AuthService &#125; from <span class="string">'./auth.service'</span>;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-root'</span>,</span><br><span class="line">  templateUrl: <span class="string">'./app.component.html'</span>,</span><br><span class="line">  styleUrls: [<span class="string">'./app.component.css'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line">  title = <span class="string">'msal8'</span>;</span><br><span class="line"></span><br><span class="line">  constructor(private authService: AuthService)&#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">onSignIn</span></span>() &#123;</span><br><span class="line">    <span class="keyword">if</span> (localStorage.loginType === CONST_INFO.popupType) &#123;</span><br><span class="line">      this.authService.onLoginPopup()</span><br><span class="line">        .subscribe((accessToken: any) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">          this.authService.onSaveToken(accessToken);</span><br><span class="line"></span><br><span class="line">          this.isLogin = <span class="literal">true</span>;</span><br><span class="line">        &#125;, (error: any) =&gt; &#123;</span><br><span class="line">          window.alert(<span class="string">'Error during login:\n'</span> + error);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (localStorage.loginType === CONST_INFO.redirectType) &#123;</span><br><span class="line">      this.authService.onLoginRedirect();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">onSignOut</span></span>() &#123;</span><br><span class="line">    this.authService.onLogout();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">onGetInfo</span></span>() &#123;</span><br><span class="line">   this.authService.getInfo();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>app.module.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import &#123; BrowserModule &#125; from <span class="string">'@angular/platform-browser'</span>;</span><br><span class="line">import &#123; NgModule &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import &#123; HttpClientModule &#125; from <span class="string">'@angular/common/http'</span>;</span><br><span class="line">import &#123; AppRoutingModule &#125; from <span class="string">'./app-routing.module'</span>;</span><br><span class="line">import &#123; AppComponent &#125; from <span class="string">'./app.component'</span>;</span><br><span class="line"></span><br><span class="line">@NgModule(&#123;</span><br><span class="line">  declarations: [</span><br><span class="line">    AppComponent</span><br><span class="line">  ],</span><br><span class="line">  imports: [</span><br><span class="line">    BrowserModule,</span><br><span class="line">    AppRoutingModule,</span><br><span class="line">    HttpClientModule</span><br><span class="line">  ],</span><br><span class="line">  providers: [],</span><br><span class="line">  bootstrap: [AppComponent]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppModule &#123; &#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Run server</strong><br><img src="/2019/10/22/AngularAuthO365Msal/2.gif" alt="Architecture"></p>
-</li>
-</ol>
-<h2 id="Using-Interceptor"><a href="#Using-Interceptor" class="headerlink" title="Using Interceptor"></a>Using Interceptor</h2><ol>
-<li><strong>Add auth-interceptor.ts</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Injectable &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import &#123; HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpEventType &#125; from <span class="string">'@angular/common/http'</span>;</span><br><span class="line">import &#123; Observable &#125; from <span class="string">'rxjs'</span>;</span><br><span class="line"></span><br><span class="line">@Injectable(&#123;</span><br><span class="line">    providedIn: <span class="string">'root'</span></span><br><span class="line">  &#125;)</span><br><span class="line"><span class="built_in">export</span> class AuthInterceptor implements HttpInterceptor &#123;</span><br><span class="line"></span><br><span class="line">  intercept(req: HttpRequest&lt;any&gt;, next: HttpHandler): Observable&lt;HttpEvent&lt;HttpEventType.Response&gt;&gt; &#123;</span><br><span class="line">    const authReq = req.clone(&#123;</span><br><span class="line">      setHeaders: &#123; Authorization: `Bearer <span class="variable">$&#123;localStorage.rawIdToken&#125;</span>` &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="built_in">return</span> next.handle(authReq);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.npmjs.com/package/msal" target="_blank" rel="noopener">msal</a><br><a href="https://docs.microsoft.com/bs-latn-ba/azure/active-directory/develop/msal-client-application-configuration" target="_blank" rel="noopener">Application configuration options</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/22/AngularAuthO365Adal/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/10/22/AngularAuthO365Adal/" itemprop="url">Angular Auth O365 V1.0 using adal</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-10-22T11:19:16+08:00">
-                2019-10-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Angular/" itemprop="url" rel="index">
-                    <span itemprop="name">Angular</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Auth-O365-V1-0-using-adal"><a href="#Auth-O365-V1-0-using-adal" class="headerlink" title="Auth O365 V1.0 using adal"></a>Auth O365 V1.0 using adal</h1><ol>
-<li><p><strong>Install</strong><br><code>npm i microsoft-adal-angular6 --save</code><br><img src="/2019/10/22/AngularAuthO365Adal/1.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Modify file environment.ts</strong><br><strong>src\environments\environment.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> const environment = &#123;</span><br><span class="line">  production: <span class="literal">false</span>,</span><br><span class="line">  tenant: <span class="string">'8135e33d-36db-4906-af5e-6a7df298ed96'</span>,</span><br><span class="line">  clientId: <span class="string">'310c879d-fa10-4d7e-be1b-3efe6a38a04c'</span>,</span><br><span class="line">  extraQueryParameter: <span class="string">'nux=1'</span>, // This is optional</span><br><span class="line">  endpoints: &#123;</span><br><span class="line">    <span class="string">"http://localhost:4200/"</span>: <span class="string">'310c879d-fa10-4d7e-be1b-3efe6a38a04c'</span> // Note, this is an object, you could add several things here</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Add user.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> class User &#123;</span><br><span class="line">    id: number;</span><br><span class="line">    username: string;</span><br><span class="line">    password: string;</span><br><span class="line">    firstName: string;</span><br><span class="line">    lastName: string;</span><br><span class="line">    authdata?: string;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>app.component.html</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;button (click)=<span class="string">"onSignIn()"</span>&gt;Sign In&lt;/button&gt;</span><br><span class="line">&lt;button (click)=<span class="string">"onSignOut()"</span>&gt;Sign Out&lt;/button&gt;</span><br><span class="line">&lt;button (click)=<span class="string">"onGetInfo()"</span>&gt;Get Info&lt;/button&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>app.component.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import &#123; MsAdalAngular6Service &#125; from <span class="string">'microsoft-adal-angular6'</span>;</span><br><span class="line">import &#123; HttpClient &#125; from <span class="string">'@angular/common/http'</span>;</span><br><span class="line">import &#123; map&#125; from <span class="string">'rxjs/operators'</span>;</span><br><span class="line">import &#123; BehaviorSubject, Observable &#125; from <span class="string">'rxjs'</span>;</span><br><span class="line">import &#123; User &#125; from <span class="string">'./user'</span>;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'app-root'</span>,</span><br><span class="line">  templateUrl: <span class="string">'./app.component.html'</span>,</span><br><span class="line">  styleUrls: [<span class="string">'./app.component.css'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppComponent &#123;</span><br><span class="line">  title = <span class="string">'adal8'</span>;</span><br><span class="line">  private currentUserSubject: BehaviorSubject&lt;User&gt;;</span><br><span class="line">  public currentUser: Observable&lt;User&gt;;</span><br><span class="line">  </span><br><span class="line">  constructor(private adalSvc: MsAdalAngular6Service, private http: HttpClient)&#123;</span><br><span class="line"></span><br><span class="line">      this.currentUserSubject = new BehaviorSubject&lt;User&gt;(JSON.parse(localStorage.getItem(<span class="string">'currentUser'</span>)));</span><br><span class="line"></span><br><span class="line">      this.currentUser = this.currentUserSubject.asObservable();</span><br><span class="line"></span><br><span class="line">      this.adalSvc.acquireToken(<span class="string">'https://graph.microsoft.com'</span>).subscribe(</span><br><span class="line">        next =&gt; &#123;</span><br><span class="line">          this.currentUser = next;</span><br><span class="line">          localStorage.setItem(<span class="string">'currentUser'</span>, JSON.stringify(next));</span><br><span class="line"></span><br><span class="line">        &#125;,</span><br><span class="line">        error =&gt; &#123;</span><br><span class="line">          this.onSignIn();</span><br><span class="line">        &#125;</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="title">onSignIn</span></span>() &#123;</span><br><span class="line">    this.adalSvc.login();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">onSignOut</span></span>() &#123;</span><br><span class="line">    this.adalSvc.logout();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">onGetInfo</span></span>() &#123;</span><br><span class="line">    <span class="built_in">let</span> aa = this.adalSvc.userInfo;</span><br><span class="line"></span><br><span class="line">    const api = `https://172.17.98.63:8096/ForAuth/testAuth/11`;</span><br><span class="line">    this.http.get&lt;ApiResult[]&gt;(api).pipe(</span><br><span class="line">      map((result: any) =&gt; &#123;</span><br><span class="line">        console.log(123, result)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (result.statusCode === <span class="string">'200'</span>) &#123;</span><br><span class="line">          <span class="built_in">return</span> JSON.parse(result.datas);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    ).subscribe((result) =&gt; &#123;</span><br><span class="line">      console.log(789, result)</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> interface ApiResult &#123;</span><br><span class="line">  statusCode: string;</span><br><span class="line">  statusMessage: string;</span><br><span class="line">  datas: any;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>app.module.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">import &#123; BrowserModule &#125; from <span class="string">'@angular/platform-browser'</span>;</span><br><span class="line">import &#123; NgModule &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import &#123; HttpClientModule &#125; from <span class="string">'@angular/common/http'</span>;</span><br><span class="line">import &#123; HTTP_INTERCEPTORS &#125; from <span class="string">'@angular/common/http'</span>;</span><br><span class="line">import &#123; MsAdalAngular6Module &#125; from <span class="string">'microsoft-adal-angular6'</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import &#123; AppRoutingModule &#125; from <span class="string">'./app-routing.module'</span>;</span><br><span class="line">import &#123; AppComponent &#125; from <span class="string">'./app.component'</span>;</span><br><span class="line">import &#123; environment &#125; from <span class="string">'../environments/environment'</span>;</span><br><span class="line">//import &#123; InsertAuthTokenInterceptor &#125; from <span class="string">'./insert-auth-token-interceptor'</span>;</span><br><span class="line"></span><br><span class="line">@NgModule(&#123;</span><br><span class="line">  declarations: [</span><br><span class="line">    AppComponent</span><br><span class="line">  ],</span><br><span class="line">  imports: [</span><br><span class="line">    BrowserModule,</span><br><span class="line">    AppRoutingModule,</span><br><span class="line">    HttpClientModule,</span><br><span class="line">    MsAdalAngular6Module.forRoot(&#123;</span><br><span class="line">      tenant: environment.tenant,</span><br><span class="line">      clientId: environment.clientId,</span><br><span class="line">      redirectUri: window.location.origin,</span><br><span class="line">      endpoints: environment.endpoints,</span><br><span class="line">      navigateToLoginRequestUrl: <span class="literal">false</span>,</span><br><span class="line">      extraQueryParameter: environment.extraQueryParameter,</span><br><span class="line">      cacheLocation: <span class="string">'localStorage'</span></span><br><span class="line">    &#125;),</span><br><span class="line">  ],</span><br><span class="line">  providers: [],</span><br><span class="line">  bootstrap: [AppComponent]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppModule &#123; &#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Run server</strong><br><img src="/2019/10/22/AngularAuthO365Adal/2.gif" alt="Architecture"></p>
-</li>
-</ol>
-<h2 id="With-header-token"><a href="#With-header-token" class="headerlink" title="With header token"></a>With header token</h2><ol>
-<li><p><strong>Add insert-auth-token-interceptor.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Injectable &#125; from <span class="string">'@angular/core'</span>;</span><br><span class="line">import &#123; HttpInterceptor, HttpHandler, HttpRequest &#125; from <span class="string">'@angular/common/http'</span>;</span><br><span class="line">import &#123; mergeMap &#125; from <span class="string">'rxjs/operators'</span>;</span><br><span class="line">import &#123; MsAdalAngular6Service &#125; from <span class="string">'microsoft-adal-angular6'</span>;</span><br><span class="line"> </span><br><span class="line">@Injectable(&#123;</span><br><span class="line">    providedIn: <span class="string">'root'</span></span><br><span class="line">  &#125;)</span><br><span class="line"><span class="built_in">export</span> class InsertAuthTokenInterceptor implements HttpInterceptor &#123;</span><br><span class="line"> </span><br><span class="line">    constructor(private adal: MsAdalAngular6Service) &#123; &#125;</span><br><span class="line"> </span><br><span class="line">    public intercept(req: HttpRequest&lt;any&gt;, next: HttpHandler) &#123;</span><br><span class="line"></span><br><span class="line">        // get api url from adal config</span><br><span class="line">        const resource = this.adal.GetResourceForEndpoint(req.url);</span><br><span class="line">        <span class="keyword">if</span> (!resource || !this.adal.isAuthenticated) &#123;</span><br><span class="line">            <span class="built_in">return</span> next.handle(req);</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        // merge the bearer token into the existing headers</span><br><span class="line">        <span class="built_in">return</span> this.adal.acquireToken(resource).pipe(</span><br><span class="line">            mergeMap((token: string) =&gt; &#123;</span><br><span class="line">                console.log(<span class="string">'token'</span>, token)</span><br><span class="line">                const authorizedRequest = req.clone(&#123;</span><br><span class="line">                    headers: req.headers.set(<span class="string">'api'</span>, `Bearer <span class="variable">$&#123;token&#125;</span>`),</span><br><span class="line">                &#125;);</span><br><span class="line">                <span class="built_in">return</span> next.handle(authorizedRequest);</span><br><span class="line">        &#125;));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>app.module.ts</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import &#123; InsertAuthTokenInterceptor &#125; from <span class="string">'./insert-auth-token-interceptor'</span>;</span><br><span class="line"></span><br><span class="line">@NgModule(&#123;</span><br><span class="line">  ...</span><br><span class="line">  providers: [  &#123;</span><br><span class="line">      provide: HTTP_INTERCEPTORS,</span><br><span class="line">      useClass: InsertAuthTokenInterceptor,</span><br><span class="line">      multi: <span class="literal">true</span>,</span><br><span class="line">    &#125;],</span><br><span class="line">  ...</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">export</span> class AppModule &#123; &#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>GetInfo</strong><br><img src="/2019/10/22/AngularAuthO365Adal/3.png" alt="Architecture"></p>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.npmjs.com/package/microsoft-adal-angular6" target="_blank" rel="noopener">microsoft-adal-angular6</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/09/RInVisualStudioCode/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/09/RInVisualStudioCode/" itemprop="url">R In Visual Studio 2017</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-09-09T08:55:01+08:00">
-                2019-09-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/R/" itemprop="url" rel="index">
-                    <span itemprop="name">R</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="R-In-Visual-Studio-2017"><a href="#R-In-Visual-Studio-2017" class="headerlink" title="R In Visual Studio 2017"></a>R In Visual Studio 2017</h1><ol>
-<li><p><a href="https://docs.microsoft.com/zh-tw/visualstudio/releasenotes/vs2017-relnotes" target="_blank" rel="noopener">安裝 Visual Studio 2017</a><br><img src="/2019/09/09/RInVisualStudioCode/1.png" alt="Architecture"><br><img src="/2019/09/09/RInVisualStudioCode/1-1.png" alt="Architecture"></p>
-</li>
-<li><p><a href="https://mran.revolutionanalytics.com/download" target="_blank" rel="noopener">下載 Microsoft R Open</a><br><img src="/2019/09/09/RInVisualStudioCode/2.png" alt="Architecture"></p>
-</li>
-<li><p>安裝 <strong>Microsoft R Open</strong><br><img src="/2019/09/09/RInVisualStudioCode/3.png" alt="Architecture"></p>
-</li>
-<li><p>開啟 <strong>Visual Studio 2017</strong><br><img src="/2019/09/09/RInVisualStudioCode/4.png" alt="Architecture"></p>
-</li>
-<li><p>選取 <strong>R</strong><br><img src="/2019/09/09/RInVisualStudioCode/5.png" alt="Architecture"></p>
-</li>
-<li><p><strong>script.R</strong> 輸入</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">say_hello &lt;- <span class="keyword">function</span>(name, df) &#123;</span><br><span class="line">    <span class="built_in">print</span>(paste(<span class="string">"Hello, "</span>, name, <span class="string">"!"</span>, sep = <span class="string">""</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>編譯<br>全部選取 → <code>Ctrl + Enter</code> 或<br>全部選取 → 右鍵<br><img src="/2019/09/09/RInVisualStudioCode/7.png" alt="Architecture"></p>
-</li>
-<li><p>編譯成功<br><img src="/2019/09/09/RInVisualStudioCode/8.png" alt="Architecture"></p>
-</li>
-<li><p>呼叫函式<br>輸入後按 <code>Enter</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">say_hello(<span class="string">"World"</span>)</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p><img src="/2019/09/09/RInVisualStudioCode/9.png" alt="Architecture"></p>
-<ol start="10">
-<li><strong>Debug</strong><br><strong>F5</strong> 或 執行 <strong>Source startup file</strong><br><img src="/2019/09/09/RInVisualStudioCode/10.png" alt="Architecture"><br><img src="/2019/09/09/RInVisualStudioCode/11.png" alt="Architecture"></li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=Swi8lwqoG0U" target="_blank" rel="noopener">Build 2017 A lap around R Tools 1 0 for Visual Studio 2017</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/06/RDownloadCRAN/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/06/RDownloadCRAN/" itemprop="url">R 下載及安裝</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-09-06T17:22:12+08:00">
-                2019-09-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/R/" itemprop="url" rel="index">
-                    <span itemprop="name">R</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="R-下載及安裝"><a href="#R-下載及安裝" class="headerlink" title="R 下載及安裝"></a>R 下載及安裝</h1><ol>
-<li><p><a href="https://www.r-project.org" target="_blank" rel="noopener">下載程式</a></p>
-</li>
-<li><p>點選左邊的 <strong>CRAN</strong><br><img src="/2019/09/06/RDownloadCRAN/1.png" alt="Architecture"></p>
-</li>
-<li><p>下拉至 <strong>Taiwan</strong><br><img src="/2019/09/06/RDownloadCRAN/2.png" alt="Architecture"></p>
-</li>
-<li><p>點選 <strong>Download R for Windows</strong><br><img src="/2019/09/06/RDownloadCRAN/3.png" alt="Architecture"></p>
-</li>
-<li><p>點選 <strong>base</strong><br><img src="/2019/09/06/RDownloadCRAN/4.png" alt="Architecture"></p>
-</li>
-<li><p>點選 <strong>Download R 3.6.1 for Windows</strong> 下載程式<br><img src="/2019/09/06/RDownloadCRAN/5.png" alt="Architecture"></p>
-</li>
-<li><p>開啟 <strong>R-3.6.1-win.exe</strong><br><img src="/2019/09/06/RDownloadCRAN/6.png" alt="Architecture"><br><img src="/2019/09/06/RDownloadCRAN/7.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/09/06/RDownloadCRAN/8.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/09/06/RDownloadCRAN/9.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/09/06/RDownloadCRAN/10.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/09/06/RDownloadCRAN/11.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/09/06/RDownloadCRAN/12.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Next</strong><br><img src="/2019/09/06/RDownloadCRAN/13.png" alt="Architecture"></p>
-</li>
-<li><p><strong>Finish</strong><br><img src="/2019/09/06/RDownloadCRAN/14.png" alt="Architecture"></p>
-</li>
-<li><p>安裝完成<br><img src="/2019/09/06/RDownloadCRAN/15.png" alt="Architecture"><br><img src="/2019/09/06/RDownloadCRAN/16.png" alt="Architecture"></p>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://blog.gtwang.org/r/r-install-and-setup/" target="_blank" rel="noopener">R 安裝與設定</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1921,7 +1875,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">132</span>
+                  <span class="site-state-item-count">136</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>

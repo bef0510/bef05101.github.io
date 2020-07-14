@@ -252,6 +252,823 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/14/CreateAzureMultiStagesReleasePipeline/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/07/14/CreateAzureMultiStagesReleasePipeline/" itemprop="url">Create Azure Multi-Stages Release Pipeline (CD)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2020-07-14T10:30:31+08:00">
+                2020-07-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Azure/" itemprop="url" rel="index">
+                    <span itemprop="name">Azure</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Create-Azure-Release-Pipeline"><a href="#Create-Azure-Release-Pipeline" class="headerlink" title="Create Azure Release Pipeline"></a>Create Azure Release Pipeline</h1><h2 id="Create-Release"><a href="#Create-Release" class="headerlink" title="Create Release"></a>Create Release</h2><ol>
+<li><p><strong>Click Edit</strong><br><img src="/2020/07/14/CreateAzureMultiStagesReleasePipeline/1.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Clone stage</strong><br><img src="/2020/07/14/CreateAzureMultiStagesReleasePipeline/2.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Rename</strong><br><img src="/2020/07/14/CreateAzureMultiStagesReleasePipeline/3.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Select Tasks</strong><br><img src="/2020/07/14/CreateAzureMultiStagesReleasePipeline/4.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Modify information</strong><br><img src="/2020/07/14/CreateAzureMultiStagesReleasePipeline/5.png" alt="Architecture"><br><img src="/2020/07/14/CreateAzureMultiStagesReleasePipeline/6.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Save</strong><br><img src="/2020/07/14/CreateAzureMultiStagesReleasePipeline/7.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Create release</strong><br><img src="/2020/07/14/CreateAzureMultiStagesReleasePipeline/8.png" alt="Architecture"><br><img src="/2020/07/14/CreateAzureMultiStagesReleasePipeline/9.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Create release Done</strong><br><img src="/2020/07/14/CreateAzureMultiStagesReleasePipeline/10.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Remote Server Refresh</strong><br><img src="/2020/07/14/CreateAzureMultiStagesReleasePipeline/11.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Remote Server Open Browser</strong><br><img src="/2020/07/14/CreateAzureMultiStagesReleasePipeline/12.png" alt="Architecture"></p>
+</li>
+</ol>
+<h2 id="Change-Release"><a href="#Change-Release" class="headerlink" title="Change Release"></a>Change Release</h2><ol>
+<li><p><strong>Click Edit</strong><br><img src="/2020/07/14/CreateAzureMultiStagesReleasePipeline/13.png" alt="Architecture"><br><img src="/2020/07/14/CreateAzureMultiStagesReleasePipeline/14.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Input Approvers</strong><br><img src="/2020/07/14/CreateAzureMultiStagesReleasePipeline/15.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Input Approvers Done</strong><br><img src="/2020/07/14/CreateAzureMultiStagesReleasePipeline/16.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Change and commit</strong><br><img src="/2020/07/14/CreateAzureMultiStagesReleasePipeline/17.png" alt="Architecture"></p>
+</li>
+<li><p><strong>CI ing</strong><br><img src="/2020/07/14/CreateAzureMultiStagesReleasePipeline/18.png" alt="Architecture"></p>
+</li>
+<li><p><strong>CD ing</strong><br><img src="/2020/07/14/CreateAzureMultiStagesReleasePipeline/19.png" alt="Architecture"></p>
+</li>
+<li><p><strong>CD Done</strong><br><img src="/2020/07/14/CreateAzureMultiStagesReleasePipeline/20.png" alt="Architecture"><br><img src="/2020/07/14/CreateAzureMultiStagesReleasePipeline/21.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Remote Server Refresh Browser</strong><br><img src="/2020/07/14/CreateAzureMultiStagesReleasePipeline/22.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Get mail</strong><br><img src="/2020/07/14/CreateAzureMultiStagesReleasePipeline/23.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Approve</strong><br><img src="/2020/07/14/CreateAzureMultiStagesReleasePipeline/24.png" alt="Architecture"><br><img src="/2020/07/14/CreateAzureMultiStagesReleasePipeline/25.png" alt="Architecture"></p>
+</li>
+<li><p><strong>CD ing</strong><br><img src="/2020/07/14/CreateAzureMultiStagesReleasePipeline/26.png" alt="Architecture"></p>
+</li>
+<li><p><strong>CD Done</strong><br><img src="/2020/07/14/CreateAzureMultiStagesReleasePipeline/27.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Remote Server Refresh Browser</strong><br><img src="/2020/07/14/CreateAzureMultiStagesReleasePipeline/28.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://youtu.be/CWeBLNe0Pho?list=PLaFzfwmPR7_Ifxq-udm66fhReFeGOe2x_" target="_blank" rel="noopener">Multi-Stages in release pipeline with Pre-deployment approvals | Azure DevOps Tutorial</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/13/CreateAzureReleasePipeline/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/07/13/CreateAzureReleasePipeline/" itemprop="url">Create Azure Release Pipeline (CD)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2020-07-13T15:47:18+08:00">
+                2020-07-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Azure/" itemprop="url" rel="index">
+                    <span itemprop="name">Azure</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Create-Azure-Release-Pipeline"><a href="#Create-Azure-Release-Pipeline" class="headerlink" title="Create Azure Release Pipeline"></a>Create Azure Release Pipeline</h1><h2 id="Connect-DevOps-And-VM"><a href="#Connect-DevOps-And-VM" class="headerlink" title="Connect DevOps And VM"></a>Connect DevOps And VM</h2><ol>
+<li><p><strong>Create Deployment groups</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/1.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzureReleasePipeline/2.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzureReleasePipeline/3.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Open Virtual Machine</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/4.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzureReleasePipeline/5.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Run Windows PowerShell</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/6.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Paste value</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/7.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Press Key Enter</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/8.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Press Key Enter</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/9.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Run Windows PowerShell Done</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/10.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Refresh Deployment groups</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/11.png" alt="Architecture"></p>
+</li>
+</ol>
+<h2 id="Create-New-Release-Pipeline"><a href="#Create-New-Release-Pipeline" class="headerlink" title="Create New Release Pipeline"></a>Create New Release Pipeline</h2><ol>
+<li><p><strong>Click Releases</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/12.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzureReleasePipeline/13.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Create Artifacts</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/14.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Input information</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/15.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Create Artifacts Done</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/16.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Create Stages</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/17.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Slect IIS website deployment</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/18.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Input information</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/19.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click stage tasks</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/20.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Change Website name</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/21.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Add bindings</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/22.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click IIS Deployment</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/23.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Input information</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/24.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Checked Enable IIS</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/25.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Save</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/26.png" alt="Architecture"></p>
+</li>
+</ol>
+<h2 id="Set-CI-Trigger"><a href="#Set-CI-Trigger" class="headerlink" title="Set CI Trigger"></a>Set CI Trigger</h2><ol>
+<li><p><strong>Click Edit</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/27.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Enabled Trigger</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/28.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Save</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/29.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Create release</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/30.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzureReleasePipeline/31.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzureReleasePipeline/32.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Refresh Releases and Click Title</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/33.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzureReleasePipeline/34.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click View logs</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/35.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzureReleasePipeline/36.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Error occur</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/37.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Delete port 80</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/38.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Save</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/39.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzureReleasePipeline/40.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzureReleasePipeline/41.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Refresh Releases</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/42.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Goto VM IIS</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/43.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Run Web localhost</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/44.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzureReleasePipeline/45.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Modify and commit</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/46.png" alt="Architecture"></p>
+</li>
+<li><p><strong>CD ing</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/47.png" alt="Architecture"></p>
+</li>
+<li><p><strong>CD Done</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/48.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Remote Server Refresh Browser</strong><br><img src="/2020/07/13/CreateAzureReleasePipeline/49.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://youtu.be/ZSynootLhCk?list=PLaFzfwmPR7_Ifxq-udm66fhReFeGOe2x_" target="_blank" rel="noopener">Create Release pipeline in Azure DevOps | Create CD Pipeline | Azure DevOps tutorial</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/13/CreateAzurePipelineViaVisualStudio/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/07/13/CreateAzurePipelineViaVisualStudio/" itemprop="url">Create Azure Pipeline Via Visual Studio (CI)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2020-07-13T14:35:17+08:00">
+                2020-07-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Azure/" itemprop="url" rel="index">
+                    <span itemprop="name">Azure</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Create-Azure-Pipeline-Via-Visual-Studio"><a href="#Create-Azure-Pipeline-Via-Visual-Studio" class="headerlink" title="Create Azure Pipeline Via Visual Studio"></a>Create Azure Pipeline Via Visual Studio</h1><h2 id="Create-New-Project"><a href="#Create-New-Project" class="headerlink" title="Create New Project"></a>Create New Project</h2><ol>
+<li><p><strong>Create Visual Studio New Project</strong><br><img src="/2020/07/13/CreateAzurePipelineViaVisualStudio/1.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzurePipelineViaVisualStudio/2.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzurePipelineViaVisualStudio/3.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzurePipelineViaVisualStudio/4.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Create New Project Done</strong><br><img src="/2020/07/13/CreateAzurePipelineViaVisualStudio/5.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Create DevOps New Project</strong><br><img src="/2020/07/13/CreateAzurePipelineViaVisualStudio/6.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzurePipelineViaVisualStudio/7.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Add to git</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="/2020/07/13/CreateAzurePipelineViaVisualStudio/8.png" alt="Architecture"></p>
+<ol start="5">
+<li><p><strong>Add ignore</strong><br><img src="/2020/07/13/CreateAzurePipelineViaVisualStudio/9.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzurePipelineViaVisualStudio/10.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzurePipelineViaVisualStudio/11.png" alt="Architecture"></p>
+</li>
+<li><p><strong>git commit</strong><br><img src="/2020/07/13/CreateAzurePipelineViaVisualStudio/12.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzurePipelineViaVisualStudio/13.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzurePipelineViaVisualStudio/14.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzurePipelineViaVisualStudio/15.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Connect repository</strong><br><img src="/2020/07/13/CreateAzurePipelineViaVisualStudio/16.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzurePipelineViaVisualStudio/17.png" alt="Architecture"></p>
+</li>
+</ol>
+<h2 id="Create-Pipelines"><a href="#Create-Pipelines" class="headerlink" title="Create Pipelines"></a>Create Pipelines</h2><ol>
+<li><p><strong>Click Use the classic editor</strong><br><img src="/2020/07/13/CreateAzurePipelineViaVisualStudio/18.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzurePipelineViaVisualStudio/19.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzurePipelineViaVisualStudio/20.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Enable continuous integration</strong><br><img src="/2020/07/13/CreateAzurePipelineViaVisualStudio/21.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Save and run</strong><br><img src="/2020/07/13/CreateAzurePipelineViaVisualStudio/22.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Save and run Done</strong><br><img src="/2020/07/13/CreateAzurePipelineViaVisualStudio/23.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Git commit</strong><br><img src="/2020/07/13/CreateAzurePipelineViaVisualStudio/24.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzurePipelineViaVisualStudio/25.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://youtu.be/YOmnoFe4yRY?list=PLaFzfwmPR7_Ifxq-udm66fhReFeGOe2x_" target="_blank" rel="noopener">Create build pipeline in azure devops using Classic Editor | Azure DevOps tutorial</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/13/CreateAzurePipeline/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="D & E">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D & E's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/07/13/CreateAzurePipeline/" itemprop="url">Create Azure Pipeline (CI)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2020-07-13T10:30:02+08:00">
+                2020-07-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Azure/" itemprop="url" rel="index">
+                    <span itemprop="name">Azure</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Create-Azure-Pipeline"><a href="#Create-Azure-Pipeline" class="headerlink" title="Create Azure Pipeline"></a>Create Azure Pipeline</h1><h2 id="Create-New-Project-To-Git"><a href="#Create-New-Project-To-Git" class="headerlink" title="Create New Project To Git"></a>Create New Project To Git</h2><ol>
+<li><p><strong>Create New Organization</strong><br><img src="/2020/07/13/CreateAzurePipeline/1.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzurePipeline/2.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzurePipeline/3.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzurePipeline/4.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Title</strong><br><img src="/2020/07/13/CreateAzurePipeline/5.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Input information</strong><br><img src="/2020/07/13/CreateAzurePipeline/6.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Repos Files</strong><br><img src="/2020/07/13/CreateAzurePipeline/7.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Create new project</strong><br><img src="/2020/07/13/CreateAzurePipeline/8.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Add to git</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="/2020/07/13/CreateAzurePipeline/9.png" alt="Architecture"></p>
+<ol start="7">
+<li><strong>Add new files into git</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add --all</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="/2020/07/13/CreateAzurePipeline/10.png" alt="Architecture"></p>
+<ol start="8">
+<li><strong>Add to local repository</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">"create new project"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="/2020/07/13/CreateAzurePipeline/11.png" alt="Architecture"></p>
+<ol start="9">
+<li><p><strong>Copy Push an existing repository from command line</strong><br><img src="/2020/07/13/CreateAzurePipeline/12.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Paste to Command mode</strong><br><img src="/2020/07/13/CreateAzurePipeline/13.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Command mode Enter</strong><br><img src="/2020/07/13/CreateAzurePipeline/14.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzurePipeline/15.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Refresh Repos Files</strong><br><img src="/2020/07/13/CreateAzurePipeline/16.png" alt="Architecture"></p>
+</li>
+</ol>
+<h2 id="Create-New-Pipelines"><a href="#Create-New-Pipelines" class="headerlink" title="Create New Pipelines"></a>Create New Pipelines</h2><ol>
+<li><p><strong>Click Pipelines</strong><br><img src="/2020/07/13/CreateAzurePipeline/17.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Azure Repos Git</strong><br><img src="/2020/07/13/CreateAzurePipeline/18.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click repository</strong><br><img src="/2020/07/13/CreateAzurePipeline/19.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Show more</strong><br><img src="/2020/07/13/CreateAzurePipeline/20.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Type</strong><br><img src="/2020/07/13/CreateAzurePipeline/21.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Save and run</strong><br><img src="/2020/07/13/CreateAzurePipeline/22.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzurePipeline/23.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Save and run Done</strong><br><img src="/2020/07/13/CreateAzurePipeline/24.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzurePipeline/25.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Pull yaml from git</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="/2020/07/13/CreateAzurePipeline/26.png" alt="Architecture"></p>
+<ol start="9">
+<li><strong>Open Visual Studio Code</strong><br><img src="/2020/07/13/CreateAzurePipeline/27.png" alt="Architecture"></li>
+</ol>
+<h2 id="Run-Pipelines"><a href="#Run-Pipelines" class="headerlink" title="Run Pipelines"></a>Run Pipelines</h2><ol>
+<li><p><strong>Click Pipelines Project</strong><br><img src="/2020/07/13/CreateAzurePipeline/28.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Run pipeline</strong><br><img src="/2020/07/13/CreateAzurePipeline/29.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Click Run</strong><br><img src="/2020/07/13/CreateAzurePipeline/30.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Run Done</strong><br><img src="/2020/07/13/CreateAzurePipeline/31.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzurePipeline/32.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Get mail</strong><br><img src="/2020/07/13/CreateAzurePipeline/33.png" alt="Architecture"></p>
+</li>
+<li><p><strong>VS Code Commint (error test)</strong><br><img src="/2020/07/13/CreateAzurePipeline/34.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzurePipeline/35.png" alt="Architecture"></p>
+</li>
+<li><p><strong>git push</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="/2020/07/13/CreateAzurePipeline/36.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzurePipeline/37.png" alt="Architecture"></p>
+<ol start="8">
+<li><p><strong>Get mail</strong><br><img src="/2020/07/13/CreateAzurePipeline/38.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Fixed error</strong><br><img src="/2020/07/13/CreateAzurePipeline/39.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzurePipeline/40.png" alt="Architecture"><br><img src="/2020/07/13/CreateAzurePipeline/41.png" alt="Architecture"></p>
+</li>
+<li><p><strong>Download logs</strong><br><img src="/2020/07/13/CreateAzurePipeline/42.png" alt="Architecture"></p>
+</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://youtu.be/2CZVIxRF22c?list=PLaFzfwmPR7_Ifxq-udm66fhReFeGOe2x_" target="_blank" rel="noopener">Create Build Pipeline in Azure DevOps | Azure DevOps tutorial for beginners</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/10/CreateAzureProjectWithGitOrTFVC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1451,642 +2268,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/20/DotNetCoreGenericCallSql/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/12/20/DotNetCoreGenericCallSql/" itemprop="url">.Net Core 3 Dapper + 泛型 取 Sql 資料</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-12-20T14:52:33+08:00">
-                2019-12-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Net-Core/" itemprop="url" rel="index">
-                    <span itemprop="name">.Net Core</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Net-Core-3-Dapper-泛型-取-Sql-資料"><a href="#Net-Core-3-Dapper-泛型-取-Sql-資料" class="headerlink" title=".Net Core 3 Dapper + 泛型 取 Sql 資料"></a>.Net Core 3 Dapper + 泛型 取 Sql 資料</h2><h4 id="下載套件"><a href="#下載套件" class="headerlink" title="下載套件"></a>下載套件</h4><ol>
-<li>組合鍵 <strong>Ctrl+Shift+P</strong></li>
-<li>下載 <strong>System.Data.SqlClient</strong></li>
-<li>下載 <strong>Dapper</strong></li>
-<li>下載 <strong>Microsoft.Extensions.Configuration.Json</strong></li>
-</ol>
-<h4 id="新專案"><a href="#新專案" class="headerlink" title="新專案"></a>新專案</h4><ol>
-<li><p><strong>Create appsettings.json</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"ConnectionStrings"</span>: &#123;</span><br><span class="line">        <span class="string">"DefaultConnection"</span>: <span class="string">"Data Source=172.17.102.113;Initial Catalog=NewPortal;User ID=test555;Password=test555"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"Message"</span>: <span class="string">"It's appsettings.json"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Create SqlParamterModel.cs under folder Models</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">namespace textConsole.Models</span><br><span class="line">&#123;</span><br><span class="line">    public class SqlParamterModel</span><br><span class="line">    &#123;</span><br><span class="line">        public string Name &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public object Value &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        public SqlParamterModel(string name, object value)</span><br><span class="line">		&#123;</span><br><span class="line">			this.Name = name;</span><br><span class="line">			this.Value = value;</span><br><span class="line">		&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Create EmployeeModel.cs under folder Models</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">namespace textConsole.Models</span><br><span class="line">&#123;</span><br><span class="line">    public class EmployeeModel</span><br><span class="line">    &#123;</span><br><span class="line">        public string DHID &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DHGUID &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussName &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussRemark &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussAdmin &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussOrder &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussParentDHID &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussType &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussURL &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussIconPath &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussSite &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussAttachSizeLimit &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string AddDate &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string AddEmpNo &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string ModDate &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string ModEmpNo &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string ActiveStatus &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">        public string DiscussDisplayType &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Create AppSettingHelper.cs under folder Extensions</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">using System.IO;</span><br><span class="line">using Microsoft.Extensions.Configuration;</span><br><span class="line"></span><br><span class="line">namespace textConsole.Extensions</span><br><span class="line">&#123;</span><br><span class="line">    public static class AppSettingHelper</span><br><span class="line">    &#123;</span><br><span class="line">        public static string DefaultConnection =&gt; ReadFromAppSettings().GetConnectionString(<span class="string">"DefaultConnection"</span>);</span><br><span class="line"></span><br><span class="line">        public static IConfigurationRoot ReadFromAppSettings()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">return</span> new ConfigurationBuilder()</span><br><span class="line">                .SetBasePath(Directory.GetCurrentDirectory())</span><br><span class="line">                .AddJsonFile(<span class="string">"appsettings.json"</span>, optional:<span class="literal">true</span>,reloadOnChange: <span class="literal">true</span>)</span><br><span class="line">                .Build();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Create SqlHelper.cs under folder Extensions</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Data.SqlClient;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">using Dapper;</span><br><span class="line">using textConsole.Models;</span><br><span class="line"></span><br><span class="line">namespace textConsole.Extensions</span><br><span class="line">&#123;</span><br><span class="line">    public static class SqlHelper</span><br><span class="line">    &#123;</span><br><span class="line">        public static async Task&lt;IEnumerable&lt;T&gt;&gt; Execute&lt;T&gt;(string connString, string queryString)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">return</span> await SqlHelper.Execute&lt;T&gt;(connString, queryString, new SqlParamterModel[] &#123; &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public static async Task&lt;IEnumerable&lt;T&gt;&gt; Execute&lt;T&gt;(string connString, string queryString, SqlParamterModel[] parameters)</span><br><span class="line">        &#123;</span><br><span class="line">            using (var conn = new SqlConnection(connString))</span><br><span class="line">            &#123;</span><br><span class="line">                DynamicParameters dynamicParameters = new DynamicParameters();</span><br><span class="line"></span><br><span class="line">                foreach (var item <span class="keyword">in</span> parameters)</span><br><span class="line">                &#123;</span><br><span class="line">                    dynamicParameters.Add(item.Name, item.Value);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                try</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="built_in">return</span> await conn.QueryAsync&lt;T&gt;(queryString, dynamicParameters);</span><br><span class="line">                &#125;</span><br><span class="line">                catch(SqlException ex)</span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(ex.StackTrace);</span><br><span class="line">                    <span class="built_in">return</span> null;</span><br><span class="line">                &#125;</span><br><span class="line">                finally</span><br><span class="line">                &#123;</span><br><span class="line">                    conn.Close();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Create EmployeeRepository.cs under folder Repositories</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">using textConsole.Extensions;</span><br><span class="line">using textConsole.Models;</span><br><span class="line"></span><br><span class="line">namespace textConsole.Repositories</span><br><span class="line">&#123;</span><br><span class="line">    public class EmployeeRepository</span><br><span class="line">    &#123;</span><br><span class="line">        public async Task&lt;IEnumerable&lt;EmployeeModel&gt;&gt; GetEmployee()</span><br><span class="line">        &#123;</span><br><span class="line">            string connString = AppSettingHelper.DefaultConnection;</span><br><span class="line">            string queryString = <span class="string">"SELECT top 10 * FROM BBS_Discuss"</span>;</span><br><span class="line">   </span><br><span class="line">            <span class="built_in">return</span> await SqlHelper.Execute&lt;EmployeeModel&gt;(connString, queryString);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public async Task&lt;IEnumerable&lt;EmployeeModel&gt;&gt; GetEmployeeByDiscuss(string <span class="built_in">type</span>, int parent)</span><br><span class="line">        &#123;</span><br><span class="line">            string connString = AppSettingHelper.DefaultConnection;</span><br><span class="line">            string queryString = <span class="string">"SELECT top 10 * FROM BBS_Discuss WHERE DiscussType = @DiscussType AND DiscussParentDHID = @DiscussParentDHID"</span>;</span><br><span class="line">   </span><br><span class="line">            <span class="built_in">return</span> await SqlHelper.Execute&lt;EmployeeModel&gt;(connString, queryString,</span><br><span class="line">                new SqlParamterModel[]&#123;</span><br><span class="line">                    new SqlParamterModel(<span class="string">"DiscussType"</span>, <span class="built_in">type</span>),</span><br><span class="line">                    new SqlParamterModel(<span class="string">"DiscussParentDHID"</span>, parent)</span><br><span class="line">                &#125;</span><br><span class="line">            );</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Modify Program.cs</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text.Json;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">using textConsole.Repositories;</span><br><span class="line"></span><br><span class="line">namespace textConsole</span><br><span class="line">&#123;</span><br><span class="line">    class Program</span><br><span class="line">    &#123;</span><br><span class="line">        static async Task Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            var allEmp = await new EmployeeRepository().GetEmployee();</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(JsonSerializer.Serialize(allEmp));</span><br><span class="line"></span><br><span class="line">            var aEmp = await new EmployeeRepository().GetEmployeeByDiscuss(<span class="string">"D"</span>, 28);</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(JsonSerializer.Serialize(aEmp));</span><br><span class="line">            Console.WriteLine(aEmp.ToList().Count);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://dotnetcoretutorials.com/2019/08/03/dapper-in-net-core-part-1-the-what-why-who/" target="_blank" rel="noopener">Dapper In .NET Core – Part 1 – The What/Why/Who</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/29/DotNetCoreConsoleCallWebApi/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/11/29/DotNetCoreConsoleCallWebApi/" itemprop="url">.Net Core 3 Console Call WebApi</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-11-29T17:40:58+08:00">
-                2019-11-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Net-Core/" itemprop="url" rel="index">
-                    <span itemprop="name">.Net Core</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Net-Core-3-Console-Call-WebApi"><a href="#Net-Core-3-Console-Call-WebApi" class="headerlink" title=".Net Core 3 Console Call WebApi"></a>.Net Core 3 Console Call WebApi</h2><ol>
-<li><p><strong>Create Console</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet new console</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Program.cs</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Net.Http;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line">namespace textConsole</span><br><span class="line">&#123;</span><br><span class="line">    class Program</span><br><span class="line">    &#123;</span><br><span class="line">        static async Task Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            await GetWebApi();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        static async Task GetWebApi()</span><br><span class="line">        &#123;</span><br><span class="line">            var client = new HttpClient(</span><br><span class="line">                // 防止 The SSL connection could not be established, see inner exception.</span><br><span class="line">                new HttpClientHandler</span><br><span class="line">                &#123;</span><br><span class="line">                    ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator</span><br><span class="line">                &#125;</span><br><span class="line">            );</span><br><span class="line"></span><br><span class="line">            try</span><br><span class="line">            &#123;</span><br><span class="line">                const string url = <span class="string">"https://localhost:5001/WeatherForecast/1/1"</span>;</span><br><span class="line"></span><br><span class="line">                // 加上 Header</span><br><span class="line">                client.DefaultRequestHeaders.Add(<span class="string">"Authorization"</span>, <span class="string">"Bearer 1eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IkJCOENlRlZxeWFHckdOdWVoSklpTDRkZmp6dyJ9.eyJhdWQiOiIzMTBjODc5ZC1mYTEwLTRkN2UtYmUxYi0zZWZlNmEzOGEwNGMiLCJpc3MiOiJodHRwczovL2xvZ2luLm1pY3Jvc29mdG9ubGluZS5jb20vODEzNWUzM2QtMzZkYi00OTA2LWFmNWUtNmE3ZGYyOThlZDk2L3YyLjAiLCJpYXQiOjE1NzUwMTg0MzcsIm5iZiI6MTU3NTAxODQzNywiZXhwIjoxNTc1MDIyMzM3LCJhaW8iOiJBVFFBeS84TkFBQUFFM0xnbDZYemFXSUp0bSt4UjkxTWYvUDlwaTFpbVJjZXZFdWpYdkUwSVZkWW95UUs3T2wxTUsxakwrUlJDY3h1IiwiYXpwIjoiMzEwYzg3OWQtZmExMC00ZDdlLWJlMWItM2VmZTZhMzhhMDRjIiwiYXpwYWNyIjoiMCIsIm9pZCI6ImE4MTI3ZjYxLTJhMjMtNDg3ZC05NjcyLWMxM2Y1MmUwZTFiZiIsInByZWZlcnJlZF91c2VybmFtZSI6IkRhcnJlbi5XYW5nQGRsaW5rY29ycC5jb20iLCJzY3AiOiJhY2Nlc3NfYXNfdXNlciIsInN1YiI6IjlXYXpXSldZb08wanY4NVVieDBuSGhUX2xMRzlDZVRXU200b2thMEFHY0kiLCJ0aWQiOiI4MTM1ZTMzZC0zNmRiLTQ5MDYtYWY1ZS02YTdkZjI5OGVkOTYiLCJ1dGkiOiJRWG5KTTlPZjJFR0FoOUJ6cWc0VkFRIiwidmVyIjoiMi4wIiwibWFpbG5pY2tuYW1lIjoiMDg3MjgifQ.J-2Ur5FAe8U4LzjFys56AZZE8VG4Ms43PAasaq-Vs3orwa6mUwzwWvLcEhuYiBQhNupi3BZGpd9OPDubjdFqrZEo6vlNW7VzUPpL2TUQ777SsdsKtcDdII2MUGV8Qhxukt9xMBnljR-WhInt-fqJdAW4ttNUZrF4oX5hCis-ERvhIMPekQV14hJjSvM9bl83HuIi5V4XhSSoUKpxPoGSGzn17l3T7PeqY4lJTEiKTQhBJExPlZvqGL3nEL1QD54JUAl5sigKrlH1h21KJaX7h6eX-ix1K26w0DrLWWq3QR92zjER1b2oGBIpd7hWiWlhaViAv4pFgtDlwXOP52hkcA"</span>);</span><br><span class="line">                </span><br><span class="line">                HttpResponseMessage response = await client.GetAsync(url);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (response.IsSuccessStatusCode)</span><br><span class="line">                &#123;</span><br><span class="line">                    response.EnsureSuccessStatusCode();</span><br><span class="line">                    string responseBody = await response.Content.ReadAsStringAsync();</span><br><span class="line"></span><br><span class="line">                    Console.WriteLine(responseBody);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    string responseBody = await response.Content.ReadAsStringAsync();</span><br><span class="line"></span><br><span class="line">                    Console.WriteLine(responseBody);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            catch (HttpRequestException ex)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(ex.Message);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="http://zetcode.com/csharp/httpclient/" target="_blank" rel="noopener">C# HttpClient tutorial</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/29/DotNetCoreWithSwagger/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/11/29/DotNetCoreWithSwagger/" itemprop="url">.Net Core 3 + Swagger</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-11-29T09:35:58+08:00">
-                2019-11-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Net-Core/" itemprop="url" rel="index">
-                    <span itemprop="name">.Net Core</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Net-Core-3-Swagger"><a href="#Net-Core-3-Swagger" class="headerlink" title=".Net Core 3 + Swagger"></a>.Net Core 3 + Swagger</h2><ol>
-<li><strong>Nuget Install Swashbuckle.AspNetCore</strong><br><img src="/2019/11/29/DotNetCoreWithSwagger/1.png" alt="Architecture"></li>
-</ol>
-<h4 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h4><ol>
-<li><strong>Modify Startup.cs</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">public void ConfigureServices(IServiceCollection services)</span><br><span class="line">&#123;</span><br><span class="line">    services.AddControllers();</span><br><span class="line"></span><br><span class="line">    // Register the Swagger generator, defining 1 or more Swagger documents.</span><br><span class="line">    services.AddSwaggerGen(c =&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        c.SwaggerDoc(name: <span class="string">"v1"</span>, new OpenApiInfo &#123; Title = <span class="string">"test api"</span>, Version = <span class="string">"v1"</span> &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//.AddSecurityDefinition(string name, OpenApiSecurityScheme securityScheme)</span><br><span class="line">// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.</span><br><span class="line">public void Configure(IApplicationBuilder app, IWebHostEnvironment env)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (env.IsDevelopment())</span><br><span class="line">    &#123;</span><br><span class="line">        app.UseDeveloperExceptionPage();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // Enable middleware to serve generated Swagger as a JSON endpoint.</span><br><span class="line">    app.UseSwagger();</span><br><span class="line"></span><br><span class="line">    // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),</span><br><span class="line">    // specifying the Swagger JSON endpoint.</span><br><span class="line">    app.UseSwaggerUI(c =&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        c.SwaggerEndpoint(url: <span class="string">"/swagger/v1/swagger.json"</span>, name: <span class="string">"v1"</span>);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    app.UseHttpsRedirection();</span><br><span class="line"></span><br><span class="line">    app.UseStaticFiles();       // 必須在 app.UseRouting() 之前被呼叫</span><br><span class="line"></span><br><span class="line">    app.UseRouting();</span><br><span class="line"></span><br><span class="line">    app.UseCors();              // 必須在所有會用到的 CORS 的中介層之前被呼叫</span><br><span class="line"></span><br><span class="line">    app.UseEndpoints(endpoints =&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        endpoints.MapControllers();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p><img src="/2019/11/29/DotNetCoreWithSwagger/2.png" alt="Architecture"></p>
-<h4 id="Add-Header"><a href="#Add-Header" class="headerlink" title="Add Header"></a>Add Header</h4><ol>
-<li><p><strong>Modify Startup.cs</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">public void ConfigureServices(IServiceCollection services)</span><br><span class="line">&#123;</span><br><span class="line">    services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)</span><br><span class="line">            .AddJwtBearer(options =&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                var azureadoptions = new AzureADOptions();</span><br><span class="line">                Configuration.Bind(<span class="string">"AzureAD"</span>, azureadoptions);</span><br><span class="line">                options.Authority = $<span class="string">"&#123;azureadoptions.Instance&#125;&#123;azureadoptions.TenantId&#125;/v2.0"</span>;</span><br><span class="line">                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters</span><br><span class="line">                &#123;</span><br><span class="line">                    ValidAudience = $<span class="string">"&#123;azureadoptions.ClientId&#125;"</span>,</span><br><span class="line">                    ValidIssuer = $<span class="string">"&#123;azureadoptions.Instance&#125;&#123;azureadoptions.TenantId&#125;/v2.0"</span></span><br><span class="line">                &#125;;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">    services.AddControllers();</span><br><span class="line"></span><br><span class="line">    // Register the Swagger generator, defining 1 or more Swagger documents.</span><br><span class="line">    services.AddSwaggerGen(c =&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        c.SwaggerDoc(name: <span class="string">"v1"</span>, new OpenApiInfo &#123; Title = <span class="string">"test api"</span>, Version = <span class="string">"v1"</span> &#125;);</span><br><span class="line">        </span><br><span class="line">        c.AddSecurityDefinition(<span class="string">"Bearer"</span>, new OpenApiSecurityScheme</span><br><span class="line">        &#123;</span><br><span class="line">            Description = <span class="string">"JWT Authorization header using the Bearer scheme."</span>,</span><br><span class="line">            Name = <span class="string">"Authorization"</span>,</span><br><span class="line">            In = ParameterLocation.Header,</span><br><span class="line">            Type = SecuritySchemeType.ApiKey,</span><br><span class="line">            Scheme = <span class="string">"Bearer"</span></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        c.AddSecurityRequirement(new OpenApiSecurityRequirement()</span><br><span class="line">        &#123;</span><br><span class="line">            &#123;</span><br><span class="line">                new OpenApiSecurityScheme</span><br><span class="line">                &#123;</span><br><span class="line">                    Reference = new OpenApiReference</span><br><span class="line">                    &#123;</span><br><span class="line">                        Type = ReferenceType.SecurityScheme,</span><br><span class="line">                        Id = <span class="string">"Bearer"</span></span><br><span class="line">                    &#125;,</span><br><span class="line">                    Scheme = <span class="string">"oauth2"</span>,</span><br><span class="line">                    Name = <span class="string">"Bearer"</span>,</span><br><span class="line">                    In = ParameterLocation.Header,</span><br><span class="line">                &#125;,</span><br><span class="line">                new List&lt;string&gt;()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Modify Controller.cs</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using Microsoft.AspNetCore.Authorization;</span><br><span class="line">using Microsoft.AspNetCore.Mvc;</span><br><span class="line">using Microsoft.Extensions.Logging;</span><br><span class="line"></span><br><span class="line">namespace testWebapi.Controllers</span><br><span class="line">&#123;</span><br><span class="line">    [ApiController]</span><br><span class="line">    [Route(<span class="string">"[controller]"</span>)]</span><br><span class="line">    public class WeatherForecastController : ControllerBase</span><br><span class="line">    &#123;</span><br><span class="line">        private static <span class="built_in">readonly</span> string[] Summaries = new[]</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">"Freezing"</span>, <span class="string">"Bracing"</span>, <span class="string">"Chilly"</span>, <span class="string">"Cool"</span>, <span class="string">"Mild"</span>, <span class="string">"Warm"</span>, <span class="string">"Balmy"</span>, <span class="string">"Hot"</span>, <span class="string">"Sweltering"</span>, <span class="string">"Scorching"</span></span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        private <span class="built_in">readonly</span> ILogger&lt;WeatherForecastController&gt; _logger;</span><br><span class="line"></span><br><span class="line">        public WeatherForecastController(ILogger&lt;WeatherForecastController&gt; logger)</span><br><span class="line">        &#123;</span><br><span class="line">            _logger = logger;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 查詢</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=<span class="string">"orderCode"</span>&gt;單號&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=<span class="string">"orderName"</span>&gt;名稱&lt;/param&gt;</span><br><span class="line">        /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">        [HttpGet(<span class="string">"&#123;orderCode&#125;/&#123;orderName&#125;"</span>)]</span><br><span class="line">        public IEnumerable&lt;WeatherForecast&gt; Get(string orderCode, string orderName)</span><br><span class="line">        &#123;</span><br><span class="line">            var rng = new Random();</span><br><span class="line">            <span class="built_in">return</span> Enumerable.Range(1, 5).Select(index =&gt; new WeatherForecast</span><br><span class="line">            &#123;</span><br><span class="line">                Date = DateTime.Now.AddDays(index),</span><br><span class="line">                TemperatureC = rng.Next(-20, 55),</span><br><span class="line">                Summary = Summaries[rng.Next(Summaries.Length)]</span><br><span class="line">            &#125;)</span><br><span class="line">            .ToArray();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        [HttpPost]</span><br><span class="line">        public OrderModel Post([FromBody]OrderModel model)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">return</span> model;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public class OrderModel</span><br><span class="line">    &#123;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 訂單編號</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        public string OrderCode &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 訂單金額</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        public decimal OrderAmount &#123; get; <span class="built_in">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p><img src="/2019/11/29/DotNetCoreWithSwagger/3.png" alt="Architecture"></p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://docs.microsoft.com/zh-tw/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.0&amp;tabs=visual-studio" target="_blank" rel="noopener">Swashbuckle 與 ASP.NET Core 使用者入門</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/DotNetCoreAzureADAuth/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="D & E">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="D & E's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/11/26/DotNetCoreAzureADAuth/" itemprop="url">.Net Core 3 AzureAD with JWT Auth</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">發表於</span>
-              
-              <time title="創建於" itemprop="dateCreated datePublished" datetime="2019-11-26T16:48:38+08:00">
-                2019-11-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分類於</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Net-Core/" itemprop="url" rel="index">
-                    <span itemprop="name">.Net Core</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Net-Core-3-AzureAD-with-JWT-Auth"><a href="#Net-Core-3-AzureAD-with-JWT-Auth" class="headerlink" title=".Net Core 3 AzureAD with JWT Auth"></a>.Net Core 3 AzureAD with JWT Auth</h2><ol>
-<li><p><strong>appsettings.json</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"AzureAd"</span>: &#123;</span><br><span class="line">    <span class="string">"Instance"</span>: <span class="string">"https://login.microsoftonline.com/"</span>,</span><br><span class="line">    <span class="string">"TenantId"</span>: <span class="string">"8135e33d-36db-4906-af5e-6a7df298ed96"</span>,</span><br><span class="line">    <span class="string">"ClientId"</span>: <span class="string">"310c879d-fa10-4d7e-be1b-3efe6a38a04c"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  ...</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Startup.cs</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">using Microsoft.AspNetCore.Builder;</span><br><span class="line">using Microsoft.AspNetCore.Hosting;</span><br><span class="line">using Microsoft.Extensions.Configuration;</span><br><span class="line">using Microsoft.Extensions.DependencyInjection;</span><br><span class="line">using Microsoft.Extensions.Hosting;</span><br><span class="line">using Microsoft.AspNetCore.Authentication.AzureAD.UI;</span><br><span class="line">using Microsoft.AspNetCore.Authentication.JwtBearer;</span><br><span class="line"></span><br><span class="line">namespace testWebapi</span><br><span class="line">&#123;</span><br><span class="line">    public class Startup</span><br><span class="line">    &#123;</span><br><span class="line">        public Startup(IConfiguration configuration)</span><br><span class="line">        &#123;</span><br><span class="line">            Configuration = configuration;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public IConfiguration Configuration &#123; get; &#125;</span><br><span class="line"></span><br><span class="line">        // This method gets called by the runtime. Use this method to add services to the container.</span><br><span class="line">        public void ConfigureServices(IServiceCollection services)</span><br><span class="line">        &#123;</span><br><span class="line">            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)</span><br><span class="line">                    .AddJwtBearer(options =&gt;</span><br><span class="line">                    &#123;</span><br><span class="line">                        var azureadoptions = new AzureADOptions();</span><br><span class="line">                        Configuration.Bind(<span class="string">"AzureAD"</span>, azureadoptions);</span><br><span class="line">                        options.Authority = $<span class="string">"&#123;azureadoptions.Instance&#125;&#123;azureadoptions.TenantId&#125;/v2.0"</span>;</span><br><span class="line">                        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters</span><br><span class="line">                        &#123;</span><br><span class="line">                            ValidAudience = $<span class="string">"&#123;azureadoptions.ClientId&#125;"</span>,</span><br><span class="line">                            ValidIssuer = $<span class="string">"&#123;azureadoptions.Instance&#125;&#123;azureadoptions.TenantId&#125;/v2.0"</span></span><br><span class="line">                        &#125;;</span><br><span class="line">                    &#125;);</span><br><span class="line"></span><br><span class="line">            services.AddControllers();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.</span><br><span class="line">        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (env.IsDevelopment())</span><br><span class="line">            &#123;</span><br><span class="line">                app.UseDeveloperExceptionPage();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            app.UseHttpsRedirection();</span><br><span class="line"></span><br><span class="line">            app.UseStaticFiles();       // 必須在 app.UseRouting() 之前被呼叫</span><br><span class="line"></span><br><span class="line">            app.UseRouting();</span><br><span class="line"></span><br><span class="line">            app.UseCors();              // 必須在所有會用到的 CORS 的中介層之前被呼叫</span><br><span class="line"></span><br><span class="line">            app.UseAuthentication();</span><br><span class="line"></span><br><span class="line">            app.UseAuthorization();</span><br><span class="line"></span><br><span class="line">            app.UseEndpoints(endpoints =&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                endpoints.MapControllers();</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>WeatherForecastController.cs</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using Microsoft.AspNetCore.Authorization;</span><br><span class="line">using Microsoft.AspNetCore.Mvc;</span><br><span class="line">using Microsoft.Extensions.Logging;</span><br><span class="line"></span><br><span class="line">namespace testWebapi.Controllers</span><br><span class="line">&#123;</span><br><span class="line">    [Authorize]</span><br><span class="line">    [ApiController]</span><br><span class="line">    [Route(<span class="string">"[controller]"</span>)]</span><br><span class="line">    public class WeatherForecastController : ControllerBase</span><br><span class="line">    &#123;</span><br><span class="line">        private static <span class="built_in">readonly</span> string[] Summaries = new[]</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">"Freezing"</span>, <span class="string">"Bracing"</span>, <span class="string">"Chilly"</span>, <span class="string">"Cool"</span>, <span class="string">"Mild"</span>, <span class="string">"Warm"</span>, <span class="string">"Balmy"</span>, <span class="string">"Hot"</span>, <span class="string">"Sweltering"</span>, <span class="string">"Scorching"</span></span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        private <span class="built_in">readonly</span> ILogger&lt;WeatherForecastController&gt; _logger;</span><br><span class="line"></span><br><span class="line">        public WeatherForecastController(ILogger&lt;WeatherForecastController&gt; logger)</span><br><span class="line">        &#123;</span><br><span class="line">            _logger = logger;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        [HttpGet]</span><br><span class="line">        public IEnumerable&lt;WeatherForecast&gt; Get()</span><br><span class="line">        &#123;</span><br><span class="line">            var rng = new Random();</span><br><span class="line">            <span class="built_in">return</span> Enumerable.Range(1, 5).Select(index =&gt; new WeatherForecast</span><br><span class="line">            &#123;</span><br><span class="line">                Date = DateTime.Now.AddDays(index),</span><br><span class="line">                TemperatureC = rng.Next(-20, 55),</span><br><span class="line">                Summary = Summaries[rng.Next(Summaries.Length)]</span><br><span class="line">            &#125;)</span><br><span class="line">            .ToArray();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Postman</strong><br><code>Fail no token</code><br><img src="/2019/11/26/DotNetCoreAzureADAuth/1.png" alt="Architecture"></p>
-</li>
-</ol>
-<p><code>Success with token</code><br><img src="/2019/11/26/DotNetCoreAzureADAuth/2.png" alt="Architecture"></p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://wildermuth.com/2018/04/10/Using-JwtBearer-Authentication-in-an-API-only-ASP-NET-Core-Project" target="_blank" rel="noopener">Using JwtBearer Authentication in an API-only ASP.NET Core Project</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2139,7 +2320,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">132</span>
+                  <span class="site-state-item-count">136</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
